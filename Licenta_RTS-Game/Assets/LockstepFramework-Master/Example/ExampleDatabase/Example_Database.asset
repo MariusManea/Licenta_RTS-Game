@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d6c482752cb49aa93b5f9421c22651, type: 3}
+  m_Name: Example_Database
+  m_EditorClassIdentifier: 
+  _agentData:
+  - _name: TestAgent
+    _description: 
+    _icon: {fileID: 0}
+    _prefab: {fileID: 100310, guid: ad4a2fd073266fa478d5dd239a9b341c, type: 3}
+  - _name: Infantry
+    _description: 
+    _icon: {fileID: 0}
+    _prefab: {fileID: 3684015458796396357, guid: 8dfd7bf81f113e14390aff114d20f7f2, type: 3}
+  - _name: Town Center
+    _description: 
+    _icon: {fileID: 0}
+    _prefab: {fileID: 8829442951661921702, guid: 60688c4b16e3ccf40a33fa6e4d0e7998, type: 3}
+  _inputData:
+  - _name: Attack
+  - _name: Move
+  - _name: Spawn
+  - _name: Stop
+  - _name: UnitSpawn
+  _projectileData:
+  - _name: TestBullet
+    _description: 
+    _icon: {fileID: 0}
+    _prefab: {fileID: 167620, guid: d5ed78a728a57ed4395759e1a9ff7b98, type: 3}
+  _effectData: []
+  _abilityData:
+  - _name: Move
+    _description: 
+    _icon: {fileID: 0}
+    _script:
+      _classRef: Lockstep.Move, Assembly-CSharp
+    _listenInputCode: Move
+    _informationGather: 1
+  - _name: Scan
+    _description: 
+    _icon: {fileID: 0}
+    _script:
+      _classRef: Lockstep.Scan, Assembly-CSharp
+    _listenInputCode: Attack
+    _informationGather: 3
+  - _name: Stop
+    _description: 
+    _icon: {fileID: 0}
+    _script:
+      _classRef: Lockstep.Stop, Assembly-CSharp
+    _listenInputCode: Stop
+    _informationGather: 0
+  - _name: DurationAbility
+    _description: 
+    _icon: {fileID: 0}
+    _script:
+      _classRef: Lockstep.DurationAbility, Assembly-CSharp
+    _listenInputCode: 
+    _informationGather: 0
+  _unitConfigElementData: []
+  _unitConfigData: []
+  _agentControllerData:
+  - _name: Neutral
+    _defaultAllegiance: 1
+    _playerManaged: 0
+    _commanderCode: 
+  - _name: Hostile
+    _defaultAllegiance: 1
+    _playerManaged: 0
+    _commanderCode: 
+  - _name: Player 1
+    _defaultAllegiance: 4
+    _playerManaged: 1
+    _commanderCode: 
+  - _name: Player 2
+    _defaultAllegiance: 4
+    _playerManaged: 1
+    _commanderCode: 
