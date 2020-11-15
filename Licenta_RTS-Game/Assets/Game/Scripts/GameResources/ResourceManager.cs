@@ -24,12 +24,45 @@ namespace RTS
         private static Bounds invalidBounds = new Bounds(new Vector3(-99999, -99999, -99999), new Vector3(0, 0, 0));
         public static Bounds InvalidBounds { get { return invalidBounds; } }
 
-        private static GUISkin selectBoxSkin;
         public static GUISkin SelectBoxSkin { get { return selectBoxSkin; } }
 
+        public static int BuildSpeed { get { return 2; } }
+
+        private static GUISkin selectBoxSkin;
         public static void StoreSelectBoxItems(GUISkin skin)
         {
             selectBoxSkin = skin;
+        }
+
+
+        private static GameObjectsList gameObjectList;
+        public static void SetGameObjectList(GameObjectsList objectList)
+        {
+            gameObjectList = objectList;
+        }
+        public static GameObject GetBuilding(string name)
+        {
+            return gameObjectList.GetBuilding(name);
+        }
+
+        public static GameObject GetUnit(string name)
+        {
+            return gameObjectList.GetUnit(name);
+        }
+
+        public static GameObject GetWorldObject(string name)
+        {
+            return gameObjectList.GetWorldObject(name);
+        }
+
+        public static GameObject GetPlayerObject()
+        {
+            return gameObjectList.GetPlayerObject();
+        }
+
+        public static Texture2D GetBuildImage(string name)
+        {
+            return gameObjectList.GetBuildImage(name);
         }
     }
 }

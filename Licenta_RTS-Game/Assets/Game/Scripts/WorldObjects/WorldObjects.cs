@@ -71,7 +71,7 @@ public class WorldObjects : MonoBehaviour
         //only handle input if currently selected
         if (currentlySelected && hitObject && hitObject.name != "Ground")
         {
-            WorldObjects worldObject = hitObject.transform.root.GetComponent<WorldObjects>();
+            WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
             //clicked on another selectable object
             if (worldObject) ChangeSelection(worldObject, controller);
         }
@@ -92,6 +92,27 @@ public class WorldObjects : MonoBehaviour
         foreach (Renderer r in GetComponentsInChildren<Renderer>())
         {
             selectionBounds.Encapsulate(r.bounds);
+        }
+    }
+
+    public virtual void SetHoverState(GameObject hoverObject)
+    {
+        //only handle input if owned by a human player and currently selected
+        if (player && player.isHuman && currentlySelected)
+        {
+            if (hoverObject.name != "Ground") player.hud.SetCursorState(CursorState.Select);
+        }
+    }
+
+    public bool IsOwnedBy(Player owner)
+    {
+        if (player && player.Equals(owner))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
