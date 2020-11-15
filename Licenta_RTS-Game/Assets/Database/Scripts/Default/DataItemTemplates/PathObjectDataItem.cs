@@ -1,0 +1,14 @@
+﻿using RTSLockstep.Utility;
+using UnityEngine;
+
+namespace RTSLockstep.Data
+{
+    [System.Serializable]
+    public class PathObjectDataItem : MetaDataItem
+    {
+        [SerializeField]
+        private PathObject _object;
+
+        public PathObject Object { get { return _object; } }
+    }
+}
