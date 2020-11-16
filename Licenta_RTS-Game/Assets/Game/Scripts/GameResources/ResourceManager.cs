@@ -24,15 +24,14 @@ namespace RTS
         private static Bounds invalidBounds = new Bounds(new Vector3(-99999, -99999, -99999), new Vector3(0, 0, 0));
         public static Bounds InvalidBounds { get { return invalidBounds; } }
 
-        public static GUISkin SelectBoxSkin { get { return selectBoxSkin; } }
-
-        public static int BuildSpeed { get { return 2; } }
-
         private static GUISkin selectBoxSkin;
+        public static GUISkin SelectBoxSkin { get { return selectBoxSkin; } }
         public static void StoreSelectBoxItems(GUISkin skin)
         {
             selectBoxSkin = skin;
         }
+
+        public static int BuildSpeed { get { return 2; } }
 
 
         private static GameObjectsList gameObjectList;

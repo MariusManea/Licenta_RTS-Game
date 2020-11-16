@@ -333,13 +333,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a548cf477b00fff4faf052c8b7b0db06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: 
+  objectName: War Factory
   buildImage: {fileID: 2800000, guid: 537091b22f54a2d4bab4a8a0237959f8, type: 3}
   cost: 10
   sellValue: 5
   hitPoints: 1000
   maxHitPoints: 1000
   maxBuildProgress: 10
+  rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
+  sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
 --- !u!1 &8148790538955402793
 GameObject:
   m_ObjectHideFlags: 0
