@@ -5,22 +5,23 @@ using RTS;
 
 public class Building : WorldObjects    
 {
+    public override bool IsActive { get { return !needsBuilding; } }
+
     public float maxBuildProgress;
     protected Queue<string> buildQueue;
     private float currentBuildProgress = 0.0f;
-    private Vector3 spawnPoint;
+    protected Vector3 spawnPoint;
     protected Vector3 rallyPoint;
     public Texture2D rallyPointImage;
     public Texture2D sellImage;
+
+    private bool needsBuilding = false;
 
     protected override void Awake()
     {
         base.Awake();
         buildQueue = new Queue<string>();
-        float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
-        float spawnZ = selectionBounds.center.z + transform.forward.z + selectionBounds.extents.z + transform.forward.z * 10;
-        spawnPoint = new Vector3(spawnX, 0.0f, spawnZ);
-        rallyPoint = spawnPoint;
+        SetSpawnPoint();
     }
 
     protected override void Start()
@@ -37,6 +38,18 @@ public class Building : WorldObjects
     protected override void OnGUI()
     {
         base.OnGUI();
+        if (needsBuilding) DrawBuildProgress();
+    }
+
+    private void DrawBuildProgress()
+    {
+        GUI.skin = ResourceManager.SelectBoxSkin;
+        Rect selectBox = WorkManager.CalculateSelectionBox(selectionBounds, playingArea);
+        //Draw the selection box around the currently selected object, within the bounds of the main draw area
+        GUI.BeginGroup(playingArea);
+        CalculateCurrentHealth(0.5f, 0.99f);
+        DrawHealthBar(selectBox, "Building ...");
+        GUI.EndGroup();
     }
 
     protected void CreateUnit(string unitName)
@@ -51,7 +64,7 @@ public class Building : WorldObjects
             currentBuildProgress += Time.deltaTime * ResourceManager.BuildSpeed;
             if (currentBuildProgress > maxBuildProgress)
             {
-                if (player) player.AddUnit(buildQueue.Dequeue(), spawnPoint, rallyPoint, transform.rotation);
+                if (player) player.AddUnit(buildQueue.Dequeue(), spawnPoint, rallyPoint, transform.rotation, this);
                 currentBuildProgress = 0.0f;
             }
         }
@@ -141,5 +154,42 @@ public class Building : WorldObjects
         if (player) player.AddResource(ResourceType.Money, sellValue);
         if (currentlySelected) SetSelection(false, playingArea);
         Destroy(this.gameObject);
+    }
+
+    public virtual bool Sellable()
+    {
+        return true;
+    }
+
+    public void StartConstruction()
+    {
+        CalculateBounds();
+        needsBuilding = true;
+        hitPoints = 0;
+        SetSpawnPoint();
+    }
+
+    public bool UnderConstruction()
+    {
+        return needsBuilding;
+    }
+
+    public void Construct(int amount)
+    {
+        hitPoints += amount;
+        if (hitPoints >= maxHitPoints)
+        {
+            hitPoints = maxHitPoints;
+            needsBuilding = false;
+            RestoreMaterials();
+        }
+    }
+
+    private void SetSpawnPoint()
+    {
+        float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
+        float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;
+        spawnPoint = new Vector3(spawnX, 0.0f, spawnZ);
+        rallyPoint = spawnPoint;
     }
 }

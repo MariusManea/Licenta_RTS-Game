@@ -6,6 +6,7 @@ using RTS;
 
 public class Player : MonoBehaviour
 {
+    public TownCenter townCenter;
     // Resources
     public int startMoney, startMoneyLimit, startPower, startPowerLimit;
     private Dictionary<ResourceType, int> resources, resourceLimits;
@@ -14,6 +15,12 @@ public class Player : MonoBehaviour
     public bool isHuman;
 
     public HUD hud;
+
+    public Material notAllowedMaterial, allowedMaterial;
+
+    private Building tempBuilding;
+    private Unit tempCreator;
+    private bool findingPlacement = false;
 
 
     public WorldObjects SelectedObject { get; set; }
@@ -31,6 +38,8 @@ public class Player : MonoBehaviour
 
         AddStartResourceLimits();
         AddStartResources();
+
+        townCenter.FirstUnits(1);
     }
 
     // Update is called once per frame
@@ -39,6 +48,12 @@ public class Player : MonoBehaviour
         if (isHuman)
         {
             hud.SetResourceValues(resources, resourceLimits);
+        }
+        if (findingPlacement)
+        {
+            tempBuilding.CalculateBounds();
+            if (CanPlaceBuilding()) tempBuilding.SetTransparentMaterial(allowedMaterial, false);
+            else tempBuilding.SetTransparentMaterial(notAllowedMaterial, false);
         }
     }
 
@@ -72,12 +87,100 @@ public class Player : MonoBehaviour
         resourceLimits[type] += amount;
     }
 
-    public void AddUnit(string unitName, Vector3 spawnPoint, Vector3 rallyPoint, Quaternion rotation)
+    public void AddUnit(string unitName, Vector3 spawnPoint, Vector3 rallyPoint, Quaternion rotation, Building creator)
     {
         Units units = GetComponentInChildren<Units>();
         GameObject newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName), spawnPoint, rotation);
         newUnit.transform.parent = units.transform;
         Unit unitObject = newUnit.GetComponent<Unit>();
         if (unitObject && spawnPoint != rallyPoint) unitObject.StartMove(rallyPoint);
+
+        if (unitObject)
+        {
+            unitObject.SetBuilding(creator);
+            if (spawnPoint != rallyPoint) unitObject.StartMove(rallyPoint);
+        }
+    }
+
+    public void CreateBuilding(string buildingName, Vector3 buildPoint, Unit creator, Rect playingArea)
+    {
+        GameObject newBuilding = (GameObject)Instantiate(ResourceManager.GetBuilding(buildingName), buildPoint, new Quaternion());
+        tempBuilding = newBuilding.GetComponent<Building>();
+        if (tempBuilding)
+        {
+            tempCreator = creator;
+            findingPlacement = true;
+            tempBuilding.SetTransparentMaterial(notAllowedMaterial, true);
+            tempBuilding.SetColliders(false);
+            tempBuilding.SetPlayingArea(playingArea);
+        }
+        else Destroy(newBuilding);
+    }
+
+    public bool IsFindingBuildingLocation()
+    {
+        return findingPlacement;
+    }
+
+    public void FindBuildingLocation()
+    {
+        Vector3 newLocation = WorkManager.FindHitPoint(Input.mousePosition);
+        newLocation.y = 0;
+        tempBuilding.transform.position = newLocation;
+    }
+
+    public bool CanPlaceBuilding()
+    {
+        bool canPlace = true;
+
+        Bounds placeBounds = tempBuilding.GetSelectionBounds();
+        //shorthand for the coordinates of the center of the selection bounds
+        float cx = placeBounds.center.x;
+        float cy = placeBounds.center.y;
+        float cz = placeBounds.center.z;
+        //shorthand for the coordinates of the extents of the selection box
+        float ex = placeBounds.extents.x;
+        float ey = placeBounds.extents.y;
+        float ez = placeBounds.extents.z;
+
+        //Determine the screen coordinates for the corners of the selection bounds
+        List<Vector3> corners = new List<Vector3>();
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy + ey, cz + ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy + ey, cz - ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy - ey, cz + ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy + ey, cz + ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy - ey, cz - ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy - ey, cz + ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy + ey, cz - ez)));
+        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy - ey, cz - ez)));
+
+        foreach (Vector3 corner in corners)
+        {
+            GameObject hitObject = WorkManager.FindHitObject(corner);
+            if (hitObject && hitObject.name != "Ground")
+            {
+                WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
+                if (worldObject && placeBounds.Intersects(worldObject.GetSelectionBounds())) canPlace = false;
+            }
+        }
+        return canPlace;
+    }
+    public void StartConstruction()
+    {
+        findingPlacement = false;
+        Buildings buildings = GetComponentInChildren<Buildings>();
+        if (buildings) tempBuilding.transform.parent = buildings.transform;
+        tempBuilding.SetPlayer();
+        tempBuilding.SetColliders(true);
+        tempCreator.SetBuilding(tempBuilding);
+        tempBuilding.StartConstruction();
+    }
+
+    public void CancelBuildingPlacement()
+    {
+        findingPlacement = false;
+        Destroy(tempBuilding.gameObject);
+        tempBuilding = null;
+        tempCreator = null;
     }
 }

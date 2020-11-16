@@ -149,19 +149,29 @@ public class UserInput : MonoBehaviour
     {
         if (player.hud.MouseInBounds())
         {
-            GameObject hitObject = FindHitObject();
-            Vector3 hitPoint = FindHitPoint();
-            if (hitObject && hitPoint != ResourceManager.InvalidPosition)
+            if (player.IsFindingBuildingLocation())
             {
-                if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
-                else if (hitObject.name != "Ground")
+                if (player.CanPlaceBuilding())
                 {
-                    WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
-                    if (worldObject)
+                    player.StartConstruction();
+                }
+            }
+            else
+            {
+                GameObject hitObject = FindHitObject();
+                Vector3 hitPoint = FindHitPoint();
+                if (hitObject && hitPoint != ResourceManager.InvalidPosition)
+                {
+                    if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
+                    else if (hitObject.name != "Ground")
                     {
-                        //we already know the player has no selected object
-                        player.SelectedObject = worldObject;
-                        worldObject.SetSelection(true, player.hud.GetPlayingArea());
+                        WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
+                        if (worldObject)
+                        {
+                            //we already know the player has no selected object
+                            player.SelectedObject = worldObject;
+                            worldObject.SetSelection(true, player.hud.GetPlayingArea());
+                        }
                     }
                 }
             }
@@ -187,8 +197,15 @@ public class UserInput : MonoBehaviour
     {
         if (player.hud.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && player.SelectedObject)
         {
-            player.SelectedObject.SetSelection(false, player.hud.GetPlayingArea());
-            player.SelectedObject = null;
+            if (player.IsFindingBuildingLocation())
+            {
+                player.CancelBuildingPlacement();
+            }
+            else
+            {
+                player.SelectedObject.SetSelection(false, player.hud.GetPlayingArea());
+                player.SelectedObject = null;
+            }
         }
     }
 
@@ -196,18 +213,25 @@ public class UserInput : MonoBehaviour
     {
         if (player.hud.MouseInBounds())
         {
-            GameObject hoverObject = FindHitObject();
-            if (hoverObject)
+            if (player.IsFindingBuildingLocation())
             {
-                if (player.SelectedObject) player.SelectedObject.SetHoverState(hoverObject);
-                else if (hoverObject.name != "Ground")
+                player.FindBuildingLocation();
+            }
+            else
+            {
+                GameObject hoverObject = FindHitObject();
+                if (hoverObject)
                 {
-                    Player owner = hoverObject.transform.root.GetComponent<Player>();
-                    if (owner)
+                    if (player.SelectedObject) player.SelectedObject.SetHoverState(hoverObject);
+                    else if (hoverObject.name != "Ground")
                     {
-                        Unit unit = hoverObject.transform.parent.GetComponent<Unit>();
-                        Building building = hoverObject.transform.parent.GetComponent<Building>();
-                        if (owner.userName == player.userName && (unit || building)) player.hud.SetCursorState(CursorState.Select);
+                        Player owner = hoverObject.transform.root.GetComponent<Player>();
+                        if (owner)
+                        {
+                            Unit unit = hoverObject.transform.parent.GetComponent<Unit>();
+                            Building building = hoverObject.transform.parent.GetComponent<Building>();
+                            if (owner.userName == player.userName && (unit || building)) player.hud.SetCursorState(CursorState.Select);
+                        }
                     }
                 }
             }

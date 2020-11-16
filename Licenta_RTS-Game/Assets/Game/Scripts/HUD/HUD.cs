@@ -45,6 +45,12 @@ public class HUD : MonoBehaviour
     public Texture2D rallyPointCursor;
 
 
+    public Texture2D healthy, damaged, critical;
+
+
+    public Texture2D[] resourceHealthBars;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,9 +78,22 @@ public class HUD : MonoBehaviour
 
         player = transform.parent.GetComponent<Player>();
 
-        ResourceManager.StoreSelectBoxItems(selectBoxSkin);
+        ResourceManager.StoreSelectBoxItems(selectBoxSkin, healthy, damaged, critical);
 
         SetCursorState(CursorState.Select);
+
+        Dictionary<ResourceType, Texture2D> resourceHealthBarTextures = new Dictionary<ResourceType, Texture2D>();
+        for (int i = 0; i < resourceHealthBars.Length; i++)
+        {
+            switch (resourceHealthBars[i].name)
+            {
+                case "orehealthbar":
+                    resourceHealthBarTextures.Add(ResourceType.Ore, resourceHealthBars[i]);
+                    break;
+                default: break;
+            }
+        }
+        ResourceManager.SetResourceHealthBarTextures(resourceHealthBarTextures);
     }
 
     void OnGUI()
@@ -100,7 +119,7 @@ public class HUD : MonoBehaviour
             {
                 //reset slider value if the selected object has changed
                 if (lastSelection && lastSelection != player.SelectedObject) sliderValue = 0.0f;
-                DrawActions(player.SelectedObject.GetActions());
+                if (player.SelectedObject.IsActive) DrawActions(player.SelectedObject.GetActions());
                 //store the current selection
                 lastSelection = player.SelectedObject;
                 Building selectedBuilding = lastSelection.GetComponent<Building>();
@@ -130,9 +149,12 @@ public class HUD : MonoBehaviour
         int topPos = buildAreaHeight - BUILD_IMAGE_HEIGHT / 2;
         int width = BUILD_IMAGE_WIDTH / 2;
         int height = BUILD_IMAGE_HEIGHT / 2;
-        if (GUI.Button(new Rect(leftPos, topPos, width, height), building.sellImage))
+        if (building.Sellable())
         {
-            building.Sell();
+            if (GUI.Button(new Rect(leftPos, topPos, width, height), building.sellImage))
+            {
+                building.Sell();
+            }
         }
         if (building.hasSpawnPoint())
         {
@@ -269,12 +291,15 @@ public class HUD : MonoBehaviour
         else
         {
             Cursor.visible = false;
-            GUI.skin = mouseCursorSkin;
-            GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
-            UpdateCursorAnimation();
-            Rect cursorPosition = GetCursorDrawPosition();
-            GUI.Label(cursorPosition, activeCursor);
-            GUI.EndGroup();
+            if (!player.IsFindingBuildingLocation())
+            {
+                GUI.skin = mouseCursorSkin;
+                GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
+                UpdateCursorAnimation();
+                Rect cursorPosition = GetCursorDrawPosition();
+                GUI.Label(cursorPosition, activeCursor);
+                GUI.EndGroup();
+            }
         }
     }
 

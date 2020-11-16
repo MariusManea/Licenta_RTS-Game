@@ -26,9 +26,12 @@ namespace RTS
 
         private static GUISkin selectBoxSkin;
         public static GUISkin SelectBoxSkin { get { return selectBoxSkin; } }
-        public static void StoreSelectBoxItems(GUISkin skin)
+        public static void StoreSelectBoxItems(GUISkin skin, Texture2D healthy, Texture2D damaged, Texture2D critical)
         {
             selectBoxSkin = skin;
+            healthyTexture = healthy;
+            damagedTexture = damaged;
+            criticalTexture = critical;
         }
 
         public static int BuildSpeed { get { return 2; } }
@@ -62,6 +65,22 @@ namespace RTS
         public static Texture2D GetBuildImage(string name)
         {
             return gameObjectList.GetBuildImage(name);
+        }
+
+        private static Texture2D healthyTexture, damagedTexture, criticalTexture;
+        public static Texture2D HealthyTexture { get { return healthyTexture; } }
+        public static Texture2D DamagedTexture { get { return damagedTexture; } }
+        public static Texture2D CriticalTexture { get { return criticalTexture; } }
+
+        private static Dictionary<ResourceType, Texture2D> resourceHealthBarTextures;
+        public static void SetResourceHealthBarTextures(Dictionary<ResourceType, Texture2D> images)
+        {
+            resourceHealthBarTextures = images;
+        }
+        public static Texture2D GetResourceHealthBar(ResourceType resourceType)
+        {
+            if (resourceHealthBarTextures != null && resourceHealthBarTextures.ContainsKey(resourceType)) return resourceHealthBarTextures[resourceType];
+            return null;
         }
     }
 }
