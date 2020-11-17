@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5615019529373973660}
   - component: {fileID: 5615019529373973661}
   - component: {fileID: 5615019529373973662}
+  - component: {fileID: 3152639214959593954}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -95,6 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3152639214959593954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019529373973648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019529667946157
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +120,7 @@ GameObject:
   - component: {fileID: 5615019529667946153}
   - component: {fileID: 5615019529667946154}
   - component: {fileID: 5615019529667946155}
+  - component: {fileID: 9108991217518250444}
   m_Layer: 0
   m_Name: ThreadL
   m_TagString: Untagged
@@ -191,6 +205,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9108991217518250444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019529667946157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019529690502419
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +229,7 @@ GameObject:
   - component: {fileID: 5615019529690502431}
   - component: {fileID: 5615019529690502416}
   - component: {fileID: 5615019529690502417}
+  - component: {fileID: 8786449095707674625}
   m_Layer: 0
   m_Name: SmokeStackL
   m_TagString: Untagged
@@ -287,6 +314,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &8786449095707674625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019529690502419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019529743674011
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +338,7 @@ GameObject:
   - component: {fileID: 5615019529743673991}
   - component: {fileID: 5615019529743674008}
   - component: {fileID: 5615019529743674009}
+  - component: {fileID: 5384270896676808822}
   m_Layer: 0
   m_Name: SmokeStackR
   m_TagString: Untagged
@@ -383,6 +423,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5384270896676808822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019529743674011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530134389378
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +447,7 @@ GameObject:
   - component: {fileID: 5615019530134389390}
   - component: {fileID: 5615019530134389391}
   - component: {fileID: 5615019530134389376}
+  - component: {fileID: 1583470076774230768}
   m_Layer: 0
   m_Name: Cap
   m_TagString: Untagged
@@ -478,6 +531,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1583470076774230768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530134389378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530197577579
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +555,7 @@ GameObject:
   - component: {fileID: 5615019530197575831}
   - component: {fileID: 5615019530197577576}
   - component: {fileID: 5615019530197577577}
+  - component: {fileID: 6555948831923961920}
   m_Layer: 0
   m_Name: Scoop
   m_TagString: Untagged
@@ -573,6 +639,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6555948831923961920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530197577579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530392848954
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +663,7 @@ GameObject:
   - component: {fileID: 5615019530392848934}
   - component: {fileID: 5615019530392848935}
   - component: {fileID: 5615019530392848952}
+  - component: {fileID: 4294121337919654186}
   m_Layer: 0
   m_Name: ArmR
   m_TagString: Untagged
@@ -668,6 +747,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4294121337919654186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530392848954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530666501068
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +771,7 @@ GameObject:
   - component: {fileID: 5615019530666501064}
   - component: {fileID: 5615019530666501065}
   - component: {fileID: 5615019530666501066}
+  - component: {fileID: 4468776150018828571}
   m_Layer: 0
   m_Name: ArmL
   m_TagString: Untagged
@@ -763,6 +855,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4468776150018828571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530666501068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530768770304
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +879,7 @@ GameObject:
   - component: {fileID: 5615019530768770316}
   - component: {fileID: 5615019530768770317}
   - component: {fileID: 5615019530768770318}
+  - component: {fileID: 4237479096084051326}
   m_Layer: 0
   m_Name: ThreadR
   m_TagString: Untagged
@@ -859,6 +964,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4237479096084051326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530768770304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615019530826326853
 GameObject:
   m_ObjectHideFlags: 0

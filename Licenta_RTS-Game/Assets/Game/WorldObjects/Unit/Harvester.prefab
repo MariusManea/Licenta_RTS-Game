@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2474245748124722396}
   - component: {fileID: 2474245748124722397}
   - component: {fileID: 2474245748124722394}
+  - component: {fileID: 6285324521860361418}
   m_Layer: 0
   m_Name: WheelFR
   m_TagString: Untagged
@@ -95,6 +96,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6285324521860361418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748124722392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245748291464424
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +120,7 @@ GameObject:
   - component: {fileID: 2474245748291464428}
   - component: {fileID: 2474245748291464429}
   - component: {fileID: 2474245748291464426}
+  - component: {fileID: 7969633468223579119}
   m_Layer: 0
   m_Name: Tray
   m_TagString: Untagged
@@ -190,6 +204,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7969633468223579119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748291464424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245748299086549
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +228,7 @@ GameObject:
   - component: {fileID: 2474245748299086569}
   - component: {fileID: 2474245748299086550}
   - component: {fileID: 2474245748299086551}
+  - component: {fileID: 6983490815257180739}
   m_Layer: 0
   m_Name: WheelFL
   m_TagString: Untagged
@@ -285,6 +312,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6983490815257180739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748299086549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245748376669628
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +336,7 @@ GameObject:
   - component: {fileID: 2474245748376669616}
   - component: {fileID: 2474245748376669617}
   - component: {fileID: 2474245748376669630}
+  - component: {fileID: 8719049659565147438}
   m_Layer: 0
   m_Name: WheelRR
   m_TagString: Untagged
@@ -380,6 +420,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8719049659565147438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748376669628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245748395190725
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +444,7 @@ GameObject:
   - component: {fileID: 2474245748395190745}
   - component: {fileID: 2474245748395190726}
   - component: {fileID: 2474245748395190727}
+  - component: {fileID: 7822484232188934668}
   m_Layer: 0
   m_Name: Cap
   m_TagString: Untagged
@@ -475,6 +528,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7822484232188934668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748395190725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245748517713099
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +552,7 @@ GameObject:
   - component: {fileID: 2474245748517713103}
   - component: {fileID: 2474245748517713100}
   - component: {fileID: 2474245748517713101}
+  - component: {fileID: 1404169628822648684}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -570,6 +636,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1404169628822648684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245748517713099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245749027880809
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +661,7 @@ GameObject:
   - component: {fileID: 2474245749027880813}
   - component: {fileID: 2474245749027880810}
   - component: {fileID: 2474245749027880811}
+  - component: {fileID: 4665003026137919683}
   m_Layer: 0
   m_Name: ArmL
   m_TagString: Untagged
@@ -678,6 +757,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84316329949e6084c97030169452bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4665003026137919683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749027880809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245749039317075
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +781,7 @@ GameObject:
   - component: {fileID: 2474245749039317079}
   - component: {fileID: 2474245749039317076}
   - component: {fileID: 2474245749039317077}
+  - component: {fileID: 5579636277655632685}
   m_Layer: 0
   m_Name: WheelRL
   m_TagString: Untagged
@@ -773,6 +865,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5579636277655632685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749039317075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245749109090955
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +890,7 @@ GameObject:
   - component: {fileID: 2474245749109090959}
   - component: {fileID: 2474245749109090956}
   - component: {fileID: 2474245749109090957}
+  - component: {fileID: 913094285795377588}
   m_Layer: 0
   m_Name: ArmR
   m_TagString: Untagged
@@ -881,6 +986,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84316329949e6084c97030169452bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &913094285795377588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749109090955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245749177035899
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +1011,7 @@ GameObject:
   - component: {fileID: 2474245749177035903}
   - component: {fileID: 2474245749177035900}
   - component: {fileID: 2474245749177035901}
+  - component: {fileID: 2801940208361096008}
   m_Layer: 0
   m_Name: ArmC
   m_TagString: Untagged
@@ -989,6 +1107,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84316329949e6084c97030169452bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2801940208361096008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749177035899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2474245749520774762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2474245749520774762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2474245749177035898}

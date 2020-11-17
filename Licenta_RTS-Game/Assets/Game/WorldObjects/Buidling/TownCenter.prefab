@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1806162251423346513}
   - component: {fileID: 1806162251423346512}
   - component: {fileID: 1806162251423346527}
+  - component: {fileID: 1290216492537646620}
   m_Layer: 0
   m_Name: Roof
   m_TagString: Untagged
@@ -95,6 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1290216492537646620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806162251423346525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1806162252215442114
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +120,7 @@ GameObject:
   - component: {fileID: 1806162252215442118}
   - component: {fileID: 1806162252215442117}
   - component: {fileID: 1806162252215442116}
+  - component: {fileID: 4717272860297444906}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -190,6 +204,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4717272860297444906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806162252215442114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1806162252738020420
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806162252738020422}
   - component: {fileID: 1806162252738020421}
+  - component: {fileID: -5151043545176036188}
   m_Layer: 0
   m_Name: TownCenter
   m_TagString: Untagged
@@ -244,3 +271,21 @@ MonoBehaviour:
   maxBuildProgress: 5
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
+--- !u!114 &-5151043545176036188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806162252738020420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70b1b0becf488408db5617b6ed6dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 0
+  ResourceType: 2
+  resourceFull: {fileID: 0}
+  resourceHalf: {fileID: 0}
+  resourceQuarter: {fileID: 0}
+  resourceEmpty: {fileID: 0}
