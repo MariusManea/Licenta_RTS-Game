@@ -209,6 +209,7 @@ MonoBehaviour:
   critical: {fileID: 2800000, guid: fe2aeb08c243ff3498538281d663a03f, type: 3}
   resourceHealthBars:
   - {fileID: 2800000, guid: 1a02c7c0095d39b4cbf55a9e33ee84e0, type: 3}
+  playerDetailsSkin: {fileID: 11400000, guid: 9c92023bc472b0f4aa6b28a7f132c6b9, type: 2}
 --- !u!1 &8297730303105192251
 GameObject:
   m_ObjectHideFlags: 0
