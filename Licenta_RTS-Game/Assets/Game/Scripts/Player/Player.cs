@@ -106,6 +106,12 @@ public class Player : MonoBehaviour
     public void CreateBuilding(string buildingName, Vector3 buildPoint, Unit creator, Rect playingArea)
     {
         GameObject newBuilding = (GameObject)Instantiate(ResourceManager.GetBuilding(buildingName), buildPoint, new Quaternion());
+        if (IsFindingBuildingLocation() && tempBuilding)
+        {
+            Destroy(tempBuilding.gameObject);
+            tempBuilding = null;
+
+        }
         tempBuilding = newBuilding.GetComponent<Building>();
         if (tempBuilding)
         {
