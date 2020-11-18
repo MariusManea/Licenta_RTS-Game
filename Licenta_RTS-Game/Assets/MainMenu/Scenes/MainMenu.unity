@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 687561279}
   - component: {fileID: 687561278}
   - component: {fileID: 687561281}
+  - component: {fileID: 687561282}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -214,13 +215,33 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687561277}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 358549e40c4a3be49b02c191f236ad79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   header: {fileID: 2800000, guid: 87d6f50d2fc2cd6449dac483c694b6d9, type: 3}
+--- !u!114 &687561282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687561277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd38d6e0ca3d36343b5d63e6882ae384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
+  avatars:
+  - {fileID: 2800000, guid: 399f6988160970d4694a0b44b9ead11d, type: 3}
+  - {fileID: 2800000, guid: 661ffb0c8fc50df42ad84f1ed8e6ab0e, type: 3}
+  - {fileID: 2800000, guid: 8f3cb1cf84981064f8d288899b5413b8, type: 3}
+  - {fileID: 2800000, guid: e4eed6d56c0231a4c9e453a5af3c3534, type: 3}
+  - {fileID: 2800000, guid: 8f91e44a224b384419ca8b3e27f7ba9d, type: 3}
+  - {fileID: 2800000, guid: 96182d36b9c89b548ae6667d72862584, type: 3}
 --- !u!1 &1119010337
 GameObject:
   m_ObjectHideFlags: 0
