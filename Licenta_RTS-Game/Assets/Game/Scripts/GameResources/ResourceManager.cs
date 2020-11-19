@@ -56,6 +56,10 @@ namespace RTS
         {
             return gameObjectList.GetWorldObject(name);
         }
+        public static GameObject GetGameObject(string name)
+        {
+            return gameObjectList.GetGameObject(name);
+        }
 
         public static GameObject GetPlayerObject()
         {
@@ -96,5 +100,14 @@ namespace RTS
         public static float HeaderWidth { get { return headerWidth; } }
         public static float TextHeight { get { return textHeight; } }
         public static float Padding { get { return padding; } }
+
+        public static string LevelName { get; set; }
+
+        public static int GetNewObjectId()
+        {
+            LevelLoader loader = (LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader));
+            if (loader) return loader.GetNewObjectId();
+            return -1;
+        }
     }
 }

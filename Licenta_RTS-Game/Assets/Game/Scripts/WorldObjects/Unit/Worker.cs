@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RTS;
 
 public class Worker : Unit
 {
@@ -10,6 +12,7 @@ public class Worker : Unit
     private Building currentProject;
     private bool building = false;
     private float amountBuilt = 0.0f;
+    private int loadedProjectId = -1;
 
     /*** Game Engine methods, all can be overridden by subclass ***/
     protected override void Awake()
@@ -23,6 +26,11 @@ public class Worker : Unit
         actions = new string[] { "TownCenter", "Refinery", "WarFactory" };
         building = false;
         currentProject = null;
+        if (player && loadedSavedValues && loadedProjectId >= 0)
+        {
+            WorldObjects obj = player.GetObjectForId(loadedProjectId);
+            if (obj.GetType().IsSubclassOf(typeof(Building))) currentProject = (Building)obj;
+        }
     }
 
     protected override void Update()
@@ -84,7 +92,7 @@ public class Worker : Unit
     {
         bool doBase = true;
         //only handle input if owned by a human player and currently selected
-        if (player && player.isHuman && currentlySelected && hitObject && hitObject.name != "Ground")
+        if (player && player.isHuman && currentlySelected && hitObject && !WorkManager.ObjectIsGround(hitObject))
         {
             Building building = hitObject.transform.parent.GetComponent<Building>();
             if (building)
@@ -97,5 +105,24 @@ public class Worker : Unit
             }
         }
         if (doBase) base.MouseClick(hitObject, hitPoint, controller);
+    }
+
+    public override void SaveDetails(JsonWriter writer)
+    {
+        base.SaveDetails(writer);
+        SaveManager.WriteBoolean(writer, "Building", building);
+        SaveManager.WriteFloat(writer, "AmountBuilt", amountBuilt);
+        if (currentProject) SaveManager.WriteInt(writer, "CurrentProjectId", currentProject.ObjectId);
+    }
+    protected override void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
+    {
+        base.HandleLoadedProperty(reader, propertyName, readValue);
+        switch (propertyName)
+        {
+            case "Building": building = (bool)readValue; break;
+            case "AmountBuilt": amountBuilt = (float)(double)readValue; break;
+            case "CurrentProjectId": loadedProjectId = (int)(System.Int64)readValue; break;
+            default: break;
+        }
     }
 }

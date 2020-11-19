@@ -12,15 +12,24 @@ public class SelectPlayerMenu : MonoBehaviour
     public Texture2D[] avatars;
     private int avatarIndex = -1;
 
+    public GUISkin selectionSkin;
+
     private void Start()
     {
         Cursor.visible = true;
+        PlayerManager.Load();
         PlayerManager.SetAvatarTextures(avatars);
         if (avatars.Length > 0) avatarIndex = 0;
+        SelectionList.LoadEntries(PlayerManager.GetPlayerNames());
     }
 
     void OnGUI()
     {
+        if (SelectionList.MouseDoubleClick())
+        {
+            playerName = SelectionList.GetCurrentEntry();
+            SelectPlayer();
+        }
 
         GUI.skin = mySkin;
 
@@ -43,6 +52,7 @@ public class SelectPlayerMenu : MonoBehaviour
         float textTop = menuHeight - 2 * ResourceManager.Padding - ResourceManager.ButtonHeight - ResourceManager.TextHeight;
         float textWidth = ResourceManager.MenuWidth - 2 * ResourceManager.Padding;
         playerName = GUI.TextField(new Rect(ResourceManager.Padding, textTop, textWidth, ResourceManager.TextHeight), playerName, 14);
+        SelectionList.SetCurrentEntry(playerName);
 
         if (avatarIndex >= 0)
         {
@@ -66,9 +76,27 @@ public class SelectPlayerMenu : MonoBehaviour
         }
 
         GUI.EndGroup();
+        string prevSelection = SelectionList.GetCurrentEntry();
+        float selectionLeft = groupRect.x + ResourceManager.Padding;
+        float selectionTop = groupRect.y + ResourceManager.Padding;
+        float selectionWidth = groupRect.width - 2 * ResourceManager.Padding;
+        float selectionHeight = groupRect.height - GetMenuItemsHeight() - ResourceManager.Padding;
+        SelectionList.Draw(selectionLeft, selectionTop, selectionWidth, selectionHeight, selectionSkin);
+        string newSelection = SelectionList.GetCurrentEntry();
+        //set saveName to be name selected in list if selection has changed
+        if (prevSelection != newSelection)
+        {
+            playerName = newSelection;
+            avatarIndex = PlayerManager.GetAvatar(playerName);
+        }
     }
 
     private float GetMenuHeight()
+    {
+        return 250 + GetMenuItemsHeight();
+    }
+
+    private float GetMenuItemsHeight()
     {
         float avatarHeight = 0;
         if (avatars.Length > 0) avatarHeight = avatars[0].height + 2 * ResourceManager.Padding;

@@ -173,7 +173,7 @@ public class UserInput : MonoBehaviour
                 if (hitObject && hitPoint != ResourceManager.InvalidPosition)
                 {
                     if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
-                    else if (hitObject.name != "Ground")
+                    else if (!WorkManager.ObjectIsGround(hitObject))
                     {
                         WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
                         if (worldObject)
@@ -233,7 +233,7 @@ public class UserInput : MonoBehaviour
                 if (hoverObject)
                 {
                     if (player.SelectedObject) player.SelectedObject.SetHoverState(hoverObject);
-                    else if (hoverObject.name != "Ground")
+                    else if (!WorkManager.ObjectIsGround(hoverObject))
                     {
                         Player owner = hoverObject.transform.root.GetComponent<Player>();
                         if (owner)

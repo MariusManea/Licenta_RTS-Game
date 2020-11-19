@@ -8,6 +8,7 @@ public class GameObjectsList : MonoBehaviour
     public GameObject[] buildings;
     public GameObject[] units;
     public GameObject[] worldObjects;
+    public GameObject[] gameObjects;
     public GameObject player;
     private static bool created = false;
 
@@ -35,6 +36,16 @@ public class GameObjectsList : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public GameObject GetGameObject(string name)
+    {
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            GameObject gameObject = gameObjects[i];
+            if (gameObject && gameObject.name == name) return gameObjects[i];
+        }
+        return null;
     }
 
     public GameObject GetBuilding(string name)

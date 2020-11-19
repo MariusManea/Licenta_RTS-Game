@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTS;
+using Newtonsoft.Json;
 
 public class Tank : Unit
 {
@@ -51,4 +52,19 @@ public class Tank : Unit
         projectile.SetTarget(target);
     }
 
+    public override void SaveDetails(JsonWriter writer)
+    {
+        base.SaveDetails(writer);
+        SaveManager.WriteQuaternion(writer, "AimRotation", aimRotation);
+    }
+
+    protected override void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
+    {
+        base.HandleLoadedProperty(reader, propertyName, readValue);
+        switch (propertyName)
+        {
+            case "AimRotation": aimRotation = LoadManager.LoadQuaternion(reader); break;
+            default: break;
+        }
+    }
 }

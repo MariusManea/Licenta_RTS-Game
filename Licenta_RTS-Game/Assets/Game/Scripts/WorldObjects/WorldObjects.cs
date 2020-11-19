@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTS;
+using Newtonsoft.Json;
 public class WorldObjects : MonoBehaviour
 {
     public virtual bool IsActive { get { return true; } }
@@ -30,6 +31,11 @@ public class WorldObjects : MonoBehaviour
 
     protected bool movingIntoPosition = false;
 
+    protected bool loadedSavedValues = false;
+    private int loadedTargetId = -1;
+
+    public int ObjectId { get; set; }
+
     protected virtual void Awake()
     {
         selectionBounds = ResourceManager.InvalidBounds;
@@ -39,7 +45,17 @@ public class WorldObjects : MonoBehaviour
     protected virtual void Start()
     {
         SetPlayer();
-        if (player) SetTeamColor();
+        if (player)
+        {
+            if (loadedSavedValues)
+            {
+                if (loadedTargetId >= 0) target = player.GetObjectForId(loadedTargetId);
+            }
+            else
+            {
+                SetTeamColor();
+            }
+        }
     }
 
     protected virtual void Update()
@@ -58,7 +74,7 @@ public class WorldObjects : MonoBehaviour
         player = transform.root.GetComponent<Player>();
     }
 
-    protected void SetTeamColor()
+    public void SetTeamColor()
     {
         TeamColor[] teamColors = GetComponentsInChildren<TeamColor>();
         foreach (TeamColor teamColor in teamColors) teamColor.GetComponent<Renderer>().material.color = player.teamColor;
@@ -105,7 +121,7 @@ public class WorldObjects : MonoBehaviour
     public virtual void MouseClick(GameObject hitObject, Vector3 hitPoint, Player controller)
     {
         //only handle input if currently selected
-        if (currentlySelected && hitObject && hitObject.name != "Ground")
+        if (currentlySelected && hitObject && !WorkManager.ObjectIsGround(hitObject))
         {
             WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
             //clicked on another selectable object
@@ -235,7 +251,7 @@ public class WorldObjects : MonoBehaviour
         if (player && player.isHuman && currentlySelected)
         {
             //something other than the ground is being hovered over
-            if (hoverObject.name != "Ground")
+            if (!WorkManager.ObjectIsGround(hoverObject))
             {
                 Player owner = hoverObject.transform.root.GetComponent<Player>();
                 Unit unit = hoverObject.transform.parent.GetComponent<Unit>();
@@ -325,5 +341,72 @@ public class WorldObjects : MonoBehaviour
     {
         hitPoints -= damage;
         if (hitPoints <= 0) Destroy(gameObject);
+    }
+
+    public virtual void SaveDetails(JsonWriter writer)
+    {
+        SaveManager.WriteString(writer, "Type", name);
+        SaveManager.WriteString(writer, "Name", objectName);
+        SaveManager.WriteInt(writer, "Id", ObjectId);
+        SaveManager.WriteVector(writer, "Position", transform.position);
+        SaveManager.WriteQuaternion(writer, "Rotation", transform.rotation);
+        SaveManager.WriteVector(writer, "Scale", transform.localScale);
+        SaveManager.WriteInt(writer, "HitPoints", hitPoints);
+        SaveManager.WriteBoolean(writer, "Attacking", attacking);
+        SaveManager.WriteBoolean(writer, "MovingIntoPosition", movingIntoPosition);
+        SaveManager.WriteBoolean(writer, "Aiming", aiming);
+        if (attacking)
+        {
+            //only save if attacking so that we do not end up storing massive numbers for no reason
+            SaveManager.WriteFloat(writer, "CurrentWeaponChargeTime", currentWeaponChargeTime);
+        }
+        if (target != null) SaveManager.WriteInt(writer, "TargetId", target.ObjectId);
+    }
+
+    public void LoadDetails(JsonTextReader reader)
+    {
+        while (reader.Read())
+        {
+            if (reader.Value != null)
+            {
+                if (reader.TokenType == JsonToken.PropertyName)
+                {
+                    string propertyName = (string)reader.Value;
+                    reader.Read();
+                    HandleLoadedProperty(reader, propertyName, reader.Value);
+                }
+            }
+            else if (reader.TokenType == JsonToken.EndObject)
+            {
+                //loaded position invalidates the selection bounds so they must be recalculated
+                selectionBounds = ResourceManager.InvalidBounds;
+                CalculateBounds();
+                loadedSavedValues = true;
+                return;
+            }
+        }
+        //loaded position invalidates the selection bounds so they must be recalculated
+        selectionBounds = ResourceManager.InvalidBounds;
+        CalculateBounds();
+        loadedSavedValues = true;
+    }
+
+    protected virtual void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
+    {
+        switch (propertyName)
+        {
+            case "Name": objectName = (string)readValue; break;
+            case "Id": ObjectId = (int)(System.Int64)readValue; break;
+            case "Position": transform.localPosition = LoadManager.LoadVector(reader); break;
+            case "Rotation": transform.localRotation = LoadManager.LoadQuaternion(reader); break;
+            case "Scale": transform.localScale = LoadManager.LoadVector(reader); break;
+            case "HitPoints": hitPoints = (int)(System.Int64)readValue; break;
+            case "Attacking": attacking = (bool)readValue; break;
+            case "MovingIntoPosition": movingIntoPosition = (bool)readValue; break;
+            case "Aiming": aiming = (bool)readValue; break;
+            case "CurrentWeaponChargeTime": currentWeaponChargeTime = (float)(double)readValue; break;
+            case "TargetId": loadedTargetId = (int)(System.Int64)readValue; break;
+            default: break;
+        }
     }
 }
