@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using RTS;
 
 public class LoadMenu : MonoBehaviour
@@ -72,8 +73,8 @@ public class LoadMenu : MonoBehaviour
         if (newLevel != "")
         {
             ResourceManager.LevelName = newLevel;
-            if (Application.loadedLevelName != "BlankMap1") Application.LoadLevel("BlankMap1");
-            else if (Application.loadedLevelName != "BlankMap2") Application.LoadLevel("BlankMap2");
+            if (SceneManager.GetActiveScene().name != "BlankMap1") SceneManager.LoadScene("BlankMap1");
+            else if (SceneManager.GetActiveScene().name != "BlankMap2") SceneManager.LoadScene("BlankMap2");
             //makes sure that the loaded level runs at normal speed
             Time.timeScale = 1.0f;
         }

@@ -157,6 +157,13 @@ namespace RTS
         {
             return currentPlayer.Name == "" ? "Unknown" : currentPlayer.Name;
         }
+
+        public static string[] GetComputerNames()
+        {
+            string[] names = { "Jeremiah Cherry", "Xander Benson", "Anthony Arnold", "Garfield Bentley", "Tobias Jacobs", "Dean Pratt", "Muhammad Berg", "Billy Golden", "Jac Perez", "Angus Boone" };
+            return names;
+        }
+
         public static void SetAvatarTextures(Texture2D[] avatarTextures)
         {
             avatars = avatarTextures;

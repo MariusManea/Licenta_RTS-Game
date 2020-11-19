@@ -172,9 +172,9 @@ namespace RTS
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
-                    GameObject camera = Camera.main.gameObject;
-                    camera.transform.localPosition = position;
-                    camera.transform.localRotation = rotation;
+                    GameObject camera = Camera.main.transform.root.gameObject;
+                    camera.transform.position = position;
+                    camera.transform.rotation = rotation;
                     camera.transform.localScale = scale;
                     return;
                 }

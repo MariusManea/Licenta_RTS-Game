@@ -39,10 +39,6 @@ public class Player : MonoBehaviour
 
         AddStartResourceLimits();
         AddStartResources();
-        if (townCenter)
-        {
-            townCenter.FirstUnits(1);
-        }
     }
 
     // Update is called once per frame

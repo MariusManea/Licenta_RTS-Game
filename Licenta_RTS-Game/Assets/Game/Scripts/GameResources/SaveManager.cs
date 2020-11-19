@@ -71,6 +71,7 @@ namespace RTS
         private static void SaveLighting(JsonWriter writer)
         {
             Sun sun = (Sun)GameObject.FindObjectOfType(typeof(Sun));
+            Debug.Log(sun);
             if (writer == null || sun == null) return;
 
             writer.WritePropertyName("Sun");
@@ -106,7 +107,7 @@ namespace RTS
             writer.WritePropertyName("Camera");
             writer.WriteStartObject();
 
-            Transform cameraTransform = Camera.main.transform;
+            Transform cameraTransform = Camera.main.transform.root;
             WriteVector(writer, "Position", cameraTransform.position);
             WriteQuaternion(writer, "Rotation", cameraTransform.rotation);
             WriteVector(writer, "Scale", cameraTransform.localScale);

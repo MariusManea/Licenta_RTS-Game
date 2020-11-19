@@ -187,7 +187,7 @@ public class Building : WorldObjects
         }
     }
 
-    private void SetSpawnPoint()
+    public void SetSpawnPoint()
     {
         float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
         float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;
