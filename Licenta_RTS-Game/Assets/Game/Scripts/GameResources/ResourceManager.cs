@@ -71,6 +71,11 @@ namespace RTS
             return gameObjectList.GetBuildImage(name);
         }
 
+        public static Texture2D[] GetAvatars()
+        {
+            return gameObjectList.GetAvatars();
+        }
+
         private static Texture2D healthyTexture, damagedTexture, criticalTexture;
         public static Texture2D HealthyTexture { get { return healthyTexture; } }
         public static Texture2D DamagedTexture { get { return damagedTexture; } }

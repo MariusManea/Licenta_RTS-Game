@@ -9,6 +9,7 @@ public class Harvester : Unit
 
 	public float capacity, collectionAmount, depositAmount;
 	public Building resourceStore;
+	private Building oldStore;
 
 	private bool harvesting = false, emptying = false;
 	private float currentLoad = 0.0f, currentDeposit = 0.0f;
@@ -16,6 +17,9 @@ public class Harvester : Unit
 	private Resource resourceDeposit;
 
 	private int loadedDepositId = -1, loadedStoreId = -1;
+
+	public AudioClip emptyHarvestSound, harvestSound, startHarvestSound;
+	public float emptyHarvestVolume = 0.5f, harvestVolume = 0.5f, startHarvestVolume = 1.0f;
 
 	/*** Game Engine methods, all can be overridden by subclass ***/
 
@@ -56,15 +60,31 @@ public class Harvester : Unit
 				if (harvesting)
 				{
 					Collect();
-					if (currentLoad >= capacity || resourceDeposit.isEmpty())
+					if (currentLoad >= capacity || (resourceDeposit && resourceDeposit.isEmpty()))
 					{
-						//make sure that we have a whole number to avoid bugs
-						//caused by floating point numbers
-						currentLoad = Mathf.Floor(currentLoad);
-						harvesting = false;
-						emptying = true;
-						foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
-						StartMove(resourceStore.transform.position, resourceStore.gameObject);
+						if (!oldStore || oldStore != resourceStore)
+						{
+							Warehouse[] warehouses = GameObject.FindObjectsOfType(typeof(Warehouse)) as Warehouse[];
+							float minDist = float.MaxValue;
+							Warehouse closestWarehouse = null;
+							foreach (Warehouse warehouse in warehouses)
+							{
+								float dist = Vector3.Distance(this.transform.position, warehouse.transform.position);
+								if (dist < minDist && warehouse.GetComponent<Building>().IsOwnedBy(this.player))
+								{
+									closestWarehouse = warehouse;
+									minDist = dist;
+								}
+							}
+							if (closestWarehouse)
+							{
+								oldStore = closestWarehouse.GetComponent<Building>();
+								StartEmptying(oldStore);
+							}
+						} else
+                        {
+							StartEmptying(resourceStore);
+						}
 					}
 				}
 				else
@@ -74,7 +94,7 @@ public class Harvester : Unit
 					{
 						emptying = false;
 						foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
-						if (!resourceDeposit.isEmpty())
+						if (resourceDeposit && !resourceDeposit.isEmpty())
 						{
 							harvesting = true;
 							StartMove(resourceDeposit.transform.position, resourceDeposit.gameObject);
@@ -83,6 +103,26 @@ public class Harvester : Unit
 				}
 			}
 		}
+	}
+
+	protected override void InitialiseAudio()
+	{
+		base.InitialiseAudio();
+		List<AudioClip> sounds = new List<AudioClip>();
+		List<float> volumes = new List<float>();
+		if (emptyHarvestVolume < 0.0f) emptyHarvestVolume = 0.0f;
+		if (emptyHarvestVolume > 1.0f) emptyHarvestVolume = 1.0f;
+		sounds.Add(emptyHarvestSound);
+		volumes.Add(emptyHarvestVolume);
+		if (harvestVolume < 0.0f) harvestVolume = 0.0f;
+		if (harvestVolume > 1.0f) harvestVolume = 1.0f;
+		sounds.Add(harvestSound);
+		volumes.Add(harvestVolume);
+		if (startHarvestVolume < 0.0f) startHarvestVolume = 0.0f;
+		if (startHarvestVolume > 1.0f) startHarvestVolume = 1.0f;
+		sounds.Add(startHarvestSound);
+		volumes.Add(startHarvestVolume);
+		audioElement.Add(sounds, volumes);
 	}
 
 	/* Public Methods */
@@ -118,7 +158,16 @@ public class Harvester : Unit
 					SetSelection(true, playingArea);
 					player.SelectedObject = this;
 					StartHarvest(resource);
+					return;
 				}
+				Warehouse warehouse = hitObject.transform.parent.GetComponent<Warehouse>();
+				if (warehouse && currentLoad > 0 && warehouse.GetComponent<Building>().IsOwnedBy(this.player))
+                {
+					if (player.SelectedObject) player.SelectedObject.SetSelection(false, playingArea);
+					SetSelection(true, playingArea);
+					player.SelectedObject = this;
+					StartEmptying(warehouse.GetComponent<Building>());
+                }
 			}
 			else StopHarvest();
 		}
@@ -126,8 +175,20 @@ public class Harvester : Unit
 
 	/* Private Methods */
 
+	private void StartEmptying(Building warehouse)
+    {
+		resourceStore = warehouse.GetComponent<Building>();
+		currentLoad = Mathf.Floor(currentLoad);
+		harvesting = false;
+		emptying = true;
+		Arms[] arms = GetComponentsInChildren<Arms>();
+		foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
+		StartMove(resourceStore.transform.position, resourceStore.gameObject);
+	}
+
 	private void StartHarvest(Resource resource)
 	{
+		if (audioElement != null) audioElement.Play(startHarvestSound);
 		resourceDeposit = resource;
 		StartMove(resource.transform.position, resource.gameObject);
 		//we can only collect one resource at a time, other resources are lost
@@ -142,11 +203,13 @@ public class Harvester : Unit
 
 	private void StopHarvest()
 	{
-
+		harvesting = false;
+		emptying = false;
 	}
 
 	private void Collect()
 	{
+		if (audioElement != null) audioElement.Play(harvestSound);
 		float collect = collectionAmount * Time.deltaTime;
 		//make sure that the harvester cannot collect more than it can carry
 		if (currentLoad + collect > capacity) collect = capacity - currentLoad;
@@ -156,6 +219,7 @@ public class Harvester : Unit
 
 	private void Deposit()
 	{
+		if (audioElement != null) audioElement.Play(emptyHarvestSound);
 		currentDeposit += depositAmount * Time.deltaTime;
 		int deposit = Mathf.FloorToInt(currentDeposit);
 		if (deposit >= 1)

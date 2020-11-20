@@ -14,6 +14,9 @@ public class Worker : Unit
     private float amountBuilt = 0.0f;
     private int loadedProjectId = -1;
 
+    public AudioClip finishedJobSound;
+    public float finishedJobVolume = 1.0f;
+
     /*** Game Engine methods, all can be overridden by subclass ***/
     protected override void Awake()
     {
@@ -26,10 +29,18 @@ public class Worker : Unit
         actions = new string[] { "TownCenter", "Refinery", "WarFactory" };
         building = false;
         currentProject = null;
+        if (loadedSavedValues)
+        {
+            newSpawn = false;
+        }
         if (player && loadedSavedValues && loadedProjectId >= 0)
         {
             WorldObjects obj = player.GetObjectForId(loadedProjectId);
-            if (obj.GetType().IsSubclassOf(typeof(Building))) currentProject = (Building)obj;
+            if (obj.GetType().IsSubclassOf(typeof(Building)))
+            {
+                building = true;
+                currentProject = (Building)obj;
+            }
         }
     }
 
@@ -46,10 +57,26 @@ public class Worker : Unit
                 {
                     amountBuilt -= amount;
                     currentProject.Construct(amount);
-                    if (!currentProject.UnderConstruction()) building = false;
+                    if (!currentProject.UnderConstruction())
+                    {
+                        building = false; 
+                        if (audioElement != null) audioElement.Play(finishedJobSound);
+                    }
                 }
             }
         }
+    }
+
+    protected override void InitialiseAudio()
+    {
+        base.InitialiseAudio();
+        if (finishedJobVolume < 0.0f) finishedJobVolume = 0.0f;
+        if (finishedJobVolume > 1.0f) finishedJobVolume = 1.0f;
+        List<AudioClip> sounds = new List<AudioClip>();
+        List<float> volumes = new List<float>();
+        sounds.Add(finishedJobSound);
+        volumes.Add(finishedJobVolume);
+        audioElement.Add(sounds, volumes);
     }
 
     /*** Public Methods ***/

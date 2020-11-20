@@ -1178,9 +1178,27 @@ MonoBehaviour:
   sellValue: 5
   hitPoints: 200
   maxHitPoints: 200
+  weaponRange: 10
+  weaponRechargeTime: 1
+  attackSound: {fileID: 8300000, guid: 7e48700de305d784282c5ce0e2a121f6, type: 3}
+  selectSound: {fileID: 8300000, guid: 8810ed3a0527f334aa206f20e7df7f88, type: 3}
+  useWeaponSound: {fileID: 8300000, guid: 3f0dcb2ebe570b0419ca68a888864b28, type: 3}
+  attackVolume: 1
+  selectVolume: 1
+  useWeaponVolume: 1
   moveSpeed: 4
   rotateSpeed: 4
+  driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
+  moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
+  driveVolume: 0.5
+  moveVolume: 1
   capacity: 100
   collectionAmount: 5
   depositAmount: 10
   resourceStore: {fileID: 0}
+  emptyHarvestSound: {fileID: 8300000, guid: 8a7caf746428ee94e99625ccc00886fc, type: 3}
+  harvestSound: {fileID: 8300000, guid: ccf8776d6d4fd64429f33744081df59a, type: 3}
+  startHarvestSound: {fileID: 8300000, guid: 50e4980b59b4b2440b0eafde53aeacd0, type: 3}
+  emptyHarvestVolume: 0.5
+  harvestVolume: 0.5
+  startHarvestVolume: 1

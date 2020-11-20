@@ -226,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806162252738020422}
   - component: {fileID: 1806162252738020421}
-  - component: {fileID: -5151043545176036188}
+  - component: {fileID: -7021026514871760967}
   m_Layer: 0
   m_Name: TownCenter
   m_TagString: Untagged
@@ -268,10 +268,20 @@ MonoBehaviour:
   sellValue: -1
   hitPoints: 15000
   maxHitPoints: 15000
+  weaponRange: 10
+  weaponRechargeTime: 1
+  attackSound: {fileID: 8300000, guid: 7e48700de305d784282c5ce0e2a121f6, type: 3}
+  selectSound: {fileID: 8300000, guid: 8810ed3a0527f334aa206f20e7df7f88, type: 3}
+  useWeaponSound: {fileID: 8300000, guid: 3f0dcb2ebe570b0419ca68a888864b28, type: 3}
+  attackVolume: 1
+  selectVolume: 1
+  useWeaponVolume: 1
   maxBuildProgress: 5
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
---- !u!114 &-5151043545176036188
+  finishedJobSound: {fileID: 8300000, guid: 057ec73e9b1c0164893d582b44162880, type: 3}
+  finishedJobVolume: 1
+--- !u!114 &-7021026514871760967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,12 +290,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1806162252738020420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e70b1b0becf488408db5617b6ed6dc1, type: 3}
+  m_Script: {fileID: 11500000, guid: bcb947b0378859e4c8da6e81a72cf7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Capacity: 0
-  ResourceType: 2
-  resourceFull: {fileID: 0}
-  resourceHalf: {fileID: 0}
-  resourceQuarter: {fileID: 0}
-  resourceEmpty: {fileID: 0}

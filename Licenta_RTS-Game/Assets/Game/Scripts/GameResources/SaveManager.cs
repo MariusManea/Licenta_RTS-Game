@@ -71,7 +71,6 @@ namespace RTS
         private static void SaveLighting(JsonWriter writer)
         {
             Sun sun = (Sun)GameObject.FindObjectOfType(typeof(Sun));
-            Debug.Log(sun);
             if (writer == null || sun == null) return;
 
             writer.WritePropertyName("Sun");

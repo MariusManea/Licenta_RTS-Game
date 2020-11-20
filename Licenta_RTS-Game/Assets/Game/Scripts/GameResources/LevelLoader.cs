@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using RTS;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader : MonoSingleton<LevelLoader>
 {
     private static int nextObjectId = 0;
-    private static bool created = false;
     private bool initialised = false;
 
     public int playersNumber;
@@ -15,15 +14,26 @@ public class LevelLoader : MonoBehaviour
 
     void Awake()
     {
-        if (!created)
+        if (this != Instance) return;
+        initialised = true;
+
+        if (initialised)
         {
-            DontDestroyOnLoad(transform.gameObject);
-            created = true;
-            initialised = true;
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            SelectPlayerMenu menu = GameObject.FindObjectOfType(typeof(SelectPlayerMenu)) as SelectPlayerMenu;
+            if (!menu)
+            {
+                InitNewWorld(true);
+                //we have started from inside a map, rather than the main menu
+                //this happens if we launch Unity from inside a map file for testing
+                Player[] players = GameObject.FindObjectsOfType(typeof(Player)) as Player[];
+                foreach (Player player in players)
+                {
+                    if (player.isHuman)
+                    {
+                        PlayerManager.SelectPlayer(player.userName, 0);
+                    }
+                }
+            }
         }
     }
 
@@ -41,7 +51,7 @@ public class LevelLoader : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name == "GameScene")
                 {
-                    InitNewWorld();
+                    InitNewWorld(false);
                 }
 
                 WorldObjects[] worldObjects = GameObject.FindObjectsOfType(typeof(WorldObjects)) as WorldObjects[];
@@ -61,14 +71,21 @@ public class LevelLoader : MonoBehaviour
         return nextObjectId;
     }
 
-    private void InitNewWorld()
+    private void InitNewWorld(bool autoTest)
     {
         // new level init
         GameObject humanPlayer = (GameObject)GameObject.Instantiate(ResourceManager.GetPlayerObject());
         Player player = humanPlayer.GetComponent<Player>();
         player.isHuman = true;
         player.teamColor = teamColors[0];
-        player.userName = player.name = PlayerManager.GetPlayerName();
+        if (autoTest)
+        {
+            player.userName = player.name = "Marius";
+        }
+        else
+        {
+            player.userName = player.name = PlayerManager.GetPlayerName();
+        }
         Buildings buildings = player.GetComponentInChildren<Buildings>();
         GameObject townCenter = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter"), player.transform.position, new Quaternion());
         player.townCenter = townCenter.GetComponent<TownCenter>();

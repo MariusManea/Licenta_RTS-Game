@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTS;
 
-public class GameObjectsList : MonoBehaviour
+public class GameObjectsList : MonoSingleton<GameObjectsList>
 {
     public GameObject[] buildings;
     public GameObject[] units;
     public GameObject[] worldObjects;
     public GameObject[] gameObjects;
     public GameObject player;
-    private static bool created = false;
+    public Texture2D[] avatars;
 
     void Awake()
     {
-        if (!created)
-        {
-            DontDestroyOnLoad(transform.gameObject);
-            ResourceManager.SetGameObjectList(this);
-            created = true;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        if (this != Instance) return;
+        ResourceManager.SetGameObjectList(this);
+        PlayerManager.Load();
+        PlayerManager.SetAvatarTextures(avatars);
     }
 
     // Start is called before the first frame update
@@ -36,6 +30,12 @@ public class GameObjectsList : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Texture2D[] GetAvatars()
+    {
+        if (avatars == null) return null;
+        return avatars;
     }
 
     public GameObject GetGameObject(string name)

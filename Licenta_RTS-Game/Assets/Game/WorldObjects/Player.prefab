@@ -197,6 +197,8 @@ MonoBehaviour:
   resourceHealthBars:
   - {fileID: 2800000, guid: 1a02c7c0095d39b4cbf55a9e33ee84e0, type: 3}
   playerDetailsSkin: {fileID: 11400000, guid: 9c92023bc472b0f4aa6b28a7f132c6b9, type: 2}
+  clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
+  clickVolume: 1
 --- !u!114 &3836304430329462028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   header: {fileID: 2800000, guid: 87d6f50d2fc2cd6449dac483c694b6d9, type: 3}
+  clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
+  clickVolume: 1
 --- !u!114 &8913405720648183600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   selectionSkin: {fileID: 11400000, guid: 8115ec67a179f2c4a86e29d18689f083, type: 2}
+  clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
+  clickVolume: 1
 --- !u!114 &6243134167203927617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   selectionSkin: {fileID: 11400000, guid: 8115ec67a179f2c4a86e29d18689f083, type: 2}
+  clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
+  clickVolume: 1
 --- !u!1 &8297730303105192251
 GameObject:
   m_ObjectHideFlags: 0

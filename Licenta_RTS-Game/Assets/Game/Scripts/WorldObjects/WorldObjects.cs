@@ -34,6 +34,11 @@ public class WorldObjects : MonoBehaviour
     protected bool loadedSavedValues = false;
     private int loadedTargetId = -1;
 
+    public AudioClip attackSound, selectSound, useWeaponSound;
+    public float attackVolume = 1.0f, selectVolume = 1.0f, useWeaponVolume = 1.0f;
+
+    protected AudioElement audioElement;
+
     public int ObjectId { get; set; }
 
     protected virtual void Awake()
@@ -56,6 +61,7 @@ public class WorldObjects : MonoBehaviour
                 SetTeamColor();
             }
         }
+        InitialiseAudio();
     }
 
     protected virtual void Update()
@@ -67,6 +73,25 @@ public class WorldObjects : MonoBehaviour
     protected virtual void OnGUI()
     {
         if (currentlySelected) DrawSelection();
+    }
+
+    protected virtual void InitialiseAudio()
+    {
+        List<AudioClip> sounds = new List<AudioClip>();
+        List<float> volumes = new List<float>();
+        if (attackVolume < 0.0f) attackVolume = 0.0f;
+        if (attackVolume > 1.0f) attackVolume = 1.0f;
+        sounds.Add(attackSound);
+        volumes.Add(attackVolume);
+        if (selectVolume < 0.0f) selectVolume = 0.0f;
+        if (selectVolume > 1.0f) selectVolume = 1.0f;
+        sounds.Add(selectSound);
+        volumes.Add(selectVolume);
+        if (useWeaponVolume < 0.0f) useWeaponVolume = 0.0f;
+        if (useWeaponVolume > 1.0f) useWeaponVolume = 1.0f;
+        sounds.Add(useWeaponSound);
+        volumes.Add(useWeaponVolume);
+        audioElement = new AudioElement(sounds, volumes, objectName + ObjectId, this.transform);
     }
 
     public void SetPlayer()
@@ -100,7 +125,11 @@ public class WorldObjects : MonoBehaviour
     public virtual void SetSelection(bool selected, Rect playingArea)
     {
         currentlySelected = selected;
-        if (selected) this.playingArea = playingArea;
+        if (selected)
+        {
+            this.playingArea = playingArea;
+            if (audioElement != null) audioElement.Play(selectSound);
+        }
     }
 
     public Bounds GetSelectionBounds()
@@ -147,6 +176,7 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void BeginAttack(WorldObjects target)
     {
+        if (audioElement != null) audioElement.Play(attackSound);
         this.target = target;
         if (TargetInRange())
         {
@@ -223,6 +253,7 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void UseWeapon()
     {
+        if(audioElement != null) audioElement.Play(useWeaponSound);
         currentWeaponChargeTime = 0.0f;
         //this behaviour needs to be specified by a specific object
     }
