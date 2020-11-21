@@ -37,6 +37,11 @@ public class WorldObjects : MonoBehaviour
     public AudioClip attackSound, selectSound, useWeaponSound;
     public float attackVolume = 1.0f, selectVolume = 1.0f, useWeaponVolume = 1.0f;
 
+    private float timeSinceLastDecision = 0.0f, timeBetweenDecisions = 0.1f;
+    public float detectionRange = 20.0f;
+    protected List<WorldObjects> nearbyObjects;
+
+
     protected AudioElement audioElement;
 
     public int ObjectId { get; set; }
@@ -66,13 +71,49 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (ShouldMakeDecision()) DecideWhatToDo();
         currentWeaponChargeTime += Time.deltaTime;
         if (attacking && !movingIntoPosition && !aiming) PerformAttack();
     }
 
     protected virtual void OnGUI()
     {
-        if (currentlySelected) DrawSelection();
+        if (currentlySelected && !ResourceManager.MenuOpen) DrawSelection();
+    }
+
+    protected virtual bool ShouldMakeDecision()
+    {
+        if (!attacking && !movingIntoPosition && !aiming)
+        {
+            //we are not doing anything at the moment
+            if (timeSinceLastDecision > timeBetweenDecisions)
+            {
+                timeSinceLastDecision = 0.0f;
+                return true;
+            }
+            timeSinceLastDecision += Time.deltaTime;
+        }
+        return false;
+    }
+
+    protected virtual void DecideWhatToDo()
+    {
+        //determine what should be done by the world object at the current point in time
+        Vector3 currentPosition = transform.position;
+        nearbyObjects = WorkManager.FindNearbyObjects(currentPosition, detectionRange);
+
+        if (CanAttack())
+        {
+            List<WorldObjects> enemyObjects = new List<WorldObjects>();
+            foreach (WorldObjects nearbyObject in nearbyObjects)
+            {
+                Resource resource = nearbyObject.GetComponent<Resource>();
+                if (resource) continue;
+                if (nearbyObject.GetPlayer() != player) enemyObjects.Add(nearbyObject);
+            }
+            WorldObjects closestObject = WorkManager.FindNearestWorldObjectInListToPosition(enemyObjects, currentPosition);
+            if (closestObject) BeginAttack(closestObject);
+        }
     }
 
     protected virtual void InitialiseAudio()
@@ -97,6 +138,10 @@ public class WorldObjects : MonoBehaviour
     public void SetPlayer()
     {
         player = transform.root.GetComponent<Player>();
+    }
+    public Player GetPlayer()
+    {
+        return player;
     }
 
     public void SetTeamColor()
@@ -253,7 +298,7 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void UseWeapon()
     {
-        if(audioElement != null) audioElement.Play(useWeaponSound);
+        if (audioElement != null && Time.timeScale > 0) audioElement.Play(useWeaponSound);
         currentWeaponChargeTime = 0.0f;
         //this behaviour needs to be specified by a specific object
     }

@@ -334,7 +334,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2587706120481515163}
   - component: {fileID: 4065358140156661719}
-  - component: {fileID: 384719232}
   m_Layer: 0
   m_Name: WarFactory
   m_TagString: Untagged
@@ -392,24 +391,6 @@ MonoBehaviour:
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
   finishedJobSound: {fileID: 8300000, guid: 057ec73e9b1c0164893d582b44162880, type: 3}
   finishedJobVolume: 1
---- !u!114 &384719232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8068544484785147359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e70b1b0becf488408db5617b6ed6dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Capacity: 1000
-  ResourceType: 2
-  resourceFull: {fileID: 0}
-  resourceHalf: {fileID: 0}
-  resourceQuarter: {fileID: 0}
-  resourceEmpty: {fileID: 0}
 --- !u!1 &8148790538955402793
 GameObject:
   m_ObjectHideFlags: 0

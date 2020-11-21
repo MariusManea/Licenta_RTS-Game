@@ -31,4 +31,8 @@ public class TownCenter : Building
             }
         }
     }
+    protected override bool ShouldMakeDecision()
+    {
+        return false;
+    }
 }

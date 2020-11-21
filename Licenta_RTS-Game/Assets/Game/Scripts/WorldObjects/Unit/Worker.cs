@@ -26,7 +26,7 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "TownCenter", "Refinery", "WarFactory" };
+        actions = new string[] { "TownCenter", "Refinery", "WarFactory", "Turret", "Wonder" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -150,6 +150,30 @@ public class Worker : Unit
             case "AmountBuilt": amountBuilt = (float)(double)readValue; break;
             case "CurrentProjectId": loadedProjectId = (int)(System.Int64)readValue; break;
             default: break;
+        }
+    }
+
+    protected override bool ShouldMakeDecision()
+    {
+        if (building) return false;
+        return base.ShouldMakeDecision();
+    }
+
+    protected override void DecideWhatToDo()
+    {
+        base.DecideWhatToDo();
+        List<WorldObjects> buildings = new List<WorldObjects>();
+        foreach (WorldObjects nearbyObject in nearbyObjects)
+        {
+            if (nearbyObject.GetPlayer() != player) continue;
+            Building nearbyBuilding = nearbyObject.GetComponent<Building>();
+            if (nearbyBuilding && nearbyBuilding.UnderConstruction()) buildings.Add(nearbyObject);
+        }
+        WorldObjects nearestObject = WorkManager.FindNearestWorldObjectInListToPosition(buildings, transform.position);
+        if (nearestObject)
+        {
+            Building closestBuilding = nearestObject.GetComponent<Building>();
+            if (closestBuilding) SetBuilding(closestBuilding);
         }
     }
 }

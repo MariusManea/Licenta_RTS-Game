@@ -17,9 +17,14 @@ public class OreDeposit : Resource
     protected override void Update()
     {
         base.Update();
+        if (amountLeft < 1)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         float percentLeft = (float)amountLeft / (float)capacity;
         if (percentLeft < 0) percentLeft = 0;
-        int numBlocksToShow = (int)(percentLeft * numBlocks);
+        int numBlocksToShow = (int)Mathf.Ceil(percentLeft * numBlocks);
         Ore[] blocks = GetComponentsInChildren<Ore>();
         if (numBlocksToShow >= 0 && numBlocksToShow < blocks.Length)
         {

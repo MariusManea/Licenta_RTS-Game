@@ -62,4 +62,9 @@ public class Resource : WorldObjects
             default: break;
         }
     }
+
+    protected override bool ShouldMakeDecision()
+    {
+        return false;
+    }
 }

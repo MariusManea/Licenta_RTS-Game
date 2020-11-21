@@ -74,5 +74,42 @@ namespace RTS
         {
             return obj.name == "Ground" || obj.name == "Ground(Clone)";
         }
+
+        public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(position, range);
+            HashSet<int> nearbyObjectIds = new HashSet<int>();
+            List<WorldObjects> nearbyObjects = new List<WorldObjects>();
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                Transform parent = hitColliders[i].transform.parent;
+                if (parent)
+                {
+                    WorldObjects parentObject = parent.GetComponent<WorldObjects>();
+                    if (parentObject && !nearbyObjectIds.Contains(parentObject.ObjectId))
+                    {
+                        nearbyObjectIds.Add(parentObject.ObjectId);
+                        nearbyObjects.Add(parentObject);
+                    }
+                }
+            }
+            return nearbyObjects;
+        }
+        public static WorldObjects FindNearestWorldObjectInListToPosition(List<WorldObjects> objects, Vector3 position)
+        {
+            if (objects == null || objects.Count == 0) return null;
+            WorldObjects nearestObject = objects[0];
+            float distanceToNearestObject = Vector3.SqrMagnitude(position - nearestObject.transform.position);
+            for (int i = 1; i < objects.Count; i++)
+            {
+                float distanceToObject = Vector3.SqrMagnitude(position - objects[i].transform.position);
+                if (distanceToObject < distanceToNearestObject)
+                {
+                    distanceToNearestObject = distanceToObject;
+                    nearestObject = objects[i];
+                }
+            }
+            return nearestObject;
+        }
     }
 }

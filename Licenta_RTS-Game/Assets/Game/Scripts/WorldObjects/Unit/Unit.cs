@@ -214,4 +214,10 @@ public class Unit : WorldObjects
             default: break;
         }
     }
+    protected override bool ShouldMakeDecision()
+    {
+        if (moving || rotating) return false;
+        return base.ShouldMakeDecision();
+    }
+
 }
