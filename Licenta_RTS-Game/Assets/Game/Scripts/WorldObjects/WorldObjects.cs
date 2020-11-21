@@ -41,6 +41,8 @@ public class WorldObjects : MonoBehaviour
     public float detectionRange = 20.0f;
     protected List<WorldObjects> nearbyObjects;
 
+    protected Terrain terrain;
+
 
     protected AudioElement audioElement;
 
@@ -67,10 +69,15 @@ public class WorldObjects : MonoBehaviour
             }
         }
         InitialiseAudio();
+        Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
+        terrain = ground.GetComponentInChildren<Terrain>();
+        this.transform.position = new Vector3(this.transform.position.x, terrain.SampleHeight(this.transform.position), this.transform.position.z);
+        CalculateBounds();
     }
 
     protected virtual void Update()
     {
+        this.transform.position = new Vector3(this.transform.position.x, terrain.SampleHeight(this.transform.position), this.transform.position.z);
         if (ShouldMakeDecision()) DecideWhatToDo();
         currentWeaponChargeTime += Time.deltaTime;
         if (attacking && !movingIntoPosition && !aiming) PerformAttack();

@@ -51,6 +51,7 @@ public class Resource : WorldObjects
     {
         base.SaveDetails(writer);
         SaveManager.WriteFloat(writer, "AmountLeft", amountLeft);
+        SaveManager.WriteFloat(writer, "Capacity", capacity);
     }
 
     protected override void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
@@ -59,6 +60,7 @@ public class Resource : WorldObjects
         switch (propertyName)
         {
             case "AmountLeft": amountLeft = (float)(double)readValue; break;
+            case "Capacity": capacity = (float)(double)readValue; break;
             default: break;
         }
     }

@@ -72,7 +72,7 @@ namespace RTS
         }
         public static bool ObjectIsGround(GameObject obj)
         {
-            return obj.name == "Ground" || obj.name == "Ground(Clone)";
+            return obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
         }
 
         public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)

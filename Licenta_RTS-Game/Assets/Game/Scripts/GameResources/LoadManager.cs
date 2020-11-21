@@ -147,7 +147,7 @@ namespace RTS
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
-                    GameObject ground = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("Ground"), position, rotation);
+                    GameObject ground = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("GroundHolder"), position, rotation);
                     ground.transform.localScale = scale;
                     return;
                 }

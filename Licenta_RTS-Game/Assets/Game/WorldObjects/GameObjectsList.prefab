@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7081983928268064584}
   - component: {fileID: 7081983928268064591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObjectsList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
   - {fileID: 3579873619861772479, guid: 423cc2c2956441c4c96b36abd24b0d93, type: 3}
   gameObjects:
   - {fileID: 3414441903785295551, guid: c5d6cc1a63aa90a4a96503654f54240d, type: 3}
-  - {fileID: 4682448407581065844, guid: a20d3dd2e9419424cb6b9b76dc9a9595, type: 3}
+  - {fileID: 1596083028145549551, guid: a20d3dd2e9419424cb6b9b76dc9a9595, type: 3}
   player: {fileID: 8297730302071679181, guid: 6cf11d8928941d942a2dbfa4fede9788, type: 3}
   avatars:
   - {fileID: 2800000, guid: 399f6988160970d4694a0b44b9ead11d, type: 3}

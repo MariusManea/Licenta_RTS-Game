@@ -110,7 +110,7 @@ public class Unit : WorldObjects
         if (audioElement != null) audioElement.Play(moveSound);
         destinationTarget = null;
         this.destination = destination;
-        targetRotation = Quaternion.LookRotation(destination - transform.position);
+        targetRotation = Quaternion.LookRotation(this.destination - transform.position);
         rotating = true;
         moving = false;
     }
@@ -138,6 +138,7 @@ public class Unit : WorldObjects
 
     private void MakeMove()
     {
+        this.destination.y = terrain.SampleHeight(this.transform.position);
         transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
         if (transform.position == destination)
         {
