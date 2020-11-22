@@ -165,6 +165,7 @@ public class Building : WorldObjects
     public void SetRallyPoint(Vector3 position)
     {
         rallyPoint = position;
+        rallyPoint.y = terrain.SampleHeight(rallyPoint);
         if (player && player.isHuman && currentlySelected)
         {
             RallyPoints flag = player.GetComponentInChildren<RallyPoints>();
@@ -175,7 +176,15 @@ public class Building : WorldObjects
     public void Sell()
     {
         if (player) player.AddResource(ResourceType.Money, sellValue);
-        if (currentlySelected) SetSelection(false, playingArea);
+        if (currentlySelected)
+        {
+            SetSelection(false, playingArea);
+            player.SelectedObjects.Remove(this);
+            if (player.SelectedObjects.Count == 0)
+            {
+                player.SelectedObjects = null;
+            }
+        }
         Destroy(this.gameObject);
     }
 
@@ -214,6 +223,7 @@ public class Building : WorldObjects
         float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
         float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;
         spawnPoint = new Vector3(spawnX, 0.0f, spawnZ);
+        spawnPoint.y = terrain.SampleHeight(spawnPoint);
         rallyPoint = spawnPoint;
     }
 

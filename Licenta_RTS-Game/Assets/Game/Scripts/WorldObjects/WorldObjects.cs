@@ -50,6 +50,8 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void Awake()
     {
+        Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
+        terrain = ground.GetComponentInChildren<Terrain>();
         selectionBounds = ResourceManager.InvalidBounds;
         CalculateBounds();
     }
@@ -69,8 +71,6 @@ public class WorldObjects : MonoBehaviour
             }
         }
         InitialiseAudio();
-        Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
-        terrain = ground.GetComponentInChildren<Terrain>();
         this.transform.position = new Vector3(this.transform.position.x, terrain.SampleHeight(this.transform.position), this.transform.position.z);
         CalculateBounds();
     }
@@ -314,8 +314,16 @@ public class WorldObjects : MonoBehaviour
     {
         //this should be called by the following line, but there is an outside chance it will not
         SetSelection(false, playingArea);
-        if (controller.SelectedObject) controller.SelectedObject.SetSelection(false, playingArea);
-        controller.SelectedObject = worldObject;
+        if (controller.SelectedObjects != null)
+        {
+            foreach (WorldObjects selectedWorldObject in controller.SelectedObjects)
+            {
+                selectedWorldObject.SetSelection(false, playingArea);
+            }
+        }
+        controller.SelectedObjects = null;
+        controller.SelectedObjects = new List<WorldObjects>();
+        controller.SelectedObjects.Add(worldObject);
         worldObject.SetSelection(true, controller.hud.GetPlayingArea());
     }
 

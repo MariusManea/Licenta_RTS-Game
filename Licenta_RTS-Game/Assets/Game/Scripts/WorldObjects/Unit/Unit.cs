@@ -100,7 +100,7 @@ public class Unit : WorldObjects
                 target = null;
                 float x = hitPoint.x;
                 //makes sure that the unit stays on top of the surface it is on
-                float y = hitPoint.y + player.SelectedObject.transform.position.y;
+                float y = hitPoint.y + player.SelectedObjects[0].transform.position.y;
                 float z = hitPoint.z;
                 Vector3 destination = new Vector3(x, y, z);
                 StartMove(destination);

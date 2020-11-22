@@ -154,18 +154,40 @@ public class Harvester : Unit
 				if (resource && !resource.isEmpty())
 				{
 					//make sure that we select harvester remains selected
-					if (player.SelectedObject) player.SelectedObject.SetSelection(false, playingArea);
+					if (player.SelectedObjects != null && player.SelectedObjects[0].GetType() != typeof(Harvester))
+					{
+						foreach (WorldObjects selectedWorldObject in player.SelectedObjects)
+						{
+							selectedWorldObject.SetSelection(false, playingArea);
+						}
+						player.SelectedObjects = null;
+					}
+					if (player.SelectedObjects == null)
+                    {
+						player.SelectedObjects = new List<WorldObjects>();
+                    }
 					SetSelection(true, playingArea);
-					player.SelectedObject = this;
+					player.SelectedObjects.Add(this);
 					StartHarvest(resource);
 					return;
 				}
 				Warehouse warehouse = hitObject.transform.parent.GetComponent<Warehouse>();
 				if (warehouse && currentLoad > 0 && warehouse.GetComponent<Building>().IsOwnedBy(this.player))
                 {
-					if (player.SelectedObject) player.SelectedObject.SetSelection(false, playingArea);
+					if (player.SelectedObjects != null && player.SelectedObjects[0].GetType() != typeof(Harvester))
+					{
+						foreach (WorldObjects selectedWorldObject in player.SelectedObjects)
+						{
+							selectedWorldObject.SetSelection(false, playingArea);
+						}
+						player.SelectedObjects = null;
+					}
+					if (player.SelectedObjects == null)
+					{
+						player.SelectedObjects = new List<WorldObjects>();
+					}
+					player.SelectedObjects.Add(this);
 					SetSelection(true, playingArea);
-					player.SelectedObject = this;
 					StartEmptying(warehouse.GetComponent<Building>());
                 }
 			}

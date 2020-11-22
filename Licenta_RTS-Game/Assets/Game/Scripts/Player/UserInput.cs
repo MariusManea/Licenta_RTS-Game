@@ -172,9 +172,12 @@ public class UserInput : MonoBehaviour
                 Vector3 hitPoint = FindHitPoint();
                 if (hitObject && hitPoint != ResourceManager.InvalidPosition)
                 {
-                    if (player.SelectedObject)
+                    if (player.SelectedObjects != null)
                     {
-                        player.SelectedObject.MouseClick(hitObject, hitPoint, player);
+                        foreach (WorldObjects selectedWorldObject in player.SelectedObjects)
+                        {
+                            selectedWorldObject.MouseClick(hitObject, hitPoint, player);
+                        }
                     }
                     else
                     {
@@ -184,7 +187,8 @@ public class UserInput : MonoBehaviour
                             if (worldObject)
                             {
                                 //we already know the player has no selected object
-                                player.SelectedObject = worldObject;
+                                player.SelectedObjects = new List<WorldObjects>();
+                                player.SelectedObjects.Add(worldObject);
                                 worldObject.SetSelection(true, player.hud.GetPlayingArea());
                             }
                         }
@@ -215,7 +219,7 @@ public class UserInput : MonoBehaviour
 
     private void RightMouseClick()
     {
-        if (player.hud.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && player.SelectedObject)
+        if (player.hud.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && player.SelectedObjects != null)
         {
             if (player.IsFindingBuildingLocation())
             {
@@ -223,8 +227,11 @@ public class UserInput : MonoBehaviour
             }
             else
             {
-                player.SelectedObject.SetSelection(false, player.hud.GetPlayingArea());
-                player.SelectedObject = null;
+                foreach (WorldObjects worldObject in player.SelectedObjects)
+                {
+                    worldObject.SetSelection(false, player.hud.GetPlayingArea());
+                }
+                player.SelectedObjects = null;
             }
         }
     }
@@ -242,7 +249,7 @@ public class UserInput : MonoBehaviour
                 GameObject hoverObject = FindHitObject();
                 if (hoverObject)
                 {
-                    if (player.SelectedObject) player.SelectedObject.SetHoverState(hoverObject);
+                    if (player.SelectedObjects != null) player.SelectedObjects[0].SetHoverState(hoverObject);
                     else if (!WorkManager.ObjectIsGround(hoverObject))
                     {
                         Player owner = hoverObject.transform.root.GetComponent<Player>();

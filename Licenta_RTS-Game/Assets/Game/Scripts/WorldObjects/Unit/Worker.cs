@@ -59,10 +59,14 @@ public class Worker : Unit
                     currentProject.Construct(amount);
                     if (!currentProject.UnderConstruction())
                     {
-                        building = false; 
+                        building = false;
                         if (audioElement != null) audioElement.Play(finishedJobSound);
                     }
                 }
+            }
+            else
+            {
+                building = false;
             }
         }
     }

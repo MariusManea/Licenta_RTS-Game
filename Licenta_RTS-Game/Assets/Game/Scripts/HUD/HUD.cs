@@ -178,6 +178,7 @@ public class HUD : MonoBehaviour
                 ownedUnits.Add(unit);
             }
         }
+        player.SelectedObjects = new List<WorldObjects>();
         foreach (Unit unit in ownedUnits)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
@@ -186,8 +187,14 @@ public class HUD : MonoBehaviour
             screenPos.z = 0;
             if (bounds.Contains(screenPos))
             {
-                Debug.Log(unit);
+                // Unit is selected
+                player.SelectedObjects.Add(unit);
+                unit.SetSelection(true, GetPlayingArea());
             }
+        }
+        if (player.SelectedObjects.Count == 0)
+        {
+            player.SelectedObjects = null;
         }
     }
 
@@ -222,16 +229,16 @@ public class HUD : MonoBehaviour
         GUI.BeginGroup(new Rect(Screen.width - ORDERS_BAR_WIDTH - BUILD_IMAGE_WIDTH, RESOURCE_BAR_HEIGHT, ORDERS_BAR_WIDTH + BUILD_IMAGE_WIDTH, Screen.height - RESOURCE_BAR_HEIGHT));
         GUI.Box(new Rect(BUILD_IMAGE_WIDTH + SCROLL_BAR_WIDTH, 0, ORDERS_BAR_WIDTH, Screen.height - RESOURCE_BAR_HEIGHT), "");
         string selectionName = "";
-        if (player.SelectedObject)
+        if (player.SelectedObjects != null)
         {
-            selectionName = player.SelectedObject.objectName;
-            if (player.SelectedObject.IsOwnedBy(player))
+            selectionName = player.SelectedObjects[0].objectName;
+            if (player.SelectedObjects[0].IsOwnedBy(player))
             {
                 //reset slider value if the selected object has changed
-                if (lastSelection && lastSelection != player.SelectedObject) sliderValue = 0.0f;
-                if (player.SelectedObject.IsActive) DrawActions(player.SelectedObject.GetActions());
+                if (lastSelection && lastSelection != player.SelectedObjects[0]) sliderValue = 0.0f;
+                if (player.SelectedObjects[0].IsActive) DrawActions(player.SelectedObjects[0].GetActions());
                 //store the current selection
-                lastSelection = player.SelectedObject;
+                lastSelection = player.SelectedObjects[0];
                 Building selectedBuilding = lastSelection.GetComponent<Building>();
                 if (selectedBuilding)
                 {
@@ -328,9 +335,15 @@ public class HUD : MonoBehaviour
                 //create the button and handle the click of that button
                 if (GUI.Button(pos, action))
                 {
-                    if (player.SelectedObject)
+                    if (player.SelectedObjects != null)
                     {
-                        player.SelectedObject.PerformAction(actions[i]);
+                        foreach(WorldObjects selectedWorldObject in player.SelectedObjects)
+                        {
+                            if (selectedWorldObject.GetType() == player.SelectedObjects[0].GetType())
+                            {
+                                selectedWorldObject.PerformAction(actions[i]);
+                            }
+                        }
                         PlayClick();
                     }
                 }

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     public Color teamColor;
 
-    public WorldObjects SelectedObject { get; set; }
+    public List<WorldObjects> SelectedObjects { get; set; }
 
     void Awake()
     {
@@ -192,6 +192,13 @@ public class Player : MonoBehaviour
         tempBuilding.SetPlayer();
         tempBuilding.SetColliders(true);
         tempCreator.SetBuilding(tempBuilding);
+        foreach(WorldObjects selectedWorldObject in SelectedObjects)
+        {
+            if (selectedWorldObject.GetType() == typeof(Worker))
+            {
+                ((Worker)selectedWorldObject).SetBuilding(tempBuilding);
+            }
+        }
         tempBuilding.StartConstruction();
         RemoveResource(ResourceType.Money, tempBuilding.cost);
     }
