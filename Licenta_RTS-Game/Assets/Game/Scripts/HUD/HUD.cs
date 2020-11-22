@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTS;
+using System;
+
 public class HUD : MonoBehaviour
 {
     private const int ORDERS_BAR_WIDTH = 150;
@@ -28,6 +30,7 @@ public class HUD : MonoBehaviour
     public GUISkin ordersSkin;
     public GUISkin selectBoxSkin;
     public GUISkin mouseCursorSkin;
+    public GUISkin multipleSelectionSkin;
 
     public Texture2D activeCursor;
     public Texture2D selectCursor, leftCursor, rightCursor, upCursor, downCursor;
@@ -56,6 +59,11 @@ public class HUD : MonoBehaviour
     public float clickVolume = 1.0f;
 
     private AudioElement audioElement;
+
+    private bool multipleSelectionActive = false;
+    private Vector3 startScreenPos;
+
+    private float multipleSelectionTimer = 0.1f;
 
 
     // Start is called before the first frame update
@@ -116,6 +124,70 @@ public class HUD : MonoBehaviour
             DrawOrdersBar();
             DrawResourceBar();
             DrawMouseCursor();
+            DrawMultipleSelectionBox();
+        }
+    }
+
+    public void ActivateMultipleSelection()
+    {
+        multipleSelectionActive = true;
+        startScreenPos = Input.mousePosition;
+    }
+
+    private void DrawMultipleSelectionBox()
+    {
+        if (player && player.isHuman)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                multipleSelectionActive = false;
+            }
+            if (multipleSelectionActive)
+            {
+                GUI.skin = multipleSelectionSkin;
+                GUI.BeginGroup(GetPlayingArea());
+                float leftPos = Mathf.Min(startScreenPos.x, Input.mousePosition.x) - ResourceManager.MultipleSelectionOffsetX;
+                float topPos = Screen.height - Mathf.Max(startScreenPos.y, Input.mousePosition.y) - ResourceManager.MultipleSelectionOffsetY;
+                float width = Mathf.Abs(startScreenPos.x - Input.mousePosition.x);
+                float height = Mathf.Abs(startScreenPos.y - Input.mousePosition.y);
+                GUI.Box(new Rect(leftPos, topPos, width, height), "");
+                GUI.EndGroup();
+                // TODO: Mai ajusteaza centrul ca scazi din el niste valori.........
+                Bounds multipleSelectionBounds = new Bounds(new Vector3(leftPos + width / 2, topPos + height / 2, 0), new Vector3(width, height, 0));
+                if (multipleSelectionTimer < 0)
+                {
+                    GetSelectedUnits(multipleSelectionBounds);
+                    multipleSelectionTimer = 0.1f;
+                }
+                else
+                {
+                    multipleSelectionTimer -= Time.deltaTime;
+                }
+            }
+        }
+    }
+
+    private void GetSelectedUnits(Bounds bounds)
+    {
+        Unit[] units = GameObject.FindObjectsOfType(typeof(Unit)) as Unit[];
+        List<Unit> ownedUnits = new List<Unit>();
+        foreach (Unit unit in units)
+        {
+            if (unit.IsOwnedBy(player))
+            {
+                ownedUnits.Add(unit);
+            }
+        }
+        foreach (Unit unit in ownedUnits)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
+            screenPos.x -= ResourceManager.MultipleSelectionOffsetX;
+            screenPos.y = Screen.height - screenPos.y - ResourceManager.MultipleSelectionOffsetY;
+            screenPos.z = 0;
+            if (bounds.Contains(screenPos))
+            {
+                Debug.Log(unit);
+            }
         }
     }
 

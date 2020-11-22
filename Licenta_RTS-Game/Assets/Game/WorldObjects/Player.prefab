@@ -167,6 +167,8 @@ MonoBehaviour:
   ordersSkin: {fileID: 11400000, guid: bbc0f5d11ad6c924c9e1779340c4164c, type: 2}
   selectBoxSkin: {fileID: 11400000, guid: c72174892b8d38240bdd96944f8f34de, type: 2}
   mouseCursorSkin: {fileID: 11400000, guid: 10e17f9e86ecd684e8ec26749c9524bf, type: 2}
+  multipleSelectionSkin: {fileID: 11400000, guid: b5081c6db869e644f9f4e6cc9e29c1b2,
+    type: 2}
   activeCursor: {fileID: 2800000, guid: cf05dac86affa2b499c8ad31201f3cb7, type: 3}
   selectCursor: {fileID: 2800000, guid: 14af26a2c06d59e438661294a90ffbea, type: 3}
   leftCursor: {fileID: 2800000, guid: b0935e8dc33081a478ed3da1c5b44420, type: 3}

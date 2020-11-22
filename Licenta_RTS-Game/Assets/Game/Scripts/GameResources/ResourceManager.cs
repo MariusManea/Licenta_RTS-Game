@@ -97,6 +97,7 @@ namespace RTS
         private static float buttonHeight = 48;
         private static float headerHeight = 128, headerWidth = 256;
         private static float textHeight = 36, padding = 32;
+        private static Vector2 multipleSelectionOffset = new Vector2(5, 25);
         public static float PauseMenuHeight { get { return headerHeight + 2 * buttonHeight + 4 * padding; } }
         public static float MenuWidth { get { return headerWidth + 2 * padding; } }
         public static float ButtonHeight { get { return buttonHeight; } }
@@ -105,6 +106,8 @@ namespace RTS
         public static float HeaderWidth { get { return headerWidth; } }
         public static float TextHeight { get { return textHeight; } }
         public static float Padding { get { return padding; } }
+        public static float MultipleSelectionOffsetX { get { return multipleSelectionOffset.x; } }
+        public static float MultipleSelectionOffsetY { get { return multipleSelectionOffset.y; } }
 
         public static string LevelName { get; set; }
 

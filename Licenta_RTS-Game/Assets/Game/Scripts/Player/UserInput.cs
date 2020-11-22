@@ -172,15 +172,25 @@ public class UserInput : MonoBehaviour
                 Vector3 hitPoint = FindHitPoint();
                 if (hitObject && hitPoint != ResourceManager.InvalidPosition)
                 {
-                    if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
-                    else if (!WorkManager.ObjectIsGround(hitObject))
+                    if (player.SelectedObject)
                     {
-                        WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
-                        if (worldObject)
+                        player.SelectedObject.MouseClick(hitObject, hitPoint, player);
+                    }
+                    else
+                    {
+                        if (!WorkManager.ObjectIsGround(hitObject))
                         {
-                            //we already know the player has no selected object
-                            player.SelectedObject = worldObject;
-                            worldObject.SetSelection(true, player.hud.GetPlayingArea());
+                            WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
+                            if (worldObject)
+                            {
+                                //we already know the player has no selected object
+                                player.SelectedObject = worldObject;
+                                worldObject.SetSelection(true, player.hud.GetPlayingArea());
+                            }
+                        }
+                        else
+                        {
+                            player.hud.ActivateMultipleSelection();
                         }
                     }
                 }

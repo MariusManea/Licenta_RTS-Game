@@ -66,14 +66,17 @@ public class Unit : WorldObjects
         if (player && player.isHuman && currentlySelected)
         {
             bool moveHover = false;
-            if (WorkManager.ObjectIsGround(hoverObject))
+            if (Input.mousePosition.x > ResourceManager.ScrollWidth && Input.mousePosition.y > ResourceManager.ScrollWidth)
             {
-                moveHover = true;
-            }
-            else
-            {
-                Resource resource = hoverObject.transform.parent.GetComponent<Resource>();
-                if (resource && resource.isEmpty()) moveHover = true;
+                if (WorkManager.ObjectIsGround(hoverObject))
+                {
+                    moveHover = true;
+                }
+                else
+                {
+                    Resource resource = hoverObject.transform.parent.GetComponent<Resource>();
+                    if (resource && resource.isEmpty()) moveHover = true;
+                }
             }
             if (moveHover) player.hud.SetCursorState(CursorState.Move);
         }
@@ -110,7 +113,10 @@ public class Unit : WorldObjects
         if (audioElement != null) audioElement.Play(moveSound);
         destinationTarget = null;
         this.destination = destination;
-        targetRotation = Quaternion.LookRotation(this.destination - transform.position);
+        Vector3 rotateTo = this.transform.position;
+        rotateTo = Vector3.Lerp(rotateTo, destination, 0.01f);
+        rotateTo.y = terrain.SampleHeight(rotateTo);
+        targetRotation = Quaternion.LookRotation(rotateTo - transform.position);
         rotating = true;
         moving = false;
     }
@@ -123,6 +129,7 @@ public class Unit : WorldObjects
 
     private void TurnToTarget()
     {
+
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
         //sometimes it gets stuck exactly 180 degrees out in the calculation and does nothing, this check fixes that
         Quaternion inverseTargetRotation = new Quaternion(-targetRotation.x, -targetRotation.y, -targetRotation.z, -targetRotation.w);
@@ -139,7 +146,12 @@ public class Unit : WorldObjects
     private void MakeMove()
     {
         this.destination.y = terrain.SampleHeight(this.transform.position);
+        Vector3 ahead = this.transform.position;
+        ahead = Vector3.Lerp(ahead, destination, Time.deltaTime * moveSpeed);
+        ahead.y = terrain.SampleHeight(ahead);
+        transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(ahead - this.transform.position), Time.deltaTime * moveSpeed);
         transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
+        
         if (transform.position == destination)
         {
             if (audioElement != null) audioElement.Stop(driveSound);

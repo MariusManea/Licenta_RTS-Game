@@ -153,14 +153,25 @@ public class Player : MonoBehaviour
 
         //Determine the screen coordinates for the corners of the selection bounds
         List<Vector3> corners = new List<Vector3>();
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy + ey, cz + ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy + ey, cz - ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy - ey, cz + ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy + ey, cz + ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + ex, cy - ey, cz - ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy - ey, cz + ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy + ey, cz - ez)));
-        corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - ex, cy - ey, cz - ez)));
+        float[] cfs = { 1, 0.66f, 0.33f, 0.05f };
+        foreach(float cfx in cfs)
+        {
+            foreach(float cfy in cfs)
+            {
+                foreach(float cfz in cfs)
+                {
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz + cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz - cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy - cfy * ey, cz + cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy + cfy * ey, cz + cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy - cfy * ey, cz - cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy - cfy * ey, cz + cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy + cfy * ey, cz - cfz * ez)));
+                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy - cfy * ey, cz - cfz * ez)));
+                }
+            }
+        }
+        
 
         foreach (Vector3 corner in corners)
         {
