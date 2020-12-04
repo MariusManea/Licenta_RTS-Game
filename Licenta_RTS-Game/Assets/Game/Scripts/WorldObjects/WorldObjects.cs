@@ -194,6 +194,11 @@ public class WorldObjects : MonoBehaviour
         return actions;
     }
 
+    public bool HasActions()
+    {
+        return (actions != null) && (actions.Length > 0);
+    }
+
     public virtual void PerformAction(string actionToPerform)
     {
         //it is up to children with specific actions to determine what to do with each of those actions
@@ -216,8 +221,33 @@ public class WorldObjects : MonoBehaviour
                     if (player && player.isHuman)
                     { //this object is controlled by a human player
                       //start attack if object is not owned by the same player and this object can attack, else select
-                        if (player.userName != owner.userName && CanAttack()) BeginAttack(worldObject);
-                        else ChangeSelection(worldObject, controller);
+                        if (player.userName != owner.userName && CanAttack())
+                        {
+                            BeginAttack(worldObject);
+                        }
+                        else
+                        {
+                            if (!CanAttack())
+                            {
+                                bool foundAnAttacker = false;
+                                foreach (WorldObjects selWO in player.SelectedObjects)
+                                {
+                                    if (selWO.CanAttack())
+                                    {
+                                        foundAnAttacker = true;
+                                        break;
+                                    }
+                                }
+                                if (!foundAnAttacker)
+                                {
+                                    ChangeSelection(worldObject, controller);
+                                }
+                            }
+                            else
+                            {
+                                ChangeSelection(worldObject, controller);
+                            }
+                        }
                     }
                     else ChangeSelection(worldObject, controller);
                 }
@@ -242,6 +272,7 @@ public class WorldObjects : MonoBehaviour
     {
         Vector3 targetLocation = target.transform.position;
         Vector3 direction = targetLocation - transform.position;
+        direction.y = 0;
         if (direction.sqrMagnitude < weaponRange * weaponRange)
         {
             return true;
@@ -267,7 +298,7 @@ public class WorldObjects : MonoBehaviour
         Vector3 targetLocation = target.transform.position;
         Vector3 direction = targetLocation - transform.position;
         float targetDistance = direction.magnitude;
-        float distanceToTravel = targetDistance - (0.9f * weaponRange);
+        float distanceToTravel = targetDistance - (0.8f * weaponRange);
         return Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
     }
 

@@ -26,10 +26,8 @@ public class MainMenu : Menu
 
     private void NewGame()
     {
-        ResourceManager.MenuOpen = false;
-        SceneManager.LoadScene("GameScene");
-        //makes sure that the loaded level runs at normal speed
-        Time.timeScale = 1.0f;
+        GetComponent<MainMenu>().enabled = false;
+        GetComponent<GameSizeMenu>().enabled = true;
     }
 
     private void ChangePlayer()

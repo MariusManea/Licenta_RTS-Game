@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RTS;
+using Pathfinding;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
@@ -11,6 +12,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     public int playersNumber;
     public Color[] teamColors;
+    public GameSize mapSize;
 
     void Awake()
     {
@@ -52,6 +54,11 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             {
                 if (SceneManager.GetActiveScene().name == "GameScene")
                 {
+                    Terrain terrain = (Terrain)GameObject.FindObjectOfType(typeof(Terrain));
+                    if (terrain)
+                    {
+                        terrain.terrainData.size = new Vector3((float)mapSize, 20, (float)mapSize);
+                    }
                     InitNewWorld(false);
                 }
 
@@ -59,6 +66,16 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             }
             Time.timeScale = 1.0f;
             ResourceManager.MenuOpen = false;
+           
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                AstarPath.active.data.gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
+                AstarPath.active.data.gridGraph.cutCorners = false;
+                AstarPath.active.data.gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
+                AstarPath.active.data.gridGraph.maxSlope = 35;
+                AstarPath.active.data.gridGraph.Scan();
+            }
+
         }
     }
 

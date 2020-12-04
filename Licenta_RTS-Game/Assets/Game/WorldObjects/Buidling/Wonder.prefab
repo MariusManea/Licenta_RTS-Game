@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6967115235374344976}
   - component: {fileID: 8541427517068640023}
   - component: {fileID: 7214070383828720370}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Layer 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8205489399648525092}
   - component: {fileID: 4074792239998794743}
   - component: {fileID: 8177520772156446560}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Layer 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 6004239729702450306}
   - component: {fileID: 1704708389113811110}
   - component: {fileID: 3682490246206578715}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Layer 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8297951713767302323}
   - component: {fileID: 8389295728371509150}
   - component: {fileID: 1129066388744591004}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Layer 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,8 @@ GameObject:
   - component: {fileID: 8151102201029880242}
   - component: {fileID: 9167840915204343150}
   - component: {fileID: 3554975340016514909}
-  m_Layer: 0
+  - component: {fileID: 5927979078051389794}
+  m_Layer: 12
   m_Name: Layer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,6 +476,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5927979078051389794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672829962193620604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 6451088527087783655
+  updateError: 1
+  checkTime: 100
 --- !u!1 &6950984151013509317
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1783129854321826177}
   - component: {fileID: 7297362417750793721}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wonder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,6 +554,7 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
+  detectionRange: 20
   maxBuildProgress: 0
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}

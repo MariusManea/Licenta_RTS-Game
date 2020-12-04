@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5937587717641441468}
   - component: {fileID: 5937587717641441469}
   - component: {fileID: 2009113086597463515}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RightThread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 5937587718439433447}
   - component: {fileID: 5937587718439433444}
   - component: {fileID: 7047564717473617612}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 5937587718464131536}
   - component: {fileID: 5937587718464131537}
   - component: {fileID: 3474688205314298750}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 5937587718464729312}
   - component: {fileID: 5937587718464729313}
   - component: {fileID: 5300372334491556929}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 5937587718711853637}
   - component: {fileID: 5937587718711853634}
   - component: {fileID: 4296246218588974951}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LeftThread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5937587719257022172}
   - component: {fileID: 7956408082648847918}
-  m_Layer: 0
+  - component: {fileID: 2183350225004579487}
+  - component: {fileID: 8826352929046331294}
+  m_Layer: 13
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,9 +607,75 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
+  detectionRange: 20
   moveSpeed: 5
   rotateSpeed: 2
   driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
   moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
   driveVolume: 0.5
   moveVolume: 1
+  graph: {fileID: 0}
+--- !u!114 &2183350225004579487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937587719257022170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &8826352929046331294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937587719257022170}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 1.2
+  height: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 5
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 0
+  enableRotation: 1
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 500
+  slowdownDistance: 7
+  pickNextWaypointDist: 10
+  endReachedDistance: 2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 1
+  constrainInsideGraph: 0

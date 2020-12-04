@@ -19,6 +19,11 @@ public class HUD : MonoBehaviour
     private const int SCROLL_BAR_WIDTH = 22;
     private const int BUILD_IMAGE_PADDING = 8;
 
+    private int leftPosSelected = 0;
+    private int topPosSelected = 0;
+    private int widthSelected = 0;
+    private int heightSelected = 0;
+
     private int buildAreaHeight = 0;
 
     private Player player;
@@ -31,6 +36,7 @@ public class HUD : MonoBehaviour
     public GUISkin selectBoxSkin;
     public GUISkin mouseCursorSkin;
     public GUISkin multipleSelectionSkin;
+    public GUISkin selectedBarSkin;
 
     public Texture2D activeCursor;
     public Texture2D selectCursor, leftCursor, rightCursor, upCursor, downCursor;
@@ -64,6 +70,9 @@ public class HUD : MonoBehaviour
     private Vector3 startScreenPos;
 
     private float multipleSelectionTimer = 0.1f;
+
+    private List<WorldObjects> lastSelectedObjects;
+    private Dictionary<Texture2D, int> uniqueSelectedUnits;
 
 
     // Start is called before the first frame update
@@ -125,6 +134,113 @@ public class HUD : MonoBehaviour
             DrawResourceBar();
             DrawMouseCursor();
             DrawMultipleSelectionBox();
+            DrawSelectedUnits();
+        }
+    }
+
+    public class Comparer : IComparer<WorldObjects>
+    {
+        public int Compare(WorldObjects o1, WorldObjects o2)
+        {
+            return o1.name.CompareTo(o2.name);
+        }
+    }
+
+    private void GetUniqueSelectedObjects()
+    {
+        uniqueSelectedUnits = new Dictionary<Texture2D, int>();
+        lastSelectedObjects.Sort(new Comparer());
+        foreach(WorldObjects selectedWorldObject in lastSelectedObjects)
+        {
+            if (selectedWorldObject.GetType().IsSubclassOf(typeof(Unit)) && selectedWorldObject.IsOwnedBy(player))
+            {
+                if (!uniqueSelectedUnits.ContainsKey(selectedWorldObject.buildImage))
+                {
+                    uniqueSelectedUnits.Add(selectedWorldObject.buildImage, 1);
+                }
+                else
+                {
+                    uniqueSelectedUnits[selectedWorldObject.buildImage]++;
+                }
+            }
+        }
+    }
+
+    private void DrawSelectedUnits()
+    {
+        if (player && player.isHuman && player.SelectedObjects != null)
+        {
+            
+            if (lastSelectedObjects != player.SelectedObjects) {
+                lastSelectedObjects = player.SelectedObjects;
+                GetUniqueSelectedObjects();
+            }
+            if (uniqueSelectedUnits.Count > 0)
+            {
+                GUI.skin = selectedBarSkin;
+                int N = uniqueSelectedUnits.Count;
+                float leftPos = Screen.width - ORDERS_BAR_WIDTH - N * ResourceManager.SelectedUnitButtonDimension - (N - 1) * ResourceManager.SelectedUnitButtonSpacing;
+                float topPos = Screen.height - 3 / 2.0f * ResourceManager.SelectedUnitButtonDimension;
+                float width = N * ResourceManager.SelectedUnitButtonDimension + (N - 1) * ResourceManager.SelectedUnitButtonSpacing;
+                float height = ResourceManager.SelectedUnitButtonDimension;
+                leftPosSelected = (int)(leftPos - ResourceManager.SelectedUnitButtonSpacing);
+                topPosSelected = (int)(topPos - ResourceManager.SelectedUnitButtonSpacing);
+                widthSelected = (int)(width + 2 * ResourceManager.SelectedUnitButtonSpacing);
+                heightSelected = (int)(height + 2 * ResourceManager.SelectedUnitButtonSpacing);
+                GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
+                GUI.Box(new Rect(leftPosSelected, topPosSelected, widthSelected, heightSelected), "");
+                foreach (Texture2D uniqueUnit in uniqueSelectedUnits.Keys)
+                {
+                    GUIContent content = new GUIContent(uniqueSelectedUnits[uniqueUnit].ToString(), uniqueUnit);
+                    if (GUI.Button(new Rect(leftPos, topPos, ResourceManager.SelectedUnitButtonDimension, ResourceManager.SelectedUnitButtonDimension), content))
+                    {
+                        Event e = Event.current;
+                        if (Event.current.button == 0)
+                        {
+                            List<WorldObjects> newList = new List<WorldObjects>();
+                            foreach (WorldObjects selWorldObject in player.SelectedObjects)
+                            {
+                                if (selWorldObject.buildImage == uniqueUnit)
+                                {
+                                    newList.Add(selWorldObject);
+                                }
+                                else
+                                {
+                                    selWorldObject.SetSelection(false, GetPlayingArea());
+                                }
+                            }
+                            player.SelectedObjects = newList;
+                        }
+                        if (Event.current.button == 1)
+                        {
+                            for (int i = 0; i < lastSelectedObjects.Count; i++)
+                            {
+                                WorldObjects selWorldObject = lastSelectedObjects[i];
+                                if (selWorldObject.buildImage == uniqueUnit)
+                                {
+                                    selWorldObject.SetSelection(false, GetPlayingArea());
+                                    lastSelectedObjects.Remove(selWorldObject);
+                                    break;
+                                }
+                            }
+                            if (lastSelectedObjects.Count == 0)
+                            {
+                                player.SelectedObjects = null;
+                            }
+                            else
+                            {
+                                player.SelectedObjects = new List<WorldObjects>(lastSelectedObjects);
+                            }
+                        }
+                    }
+                    leftPos += ResourceManager.SelectedUnitButtonDimension + ResourceManager.SelectedUnitButtonSpacing;
+                }
+                GUI.EndGroup();
+            }
+        }
+        else
+        {
+            leftPosSelected = topPosSelected = widthSelected = heightSelected = 0;
         }
     }
 
@@ -152,7 +268,6 @@ public class HUD : MonoBehaviour
                 float height = Mathf.Abs(startScreenPos.y - Input.mousePosition.y);
                 GUI.Box(new Rect(leftPos, topPos, width, height), "");
                 GUI.EndGroup();
-                // TODO: Mai ajusteaza centrul ca scazi din el niste valori.........
                 Bounds multipleSelectionBounds = new Bounds(new Vector3(leftPos + width / 2, topPos + height / 2, 0), new Vector3(width, height, 0));
                 if (multipleSelectionTimer < 0)
                 {
@@ -191,6 +306,10 @@ public class HUD : MonoBehaviour
                 player.SelectedObjects.Add(unit);
                 unit.SetSelection(true, GetPlayingArea());
             }
+            else
+            {
+                unit.SetSelection(false, GetPlayingArea());
+            }
         }
         if (player.SelectedObjects.Count == 0)
         {
@@ -223,6 +342,18 @@ public class HUD : MonoBehaviour
         GUI.EndGroup();
     }
 
+    private WorldObjects WorldObjectWithActions(List<WorldObjects> selectedObjects)
+    {
+        foreach (WorldObjects selectedWorldObject in selectedObjects)
+        {
+            if (selectedWorldObject.HasActions())
+            {
+                return selectedWorldObject;
+            }
+        }
+        return null;
+    }
+
     private void DrawOrdersBar()
     {
         GUI.skin = ordersSkin;
@@ -231,19 +362,23 @@ public class HUD : MonoBehaviour
         string selectionName = "";
         if (player.SelectedObjects != null)
         {
-            selectionName = player.SelectedObjects[0].objectName;
-            if (player.SelectedObjects[0].IsOwnedBy(player))
+            WorldObjects selectedObjectWithActions = WorldObjectWithActions(player.SelectedObjects);
+            if (selectedObjectWithActions != null)
             {
-                //reset slider value if the selected object has changed
-                if (lastSelection && lastSelection != player.SelectedObjects[0]) sliderValue = 0.0f;
-                if (player.SelectedObjects[0].IsActive) DrawActions(player.SelectedObjects[0].GetActions());
-                //store the current selection
-                lastSelection = player.SelectedObjects[0];
-                Building selectedBuilding = lastSelection.GetComponent<Building>();
-                if (selectedBuilding)
+                selectionName = selectedObjectWithActions.objectName;
+                if (selectedObjectWithActions.IsOwnedBy(player))
                 {
-                    DrawBuildQueue(selectedBuilding.getBuildQueueValues(), selectedBuilding.getBuildPercentage());
-                    DrawStandardBuildingOptions(selectedBuilding);
+                    //reset slider value if the selected object has changed
+                    if (lastSelection && lastSelection != selectedObjectWithActions) sliderValue = 0.0f;
+                    if (selectedObjectWithActions.IsActive) DrawActions(selectedObjectWithActions.GetActions());
+                    //store the current selection
+                    lastSelection = selectedObjectWithActions;
+                    Building selectedBuilding = lastSelection.GetComponent<Building>();
+                    if (selectedBuilding)
+                    {
+                        DrawBuildQueue(selectedBuilding.getBuildQueueValues(), selectedBuilding.getBuildPercentage());
+                        DrawStandardBuildingOptions(selectedBuilding);
+                    }
                 }
             }
         }
@@ -417,7 +552,8 @@ public class HUD : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         bool insideWidth = mousePos.x >= 0 && mousePos.x <= Screen.width - ORDERS_BAR_WIDTH;
         bool insideHeight = mousePos.y >= 0 && mousePos.y <= Screen.height - RESOURCE_BAR_HEIGHT;
-        return insideWidth && insideHeight;
+        bool outsideSelectedUnits = mousePos.x < leftPosSelected || (Screen.height - mousePos.y) < topPosSelected || mousePos.x > (leftPosSelected + widthSelected) || (Screen.height - mousePos.y) > (topPosSelected + heightSelected);
+        return insideWidth && insideHeight && outsideSelectedUnits;
     }
 
     public Rect GetPlayingArea()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2142998638540568302}
   - component: {fileID: 5951861231976859994}
   - component: {fileID: -3810437723980770213}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Refinery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +60,7 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
+  detectionRange: 20
   maxBuildProgress: 10
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
@@ -90,7 +91,7 @@ GameObject:
   - component: {fileID: 3476214663883712753}
   - component: {fileID: 7839139821613942128}
   - component: {fileID: 6920685804078412487}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +200,8 @@ GameObject:
   - component: {fileID: 4724207691013478090}
   - component: {fileID: 422368282243122301}
   - component: {fileID: 3027223692074461488}
-  m_Layer: 0
+  - component: {fileID: 9072578134965819935}
+  m_Layer: 12
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,3 +296,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9072578134965819935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185099159587433769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 260426755762120943
+  updateError: 1
+  checkTime: 100

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 public class Harvester : Unit
 {
-
+	private Quaternion aimRotation;
 	public float capacity, collectionAmount, depositAmount;
 	public Building resourceStore;
 	private Building oldStore;
@@ -59,6 +59,7 @@ public class Harvester : Unit
 				foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = true;
 				if (harvesting)
 				{
+					AimAtTarget(resourceDeposit.gameObject);
 					Collect();
 					if (currentLoad >= capacity)
 					{
@@ -89,6 +90,7 @@ public class Harvester : Unit
 				}
 				else
 				{
+					AimAtTarget(resourceStore.gameObject);
 					Deposit();
 					if (currentLoad <= 0)
 					{
@@ -233,38 +235,72 @@ public class Harvester : Unit
 
 	private void Collect()
 	{
-		if (audioElement != null && Time.timeScale > 0) audioElement.Play(harvestSound);
-		float collect = collectionAmount * Time.deltaTime;
-		//make sure that the harvester cannot collect more than it can carry
-		if (currentLoad + collect > capacity) collect = capacity - currentLoad;
-		if (resourceDeposit.isEmpty())
+		if (aiming)
 		{
-			Arms[] arms = GetComponentsInChildren<Arms>();
-			foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
-			DecideWhatToDo();
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, aimRotation, 5);
+			CalculateBounds();
+			//sometimes it gets stuck exactly 180 degrees out in the calculation and does nothing, this check fixes that
+			Quaternion inverseAimRotation = new Quaternion(-aimRotation.x, -aimRotation.y, -aimRotation.z, -aimRotation.w);
+			if (transform.rotation == aimRotation || transform.rotation == inverseAimRotation)
+			{
+				aiming = false;
+			}
 		}
-		else
+		if (!aiming)
 		{
-			resourceDeposit.Remove(collect);
+			if (audioElement != null && Time.timeScale > 0) audioElement.Play(harvestSound);
+			float collect = collectionAmount * Time.deltaTime;
+			//make sure that the harvester cannot collect more than it can carry
+			if (currentLoad + collect > capacity) collect = capacity - currentLoad;
+			if (resourceDeposit.isEmpty())
+			{
+				Arms[] arms = GetComponentsInChildren<Arms>();
+				foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
+				DecideWhatToDo();
+			}
+			else
+			{
+				resourceDeposit.Remove(collect);
+			}
+			currentLoad += collect;
 		}
-		currentLoad += collect;
 	}
 
 	private void Deposit()
 	{
-		currentLoad = Mathf.Floor(currentLoad);
-		if (audioElement != null && Time.timeScale > 0) audioElement.Play(emptyHarvestSound);
-		currentDeposit += depositAmount * Time.deltaTime;
-		int deposit = Mathf.FloorToInt(currentDeposit);
-		if (deposit >= 1)
+		if (aiming)
 		{
-			if (deposit > currentLoad) deposit = Mathf.FloorToInt(currentLoad);
-			currentDeposit -= deposit;
-			currentLoad -= deposit;
-			ResourceType depositType = harvestType;
-			if (harvestType == ResourceType.Ore) depositType = ResourceType.Money;
-			player.AddResource(depositType, deposit);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, aimRotation, 5);
+			CalculateBounds();
+			//sometimes it gets stuck exactly 180 degrees out in the calculation and does nothing, this check fixes that
+			Quaternion inverseAimRotation = new Quaternion(-aimRotation.x, -aimRotation.y, -aimRotation.z, -aimRotation.w);
+			if (transform.rotation == aimRotation || transform.rotation == inverseAimRotation)
+			{
+				aiming = false;
+			}
 		}
+		if (!aiming)
+		{
+			currentLoad = Mathf.Floor(currentLoad);
+			if (audioElement != null && Time.timeScale > 0) audioElement.Play(emptyHarvestSound);
+			currentDeposit += depositAmount * Time.deltaTime;
+			int deposit = Mathf.FloorToInt(currentDeposit);
+			if (deposit >= 1)
+			{
+				if (deposit > currentLoad) deposit = Mathf.FloorToInt(currentLoad);
+				currentDeposit -= deposit;
+				currentLoad -= deposit;
+				ResourceType depositType = harvestType;
+				if (harvestType == ResourceType.Ore) depositType = ResourceType.Money;
+				player.AddResource(depositType, deposit);
+			}
+		}
+	}
+
+	private void AimAtTarget(GameObject target)
+	{
+		base.AimAtTarget();
+		aimRotation = Quaternion.LookRotation(target.transform.position - transform.position);
 	}
 
 	protected override void DrawSelectionBox(Rect selectBox)

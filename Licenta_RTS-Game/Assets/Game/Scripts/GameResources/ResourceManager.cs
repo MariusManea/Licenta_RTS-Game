@@ -14,7 +14,7 @@ namespace RTS
 
         private static Vector3 zoomAmount = new Vector3(0, -5, 5);
         public static Vector3 ZoomAmount { get { return zoomAmount; } }
-        public static int ScrollWidth { get { return 30; } }
+        public static int ScrollWidth { get { return 20; } }
         public static float MinCameraHeight { get { return 10; } }
         public static float MaxCameraHeight { get { return 80; } }
 
@@ -76,6 +76,15 @@ namespace RTS
             return gameObjectList.GetAvatars();
         }
 
+        private static GameSize[] gameSizes = new GameSize[]
+            {
+                GameSize.Small, GameSize.Medium, GameSize.Big, GameSize.Huge
+            };
+        public static GameSize[] GetGameSizes()
+        {
+            return gameSizes;
+        }
+
         private static Texture2D healthyTexture, damagedTexture, criticalTexture;
         public static Texture2D HealthyTexture { get { return healthyTexture; } }
         public static Texture2D DamagedTexture { get { return damagedTexture; } }
@@ -109,6 +118,8 @@ namespace RTS
         public static float MultipleSelectionOffsetX { get { return multipleSelectionOffset.x; } }
         public static float MultipleSelectionOffsetY { get { return multipleSelectionOffset.y; } }
 
+        public static float SelectedUnitButtonDimension { get { return 1.25f * buttonHeight; } }
+        public static float SelectedUnitButtonSpacing { get { return buttonHeight / 16.0f; } }
         public static string LevelName { get; set; }
 
         public static int GetNewObjectId()

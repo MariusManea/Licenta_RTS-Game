@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2474245748124722397}
   - component: {fileID: 2474245748124722394}
   - component: {fileID: 6285324521860361418}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 2474245748291464429}
   - component: {fileID: 2474245748291464426}
   - component: {fileID: 7969633468223579119}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 2474245748299086550}
   - component: {fileID: 2474245748299086551}
   - component: {fileID: 6983490815257180739}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 2474245748376669617}
   - component: {fileID: 2474245748376669630}
   - component: {fileID: 8719049659565147438}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelRR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 2474245748395190726}
   - component: {fileID: 2474245748395190727}
   - component: {fileID: 7822484232188934668}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 2474245748517713100}
   - component: {fileID: 2474245748517713101}
   - component: {fileID: 1404169628822648684}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 2474245749027880810}
   - component: {fileID: 2474245749027880811}
   - component: {fileID: 4665003026137919683}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ArmL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 2474245749039317076}
   - component: {fileID: 2474245749039317077}
   - component: {fileID: 5579636277655632685}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelRL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 2474245749109090956}
   - component: {fileID: 2474245749109090957}
   - component: {fileID: 913094285795377588}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ArmR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 2474245749177035900}
   - component: {fileID: 2474245749177035901}
   - component: {fileID: 2801940208361096008}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ArmC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2474245749520774764}
   - component: {fileID: 2474245749520774765}
-  m_Layer: 0
+  - component: {fileID: -1832736483374879322}
+  - component: {fileID: 8030120171713444246}
+  m_Layer: 13
   m_Name: Harvester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,12 +1188,14 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
+  detectionRange: 20
   moveSpeed: 4
   rotateSpeed: 4
   driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
   moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
   driveVolume: 0.5
   moveVolume: 1
+  graph: {fileID: 0}
   capacity: 100
   collectionAmount: 5
   depositAmount: 10
@@ -1202,3 +1206,67 @@ MonoBehaviour:
   emptyHarvestVolume: 0.5
   harvestVolume: 0.5
   startHarvestVolume: 1
+--- !u!114 &-1832736483374879322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749520774762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &8030120171713444246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474245749520774762}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 1.2
+  height: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 4
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 0
+  enableRotation: 1
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 500
+  slowdownDistance: 7
+  pickNextWaypointDist: 10
+  endReachedDistance: 2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 1
+  constrainInsideGraph: 0

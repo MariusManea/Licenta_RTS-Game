@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTS;
+using Pathfinding;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -139,7 +141,6 @@ public class Player : MonoBehaviour
 
     public bool CanPlaceBuilding()
     {
-        bool canPlace = true;
 
         Bounds placeBounds = tempBuilding.GetSelectionBounds();
         //shorthand for the coordinates of the center of the selection bounds
@@ -154,11 +155,13 @@ public class Player : MonoBehaviour
         //Determine the screen coordinates for the corners of the selection bounds
         List<Vector3> corners = new List<Vector3>();
         float[] cfs = { 1, 0.66f, 0.33f, 0.05f };
+        Terrain terrain = (Terrain)FindObjectOfType(typeof(Terrain));
+        List<float> heights = new List<float>();
         foreach(float cfx in cfs)
         {
-            foreach(float cfy in cfs)
+            foreach(float cfz in cfs)
             {
-                foreach(float cfz in cfs)
+                foreach(float cfy in cfs)
                 {
                     corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz + cfz * ez)));
                     corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz - cfz * ez)));
@@ -169,9 +172,14 @@ public class Player : MonoBehaviour
                     corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy + cfy * ey, cz - cfz * ez)));
                     corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy - cfy * ey, cz - cfz * ez)));
                 }
+                heights.Add(terrain.SampleHeight(new Vector3(cx + cfx * ex, 0, cz + cfz * ez)));
+                heights.Add(terrain.SampleHeight(new Vector3(cx + cfx * ex, 0, cz - cfz * ez)));
+                heights.Add(terrain.SampleHeight(new Vector3(cx - cfx * ex, 0, cz + cfz * ez)));
+                heights.Add(terrain.SampleHeight(new Vector3(cx - cfx * ex, 0, cz - cfz * ez)));
             }
         }
-        
+
+        if (heights.Max() - heights.Min() > 1.5f) return false;
 
         foreach (Vector3 corner in corners)
         {
@@ -179,10 +187,10 @@ public class Player : MonoBehaviour
             if (hitObject && !WorkManager.ObjectIsGround(hitObject))
             {
                 WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
-                if (worldObject && placeBounds.Intersects(worldObject.GetSelectionBounds())) canPlace = false;
+                if (worldObject && placeBounds.Intersects(worldObject.GetSelectionBounds())) return false;
             }
         }
-        return canPlace;
+        return true;
     }
     public void StartConstruction()
     {
@@ -191,6 +199,8 @@ public class Player : MonoBehaviour
         if (buildings) tempBuilding.transform.parent = buildings.transform;
         tempBuilding.SetPlayer();
         tempBuilding.SetColliders(true);
+        tempBuilding.GetComponentInChildren<DynamicGridObstacle>().DoUpdateGraphs();
+        AstarPath.active.FlushGraphUpdates();
         tempCreator.SetBuilding(tempBuilding);
         foreach(WorldObjects selectedWorldObject in SelectedObjects)
         {

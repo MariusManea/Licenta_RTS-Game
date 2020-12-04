@@ -95,6 +95,7 @@ namespace RTS
             WriteVector(writer, "Position", ground.transform.position);
             WriteQuaternion(writer, "Rotation", ground.transform.rotation);
             WriteVector(writer, "Scale", ground.transform.localScale);
+            WriteVector(writer, "Size", ground.GetComponentInChildren<Terrain>().terrainData.size);
 
             writer.WriteEndObject();
         }

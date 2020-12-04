@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using RTS;
 
 namespace RTS
 {
@@ -132,7 +133,7 @@ namespace RTS
         private static void LoadTerrain(JsonTextReader reader)
         {
             if (reader == null) return;
-            Vector3 position = new Vector3(0, 0, 0), scale = new Vector3(1, 1, 1);
+            Vector3 position = new Vector3(0, 0, 0), scale = new Vector3(1, 1, 1), size = new Vector3(1000, 20, 1000);
             Quaternion rotation = new Quaternion(0, 0, 0, 0);
             while (reader.Read())
             {
@@ -143,12 +144,15 @@ namespace RTS
                         if ((string)reader.Value == "Position") position = LoadVector(reader);
                         else if ((string)reader.Value == "Rotation") rotation = LoadQuaternion(reader);
                         else if ((string)reader.Value == "Scale") scale = LoadVector(reader);
+                        else if ((string)reader.Value == "Size") size = LoadVector(reader);
                     }
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
                     GameObject ground = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("GroundHolder"), position, rotation);
                     ground.transform.localScale = scale;
+                    ground.GetComponentInChildren<Terrain>().terrainData.size = size;
+                    ((LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader))).mapSize = (GameSize)size.x;
                     return;
                 }
             }

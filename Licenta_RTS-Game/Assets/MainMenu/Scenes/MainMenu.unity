@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 687561281}
   - component: {fileID: 687561282}
   - component: {fileID: 687561283}
+  - component: {fileID: 687561284}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -257,6 +258,21 @@ MonoBehaviour:
   selectionSkin: {fileID: 11400000, guid: 8115ec67a179f2c4a86e29d18689f083, type: 2}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
+--- !u!114 &687561284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687561277}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9b66536b69aec488d537aeac9b16b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
+  clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
+  clickVolume: 1
 --- !u!1 &942833843
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,10 +310,11 @@ MonoBehaviour:
   - {r: 0.31857443, g: 1, b: 0, a: 1}
   - {r: 0, g: 0.5754717, b: 0.38201103, a: 1}
   - {r: 0.7735849, g: 0.38484368, b: 0.08392668, a: 1}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0.93225074, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.6792453, g: 0.0032039948, b: 0.5716932, a: 1}
+  mapSize: 1000
 --- !u!4 &942833845
 Transform:
   m_ObjectHideFlags: 0

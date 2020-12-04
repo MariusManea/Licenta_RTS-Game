@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1602041578871065630}
   - component: {fileID: 3460589458938608199}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 6392627906974877961}
   - component: {fileID: 4939719234119088686}
   - component: {fileID: 6839400478036627562}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,8 @@ GameObject:
   - component: {fileID: 4525394870644028765}
   - component: {fileID: 8099310471395589807}
   - component: {fileID: 6939816736084056452}
-  m_Layer: 0
+  - component: {fileID: 2202519718846277565}
+  m_Layer: 12
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,3 +284,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b972df860500549a68215fe1a68685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2202519718846277565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056033442509378208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 3048968526456357221
+  updateError: 1
+  checkTime: 100

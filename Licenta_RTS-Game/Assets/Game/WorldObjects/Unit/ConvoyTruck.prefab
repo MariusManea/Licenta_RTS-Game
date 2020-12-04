@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8635711507637722639}
   - component: {fileID: 7684533433070919272}
   - component: {fileID: 3212876338213024947}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 1178687894020549487}
   - component: {fileID: 8353189331889058610}
   - component: {fileID: 1433267580547881754}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 2506022319192248666}
   - component: {fileID: 2994939129261846458}
   - component: {fileID: 6764977987402577088}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelRL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 8265711895546345358}
   - component: {fileID: 7424532429230932706}
   - component: {fileID: 4070268839093709006}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelRR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 8370811071118772963}
   - component: {fileID: 7080742193887987146}
   - component: {fileID: 942702957023694727}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3132392917065230526}
   - component: {fileID: 95163736661313427}
-  m_Layer: 0
+  - component: {fileID: -1586427765169906117}
+  - component: {fileID: 6743593771520940951}
+  m_Layer: 13
   m_Name: ConvoyTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,12 +608,78 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
+  detectionRange: 20
   moveSpeed: 5
   rotateSpeed: 5
   driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
   moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
   driveVolume: 1
   moveVolume: 1
+  graph: {fileID: 0}
+--- !u!114 &-1586427765169906117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6101090218840252268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &6743593771520940951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6101090218840252268}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 1.2
+  height: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 5
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 0
+  enableRotation: 1
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 500
+  slowdownDistance: 7
+  pickNextWaypointDist: 10
+  endReachedDistance: 2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 1
+  constrainInsideGraph: 0
 --- !u!1 &6524790231270590892
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +693,7 @@ GameObject:
   - component: {fileID: 1898526282418867673}
   - component: {fileID: 3468475584585619480}
   - component: {fileID: 1029545067645325317}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +801,7 @@ GameObject:
   - component: {fileID: 7730406100465430696}
   - component: {fileID: 7068411063632687170}
   - component: {fileID: 1188730625865308714}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SmokestackR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +910,7 @@ GameObject:
   - component: {fileID: 7544589936730784727}
   - component: {fileID: 3381118746089949755}
   - component: {fileID: 4656023749307580015}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +1018,7 @@ GameObject:
   - component: {fileID: 694367313117526940}
   - component: {fileID: 6474435599680736933}
   - component: {fileID: 7076734824315807547}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SmokestackL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

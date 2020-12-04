@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     public float velocity = 1;
     public int damage = 1;
 
-    private float range = 1;
+    private float range = 2;
     private WorldObjects target;
 
     void Update()

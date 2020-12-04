@@ -169,6 +169,7 @@ MonoBehaviour:
   mouseCursorSkin: {fileID: 11400000, guid: 10e17f9e86ecd684e8ec26749c9524bf, type: 2}
   multipleSelectionSkin: {fileID: 11400000, guid: b5081c6db869e644f9f4e6cc9e29c1b2,
     type: 2}
+  selectedBarSkin: {fileID: 11400000, guid: dc3c7c171a0befb42aeb1bb45c22eb21, type: 2}
   activeCursor: {fileID: 2800000, guid: cf05dac86affa2b499c8ad31201f3cb7, type: 3}
   selectCursor: {fileID: 2800000, guid: 14af26a2c06d59e438661294a90ffbea, type: 3}
   leftCursor: {fileID: 2800000, guid: b0935e8dc33081a478ed3da1c5b44420, type: 3}

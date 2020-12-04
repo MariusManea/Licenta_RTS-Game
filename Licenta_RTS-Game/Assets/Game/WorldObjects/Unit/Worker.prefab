@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5615019529373973661}
   - component: {fileID: 5615019529373973662}
   - component: {fileID: 3152639214959593954}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 5615019529667946154}
   - component: {fileID: 5615019529667946155}
   - component: {fileID: 9108991217518250444}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ThreadL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 5615019529690502416}
   - component: {fileID: 5615019529690502417}
   - component: {fileID: 8786449095707674625}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SmokeStackL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 5615019529743674008}
   - component: {fileID: 5615019529743674009}
   - component: {fileID: 5384270896676808822}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SmokeStackR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 5615019530134389391}
   - component: {fileID: 5615019530134389376}
   - component: {fileID: 1583470076774230768}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 5615019530197577576}
   - component: {fileID: 5615019530197577577}
   - component: {fileID: 6555948831923961920}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Scoop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 5615019530392848935}
   - component: {fileID: 5615019530392848952}
   - component: {fileID: 4294121337919654186}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ArmR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,7 +772,7 @@ GameObject:
   - component: {fileID: 5615019530666501065}
   - component: {fileID: 5615019530666501066}
   - component: {fileID: 4468776150018828571}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ArmL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,7 +880,7 @@ GameObject:
   - component: {fileID: 5615019530768770317}
   - component: {fileID: 5615019530768770318}
   - component: {fileID: 4237479096084051326}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ThreadR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,7 +986,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5615019530826326852}
   - component: {fileID: 5615019530826326851}
-  m_Layer: 0
+  - component: {fileID: 4519102620665890063}
+  - component: {fileID: -8225769152012815520}
+  m_Layer: 13
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,6 +1051,71 @@ MonoBehaviour:
   moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
   driveVolume: 1
   moveVolume: 1
+  graph: {fileID: 0}
   buildSpeed: 100
   finishedJobSound: {fileID: 8300000, guid: b1bc386a0f74eaf40be5f31de3dea0fe, type: 3}
   finishedJobVolume: 1
+--- !u!114 &4519102620665890063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530826326853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 0
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -3
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &-8225769152012815520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530826326853}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 1.2
+  height: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 6
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 0
+  enableRotation: 1
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 500
+  slowdownDistance: 7
+  pickNextWaypointDist: 10
+  endReachedDistance: 2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 1
+  constrainInsideGraph: 0

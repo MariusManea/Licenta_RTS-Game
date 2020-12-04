@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTS;
+using Pathfinding;
 using Newtonsoft.Json;
 
 public class Unit : WorldObjects
@@ -16,10 +17,12 @@ public class Unit : WorldObjects
 
     public AudioClip driveSound, moveSound;
     public float driveVolume = 0.5f, moveVolume = 1.0f;
+    public AstarPath graph;
 
     protected override void Awake()
     {
         base.Awake();
+        graph = FindObjectOfType<AstarPath>();
     }
 
     protected override void Start()
@@ -108,11 +111,55 @@ public class Unit : WorldObjects
         }
     }
 
+    private Vector3 GetClosestValidDestination(Vector3 destination)
+    {
+        int d = 1;
+        while (true)
+        {
+            for (int i = 0; i < 36; i++)
+            {
+                Vector3 newPosition = destination + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 36.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 36.0f));
+                newPosition.y = terrain.SampleHeight(newPosition);
+                if (graph.GetNearest(newPosition).node.Walkable)
+                {
+
+                    return newPosition;
+                }
+            }
+            d++;
+            if (d > 50)
+            {
+                return Vector3.negativeInfinity;
+            }
+        }
+    }
+
     public virtual void StartMove(Vector3 destination)
     {
         if (audioElement != null) audioElement.Play(moveSound);
+        if (graph.GetNearest(destination).node.Walkable)
+        {
+            this.destination = graph.GetNearest(destination).position;
+        }
+        else
+        {
+            if (destinationTarget == null)
+            {
+                this.destination = GetClosestValidDestination(destination);
+                if (this.destination == Vector3.negativeInfinity)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                this.destination = graph.GetNearest(destination).position;
+            }
+        }
+        this.destination = new Vector3(this.destination.x, terrain.SampleHeight(this.destination), this.destination.z);
         destinationTarget = null;
-        this.destination = destination;
+        GetComponent<AIPath>().enabled = true;
+        GetComponent<AIPath>().destination = this.destination;
         Vector3 rotateTo = this.transform.position;
         rotateTo = Vector3.Lerp(rotateTo, destination, 0.01f);
         rotateTo.y = terrain.SampleHeight(rotateTo);
@@ -129,7 +176,16 @@ public class Unit : WorldObjects
 
     private void TurnToTarget()
     {
-
+        CalculateBounds();
+        rotating = false;
+        moving = true;
+        if (audioElement != null) audioElement.Play(driveSound);
+        if (destinationTarget)
+        {
+            CalculateTargetDestination();
+            GetComponent<AIPath>().destination = this.destination;
+        }
+        return;
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
         //sometimes it gets stuck exactly 180 degrees out in the calculation and does nothing, this check fixes that
         Quaternion inverseTargetRotation = new Quaternion(-targetRotation.x, -targetRotation.y, -targetRotation.z, -targetRotation.w);
@@ -139,23 +195,19 @@ public class Unit : WorldObjects
             rotating = false;
             moving = true;
         }
-        CalculateBounds();
-        if (destinationTarget) CalculateTargetDestination();
     }
 
     private void MakeMove()
     {
-        this.destination.y = terrain.SampleHeight(this.transform.position);
-        Vector3 ahead = this.transform.position;
-        ahead = Vector3.Lerp(ahead, destination, Time.deltaTime * moveSpeed);
+        Vector3 ahead = this.transform.position + this.transform.forward;
         ahead.y = terrain.SampleHeight(ahead);
         transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(ahead - this.transform.position), Time.deltaTime * moveSpeed);
-        transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
-        
-        if (transform.position == destination)
+        // transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
+        if (transform.position == destination || GetComponent<AIPath>().reachedDestination)
         {
             if (audioElement != null) audioElement.Stop(driveSound);
             moving = false;
+            GetComponent<AIPath>().enabled = false;
             movingIntoPosition = false;
         }
         CalculateBounds();
@@ -191,7 +243,9 @@ public class Unit : WorldObjects
         //this should give us a destination where the unit will not quite collide with the target
         //giving the illusion of moving to the edge of the target and then stopping
         for (int i = 0; i < shiftAmount; i++) destination -= direction;
-        destination.y = destinationTarget.transform.position.y;
+        destination.y = terrain.SampleHeight(destination);
+        destination = GetClosestValidDestination(destination);
+        destination.y = terrain.SampleHeight(destination);
         destinationTarget = null;
     }
 
