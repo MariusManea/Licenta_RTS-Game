@@ -123,6 +123,7 @@ public class HUD : MonoBehaviour
         sounds.Add(clickSound);
         volumes.Add(clickVolume);
         audioElement = new AudioElement(sounds, volumes, "HUD", null);
+        UnityEngine.Random.InitState(System.DateTime.Now.Second);
     }
 
     void OnGUI()
@@ -534,6 +535,8 @@ public class HUD : MonoBehaviour
             if (pauseMenu) pauseMenu.enabled = true;
             UserInput userInput = player.GetComponent<UserInput>();
             if (userInput) userInput.enabled = false;
+            Cursor.visible = true;
+            ResourceManager.MenuOpen = true;
         }
         GUI.EndGroup();
     }

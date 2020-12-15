@@ -20,10 +20,8 @@ public class AudioElement
         }
         else
         {
-            //attach it to the game object list (since we know there should be one present)
-            //do so to keep the inspector cleaner - this saves making a sounds object
-            GameObjectsList list = MonoBehaviour.FindObjectOfType(typeof(GameObjectsList)) as GameObjectsList;
-            if (list) element.transform.parent = list.transform;
+            element.transform.parent = Camera.main.transform;
+            element.transform.localPosition = Vector3.zero;
         }
         Add(sounds, volumes);
     }

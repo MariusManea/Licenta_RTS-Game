@@ -273,6 +273,7 @@ MonoBehaviour:
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
+  seed: 
 --- !u!1 &942833843
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +316,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 0.6792453, g: 0.0032039948, b: 0.5716932, a: 1}
   mapSize: 1000
+  seed: 
 --- !u!4 &942833845
 Transform:
   m_ObjectHideFlags: 0

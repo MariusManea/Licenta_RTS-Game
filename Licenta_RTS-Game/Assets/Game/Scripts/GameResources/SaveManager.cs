@@ -29,6 +29,7 @@ namespace RTS
 
         private static void SaveGameDetails(JsonWriter writer)
         {
+            SaveGameInfo(writer);
             SaveLighting(writer);
             SaveTerrain(writer);
             SaveCamera(writer);
@@ -65,6 +66,20 @@ namespace RTS
             writer.WriteValue(quaternion.z);
             writer.WritePropertyName("w");
             writer.WriteValue(quaternion.w);
+            writer.WriteEndObject();
+        }
+
+        private static void SaveGameInfo(JsonWriter writer)
+        {
+            LevelLoader levelLoader = (LevelLoader)GameManager.FindObjectOfType(typeof(LevelLoader));
+            if (writer == null || levelLoader == null) return;
+
+            writer.WritePropertyName("GameInfo");
+            writer.WriteStartObject();
+
+            WriteFloat(writer, "PlayersNumber", levelLoader.playersNumber);
+            WriteString(writer, "Seed", levelLoader.seed);
+
             writer.WriteEndObject();
         }
 

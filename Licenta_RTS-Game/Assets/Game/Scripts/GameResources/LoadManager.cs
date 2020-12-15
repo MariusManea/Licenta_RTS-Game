@@ -38,6 +38,7 @@ namespace RTS
                                 string property = (string)reader.Value;
                                 switch (property)
                                 {
+                                    case "GameInfo": LoadGameInfo(reader); break;
                                     case "Sun": LoadLighting(reader); break;
                                     case "Ground": LoadTerrain(reader); break;
                                     case "Camera": LoadCamera(reader); break;
@@ -103,6 +104,30 @@ namespace RTS
                 else if (reader.TokenType == JsonToken.EndObject) return rotation;
             }
             return rotation;
+        }
+
+        private static void LoadGameInfo(JsonTextReader reader)
+        {
+            if (reader == null) return;
+            LevelLoader levelLoader = (LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader));
+            string currVal = "";
+            while (reader.Read())
+            {
+                if (reader.Value != null)
+                {
+                    if (reader.TokenType == JsonToken.PropertyName) currVal = (string)reader.Value;
+                    else
+                    {
+                        switch (currVal)
+                        {
+                            case "PlayersNumber": levelLoader.playersNumber = (int)(double)reader.Value; break;
+                            case "Seed": levelLoader.seed = (string)reader.Value; break;
+                            default: break;
+                        }
+                    }
+                }
+                else if (reader.TokenType == JsonToken.EndObject) return;
+            }
         }
 
         private static void LoadLighting(JsonTextReader reader)

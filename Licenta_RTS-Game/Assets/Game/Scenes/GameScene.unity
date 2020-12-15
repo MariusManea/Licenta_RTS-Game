@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4772a44393eea546991975cdeae585e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playersMap: {fileID: 8400000, guid: 3ff842e4573c1cf4fb217ab66d2129b4, type: 2}
   playersNumber: 6
   teamColors:
   - {r: 0, g: 0, b: 1, a: 1}
@@ -309,6 +310,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 0.6792453, g: 0.0032039948, b: 0.5716932, a: 1}
   mapSize: 1000
+  seed: 
 --- !u!4 &975816801
 Transform:
   m_ObjectHideFlags: 0

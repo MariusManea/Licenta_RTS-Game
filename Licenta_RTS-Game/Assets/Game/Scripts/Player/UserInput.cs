@@ -14,6 +14,8 @@ public class UserInput : MonoBehaviour
     public Transform cameraRig;
     public Transform cameraTransform;
 
+    private Terrain terrain;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class UserInput : MonoBehaviour
         newCameraPosition = cameraRig.position;
         newCameraRotation = cameraRig.rotation;
         newCameraZoom = cameraTransform.localPosition;
+        terrain = (Terrain)FindObjectOfType(typeof(Terrain));
     }
 
     // Update is called once per frame
@@ -113,6 +116,12 @@ public class UserInput : MonoBehaviour
                     mouseScroll = true;
                 }
             }
+
+            if (newCameraPosition.x < 0) newCameraPosition.x = 0;
+            else if (newCameraPosition.x > terrain.terrainData.size.x) newCameraPosition.x = terrain.terrainData.size.x;
+
+            if (newCameraPosition.z < 0) newCameraPosition.z = 0;
+            else if (newCameraPosition.z > terrain.terrainData.size.z) newCameraPosition.z = terrain.terrainData.size.z;
 
             if (newCameraPosition != cameraRig.position)
             {

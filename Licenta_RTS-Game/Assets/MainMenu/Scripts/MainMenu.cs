@@ -27,7 +27,7 @@ public class MainMenu : Menu
     private void NewGame()
     {
         GetComponent<MainMenu>().enabled = false;
-        GetComponent<GameSizeMenu>().enabled = true;
+        GetComponent<NewGameMenu>().enabled = true;
     }
 
     private void ChangePlayer()
