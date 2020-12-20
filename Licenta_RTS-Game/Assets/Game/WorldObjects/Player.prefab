@@ -59,6 +59,7 @@ MonoBehaviour:
   notAllowedMaterial: {fileID: 2100000, guid: 096ea4ec92cf0cf499131852aa29d136, type: 2}
   allowedMaterial: {fileID: 2100000, guid: 5086c3bc679c3374d9971b8576ddae04, type: 2}
   teamColor: {r: 0, g: 0, b: 0, a: 0}
+  centerToBase: 0
 --- !u!114 &8297730302071679183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   smallButtonHover: {fileID: 2800000, guid: 9eae83c972c0ca642ac4498a49545b9a, type: 3}
   smallButtonClick: {fileID: 2800000, guid: 478230498e03eab43967fc9f6b21da3c, type: 3}
   rallyPointCursor: {fileID: 2800000, guid: e133e234f4166444aa76b952cb37a20b, type: 3}
+  centerCameraButton: {fileID: 2800000, guid: f56fe4f9f2ad95542ba8a168bcfd8775, type: 3}
   healthy: {fileID: 2800000, guid: 2a7e5882d13735a4aac0dc6df62c4bbc, type: 3}
   damaged: {fileID: 2800000, guid: 776de9457c208ca4696a1013c952fbbc, type: 3}
   critical: {fileID: 2800000, guid: fe2aeb08c243ff3498538281d663a03f, type: 3}

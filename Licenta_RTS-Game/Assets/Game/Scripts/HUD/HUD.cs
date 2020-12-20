@@ -52,6 +52,7 @@ public class HUD : MonoBehaviour
     public Texture2D buildFrame, buildMask;
     public Texture2D smallButtonHover, smallButtonClick;
     public Texture2D rallyPointCursor;
+    public Texture2D centerCameraButton;
 
 
     public Texture2D healthy, damaged, critical;
@@ -340,6 +341,17 @@ public class HUD : MonoBehaviour
         string playerName = PlayerManager.GetPlayerName();
         playerDetailsSkin.GetStyle("label").CalcMinMaxWidth(new GUIContent(playerName), out minWidth, out maxWidth);
         GUI.Label(new Rect(leftPos, topPos, maxWidth, height), playerName);
+        leftPos += maxWidth + ResourceManager.Padding;
+        if (player != null && player.townCenter != null)
+        {
+            if ((player.townCenter.transform.position - Camera.main.transform.root.position).sqrMagnitude > 10000)
+            {
+                if (GUI.Button(new Rect(leftPos, topPos - (1.5f * ResourceManager.ButtonHeight - height) / 2, 1.5f * ResourceManager.ButtonHeight, 1.5f * ResourceManager.ButtonHeight), centerCameraButton))
+                {
+                    player.centerToBase = true;
+                }
+            }
+        }
         GUI.EndGroup();
     }
 

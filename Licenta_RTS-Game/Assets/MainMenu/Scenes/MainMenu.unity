@@ -317,6 +317,10 @@ MonoBehaviour:
   - {r: 0.6792453, g: 0.0032039948, b: 0.5716932, a: 1}
   mapSize: 1000
   seed: 
+  terrainLayers:
+  - {fileID: 8574412962073106934, guid: 1a980f7d7083b4c43b06b9be7d39fed9, type: 2}
+  - {fileID: 8574412962073106934, guid: 92681fc1b6e5508459e4bffc3fe74e0b, type: 2}
+  - {fileID: 8574412962073106934, guid: fa7fe8f91b35a464fae91f4bcd88d8c0, type: 2}
 --- !u!4 &942833845
 Transform:
   m_ObjectHideFlags: 0

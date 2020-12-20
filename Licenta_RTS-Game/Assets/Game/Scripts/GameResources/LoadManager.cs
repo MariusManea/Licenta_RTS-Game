@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using RTS;
+using System;
 
 namespace RTS
 {
@@ -160,6 +161,9 @@ namespace RTS
             if (reader == null) return;
             Vector3 position = new Vector3(0, 0, 0), scale = new Vector3(1, 1, 1), size = new Vector3(1000, 20, 1000);
             Quaternion rotation = new Quaternion(0, 0, 0, 0);
+            float[,] heightMap = null;
+            float[,,] alphaMap = null;
+            int resolution = 0;
             while (reader.Read())
             {
                 if (reader.Value != null)
@@ -170,17 +174,72 @@ namespace RTS
                         else if ((string)reader.Value == "Rotation") rotation = LoadQuaternion(reader);
                         else if ((string)reader.Value == "Scale") scale = LoadVector(reader);
                         else if ((string)reader.Value == "Size") size = LoadVector(reader);
+                        else if ((string)reader.Value == "Resolution") { reader.Read(); resolution = (int)(double)reader.Value; }
+                        else if ((string)reader.Value == "HeightMap") heightMap = LoadHeightMap(reader, resolution + 1);
+                        else if ((string)reader.Value == "AlphaMap") alphaMap = LoadAlphaMap(reader, resolution);
                     }
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
                     GameObject ground = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("GroundHolder"), position, rotation);
                     ground.transform.localScale = scale;
-                    ground.GetComponentInChildren<Terrain>().terrainData.size = size;
+                    TerrainData terrainData = ground.GetComponentInChildren<Terrain>().terrainData;
+                    terrainData.alphamapResolution = resolution;
+                    terrainData.heightmapResolution = resolution + 1;
+                    terrainData.SetHeights(0, 0, heightMap);
+                    terrainData.SetAlphamaps(0, 0, alphaMap);
+                    terrainData.size = size;
+                    UnityStandardAssets.Water.Water water = ground.GetComponentInChildren<UnityStandardAssets.Water.Water>();
+                    water.transform.position = new Vector3(size.x / 2, 3.5f, size.z / 2);
+                    water.transform.localScale = new Vector3(size.x, 7, size.x);
                     ((LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader))).mapSize = (GameSize)size.x;
                     return;
                 }
             }
+        }
+
+        private static float[,,] LoadAlphaMap(JsonTextReader reader, int resolution)
+        {
+            float[,,] alphaMap = new float[resolution, resolution, 3];
+            for (int i = 0; i < resolution; ++i)
+            {
+                for (int j = 0; j < resolution; ++j)
+                {
+                    do
+                    {
+                        reader.Read();
+                    } while (reader.Value == null);
+                    alphaMap[i, j, 0] = (float)(double)reader.Value;
+                    do
+                    {
+                        reader.Read();
+                    } while (reader.Value == null);
+                    alphaMap[i, j, 1] = (float)(double)reader.Value;
+                    do
+                    {
+                        reader.Read();
+                    } while (reader.Value == null);
+                    alphaMap[i, j, 2] = (float)(double)reader.Value;
+                }
+            }
+            return alphaMap;
+        }
+
+        private static float[,] LoadHeightMap(JsonTextReader reader, int resolution)
+        {
+            float[,] heightMap = new float[resolution, resolution];
+            for (int i = 0; i < resolution; ++i)
+            {
+                for (int j = 0; j < resolution; ++j)
+                {
+                    do
+                    {
+                        reader.Read();
+                    } while (reader.Value == null);
+                    heightMap[i, j] = (float)(double)reader.Value;
+                }
+            }
+            return heightMap;
         }
 
         private static void LoadCamera(JsonTextReader reader)

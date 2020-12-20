@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 5191141899123134150}
   - component: {fileID: 7542660011330790939}
   m_Layer: 12
-  m_Name: OreDeposit
+  m_Name: IronOreDeposit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   selectVolume: 1
   useWeaponVolume: 1
   detectionRange: 20
-  capacity: 1000
+  capacity: 100000
 --- !u!1 &3867049514044592049
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public Color teamColor;
 
     public List<WorldObjects> SelectedObjects { get; set; }
+    public bool centerToBase;
 
     void Awake()
     {
@@ -92,6 +93,7 @@ public class Player : MonoBehaviour
     {
         Units units = GetComponentInChildren<Units>();
         GameObject newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName), spawnPoint, rotation);
+        newUnit.GetComponent<WorldObjects>().SetPlayer();
         newUnit.transform.parent = units.transform;
         Unit unitObject = newUnit.GetComponent<Unit>();
         if (unitObject && spawnPoint != rallyPoint) unitObject.StartMove(rallyPoint);
@@ -257,7 +259,7 @@ public class Player : MonoBehaviour
                 {
                     switch (currValue)
                     {
-                        case "Username": userName = (string)reader.Value; break;
+                        case "Username": userName = (string)reader.Value; gameObject.name = userName; break;
                         case "Human": isHuman = (bool)reader.Value; break;
                         default: break;
                     }
@@ -319,6 +321,10 @@ public class Player : MonoBehaviour
                 {
                     type = (string)reader.Value;
                     GameObject newObject = (GameObject)GameObject.Instantiate(ResourceManager.GetBuilding(type));
+                    if (type == "TownCenter")
+                    {
+                        townCenter = newObject.GetComponent<TownCenter>();
+                    }
                     Building building = newObject.GetComponent<Building>();
                     building.LoadDetails(reader);
                     building.transform.parent = buildings.transform;

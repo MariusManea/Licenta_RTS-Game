@@ -59,6 +59,7 @@ public class WorldObjects : MonoBehaviour
     protected virtual void Start()
     {
         SetPlayer();
+        timeSinceLastDecision = -2;
         if (player)
         {
             if (loadedSavedValues)

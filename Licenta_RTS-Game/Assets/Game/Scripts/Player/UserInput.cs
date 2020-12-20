@@ -77,7 +77,6 @@ public class UserInput : MonoBehaviour
             {
                 fastCamera = true;
             }
-            //horizontal camera movement
             if ((xpos >= 0 && xpos < ResourceManager.ScrollWidth) || xkeys < 0)
             {
                 newCameraPosition += cameraRig.right * -(fastCamera ? ResourceManager.FastScrollSpeed : ResourceManager.NormalScrollSpeed);
@@ -97,7 +96,6 @@ public class UserInput : MonoBehaviour
                 }
             }
 
-            //vertical camera movement
             if ((ypos >= 0 && ypos < ResourceManager.ScrollWidth) || ykeys < 0)
             {
                 newCameraPosition += cameraRig.forward * -(fastCamera ? ResourceManager.FastScrollSpeed : ResourceManager.NormalScrollSpeed);
@@ -123,9 +121,21 @@ public class UserInput : MonoBehaviour
             if (newCameraPosition.z < 0) newCameraPosition.z = 0;
             else if (newCameraPosition.z > terrain.terrainData.size.z) newCameraPosition.z = terrain.terrainData.size.z;
 
-            if (newCameraPosition != cameraRig.position)
+            if (!player.centerToBase)
             {
-                cameraRig.position = Vector3.Lerp(cameraRig.position, newCameraPosition, Time.deltaTime * ResourceManager.CameraMovementTime);
+                if (newCameraPosition != cameraRig.position)
+                {
+                    cameraRig.position = Vector3.Lerp(cameraRig.position, newCameraPosition, Time.deltaTime * ResourceManager.CameraMovementTime);
+                }
+            }
+            else
+            {
+                cameraRig.position = Vector3.Lerp(cameraRig.position, player.townCenter.transform.position, Time.deltaTime * ResourceManager.CameraMovementTime * 15);
+                if (cameraRig.position == player.townCenter.transform.position)
+                {
+                    player.centerToBase = false;
+                    newCameraPosition = cameraRig.position;
+                }
             }
 
             if (!mouseScroll)

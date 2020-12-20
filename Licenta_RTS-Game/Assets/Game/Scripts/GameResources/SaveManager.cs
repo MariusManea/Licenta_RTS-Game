@@ -110,7 +110,39 @@ namespace RTS
             WriteVector(writer, "Position", ground.transform.position);
             WriteQuaternion(writer, "Rotation", ground.transform.rotation);
             WriteVector(writer, "Scale", ground.transform.localScale);
-            WriteVector(writer, "Size", ground.GetComponentInChildren<Terrain>().terrainData.size);
+            TerrainData terrainData = ground.GetComponentInChildren<Terrain>().terrainData;
+            WriteVector(writer, "Size", terrainData.size);
+            WriteFloat(writer, "Resolution", terrainData.alphamapResolution);
+            writer.WritePropertyName("HeightMap");
+            writer.WriteStartArray();
+
+            float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+
+            for(int i = 0; i < terrainData.heightmapResolution; ++i)
+            {
+                for (int j = 0; j < terrainData.heightmapResolution; ++j)
+                {
+                    writer.WriteValue(heightMap[i, j]);
+                }
+            }
+
+            writer.WriteEndArray();
+
+            writer.WritePropertyName("AlphaMap");
+            writer.WriteStartArray();
+            float[,,] alphamap = terrainData.GetAlphamaps(0, 0, terrainData.alphamapResolution, terrainData.alphamapResolution);
+            for (int i = 0; i < terrainData.alphamapResolution; ++i)
+            {
+                for (int j = 0; j < terrainData.alphamapResolution; ++j)
+                {
+                    writer.WriteValue(alphamap[i, j, 0]);
+                    writer.WriteValue(alphamap[i, j, 1]);
+                    writer.WriteValue(alphamap[i, j, 2]);
+                }
+            }
+
+            writer.WriteEndArray();
+
 
             writer.WriteEndObject();
         }

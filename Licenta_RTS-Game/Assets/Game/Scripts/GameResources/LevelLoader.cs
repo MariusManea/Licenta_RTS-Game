@@ -7,12 +7,16 @@ using Pathfinding;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
-    private const int CLUMP_SIZE = 6000;
+    private const int CLUMP_SIZE = 6500;
+    private const int SMOOTH_COUNT = 3;
+
     private int clumpNumber;
     private float chaosLevel;
     private List<Vector3> territories;
 
     private List<Vector3> playersPositions;
+
+    private List<Vector3>[] resourcesLand;
 
     public struct MapPoint
     {
@@ -32,7 +36,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     private MapPoint[][] map;
     private float[,] heightMap;
     private Terrain terrain;
-
+    public TerrainLayer[] terrainLayers;
 
     void Awake()
     {
@@ -92,7 +96,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 AstarPath.active.data.gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
                 AstarPath.active.data.gridGraph.cutCorners = false;
                 AstarPath.active.data.gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
-                AstarPath.active.data.gridGraph.maxSlope = 35;
+                AstarPath.active.data.gridGraph.maxSlope = 30;
                 AstarPath.active.data.gridGraph.Scan();
             }
 
@@ -152,7 +156,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         // Level Generation
 
         // Step 1
-        PlacePlayers(autoTest);
+        PlacePlayers();
         // Step 2
         GrowPlayerLand();
         // Step 3
@@ -162,21 +166,20 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         // Step 5
         CombineMaps();
         // Step 6
-        // TODO: FixAnomalies();
+        FixAnomalies();
         // Step 7
-        // TODO: DistributeResources();
+        DistributeResources();
         // Step 8 (Maybe?)
         // TODO: PlaceTrees();
         // Step 9
-        // https://answers.unity.com/questions/241010/how-to-procedurally-make-a-super-simple-heightmap.html
-        // cred ca ajuta pe la partea cu separarea texturii pe inaltime sand/grass...
-        // TODO: TextureMap();
+        TextureMap();
         // Step 10
-        // TODO: InitialUnits();
+        InitialUnits(autoTest);
 
     }
 
-    private void PlacePlayers(bool autoTest)
+
+    private void PlacePlayers()
     {
         playersPositions = GetPlayersPositions();
 
@@ -204,35 +207,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             map[(int)colonizablePosition.x][(int)colonizablePosition.z].owner = dummyPlayer;
             territories.Add(colonizablePosition);
         }
-
-        string humanPlayer = autoTest ? "Marius" : PlayerManager.GetPlayerName();
-        InstantiatePlayer(humanPlayer, playersPositions[0], teamColors[0], true);
-
-        for (int k = 1; k < playersNumber; ++k)
-        {
-            InstantiatePlayer(PlayerManager.GetComputerNames()[k - 1], playersPositions[k], teamColors[k], false);
-        }
-    }
-
-    private void InstantiatePlayer(string name, Vector3 position, Color teamColor, bool isHuman)
-    {
-        GameObject playerObject = (GameObject)GameObject.Instantiate(ResourceManager.GetPlayerObject(), position, new Quaternion());
-        if (isHuman) Camera.main.transform.root.position = playerObject.transform.position;
-        Player player = playerObject.GetComponent<Player>();
-        player.isHuman = isHuman;
-        player.teamColor = teamColor;
-        player.userName = player.name = name;
-        Buildings buildings = player.GetComponentInChildren<Buildings>();
-        GameObject townCenterObject = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter"), player.transform.position, new Quaternion());
-        player.townCenter = townCenterObject.GetComponent<TownCenter>();
-        player.townCenter.ObjectId = ResourceManager.GetNewObjectId();
-        if (buildings) townCenterObject.transform.parent = buildings.transform;
-        player.townCenter.SetPlayer();
-        player.townCenter.SetTeamColor();
-        player.townCenter.SetPlayingArea(player.GetComponentInChildren<HUD>().GetPlayingArea());
-        player.townCenter.CalculateBounds();
-        player.townCenter.SetSpawnPoint();
-        player.townCenter.FirstUnits(1);
     }
 
     private List<Vector3> GetPlayersPositions()
@@ -240,7 +214,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         List<Vector3> positions = new List<Vector3>();
 
         float outerDiskRadius = ((float)mapSize - 16) / 2;
-        float innerDiskRadius = ((float)mapSize * 0.4f + PRG.GetNextRandom() % ((float)mapSize * 0.33f)) / 2;
+        float innerDiskRadius = ((float)mapSize * 0.5f + PRG.GetNextRandom() % ((float)mapSize * 0.33f)) / 2;
 
         float[] angles = GetAngles();
 
@@ -404,14 +378,16 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     private void AddFlatLands()
     {
         List<Vector3>[] validEdges = new List<Vector3>[clumpNumber];
+        resourcesLand = new List<Vector3>[clumpNumber];
         for (int i = 0; i < clumpNumber; ++i)
         {
+            resourcesLand[i] = new List<Vector3>();
             validEdges[i] = new List<Vector3>
             {
                 territories[i]
             };
         }
-        for (int size = 0; size < 0.45 * CLUMP_SIZE; ++size)
+        for (int size = 0; size < 0.55 * CLUMP_SIZE; ++size)
         {
             for (int id = 0; id < clumpNumber; ++id)
             {
@@ -419,6 +395,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 if (nextGrowth != -Vector3.one)
                 {
                     map[(int)nextGrowth.x][(int)nextGrowth.z].flatland = true;
+                    resourcesLand[id].Add(nextGrowth);
                     validEdges[id].Add(nextGrowth);
                 }
             }
@@ -499,10 +476,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     {
         int resolution = (int)Mathf.Sqrt(heightMap.Length);
 
-        terrain = (Terrain)FindObjectOfType(typeof(Terrain));
-        terrain.terrainData.heightmapResolution = resolution;
-
-
         for (int x = 0; x < resolution; ++x)
         {
             for (int y = 0; y < resolution; ++y)
@@ -516,7 +489,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
                 if (map[xCoord][yCoord].owner != -1 && heightMap[y, x] < 0.35f) // is land, but underwater
                 {
-                    heightMap[y, x] = Mathf.Lerp(0.35f, 0.5f, heightMap[y, x]);
+                    heightMap[y, x] = Mathf.Lerp(0.35f, 0.45f, heightMap[y, x]);
                 }
 
                 if (map[xCoord][yCoord].owner == -1) // is water
@@ -525,8 +498,159 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 }
             }
         }
+    }
+
+    private void FixAnomalies()
+    {
+        int resolution = (int)Mathf.Sqrt(heightMap.Length);
+
+        terrain = (Terrain)FindObjectOfType(typeof(Terrain));
+        terrain.terrainData.heightmapResolution = resolution;
+        terrain.terrainData.alphamapResolution = resolution - 1;
+        for (int k = 0; k < SMOOTH_COUNT; ++k)
+        {
+
+            for (int x = 0; x < resolution; ++x)
+            {
+                for (int y = 0; y < resolution; ++y)
+                {
+                    int xCoord = (int)Mathf.Lerp(0, (int)mapSize, (float)x / resolution);
+                    int yCoord = (int)Mathf.Lerp(0, (int)mapSize, (float)y / resolution);
+                    if (!map[xCoord][yCoord].flatland)
+                    {
+                        SmoothingTerrainAt(y, x, 5);
+                    }
+                }
+            }
+        }
 
         terrain.terrainData.SetHeights(0, 0, heightMap);
         terrain.terrainData.size = new Vector3((int)mapSize, 20, (int)mapSize);
     }
+
+    private void SmoothingTerrainAt(int i, int j, int radius)
+    {
+        float sum = 0.0f;
+        for (int x = -radius/2; x <= radius/2; ++x)
+        {
+            for (int y = -radius/2; y <= radius/2; ++y)
+            {
+                try
+                {
+                    sum += heightMap[i + x, j + y];
+                }
+                catch
+                {
+                    sum += 0;
+                }
+            }
+        }
+        heightMap[i, j] = sum / (radius * radius);
+    }
+
+    private void DistributeResources()
+    {
+        string[] gameResources = ResourceManager.GetGameResources;
+
+        foreach(string type in gameResources)
+        {
+            for (int id = 0; id < clumpNumber; ++id)
+            {
+                if (resourcesLand[id].Count != 0)
+                {
+                    Quaternion objectRotation = Quaternion.Euler(0, PRG.GetNextRandom() % 360, 0);
+                    int index = resourcesLand[id].Count * 3 / 5 + (int)PRG.GetNextRandom() % (resourcesLand[id].Count * 2 / 5);
+                    Vector3 objectPosition = resourcesLand[id][index];
+                    for (int i = -4; i <= 4; ++i)
+                    {
+                        for (int j = -4; j <= 4; ++j)
+                        {
+                            try
+                            {
+                                resourcesLand[id].RemoveAt(resourcesLand[id].IndexOf(new Vector3(i + objectPosition.x, 0, j + objectPosition.z)));
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                    objectPosition.y = terrain.SampleHeight(objectPosition);
+                    GameObject newObject = (GameObject)GameObject.Instantiate(ResourceManager.GetWorldObject(type), objectPosition, objectRotation);
+                    Resource resource = newObject.GetComponent<Resource>();
+                    resource.ObjectId = ResourceManager.GetNewObjectId();
+                }
+            }
+        }
+    }
+
+    private void TextureMap()
+    {
+        int height = terrain.terrainData.alphamapHeight;
+        int width = terrain.terrainData.alphamapWidth;
+        float[,,] TerrainTextures = new float[height, width, 3];
+        for (int i = 0; i < height; ++i)
+        {
+            for (int j = 0; j < width; ++j)
+            {
+                float terrainHeight = heightMap[i, j];
+                float sandPercentage = 0;
+                float grassPercentage = 0;
+                float mountainPercentage = 0;
+                if (terrainHeight <= 0.395f) { sandPercentage = 1; grassPercentage = 0; mountainPercentage = 0; }
+                //if (terrainHeight > 0.38f && terrainHeight < 0.4f) { sandPercentage = 0.4f - terrainHeight; grassPercentage = terrainHeight - 0.38f; mountainPercentage = 0; }
+                if (terrainHeight >= 0.395f && terrainHeight < 0.405f) { sandPercentage = 0; grassPercentage = 1; mountainPercentage = 0; }
+                //if (terrainHeight >= 0.41f) { sandPercentage = 0; grassPercentage = terrainHeight < 0.43f ? (0.43f - terrainHeight) : 0; mountainPercentage = terrainHeight < 0.43f ? (terrainHeight - 0.41f) : 1; }
+                if (terrainHeight >= 0.405f) { sandPercentage = 0; grassPercentage = 0; mountainPercentage = 1; }
+                Vector3 heights = new Vector3(sandPercentage, grassPercentage, mountainPercentage);
+                heights = OneifyVector(heights);
+                TerrainTextures[i, j, 0] = heights[0];
+                TerrainTextures[i, j, 1] = heights[1];
+                TerrainTextures[i, j, 2] = heights[2];
+            }
+        }
+        terrain.terrainData.terrainLayers = terrainLayers;
+        terrain.terrainData.SetAlphamaps(0, 0, TerrainTextures);
+        UnityStandardAssets.Water.Water water = (UnityStandardAssets.Water.Water)FindObjectOfType(typeof(UnityStandardAssets.Water.Water));
+        water.transform.position = new Vector3((float)mapSize / 2, 3.5f, (float)mapSize / 2);
+        water.transform.localScale = new Vector3((int)mapSize, 7, (int)mapSize);
+    }
+
+    Vector3 OneifyVector(Vector3 vector)
+    {
+        float sum = vector.x + vector.y + vector.z;
+        return new Vector3(Mathf.Lerp(0, 1, vector.x / sum), Mathf.Lerp(0, 1, vector.y / sum), Mathf.Lerp(0, 1, vector.z / sum));
+    }
+
+    private void InitialUnits(bool autoTest)
+    {
+        string humanPlayer = autoTest ? "Marius" : PlayerManager.GetPlayerName();
+        InstantiatePlayer(humanPlayer, playersPositions[0], teamColors[0], true);
+
+        for (int k = 1; k < playersNumber; ++k)
+        {
+            InstantiatePlayer(PlayerManager.GetComputerNames()[k - 1], playersPositions[k], teamColors[k], false);
+        }
+    }
+
+    private void InstantiatePlayer(string name, Vector3 position, Color teamColor, bool isHuman)
+    {
+        GameObject playerObject = (GameObject)GameObject.Instantiate(ResourceManager.GetPlayerObject(), position, new Quaternion());
+        if (isHuman) Camera.main.transform.root.position = playerObject.transform.position;
+        Player player = playerObject.GetComponent<Player>();
+        player.isHuman = isHuman;
+        player.teamColor = teamColor;
+        player.userName = player.name = name;
+        Buildings buildings = player.GetComponentInChildren<Buildings>();
+        GameObject townCenterObject = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter"), player.transform.position, new Quaternion());
+        player.townCenter = townCenterObject.GetComponent<TownCenter>();
+        player.townCenter.ObjectId = ResourceManager.GetNewObjectId();
+        if (buildings) townCenterObject.transform.parent = buildings.transform;
+        player.townCenter.SetPlayer();
+        player.townCenter.SetTeamColor();
+        player.townCenter.SetPlayingArea(player.GetComponentInChildren<HUD>().GetPlayingArea());
+        player.townCenter.CalculateBounds();
+        player.townCenter.SetSpawnPoint();
+        player.townCenter.FirstUnits(1);
+    }
+
 }

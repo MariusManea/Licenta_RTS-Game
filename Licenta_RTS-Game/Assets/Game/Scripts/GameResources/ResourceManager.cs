@@ -7,6 +7,9 @@ namespace RTS
 {
     public static class ResourceManager
     {
+        private static string[] GameResources = { "IronOreDeposit"};
+        public static string[] GetGameResources { get { return GameResources; } }
+
         public static float NormalScrollSpeed { get { return 0.5f; } }
         public static float FastScrollSpeed { get { return 1.5f; } }
         public static float CameraMovementTime { get { return 15; } }
