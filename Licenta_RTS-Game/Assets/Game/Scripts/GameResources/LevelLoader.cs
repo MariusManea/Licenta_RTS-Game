@@ -98,11 +98,20 @@ public class LevelLoader : MonoSingleton<LevelLoader>
            
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
-                AstarPath.active.data.gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
-                AstarPath.active.data.gridGraph.cutCorners = false;
-                AstarPath.active.data.gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
-                AstarPath.active.data.gridGraph.maxSlope = 30;
-                AstarPath.active.data.gridGraph.Scan();
+                NavGraph[] graphs = AstarPath.active.graphs;
+                foreach (NavGraph graph in graphs)
+                {
+                    if (graph.GetType() == typeof(GridGraph))
+                    {
+                        GridGraph gridGraph = graph as GridGraph;
+                        gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
+                        gridGraph.cutCorners = false;
+                        gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
+                        gridGraph.maxSlope = 30;
+                    }
+                }
+                
+                AstarPath.active.Scan();
             }
 
         }

@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &72297424
+--- !u!1 &496862820
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,39 +131,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 72297425}
-  m_Layer: 0
-  m_Name: CameraRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &72297425
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72297424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1395650371}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &821022077
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 821022079}
-  - component: {fileID: 821022078}
+  - component: {fileID: 496862822}
+  - component: {fileID: 496862821}
   m_Layer: 0
   m_Name: A*
   m_TagString: Untagged
@@ -171,13 +140,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &821022078
+--- !u!114 &496862821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821022077}
+  m_GameObject: {fileID: 496862820}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
@@ -185,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAQIexDhLhFTAIAAPkEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1vozAQ/SuRz7tSoAQ1e9uSNN1D2qrZVS9cXDwEK8ZG/mi+lP++YwOBpifwmzfj92YGzoRL00BhlV5pztaKAfk1If6d/JgMwSc40K2SG36CnvPOma08iQbOG7VcIR75NKNqsJoXv+VWePIUQSd5qXS9ZFvIlLEG4ZIKAxjSyvpsidB5Qg5dwrF7nvxzcsG3AqQFPbDi2S0PkcB0shC0boB5xUPCbNon4FsgSnTTcbzyQgnBTSeF2GMTrGa0MQ6NIIFxitaCCF+qAr6tbHe4Jr+UpYEe1fS44Bo71FYlD6ptW03NrlX2SYXz9yRRlARRbdX1N8Ld7H4WCKVW9VN/dTQNrmzFi90bPRbU2FFvx/BiEB+FJu2p2NEPAe8VyGe10spJNsp1BuLF6Hw1mFVQeG1WO7jqvQFd832c0TDOS2jBIRO8/ggm2vNGqKa1imfQOJ0/KDhsh9+YuEW9hn8G/tLteI26wCPXxmKou096cR/KaU8ly9A078XZTGkJAe4kNyCpsMdXLGNvx3gTG117E3mk/oP5mtV/BzcpAb7y42k7yHHwVe3DuHw3TKX2azDVi7OCSxhk+8AzdipTUrZ7Nu5Kn7ZxuqTFKG3rOPu6XwTSaAoJS+OYJUmcpj/n8R2dp3GazOZ3aXI/J2H9uESnVLy2QjurODc5FJe4af2fZLLStAk7zzTdr/ipVqOmc1mqTaEB5Etb4SocNF6C3yZbMo4t2oC1XIaJk3NOhCp2wPJroTw4XR6spvlQJScN/1TWIznJwv8jJxdy+Q9QSwMEFAAACAgAABAh7LxWr5ptAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tFKqmaFBqkmKmZFRiomJkZmZrqWRcaKlmZGZiamlsZmJhaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAABAh7EOEuEVMAgAA+QQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABAh7LxWr5ptAAAAeAAAAAkAJAAAAAAAAAAAAAAAmQIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABRAwAAAAA=
+    dataString: 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
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -257,21 +226,21 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
---- !u!4 &821022079
+--- !u!4 &496862822
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821022077}
+  m_GameObject: {fileID: 496862820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100, y: 0, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1395650370
+--- !u!1 &942835516
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,9 +248,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1395650371}
-  - component: {fileID: 1395650373}
-  - component: {fileID: 1395650372}
+  - component: {fileID: 942835517}
+  - component: {fileID: 942835520}
+  - component: {fileID: 942835519}
+  - component: {fileID: 942835518}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -289,35 +259,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1395650371
+--- !u!4 &942835517
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395650370}
+  m_GameObject: {fileID: 942835516}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 50, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 72297425}
+  m_Father: {fileID: 1190234214}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
---- !u!81 &1395650372
+--- !u!45 &942835518
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942835516}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 005e185bc9959694193069b17071933e, type: 2}
+--- !u!81 &942835519
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395650370}
+  m_GameObject: {fileID: 942835516}
   m_Enabled: 1
---- !u!20 &1395650373
+--- !u!20 &942835520
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395650370}
+  m_GameObject: {fileID: 942835516}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -327,7 +306,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -336,9 +315,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 30
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -354,6 +333,37 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1190234213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190234214}
+  m_Layer: 0
+  m_Name: CameraRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1190234214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190234213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 942835517}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1500240455
 PrefabInstance:
   m_ObjectHideFlags: 0

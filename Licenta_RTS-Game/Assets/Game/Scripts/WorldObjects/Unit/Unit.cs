@@ -9,20 +9,22 @@ public class Unit : WorldObjects
 {
     protected bool moving, rotating;
 
-    private Vector3 destination;
-    private Quaternion targetRotation;
+    protected Vector3 destination;
+    protected Quaternion targetRotation;
     public float moveSpeed, rotateSpeed;
-    private GameObject destinationTarget;
+    protected GameObject destinationTarget;
     private int loadedDestinationTargetId = -1;
 
     public AudioClip driveSound, moveSound;
     public float driveVolume = 0.5f, moveVolume = 1.0f;
     public AstarPath graph;
+    public NavGraph navGraph;
 
     protected override void Awake()
     {
         base.Awake();
         graph = FindObjectOfType<AstarPath>();
+        navGraph = graph.data.graphs[0];
     }
 
     protected override void Start()
@@ -97,7 +99,7 @@ public class Unit : WorldObjects
                 Resource resource = hitObject.transform.parent.GetComponent<Resource>();
                 if (resource && resource.isEmpty()) clickedOnEmptyResource = true;
             }
-            if ((WorkManager.ObjectIsGround(hitObject) || clickedOnEmptyResource) && hitPoint != ResourceManager.InvalidPosition)
+            if ((WorkManager.ObjectIsGround(hitObject) || WorkManager.ObjectIsWater(hitObject) || clickedOnEmptyResource) && hitPoint != ResourceManager.InvalidPosition)
             {
                 attacking = false;
                 target = null;
@@ -111,7 +113,7 @@ public class Unit : WorldObjects
         }
     }
 
-    private Vector3 GetClosestValidDestination(Vector3 destination)
+    protected Vector3 GetClosestValidDestination(Vector3 destination)
     {
         int d = 1;
         while (true)
@@ -120,7 +122,7 @@ public class Unit : WorldObjects
             {
                 Vector3 newPosition = destination + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 36.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 36.0f));
                 newPosition.y = terrain.SampleHeight(newPosition);
-                if (graph.GetNearest(newPosition).node.Walkable)
+                if (navGraph.GetNearest(newPosition).node.Walkable)
                 {
 
                     return newPosition;
@@ -137,9 +139,9 @@ public class Unit : WorldObjects
     public virtual void StartMove(Vector3 destination)
     {
         if (audioElement != null) audioElement.Play(moveSound);
-        if (graph.GetNearest(destination).node.Walkable)
+        if (navGraph.GetNearest(destination).node.Walkable)
         {
-            this.destination = graph.GetNearest(destination).position;
+            this.destination = navGraph.GetNearest(destination).clampedPosition;
         }
         else
         {
@@ -153,7 +155,7 @@ public class Unit : WorldObjects
             }
             else
             {
-                this.destination = graph.GetNearest(destination).position;
+                this.destination = navGraph.GetNearest(destination).clampedPosition;
             }
         }
         this.destination = new Vector3(this.destination.x, terrain.SampleHeight(this.destination), this.destination.z);
@@ -186,7 +188,7 @@ public class Unit : WorldObjects
             GetComponent<AIPath>().destination = this.destination;
         }
         return;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
+        /*transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
         //sometimes it gets stuck exactly 180 degrees out in the calculation and does nothing, this check fixes that
         Quaternion inverseTargetRotation = new Quaternion(-targetRotation.x, -targetRotation.y, -targetRotation.z, -targetRotation.w);
         if (transform.rotation == targetRotation || transform.rotation == inverseTargetRotation)
@@ -194,7 +196,7 @@ public class Unit : WorldObjects
             if (audioElement != null) audioElement.Play(driveSound);
             rotating = false;
             moving = true;
-        }
+        }*/
     }
 
     private void MakeMove()

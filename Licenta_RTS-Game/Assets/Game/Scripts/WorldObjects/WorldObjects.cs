@@ -152,6 +152,20 @@ public class WorldObjects : MonoBehaviour
         return player;
     }
 
+    public virtual bool IsCargo()
+    {
+        return false;
+    }
+
+    public virtual void InitiateUnload()
+    {
+
+    }
+    public virtual void CancelUnload()
+    {
+
+    }        
+
     public void SetTeamColor()
     {
         TeamColor[] teamColors = GetComponentsInChildren<TeamColor>();

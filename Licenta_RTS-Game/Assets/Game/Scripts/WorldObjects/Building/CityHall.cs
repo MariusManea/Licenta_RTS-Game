@@ -44,10 +44,6 @@ public class CityHall : Building
         CreateUnit(actionToPerform);
     }
 
-    public override bool Sellable()
-    {
-        return true;
-    }
     protected override bool ShouldMakeDecision()
     {
         return false;

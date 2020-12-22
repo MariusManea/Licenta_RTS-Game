@@ -75,6 +75,11 @@ namespace RTS
             return obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
         }
 
+        public static bool ObjectIsWater(GameObject obj)
+        {
+            return obj.name == "Water" || obj.layer == 4;
+        }
+
         public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)
         {
             Collider[] hitColliders = Physics.OverlapSphere(position, range);

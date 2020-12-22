@@ -55,6 +55,7 @@ MonoBehaviour:
   startPowerLimit: 500
   userName: Marius
   isHuman: 1
+  playerID: 0
   hud: {fileID: 0}
   notAllowedMaterial: {fileID: 2100000, guid: 096ea4ec92cf0cf499131852aa29d136, type: 2}
   allowedMaterial: {fileID: 2100000, guid: 5086c3bc679c3374d9971b8576ddae04, type: 2}
@@ -172,6 +173,7 @@ MonoBehaviour:
     type: 2}
   selectedBarSkin: {fileID: 11400000, guid: dc3c7c171a0befb42aeb1bb45c22eb21, type: 2}
   activeCursor: {fileID: 2800000, guid: cf05dac86affa2b499c8ad31201f3cb7, type: 3}
+  unloadCursor: {fileID: 2800000, guid: 8b6839053e52e0f4cbf0a016d0123e35, type: 3}
   selectCursor: {fileID: 2800000, guid: 14af26a2c06d59e438661294a90ffbea, type: 3}
   leftCursor: {fileID: 2800000, guid: b0935e8dc33081a478ed3da1c5b44420, type: 3}
   rightCursor: {fileID: 2800000, guid: 3ce0879305b37884da69d1d1eb91c333, type: 3}
@@ -197,6 +199,7 @@ MonoBehaviour:
   smallButtonClick: {fileID: 2800000, guid: 478230498e03eab43967fc9f6b21da3c, type: 3}
   rallyPointCursor: {fileID: 2800000, guid: e133e234f4166444aa76b952cb37a20b, type: 3}
   centerCameraButton: {fileID: 2800000, guid: f56fe4f9f2ad95542ba8a168bcfd8775, type: 3}
+  unloadImage: {fileID: 2800000, guid: 0ba4df733a7a6f84db5f89fa3ffb6fdb, type: 3}
   healthy: {fileID: 2800000, guid: 2a7e5882d13735a4aac0dc6df62c4bbc, type: 3}
   damaged: {fileID: 2800000, guid: 776de9457c208ca4696a1013c952fbbc, type: 3}
   critical: {fileID: 2800000, guid: fe2aeb08c243ff3498538281d663a03f, type: 3}

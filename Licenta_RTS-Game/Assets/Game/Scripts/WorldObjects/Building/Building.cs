@@ -116,7 +116,7 @@ public class Building : WorldObjects
             {
                 if (flag && player.isHuman && spawnPoint != ResourceManager.InvalidPosition && rallyPoint != ResourceManager.InvalidPosition)
                 {
-                    flag.transform.localPosition = rallyPoint;
+                    flag.transform.position = rallyPoint;
                     flag.transform.forward = transform.forward;
                     flag.Enable();
                 }
@@ -157,19 +157,20 @@ public class Building : WorldObjects
                 if ((player.hud.GetCursorState() == CursorState.RallyPoint || player.hud.GetPreviousCursorState() == CursorState.RallyPoint) && hitPoint != ResourceManager.InvalidPosition)
                 {
                     SetRallyPoint(hitPoint);
+                    player.hud.SetCursorState(CursorState.Select);
                 }
             }
         }
     }
 
-    public void SetRallyPoint(Vector3 position)
+    public virtual void SetRallyPoint(Vector3 position)
     {
         rallyPoint = position;
         rallyPoint.y = terrain.SampleHeight(rallyPoint);
         if (player && player.isHuman && currentlySelected)
         {
             RallyPoints flag = player.GetComponentInChildren<RallyPoints>();
-            if (flag) flag.transform.localPosition = rallyPoint;
+            if (flag) flag.transform.position = rallyPoint;
         }
     }
 
@@ -218,7 +219,7 @@ public class Building : WorldObjects
         }
     }
 
-    public void SetSpawnPoint()
+    public virtual void SetSpawnPoint()
     {
         float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
         float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;

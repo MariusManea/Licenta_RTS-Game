@@ -39,6 +39,7 @@ public class HUD : MonoBehaviour
     public GUISkin selectedBarSkin;
 
     public Texture2D activeCursor;
+    public Texture2D unloadCursor;
     public Texture2D selectCursor, leftCursor, rightCursor, upCursor, downCursor;
     public Texture2D[] moveCursors, attackCursors, harvestCursors;
 
@@ -53,6 +54,7 @@ public class HUD : MonoBehaviour
     public Texture2D smallButtonHover, smallButtonClick;
     public Texture2D rallyPointCursor;
     public Texture2D centerCameraButton;
+    public Texture2D unloadImage;
 
 
     public Texture2D healthy, damaged, critical;
@@ -394,6 +396,15 @@ public class HUD : MonoBehaviour
                     }
                 }
             }
+            foreach (WorldObjects wO in player.SelectedObjects)
+            {
+                if (wO.IsCargo())
+                {
+                    selectionName = wO.objectName;
+                    DrawUnloadCargos();
+                    break;
+                }
+            }
         }
         if (!selectionName.Equals(""))
         {
@@ -402,6 +413,58 @@ public class HUD : MonoBehaviour
             GUI.Label(new Rect(leftPos, topPos, ORDERS_BAR_WIDTH, SELECTION_NAME_HEIGHT), selectionName);
         }
         GUI.EndGroup();
+    }
+
+    private void DrawUnloadCargos()
+    {
+        GUIStyle buttons = new GUIStyle();
+        buttons.hover.background = smallButtonHover;
+        buttons.active.background = smallButtonClick;
+        GUI.skin.button = buttons;
+        int width = BUILD_IMAGE_WIDTH / 2;
+        int height = BUILD_IMAGE_HEIGHT / 2;
+        int leftPos = BUILD_IMAGE_WIDTH + SCROLL_BAR_WIDTH + BUTTON_SPACING + 2 * (width + BUTTON_SPACING);
+        int topPos = buildAreaHeight - BUILD_IMAGE_HEIGHT / 2;
+        if (GUI.Button(new Rect(leftPos, topPos, width, height), unloadImage))
+        {
+            PlayClick();
+            bool mouseChanged = false;
+            bool makeAction = false;
+            bool cancelAction = false;
+            foreach(WorldObjects selectedWorldObject in player.SelectedObjects)
+            {
+                if (selectedWorldObject.IsCargo())
+                {
+                    if (!mouseChanged)
+                    {
+                        if (activeCursorState != CursorState.Unload && previousCursorState != CursorState.Unload)
+                        {
+                            SetCursorState(CursorState.Unload);
+                            makeAction = true;
+                        }
+                        else
+                        {
+                            //dirty hack to ensure toggle between RallyPoint and not works ...
+                            SetCursorState(CursorState.PanRight);
+                            SetCursorState(CursorState.Select);
+                            cancelAction = true;
+                        }
+                        mouseChanged = true;
+                    }
+                    if (makeAction)
+                    {
+                        if (!cancelAction)
+                        {
+                            selectedWorldObject.InitiateUnload();
+                        }
+                        else
+                        {
+                            selectedWorldObject.CancelUnload();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void DrawStandardBuildingOptions(Building building)
@@ -627,7 +690,7 @@ public class HUD : MonoBehaviour
                                                               //adjust position base on the type of cursor being shown
         if (activeCursorState == CursorState.PanRight) leftPos -= activeCursor.width;
         else if (activeCursorState == CursorState.PanDown) topPos -= activeCursor.height;
-        else if (activeCursorState == CursorState.Move || activeCursorState == CursorState.Select || activeCursorState == CursorState.Harvest)
+        else if (activeCursorState == CursorState.Move || activeCursorState == CursorState.Select || activeCursorState == CursorState.Harvest || activeCursorState == CursorState.Unload)
         {
             topPos -= activeCursor.height / 2;
             leftPos -= activeCursor.width / 2;
@@ -681,6 +744,9 @@ public class HUD : MonoBehaviour
                 break;
             case CursorState.RallyPoint:
                 activeCursor = rallyPointCursor;
+                break;
+            case CursorState.Unload:
+                activeCursor = unloadCursor;
                 break;
             default: break;
         }

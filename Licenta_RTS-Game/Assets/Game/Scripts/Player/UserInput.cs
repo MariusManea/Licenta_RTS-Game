@@ -268,7 +268,15 @@ public class UserInput : MonoBehaviour
                 GameObject hoverObject = FindHitObject();
                 if (hoverObject)
                 {
-                    if (player.SelectedObjects != null) player.SelectedObjects[0].SetHoverState(hoverObject);
+                    if (player.SelectedObjects != null)
+                    {
+                        bool hadCargo = false;
+                        foreach (WorldObjects wO in player.SelectedObjects)
+                        {
+                            if (!hadCargo) wO.SetHoverState(hoverObject);
+                            if (wO.IsCargo()) hadCargo = true;
+                        }
+                    }
                     else if (!WorkManager.ObjectIsGround(hoverObject))
                     {
                         Player owner = hoverObject.transform.root.GetComponent<Player>();
