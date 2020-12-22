@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     public string userName;
     public bool isHuman;
+    public int playerID;
 
     public HUD hud;
 
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
 
     public List<WorldObjects> SelectedObjects { get; set; }
     public bool centerToBase;
+    private GameManager gameManager;
+    private LevelLoader levelLoader;
 
     void Awake()
     {
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         hud = GetComponentInChildren<HUD>();
+        gameManager = (GameManager)FindObjectOfType(typeof(GameManager));
+        levelLoader = (LevelLoader)FindObjectOfType(typeof(LevelLoader));
 
         AddStartResourceLimits();
         AddStartResources();
@@ -143,6 +148,33 @@ public class Player : MonoBehaviour
 
     public bool CanPlaceBuilding()
     {
+        if (tempBuilding.transform.position.y < 7)
+        {
+            return false;
+        }
+
+        if (tempBuilding.GetComponent<CityHall>())
+        {
+            int count = gameManager.GetNumberOfTerritories();
+            List<Vector3>[] borders = levelLoader.GetAllBorders();
+            for (int i = 0; i < count; ++i)
+            {
+                if (Poly.ContainsPoint(borders[i], tempBuilding.transform.position))
+                {
+                    int owner = gameManager.GetOwner(i);
+                    if (owner != -1)
+                    {
+                        return false;
+                    } 
+                    else
+                    {
+                        tempBuilding.GetComponent<CityHall>().SetStats(playerID, i);
+                    }
+                    break;
+                }
+            }
+        }
+
 
         Bounds placeBounds = tempBuilding.GetSelectionBounds();
         //shorthand for the coordinates of the center of the selection bounds
@@ -227,6 +259,7 @@ public class Player : MonoBehaviour
     {
         SaveManager.WriteString(writer, "Username", userName);
         SaveManager.WriteBoolean(writer, "Human", isHuman);
+        SaveManager.WriteFloat(writer, "PlayerID", playerID);
         SaveManager.WriteColor(writer, "TeamColor", teamColor);
         SaveManager.SavePlayerResources(writer, resources, resourceLimits);
         SaveManager.SavePlayerBuildings(writer, GetComponentsInChildren<Building>());
@@ -261,6 +294,7 @@ public class Player : MonoBehaviour
                     {
                         case "Username": userName = (string)reader.Value; gameObject.name = userName; break;
                         case "Human": isHuman = (bool)reader.Value; break;
+                        case "PlayerID": playerID = (int)(double)reader.Value; break;
                         default: break;
                     }
                 }

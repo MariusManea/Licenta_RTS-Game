@@ -8,6 +8,8 @@ public class GameManager : MonoSingleton<GameManager>
     private bool initialised = false;
     private VictoryCondition[] victoryConditions;
     private HUD hud;
+    public int[] territoriesOwner;
+
 
     void Awake()
     {
@@ -63,5 +65,34 @@ public class GameManager : MonoSingleton<GameManager>
                 }
             }
         }
+    }
+
+    public void InitOwnership(int size, int playersNumber)
+    {
+        territoriesOwner = new int[size];
+        for (int i = 0; i < size; ++i)
+        {
+            territoriesOwner[i] = i < playersNumber ? i : -1;
+        }
+    }
+
+    public void LoadOwnership(int[] newOwnership)
+    {
+        territoriesOwner = newOwnership;
+    }
+
+    public void SetOwner(int id, int owner)
+    {
+        territoriesOwner[id] = owner;
+    }
+
+    public int GetOwner(int id)
+    {
+        return territoriesOwner[id];
+    }
+
+    public int GetNumberOfTerritories()
+    {
+        return territoriesOwner.Length;
     }
 }

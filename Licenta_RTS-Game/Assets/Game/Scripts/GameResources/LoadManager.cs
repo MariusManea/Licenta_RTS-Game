@@ -42,6 +42,7 @@ namespace RTS
                                     case "GameInfo": LoadGameInfo(reader); break;
                                     case "Sun": LoadLighting(reader); break;
                                     case "Ground": LoadTerrain(reader); break;
+                                    case "Borders": LoadBorders(reader); break;
                                     case "Camera": LoadCamera(reader); break;
                                     case "Resources": LoadResources(reader); break;
                                     case "Players": LoadPlayers(reader); break;
@@ -196,6 +197,62 @@ namespace RTS
                     return;
                 }
             }
+        }
+
+        private static void LoadBorders(JsonTextReader reader)
+        {
+            if (reader == null) return;
+            int size = 0;
+            while (reader.Read())
+            {
+                if (reader.Value != null)
+                {
+                    if (reader.TokenType == JsonToken.PropertyName)
+                    {
+                        if ((string)reader.Value == "Size")
+                        {
+                            do
+                            {
+                                reader.Read();
+                            } while (reader.Value == null);
+                            size = (int)(double)reader.Value;
+                        }
+                        else if ((string)reader.Value == "Array") LoadBordersArray(reader, size);
+                    }
+                }
+                else if (reader.TokenType == JsonToken.EndArray) return;
+            }
+        }
+
+        private static void LoadBordersArray(JsonTextReader reader, int size)
+        {
+            List<Vector3>[] borders = new List<Vector3>[size];
+            for (int i = 0; i < size; ++i)
+            {
+                borders[i] = new List<Vector3>();
+            }
+
+            if (reader == null) return;
+            int currentTerritory = -1;
+            for (int i = 0; i < size; ++i)
+            {
+                while (reader.Read())
+                {
+                    if (reader.Value != null)
+                    {
+                        if ((string)reader.Value == "Territory") currentTerritory++;
+                        else
+                        {
+                            if (currentTerritory == i)
+                            {
+                                borders[currentTerritory].Add(LoadVector(reader));
+                            }
+                        }
+                    }
+                    else if (reader.TokenType == JsonToken.EndArray) break;
+                }
+            }
+            ((LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader))).LoadBorders(borders);
         }
 
         private static float[,,] LoadAlphaMap(JsonTextReader reader, int resolution)

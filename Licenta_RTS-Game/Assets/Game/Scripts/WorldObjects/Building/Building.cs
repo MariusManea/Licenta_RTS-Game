@@ -19,7 +19,7 @@ public class Building : WorldObjects
     public AudioClip finishedJobSound;
     public float finishedJobVolume = 1.0f;
 
-    private bool needsBuilding = false;
+    protected bool needsBuilding = false;
 
     protected override void Awake()
     {

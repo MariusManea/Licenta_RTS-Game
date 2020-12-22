@@ -26,7 +26,7 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "TownCenter", "Refinery", "WarFactory", "Turret", "Wonder" };
+        actions = new string[] { "CityHall", "Refinery", "WarFactory", "Turret", "Wonder" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -40,6 +40,7 @@ public class Worker : Unit
             {
                 building = true;
                 currentProject = (Building)obj;
+                SetBuilding(currentProject);
             }
         }
     }

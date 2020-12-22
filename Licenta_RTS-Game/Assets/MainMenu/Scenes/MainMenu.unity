@@ -303,6 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4772a44393eea546991975cdeae585e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BordersSourceMaterial: {fileID: 2100000, guid: 128e7e1d1168f7f4ea8761bd7310ba74,
+    type: 2}
   playersNumber: 6
   teamColors:
   - {r: 0, g: 0, b: 1, a: 1}
@@ -469,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd72c79d30f48714e829ee1ecd901c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  territoriesOwner: 
 --- !u!4 &1155134691
 Transform:
   m_ObjectHideFlags: 0

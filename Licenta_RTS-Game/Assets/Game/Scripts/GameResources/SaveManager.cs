@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace RTS
 {
@@ -32,10 +33,12 @@ namespace RTS
             SaveGameInfo(writer);
             SaveLighting(writer);
             SaveTerrain(writer);
+            SaveBorders(writer);
             SaveCamera(writer);
             SaveResources(writer);
             SavePlayers(writer);
         }
+
 
         public static void WriteVector(JsonWriter writer, string name, Vector3 vector)
         {
@@ -145,6 +148,32 @@ namespace RTS
 
 
             writer.WriteEndObject();
+        }
+
+        private static void SaveBorders(JsonWriter writer)
+        {
+            LevelLoader levelLoader = (LevelLoader)GameObject.FindObjectOfType(typeof(LevelLoader));
+            List<Vector3>[] borders = levelLoader.GetAllBorders();
+            writer.WritePropertyName("Borders");
+            writer.WriteStartObject();
+            WriteFloat(writer, "Size", borders.Length);
+            writer.WritePropertyName("Array");
+            writer.WriteStartArray();
+            for (int i = 0; i < borders.Length; ++i)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Territory");
+                writer.WriteStartArray();
+                for (int j = 0; j < borders[i].Count; ++j)
+                {
+                    writer.WriteStartObject();
+                    WriteVector(writer, j.ToString(), borders[i][j]);
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
         }
 
         private static void SaveCamera(JsonWriter writer)

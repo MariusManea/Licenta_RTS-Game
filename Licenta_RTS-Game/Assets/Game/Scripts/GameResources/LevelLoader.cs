@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using RTS;
 using Pathfinding;
+using System.IO;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
@@ -18,9 +19,13 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     private List<Vector3>[] resourcesLand;
 
+    public Material BordersSourceMaterial;
+    private List<Vector3>[] borders;
+
     public struct MapPoint
     {
         public int owner;
+        public int id;
         public bool flatland;
     }
 
@@ -125,6 +130,22 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         return map;
     }
 
+    public void LoadBorders(List<Vector3>[] loadedBorders)
+    {
+        borders = loadedBorders;
+        ((GameManager)FindObjectOfType(typeof(GameManager))).InitOwnership(borders.Length, playersNumber);
+        terrain = (Terrain)GameObject.FindObjectOfType(typeof(Terrain));
+        for (int i = 0; i < borders.Length; ++i)
+        {
+            Color color = new Color(0.5f, 0.5f, 0.5f);
+            if (i < playersNumber)
+            {
+                color = teamColors[i];
+            }
+            StartCoroutine(DrawBorder(borders[i], terrain, color, BordersSourceMaterial, "Territory" + i));
+        }
+    }
+
     private void InitNewWorld(bool autoTest)
     {
         // new level init
@@ -174,6 +195,8 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         // Step 9
         TextureMap();
         // Step 10
+        DrawBorders();
+        // Step 11
         InitialUnits(autoTest);
 
     }
@@ -197,6 +220,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         for (int i = 0; i < playersNumber; ++i)
         {
             map[(int)playersPositions[i].x][(int)playersPositions[i].z].owner = i;
+            map[(int)playersPositions[i].x][(int)playersPositions[i].z].id = i;
         }
 
         territories = new List<Vector3>(playersPositions);
@@ -205,6 +229,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         {
             Vector3 colonizablePosition = GetColonyPosition(territories);
             map[(int)colonizablePosition.x][(int)colonizablePosition.z].owner = dummyPlayer;
+            map[(int)colonizablePosition.x][(int)colonizablePosition.z].id = dummyPlayer;
             territories.Add(colonizablePosition);
         }
     }
@@ -621,18 +646,136 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         return new Vector3(Mathf.Lerp(0, 1, vector.x / sum), Mathf.Lerp(0, 1, vector.y / sum), Mathf.Lerp(0, 1, vector.z / sum));
     }
 
+    private void DrawBorders()
+    {
+        borders = GetBorders();
+        for (int id = 0; id < clumpNumber; ++id)
+        {
+            Color color = new Color(0.5f, 0.5f, 0.5f);
+            if (id < playersNumber)
+            {
+                color = teamColors[id];
+            }
+            StartCoroutine(DrawBorder(borders[id], terrain, color, BordersSourceMaterial, "Territory" + id));
+        }
+        ((GameManager)FindObjectOfType(typeof(GameManager))).InitOwnership(clumpNumber, playersNumber);
+    }
+
+    private IEnumerator DrawBorder(List<Vector3> borders, Terrain terrain, Color color, Material sourceMaterial, string name)
+    {
+        Vector3 position = borders[0];
+        position.y = terrain.SampleHeight(position) + 0.25f;
+        GameObject borderMaker = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("BordersMaker"), position, new Quaternion());
+        borderMaker.name = name;
+        borderMaker.GetComponent<TrailRenderer>().material = new Material(sourceMaterial);
+        borderMaker.GetComponent<TrailRenderer>().material.color = color;
+        for (int i = 1; i < borders.Count; ++i)
+        {
+            
+            position = borders[i];
+            position.y = terrain.SampleHeight(position) + 0.25f;
+            borderMaker.transform.position = position;
+            yield return null;
+        }
+        position = borders[0];
+        position.y = terrain.SampleHeight(position) + 0.25f;
+        borderMaker.transform.position = position;
+        yield return null;
+    }
+
+    private List<Vector3>[] GetBorders()
+    {
+        int[] dx = { 0, 1, 0, -1 };
+        int[] dz = { 1, 0, -1, 0 };
+        List<Vector3>[] borders = new List<Vector3>[clumpNumber];
+        for (int i = 0; i < clumpNumber; ++i)
+        {
+            borders[i] = new List<Vector3>();
+        }
+
+        for (int i = 0; i < (int)mapSize; ++i)
+        {
+            for (int j = 0; j < (int)mapSize; ++j)
+            {
+                if (map[i][j].owner != -1)
+                {
+                    for (int k = 0; k < 4; ++k)
+                    {
+                        try
+                        {
+                            if (map[i + dx[k]][j + dz[k]].owner != map[i][j].owner)
+                            {
+                                borders[map[i][j].owner].Add(new Vector3(i, 0, j));
+                                break;
+                            }
+                        }
+                        catch
+                        {
+                            borders[map[i][j].owner].Add(new Vector3(i, 0, j));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int id = 0; id < clumpNumber; ++id)
+        {
+            List<Vector3> sortedBorder = new List<Vector3>();
+            Vector3 startPoint = borders[id][0];
+            Vector3 currentPoint = startPoint;
+            sortedBorder.Add(currentPoint);
+            borders[id].RemoveAt(0);
+            while (borders[id].Count > 0)
+            {
+                Vector3 nextPoint = GetNextBorderPoint(borders[id], currentPoint);
+                if (nextPoint != -Vector3.one)
+                {
+                    sortedBorder.Add(nextPoint);
+                    currentPoint = nextPoint;
+                    borders[id].Remove(nextPoint);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            borders[id] = sortedBorder;
+        }
+
+        return borders;
+    }
+
+    private Vector3 GetNextBorderPoint(List<Vector3> border, Vector3 currentPoint)
+    {
+        Vector3 closestPoint = -Vector3.one;
+        float distance = int.MaxValue;
+
+        for(int i = 0; i < border.Count; ++i)
+        {
+            float newDistance = (border[i] - currentPoint).sqrMagnitude;
+            if (newDistance < 64 && newDistance < distance)
+            {
+                closestPoint = border[i];
+                distance = newDistance;
+            }
+        }
+
+        return closestPoint;
+    }
+
     private void InitialUnits(bool autoTest)
     {
         string humanPlayer = autoTest ? "Marius" : PlayerManager.GetPlayerName();
-        InstantiatePlayer(humanPlayer, playersPositions[0], teamColors[0], true);
+        InstantiatePlayer(humanPlayer, playersPositions[0], teamColors[0], true, 0);
 
         for (int k = 1; k < playersNumber; ++k)
         {
-            InstantiatePlayer(PlayerManager.GetComputerNames()[k - 1], playersPositions[k], teamColors[k], false);
+            InstantiatePlayer(PlayerManager.GetComputerNames()[k - 1], playersPositions[k], teamColors[k], false, k);
         }
     }
 
-    private void InstantiatePlayer(string name, Vector3 position, Color teamColor, bool isHuman)
+    private void InstantiatePlayer(string name, Vector3 position, Color teamColor, bool isHuman, int id)
     {
         GameObject playerObject = (GameObject)GameObject.Instantiate(ResourceManager.GetPlayerObject(), position, new Quaternion());
         if (isHuman) Camera.main.transform.root.position = playerObject.transform.position;
@@ -640,6 +783,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         player.isHuman = isHuman;
         player.teamColor = teamColor;
         player.userName = player.name = name;
+        player.playerID = id;
         Buildings buildings = player.GetComponentInChildren<Buildings>();
         GameObject townCenterObject = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter"), player.transform.position, new Quaternion());
         player.townCenter = townCenterObject.GetComponent<TownCenter>();
@@ -653,4 +797,21 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         player.townCenter.FirstUnits(1);
     }
 
+    public List<Vector3>[] GetAllBorders()
+    {
+        return borders;
+    }
+
+    public void ChangeBorder(int borderID, int ownerID)
+    {
+        GameObject border = GameObject.Find("Territory" + borderID);
+        if (ownerID != -1)
+        {
+            border.GetComponent<TrailRenderer>().material.color = teamColors[ownerID];
+        }
+        else
+        {
+            border.GetComponent<TrailRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f);
+        }
+    }
 }
