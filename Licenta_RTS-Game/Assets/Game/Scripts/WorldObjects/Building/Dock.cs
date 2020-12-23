@@ -43,8 +43,8 @@ public class Dock : Building
         if (position == -Vector3.one) return;
         position.y = 7;
         Vector3 dirToWater = (transform.position - position).normalized;
-        float spawnX = selectionBounds.center.x + dirToWater.x * selectionBounds.extents.x + dirToWater.x * 15;
-        float spawnZ = selectionBounds.center.z + dirToWater.z * selectionBounds.extents.z + dirToWater.z * 15;
+        float spawnX = selectionBounds.center.x + dirToWater.x * selectionBounds.extents.x + dirToWater.x * 25;
+        float spawnZ = selectionBounds.center.z + dirToWater.z * selectionBounds.extents.z + dirToWater.z * 25;
         position = GetClosestValidPoint(waterNav, new Vector3(spawnX, 7, spawnZ));
         if (position == -Vector3.one) return;
         position.y = 7;

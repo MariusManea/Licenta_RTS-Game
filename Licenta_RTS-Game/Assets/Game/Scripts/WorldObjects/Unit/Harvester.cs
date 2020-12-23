@@ -127,10 +127,20 @@ public class Harvester : Unit
 		audioElement.Add(sounds, volumes);
 	}
 
-	/* Public Methods */
+    protected override void EnterCargo()
+    {
+		resourceDeposit = null;
+		resourceStore = null;
+		oldStore = null;
+		harvesting = false;
+		emptying = false;
+        base.EnterCargo();
+    }
+
+    /* Public Methods */
 
 
-	public override void SetHoverState(GameObject hoverObject)
+    public override void SetHoverState(GameObject hoverObject)
 	{
 		base.SetHoverState(hoverObject);
 		//only handle input if owned by a human player and currently selected

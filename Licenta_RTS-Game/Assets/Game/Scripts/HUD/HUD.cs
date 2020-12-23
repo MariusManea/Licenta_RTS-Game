@@ -385,7 +385,7 @@ public class HUD : MonoBehaviour
                 {
                     //reset slider value if the selected object has changed
                     if (lastSelection && lastSelection != selectedObjectWithActions) sliderValue = 0.0f;
-                    if (selectedObjectWithActions.IsActive) DrawActions(selectedObjectWithActions.GetActions());
+                    if (selectedObjectWithActions.IsActive) DrawActions(selectedObjectWithActions.GetActions(), selectedObjectWithActions);
                     //store the current selection
                     lastSelection = selectedObjectWithActions;
                     Building selectedBuilding = lastSelection.GetComponent<Building>();
@@ -444,9 +444,10 @@ public class HUD : MonoBehaviour
                         }
                         else
                         {
-                            //dirty hack to ensure toggle between RallyPoint and not works ...
+                            //dirty hack to ensure toggle between Unload and not works ...
                             SetCursorState(CursorState.PanRight);
                             SetCursorState(CursorState.Select);
+                            makeAction = true;
                             cancelAction = true;
                         }
                         mouseChanged = true;
@@ -523,7 +524,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    private void DrawActions(string[] actions)
+    private void DrawActions(string[] actions, WorldObjects worldObjectWithActions)
     {
         GUIStyle buttons = new GUIStyle();
         buttons.hover.background = buttonHover;
@@ -550,7 +551,7 @@ public class HUD : MonoBehaviour
                     {
                         foreach(WorldObjects selectedWorldObject in player.SelectedObjects)
                         {
-                            if (selectedWorldObject.GetType() == player.SelectedObjects[0].GetType())
+                            if (selectedWorldObject.GetType() == worldObjectWithActions.GetType())
                             {
                                 selectedWorldObject.PerformAction(actions[i]);
                             }
@@ -746,6 +747,9 @@ public class HUD : MonoBehaviour
                 activeCursor = rallyPointCursor;
                 break;
             case CursorState.Unload:
+                activeCursor = unloadCursor;
+                break;
+            case CursorState.Load:
                 activeCursor = unloadCursor;
                 break;
             default: break;

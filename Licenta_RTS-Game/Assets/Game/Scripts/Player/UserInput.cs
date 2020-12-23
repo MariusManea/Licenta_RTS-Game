@@ -200,7 +200,7 @@ public class UserInput : MonoBehaviour
                     }
                     else
                     {
-                        if (!WorkManager.ObjectIsGround(hitObject))
+                        if (!WorkManager.ObjectIsGround(hitObject) && !WorkManager.ObjectIsWater(hitObject))
                         {
                             WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
                             if (worldObject)

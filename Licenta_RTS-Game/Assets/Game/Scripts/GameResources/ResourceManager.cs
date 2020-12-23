@@ -18,8 +18,8 @@ namespace RTS
         private static Vector3 zoomAmount = new Vector3(0, -5, 5);
         public static Vector3 ZoomAmount { get { return zoomAmount; } }
         public static int ScrollWidth { get { return 10; } }
-        public static float MinCameraHeight { get { return 10; } }
-        public static float MaxCameraHeight { get { return 80; } }
+        public static float MinCameraHeight { get { return 20; } }
+        public static float MaxCameraHeight { get { return 60; } }
 
         private static Vector3 invalidPosition = new Vector3(-99999, -99999, -99999);
         public static Vector3 InvalidPosition { get { return invalidPosition; } }

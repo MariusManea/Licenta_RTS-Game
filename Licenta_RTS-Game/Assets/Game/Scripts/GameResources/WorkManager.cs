@@ -72,12 +72,17 @@ namespace RTS
         }
         public static bool ObjectIsGround(GameObject obj)
         {
-            return obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
+            return obj == null || obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
         }
 
         public static bool ObjectIsWater(GameObject obj)
         {
-            return obj.name == "Water" || obj.layer == 4;
+            return obj == null || obj.name == "Water" || obj.layer == 4;
+        }
+
+        public static bool ObjectIsCargo(GameObject obj)
+        {
+            return obj == null || obj.transform.parent.GetComponent<CargoShip>() != null;
         }
 
         public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)
@@ -115,6 +120,13 @@ namespace RTS
                 }
             }
             return nearestObject;
+        }
+
+        public static bool IsWorldObjectNearby(WorldObjects target, Vector3 position)
+        {
+            if (target == null) return false;
+            float distance = Vector3.SqrMagnitude(position - target.transform.position);
+            return distance < 225;
         }
     }
 }

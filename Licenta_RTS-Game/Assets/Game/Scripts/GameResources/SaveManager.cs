@@ -214,6 +214,16 @@ namespace RTS
             writer.WriteStartObject();
             worldObject.SaveDetails(writer);
             writer.WriteEndObject();
+            if (worldObject.GetComponent<CargoShip>() != null)
+            {
+                List<Unit> loadedUnits = worldObject.GetComponent<CargoShip>().GetLoadedUnits();
+                foreach (WorldObjects unit in loadedUnits)
+                {
+                    writer.WriteStartObject();
+                    unit.SaveDetails(writer);
+                    writer.WriteEndObject();
+                }
+            }
         }
 
         private static void SavePlayers(JsonWriter writer)

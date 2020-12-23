@@ -89,6 +89,11 @@ public class WorldObjects : MonoBehaviour
         if (currentlySelected && !ResourceManager.MenuOpen) DrawSelection();
     }
 
+    public bool IsCurrentlySelected()
+    {
+        return currentlySelected;
+    }
+
     protected virtual bool ShouldMakeDecision()
     {
         if (!attacking && !movingIntoPosition && !aiming)
@@ -356,7 +361,7 @@ public class WorldObjects : MonoBehaviour
         //this behaviour needs to be specified by a specific object
     }
 
-    private void ChangeSelection(WorldObjects worldObject, Player controller)
+    protected void ChangeSelection(WorldObjects worldObject, Player controller)
     {
         //this should be called by the following line, but there is an outside chance it will not
         SetSelection(false, playingArea);

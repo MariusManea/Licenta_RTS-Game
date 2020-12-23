@@ -9,16 +9,19 @@ public class Unit : WorldObjects
 {
     protected bool moving, rotating;
 
-    protected Vector3 destination;
+    protected Vector3 destination = ResourceManager.InvalidPosition;
     protected Quaternion targetRotation;
     public float moveSpeed, rotateSpeed;
     protected GameObject destinationTarget;
     private int loadedDestinationTargetId = -1;
+    private int loadedDestinationLoadingTargetId = -1;
 
     public AudioClip driveSound, moveSound;
     public float driveVolume = 0.5f, moveVolume = 1.0f;
     public AstarPath graph;
     public NavGraph navGraph;
+
+    public CargoShip loadingTarget;
 
     protected override void Awake()
     {
@@ -34,6 +37,14 @@ public class Unit : WorldObjects
         {
             destinationTarget = player.GetObjectForId(loadedDestinationTargetId).gameObject;
         }
+        if (player && loadedSavedValues && loadedDestinationLoadingTargetId >= 0)
+        {
+            loadingTarget = player.GetObjectForId(loadedDestinationLoadingTargetId).GetComponent<CargoShip>();
+        }
+        if (destination != ResourceManager.InvalidPosition)
+        {
+            StartMove(destination);
+        }
     }
 
     protected override void Update()
@@ -41,6 +52,13 @@ public class Unit : WorldObjects
         base.Update();
         if (rotating) TurnToTarget();
         else if (moving) MakeMove();
+        else if (loadingTarget != null)
+        {
+            if (WorkManager.IsWorldObjectNearby(loadingTarget, transform.position))
+            {
+                EnterCargo();
+            }
+        }
     }
 
     protected override void OnGUI()
@@ -64,6 +82,13 @@ public class Unit : WorldObjects
         audioElement.Add(sounds, volumes);
     }
 
+    protected virtual void EnterCargo()
+    {
+        destination = ResourceManager.InvalidPosition;
+        destinationTarget = null;
+        loadingTarget.LoadUnit(this);
+    }
+
     public override void SetHoverState(GameObject hoverObject)
     {
         base.SetHoverState(hoverObject);
@@ -71,6 +96,7 @@ public class Unit : WorldObjects
         if (player && player.isHuman && currentlySelected)
         {
             bool moveHover = false;
+            bool cargoHover = false;
             if (Input.mousePosition.x > ResourceManager.ScrollWidth && Input.mousePosition.y > ResourceManager.ScrollWidth)
             {
                 if (WorkManager.ObjectIsGround(hoverObject))
@@ -82,33 +108,63 @@ public class Unit : WorldObjects
                     Resource resource = hoverObject.transform.parent.GetComponent<Resource>();
                     if (resource && resource.isEmpty()) moveHover = true;
                 }
+                if (WorkManager.ObjectIsCargo(hoverObject) && GetComponent<Ship>() == null)
+                {
+                    cargoHover = true;
+                    moveHover = false;
+                }
             }
             if (moveHover) player.hud.SetCursorState(CursorState.Move);
+            if (cargoHover) player.hud.SetCursorState(CursorState.Load);
         }
     }
 
     public override void MouseClick(GameObject hitObject, Vector3 hitPoint, Player controller)
     {
-        base.MouseClick(hitObject, hitPoint, controller);
-        //only handle input if owned by a human player and currently selected
-        if (player && player.isHuman && currentlySelected)
+        if (player && player.isHuman && currentlySelected && WorkManager.ObjectIsCargo(hitObject) && hitPoint != ResourceManager.InvalidPosition)
         {
-            bool clickedOnEmptyResource = false;
-            if (hitObject.transform.parent)
+            if (this.gameObject.GetComponent<Ship>() == null)
             {
-                Resource resource = hitObject.transform.parent.GetComponent<Resource>();
-                if (resource && resource.isEmpty()) clickedOnEmptyResource = true;
+                // SetTarget, MoveToTarget, WhatIfCancels? if AtTarget then -> hitObject.GetComponent<CargoShip>().LoadUnit(GetComponent<Unit>());
+                destinationTarget = hitObject;
+                loadingTarget = hitObject.transform.parent.GetComponent<CargoShip>();
+                Vector3 position = GetClosestValidDestination(hitPoint);
+                StartMove(position);
+                loadingTarget.StartMove(position);
+            } 
+            else
+            {
+                bool unitsSelected = false;
+                foreach(WorldObjects wO in player.SelectedObjects)
+                {
+                    if (!wO.GetComponent<Ship>())
+                    {
+                        unitsSelected = true;
+                        break;
+                    }
+                }
+                if (!unitsSelected) ChangeSelection(hitObject.transform.parent.GetComponent<WorldObjects>(), controller);
             }
-            if ((WorkManager.ObjectIsGround(hitObject) || WorkManager.ObjectIsWater(hitObject) || clickedOnEmptyResource) && hitPoint != ResourceManager.InvalidPosition)
+        }
+        else
+        {
+            loadingTarget = null;
+            base.MouseClick(hitObject, hitPoint, controller);
+            //only handle input if owned by a human player and currently selected
+            if (player && player.isHuman && currentlySelected)
             {
-                attacking = false;
-                target = null;
-                float x = hitPoint.x;
-                //makes sure that the unit stays on top of the surface it is on
-                float y = hitPoint.y + player.SelectedObjects[0].transform.position.y;
-                float z = hitPoint.z;
-                Vector3 destination = new Vector3(x, y, z);
-                StartMove(destination);
+                bool clickedOnEmptyResource = false;
+                if (hitObject.transform.parent)
+                {
+                    Resource resource = hitObject.transform.parent.GetComponent<Resource>();
+                    if (resource && resource.isEmpty()) clickedOnEmptyResource = true;
+                }
+                if ((WorkManager.ObjectIsGround(hitObject) || WorkManager.ObjectIsWater(hitObject) || clickedOnEmptyResource) && hitPoint != ResourceManager.InvalidPosition)
+                {
+                    attacking = false;
+                    target = null;
+                    StartMove(hitPoint);
+                }
             }
         }
     }
@@ -131,7 +187,7 @@ public class Unit : WorldObjects
             d++;
             if (d > 50)
             {
-                return Vector3.negativeInfinity;
+                return ResourceManager.InvalidPosition;
             }
         }
     }
@@ -148,7 +204,7 @@ public class Unit : WorldObjects
             if (destinationTarget == null)
             {
                 this.destination = GetClosestValidDestination(destination);
-                if (this.destination == Vector3.negativeInfinity)
+                if (this.destination == ResourceManager.InvalidPosition)
                 {
                     return;
                 }
@@ -211,6 +267,7 @@ public class Unit : WorldObjects
             moving = false;
             GetComponent<AIPath>().enabled = false;
             movingIntoPosition = false;
+            destination = ResourceManager.InvalidPosition;
         }
         CalculateBounds();
     }
@@ -268,6 +325,10 @@ public class Unit : WorldObjects
             WorldObjects destinationObject = destinationTarget.GetComponent<WorldObjects>();
             if (destinationObject) SaveManager.WriteInt(writer, "DestinationTargetId", destinationObject.ObjectId);
         }
+        if (loadingTarget)
+        {
+            SaveManager.WriteInt(writer, "LoadingTargetId", loadingTarget.ObjectId);
+        }
     }
 
     protected override void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
@@ -280,6 +341,7 @@ public class Unit : WorldObjects
             case "Destination": destination = LoadManager.LoadVector(reader); break;
             case "TargetRotation": targetRotation = LoadManager.LoadQuaternion(reader); break;
             case "DestinationTargetId": loadedDestinationTargetId = (int)(System.Int64)readValue; break;
+            case "LoadingTargetId": loadedDestinationLoadingTargetId = (int)(System.Int64)readValue; break;
             default: break;
         }
     }

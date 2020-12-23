@@ -174,6 +174,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        
 
 
         Bounds placeBounds = tempBuilding.GetSelectionBounds();
@@ -213,16 +214,26 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (heights.Max() - heights.Min() > 1.5f) return false;
-
+        if (heights.Max() - heights.Min() > (tempBuilding.GetComponent<Dock>() != null ? 2 : 1.5f)) return false;
+        bool dockOnWater = false;
+        bool dockOnGround = false;
         foreach (Vector3 corner in corners)
         {
             GameObject hitObject = WorkManager.FindHitObject(corner);
+            if (tempBuilding.GetComponent<Dock>())
+            {
+                if (WorkManager.ObjectIsGround(hitObject)) dockOnGround = true;
+                if (WorkManager.ObjectIsWater(hitObject)) dockOnWater = true;
+            }
             if (hitObject && !WorkManager.ObjectIsGround(hitObject))
             {
                 WorldObjects worldObject = hitObject.transform.parent.GetComponent<WorldObjects>();
                 if (worldObject && placeBounds.Intersects(worldObject.GetSelectionBounds())) return false;
             }
+        }
+        if (tempBuilding.GetComponent<Dock>())
+        {
+            return dockOnWater && dockOnGround;
         }
         return true;
     }

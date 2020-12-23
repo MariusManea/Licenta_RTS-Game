@@ -61,6 +61,7 @@ public class Worker : Unit
                     if (!currentProject.UnderConstruction())
                     {
                         building = false;
+                        currentProject = null;
                         if (audioElement != null) audioElement.Play(finishedJobSound);
                     }
                 }
@@ -68,6 +69,7 @@ public class Worker : Unit
             else
             {
                 building = false;
+                currentProject = null;
             }
         }
     }
@@ -84,6 +86,14 @@ public class Worker : Unit
         audioElement.Add(sounds, volumes);
     }
 
+    protected override void EnterCargo()
+    {
+        currentProject = null;
+        building = false;
+        amountBuilt = 0.0f;
+        base.EnterCargo();
+    }
+
     /*** Public Methods ***/
 
     public override void SetBuilding(Building project)
@@ -91,8 +101,8 @@ public class Worker : Unit
         base.SetBuilding(project);
         if (!newSpawn)
         {
+            StartMove(project.transform.position, project.gameObject);
             currentProject = project;
-            StartMove(currentProject.transform.position, currentProject.gameObject);
             building = true;
         }
         else
@@ -112,6 +122,7 @@ public class Worker : Unit
         base.StartMove(destination);
         amountBuilt = 0.0f;
         building = false;
+        currentProject = null;
     }
 
     private void CreateBuilding(string buildingName)
