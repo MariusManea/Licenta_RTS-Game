@@ -61,7 +61,7 @@ public class CityHall : Building
         {
             if (!UnderConstruction() && !Ghost)
             {
-                player.IncrementResourceLimit(ResourceType.Spacing, -50);
+                player.IncrementResourceLimit(ResourceType.Spacing, -25);
                 ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(territory, -1);
                 ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(territory, -1);
             }

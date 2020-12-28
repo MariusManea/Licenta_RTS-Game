@@ -37,7 +37,17 @@ public class MainMenu : Menu
         SelectionList.LoadEntries(PlayerManager.GetPlayerNames());
     }
 
-    void OnLevelWasLoaded()
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += LevelLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= LevelLoaded;        
+    }
+
+    void LevelLoaded(Scene scene, LoadSceneMode mode)
     {
         Cursor.visible = true;
         if (PlayerManager.GetPlayerName() == "")

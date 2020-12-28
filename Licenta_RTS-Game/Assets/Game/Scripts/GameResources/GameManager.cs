@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using RTS;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -22,7 +23,17 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    void OnLevelWasLoaded()
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += LevelLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= LevelLoaded;
+    }
+
+    void LevelLoaded(Scene scene, LoadSceneMode mode)
     {
         if (initialised)
         {

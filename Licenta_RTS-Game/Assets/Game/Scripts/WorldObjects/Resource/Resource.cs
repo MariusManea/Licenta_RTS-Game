@@ -80,6 +80,11 @@ public class Resource : WorldObjects
         }
     }
 
+    public virtual bool Harvestable()
+    {
+        return true;
+    }
+
     protected override bool ShouldMakeDecision()
     {
         return false;

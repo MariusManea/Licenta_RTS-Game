@@ -10,4 +10,9 @@ public class OilDeposit : Resource
         base.Start();
         resourceType = ResourceType.OilDeposit;
     }
+
+    public override bool Harvestable()
+    {
+        return false;
+    }
 }

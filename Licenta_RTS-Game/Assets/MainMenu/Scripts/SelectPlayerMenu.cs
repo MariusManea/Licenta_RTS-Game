@@ -21,6 +21,7 @@ public class SelectPlayerMenu : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
         avatars = ResourceManager.GetAvatars();
         if (avatars.Length > 0) avatarIndex = 0;
         SelectionList.LoadEntries(PlayerManager.GetPlayerNames());

@@ -63,7 +63,7 @@ public class Worker : Unit
                         building = false;
                         if (currentProject.GetComponent<CityHall>() != null)
                         {
-                            player.IncrementResourceLimit(ResourceType.Spacing, 50);
+                            player.IncrementResourceLimit(ResourceType.Spacing, 25);
                         }
                         currentProject = null;
                         if (audioElement != null) audioElement.Play(finishedJobSound);

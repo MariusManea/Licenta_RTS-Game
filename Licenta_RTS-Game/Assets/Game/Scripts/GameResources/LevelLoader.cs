@@ -70,9 +70,18 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     }
 
 
-    void OnLevelWasLoaded()
+    void OnEnable()
     {
+        SceneManager.sceneLoaded += LevelLoaded;
+    }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= LevelLoaded;
+    }
+
+    void LevelLoaded(Scene scene, LoadSceneMode mode)
+    {
         if (initialised)
         {
             if (ResourceManager.LevelName != null && ResourceManager.LevelName != "")
@@ -81,7 +90,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "GameScene")
+                if (scene.name == "GameScene")
                 {
                     Terrain terrain = (Terrain)GameObject.FindObjectOfType(typeof(Terrain));
                     if (terrain)
@@ -96,7 +105,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             Time.timeScale = 1.0f;
             ResourceManager.MenuOpen = false;
            
-            if (SceneManager.GetActiveScene().name != "MainMenu")
+            if (scene.name != "MainMenu")
             {
                 NavGraph[] graphs = AstarPath.active.graphs;
                 foreach (NavGraph graph in graphs)
@@ -593,7 +602,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 if (resourcesLand[id].Count != 0)
                 {
                     Quaternion objectRotation = Quaternion.Euler(0, PRG.GetNextRandom() % 360, 0);
-                    int index = resourcesLand[id].Count * 3 / 5 + (int)PRG.GetNextRandom() % (resourcesLand[id].Count * 1 / 3);
+                    int index = resourcesLand[id].Count * 1 / 4 + (int)PRG.GetNextRandom() % (resourcesLand[id].Count * 1 / 3);
                     Vector3 objectPosition = resourcesLand[id][index];
                     for (int i = -4; i <= 4; ++i)
                     {
@@ -741,6 +750,21 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 if (nextPoint != -Vector3.one)
                 {
                     sortedBorder.Add(nextPoint);
+                    currentPoint = nextPoint;
+                    borders[id].Remove(nextPoint);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            currentPoint = startPoint;
+            while (borders[id].Count > 30)
+            {
+                Vector3 nextPoint = GetNextBorderPoint(borders[id], currentPoint);
+                if (nextPoint != -Vector3.one)
+                {
+                    sortedBorder.Insert(0, nextPoint);
                     currentPoint = nextPoint;
                     borders[id].Remove(nextPoint);
                 }

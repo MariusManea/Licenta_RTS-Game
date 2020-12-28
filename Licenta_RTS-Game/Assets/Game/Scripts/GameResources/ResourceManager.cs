@@ -161,7 +161,7 @@ namespace RTS
             { "wonder", new Cost(0, 0, 5000, 2500, 7500) },
             
             { "cargoship", new Cost(5, 0, 400, 250, 200) },
-            { "convoyTruck", new Cost(15, 200, 250, 100, 3000) },
+            { "convoytruck", new Cost(15, 200, 250, 100, 3000) },
             { "harvester", new Cost(1, 50, 50, 50, 0) },
             { "tank", new Cost(2, 50, 150, 100, 50) },
             { "worker", new Cost(1, 50, 50, 0, 0) },

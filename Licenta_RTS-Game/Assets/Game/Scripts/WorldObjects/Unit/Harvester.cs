@@ -386,7 +386,7 @@ public class Harvester : Unit
 		foreach (WorldObjects nearbyObject in nearbyObjects)
 		{
 			Resource resource = nearbyObject.GetComponent<Resource>();
-			if (resource && !resource.isEmpty() && !player.IsFull(WorkManager.GetResourceHarvested(resource.GetResourceType()))) resources.Add(nearbyObject);
+			if (resource && !resource.isEmpty() && !player.IsFull(WorkManager.GetResourceHarvested(resource.GetResourceType())) && resource.Harvestable()) resources.Add(nearbyObject);
 		}
 		WorldObjects nearestObject = WorkManager.FindNearestWorldObjectInListToPosition(resources, transform.position);
 		if (nearestObject)
