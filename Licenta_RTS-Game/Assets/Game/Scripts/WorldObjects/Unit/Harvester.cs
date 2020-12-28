@@ -92,11 +92,11 @@ public class Harvester : Unit
 				{
 					AimAtTarget(resourceStore.gameObject);
 					Deposit();
-					if (currentLoad <= 0)
+					if (currentLoad <= 0 || player.IsFull(WorkManager.GetResourceHarvested(harvestType)))
 					{
 						emptying = false;
 						foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
-						if (resourceDeposit && !resourceDeposit.isEmpty())
+						if (resourceDeposit && !resourceDeposit.isEmpty() && !player.IsFull(WorkManager.GetResourceHarvested(harvestType)))
 						{
 							harvesting = true;
 							StartMove(resourceDeposit.transform.position, resourceDeposit.gameObject);
@@ -162,26 +162,29 @@ public class Harvester : Unit
 		{
 			if (!WorkManager.ObjectIsGround(hitObject))
 			{
-				Resource resource = hitObject.transform.parent.GetComponent<Resource>();
-				if (resource && !resource.isEmpty())
+				if (WorkManager.ObjectIsOre(hitObject))
 				{
-					//make sure that we select harvester remains selected
-					if (player.SelectedObjects != null && player.SelectedObjects[0].GetType() != typeof(Harvester))
+					Resource resource = hitObject.transform.parent.GetComponent<Resource>();
+					if (resource && !resource.isEmpty())
 					{
-						foreach (WorldObjects selectedWorldObject in player.SelectedObjects)
+						//make sure that we select harvester remains selected
+						if (player.SelectedObjects != null && player.SelectedObjects[0].GetType() != typeof(Harvester))
 						{
-							selectedWorldObject.SetSelection(false, playingArea);
+							foreach (WorldObjects selectedWorldObject in player.SelectedObjects)
+							{
+								selectedWorldObject.SetSelection(false, playingArea);
+							}
+							player.SelectedObjects = null;
 						}
-						player.SelectedObjects = null;
+						if (player.SelectedObjects == null)
+						{
+							player.SelectedObjects = new List<WorldObjects>();
+						}
+						SetSelection(true, playingArea);
+						player.SelectedObjects.Add(this);
+						StartHarvest(resource);
+						return;
 					}
-					if (player.SelectedObjects == null)
-                    {
-						player.SelectedObjects = new List<WorldObjects>();
-                    }
-					SetSelection(true, playingArea);
-					player.SelectedObjects.Add(this);
-					StartHarvest(resource);
-					return;
 				}
 				Warehouse warehouse = hitObject.transform.parent.GetComponent<Warehouse>();
 				if (warehouse && currentLoad > 0 && warehouse.GetComponent<Building>().IsOwnedBy(this.player))
@@ -295,13 +298,12 @@ public class Harvester : Unit
 			if (audioElement != null && Time.timeScale > 0) audioElement.Play(emptyHarvestSound);
 			currentDeposit += depositAmount * Time.deltaTime;
 			int deposit = Mathf.FloorToInt(currentDeposit);
-			if (deposit >= 1)
+			ResourceType depositType = WorkManager.GetResourceHarvested(harvestType);
+			if (deposit >= 1 && !player.IsFull(depositType))
 			{
 				if (deposit > currentLoad) deposit = Mathf.FloorToInt(currentLoad);
 				currentDeposit -= deposit;
 				currentLoad -= deposit;
-				ResourceType depositType = harvestType;
-				if (harvestType == ResourceType.Ore) depositType = ResourceType.Money;
 				player.AddResource(depositType, deposit);
 			}
 		}
@@ -384,7 +386,7 @@ public class Harvester : Unit
 		foreach (WorldObjects nearbyObject in nearbyObjects)
 		{
 			Resource resource = nearbyObject.GetComponent<Resource>();
-			if (resource && !resource.isEmpty()) resources.Add(nearbyObject);
+			if (resource && !resource.isEmpty() && !player.IsFull(WorkManager.GetResourceHarvested(resource.GetResourceType()))) resources.Add(nearbyObject);
 		}
 		WorldObjects nearestObject = WorkManager.FindNearestWorldObjectInListToPosition(resources, transform.position);
 		if (nearestObject)

@@ -11,16 +11,31 @@ public class Resource : WorldObjects
 
     //Variables accessible by subclass
     protected float amountLeft;
-    protected ResourceType resourceType;
+    public ResourceType resourceType;
+
+    private float refillTime;
+    private float refillInterval;
+    private float refillDuration;
 
     /*** Game Engine methods, all can be overridden by subclass ***/
 
     protected override void Start()
     {
         base.Start();
-        resourceType = ResourceType.Unknown;
         if (loadedSavedValues) return;
         amountLeft = capacity;
+        refillInterval = 300;
+        refillTime = Time.time + refillInterval;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (Time.time > refillTime)
+        {
+            amountLeft = capacity;
+            refillTime += refillInterval;
+        }
     }
 
     /*** Public methods ***/

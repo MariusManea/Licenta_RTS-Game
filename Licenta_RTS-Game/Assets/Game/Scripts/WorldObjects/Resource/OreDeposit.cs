@@ -11,17 +11,11 @@ public class OreDeposit : Resource
     {
         base.Start();
         numBlocks = GetComponentsInChildren<Ore>().Length;
-        resourceType = ResourceType.Ore;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (amountLeft < 1)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
         float percentLeft = (float)amountLeft / (float)capacity;
         if (percentLeft < 0) percentLeft = 0;
         int numBlocksToShow = (int)Mathf.Ceil(percentLeft * numBlocks);

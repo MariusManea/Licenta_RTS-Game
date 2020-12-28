@@ -351,4 +351,9 @@ public class Unit : WorldObjects
         return base.ShouldMakeDecision();
     }
 
+
+    public void OnDestroy()
+    {
+        player.RemoveResource(ResourceType.Spacing, ResourceManager.GetCost(GetObjectName()).spacing);
+    }
 }

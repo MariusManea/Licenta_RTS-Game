@@ -1080,7 +1080,8 @@ MonoBehaviour:
   selectVolume: 1
   useWeaponVolume: 1
   detectionRange: 20
-  capacity: 100000
+  capacity: 1000000
+  resourceType: 6
 --- !u!1 &3867049514044592049
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace RTS
 {
     public static class ResourceManager
     {
-        private static string[] GameResources = { "IronOreDeposit"};
+        private static readonly string[] GameResources = { "IronOreDeposit", "CopperOreDeposit", "GoldOreDeposit", "OilDeposit" };
         public static string[] GetGameResources { get { return GameResources; } }
 
         public static float NormalScrollSpeed { get { return 0.5f; } }
@@ -131,5 +131,53 @@ namespace RTS
             if (loader) return loader.GetNewObjectId();
             return -1;
         }
+        
+        [SerializeField]
+        public struct Cost
+        {
+            public int spacing;
+            public int copper;
+            public int iron;
+            public int oil;
+            public int gold;
+            public Cost(int _spacing, int _copper, int _iron, int _oil, int _gold)
+            {
+                spacing = _spacing;
+                copper = _copper;
+                iron = _iron;
+                oil = _oil;
+                gold = _gold;
+            }
+
+        }
+
+        private static readonly Dictionary<string, Cost> catalog = new Dictionary<string, Cost> { 
+            { "cityhall", new Cost(0, 500, 1000, 0, 500) },
+            { "dock", new Cost(0, 50, 300, 50, 100) },
+            { "oilpump", new Cost(1, 200, 400, 0, 0) },
+            { "refinery", new Cost(0, 100, 100, 0, 0) },
+            { "turret", new Cost(0, 100, 300, 150, 50) },
+            { "warfactory", new Cost(0, 100, 250, 0, 150) },
+            { "wonder", new Cost(0, 0, 5000, 2500, 7500) },
+            
+            { "cargoship", new Cost(5, 0, 400, 250, 200) },
+            { "convoyTruck", new Cost(15, 200, 250, 100, 3000) },
+            { "harvester", new Cost(1, 50, 50, 50, 0) },
+            { "tank", new Cost(2, 50, 150, 100, 50) },
+            { "worker", new Cost(1, 50, 50, 0, 0) },
+        };
+
+        public static Cost GetCost(string entity)
+        {
+            entity = entity.ToLower();
+            entity = entity.Replace(" ", string.Empty);
+            return catalog[entity];
+        }
+
+        public static bool Affordable(Cost cost, Cost available)
+        {
+            return available.spacing >= cost.spacing && available.copper >= cost.copper &&
+                available.iron >= cost.iron && available.oil >= cost.oil && available.gold >= cost.gold;
+        } 
     }
 }

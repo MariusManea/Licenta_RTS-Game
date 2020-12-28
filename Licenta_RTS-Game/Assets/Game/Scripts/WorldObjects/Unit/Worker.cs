@@ -26,7 +26,7 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "CityHall", "Refinery", "WarFactory", "Turret", "Wonder", "Dock" };
+        actions = new string[] { "CityHall", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -61,6 +61,10 @@ public class Worker : Unit
                     if (!currentProject.UnderConstruction())
                     {
                         building = false;
+                        if (currentProject.GetComponent<CityHall>() != null)
+                        {
+                            player.IncrementResourceLimit(ResourceType.Spacing, 50);
+                        }
                         currentProject = null;
                         if (audioElement != null) audioElement.Play(finishedJobSound);
                     }
@@ -127,8 +131,12 @@ public class Worker : Unit
 
     private void CreateBuilding(string buildingName)
     {
-        Vector3 buildPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
-        if (player) player.CreateBuilding(buildingName, buildPoint, this, playingArea);
+        ResourceManager.Cost cost = ResourceManager.GetCost(buildingName);
+        if (ResourceManager.Affordable(cost, player.AvailableResources()))
+        {
+            Vector3 buildPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+            if (player) player.CreateBuilding(buildingName, buildPoint, this, playingArea);
+        }
     }
 
     public override void MouseClick(GameObject hitObject, Vector3 hitPoint, Player controller)

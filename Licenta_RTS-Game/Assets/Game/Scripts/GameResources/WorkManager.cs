@@ -64,12 +64,31 @@ namespace RTS
         {
             switch (type)
             {
-                case "Money": return ResourceType.Money;
-                case "Power": return ResourceType.Power;
-                case "Ore": return ResourceType.Ore;
+                case "Spacing": return ResourceType.Spacing;
+                case "Copper": return ResourceType.Copper;
+                case "Iron": return ResourceType.Iron;
+                case "Oil": return ResourceType.Oil;
+                case "Gold": return ResourceType.Gold;
+                case "CopperOre": return ResourceType.CopperOre;
+                case "IronOre": return ResourceType.IronOre;
+                case "OilDeposit": return ResourceType.OilDeposit;
+                case "GoldOre": return ResourceType.GoldOre;
                 default: return ResourceType.Unknown;
             }
         }
+
+        public static ResourceType GetResourceHarvested(ResourceType type)
+        {
+            switch (type)
+            {
+                case ResourceType.CopperOre: return ResourceType.Copper;
+                case ResourceType.IronOre: return ResourceType.Iron;
+                case ResourceType.OilDeposit: return ResourceType.Oil;
+                case ResourceType.GoldOre: return ResourceType.Gold;
+                default: return ResourceType.Unknown;
+            }
+        }
+
         public static bool ObjectIsGround(GameObject obj)
         {
             return obj == null || obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
@@ -83,6 +102,11 @@ namespace RTS
         public static bool ObjectIsCargo(GameObject obj)
         {
             return obj == null || obj.transform.parent.GetComponent<CargoShip>() != null;
+        }
+
+        public static bool ObjectIsOre(GameObject obj)
+        {
+            return obj.GetComponent<Ore>() != null;
         }
 
         public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)

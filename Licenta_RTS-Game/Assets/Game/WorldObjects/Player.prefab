@@ -49,10 +49,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   townCenter: {fileID: 0}
-  startMoney: 1000
-  startMoneyLimit: 2000
-  startPower: 500
-  startPowerLimit: 500
+  startSpacing: 0
+  startSpacingLimit: 50
+  startCopper: 500
+  startCopperLimit: 20000
+  startIron: 1500
+  startIronLimit: 50000
+  startOil: 1000
+  startOilLimit: 20000
+  startGold: 500
+  startGoldLimit: 20000
   userName: Marius
   isHuman: 1
   playerID: 0
@@ -167,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceSkin: {fileID: 11400000, guid: f47919908e4b9cc4285799d966f68d8e, type: 2}
   ordersSkin: {fileID: 11400000, guid: bbc0f5d11ad6c924c9e1779340c4164c, type: 2}
+  costSkin: {fileID: 11400000, guid: 25e33edd52c4b764ebc2eaefeea9ebf1, type: 2}
   selectBoxSkin: {fileID: 11400000, guid: c72174892b8d38240bdd96944f8f34de, type: 2}
   mouseCursorSkin: {fileID: 11400000, guid: 10e17f9e86ecd684e8ec26749c9524bf, type: 2}
   multipleSelectionSkin: {fileID: 11400000, guid: b5081c6db869e644f9f4e6cc9e29c1b2,
@@ -189,8 +196,11 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 56f2c8a535e54e3489d52544b719f44a, type: 3}
   - {fileID: 2800000, guid: fec559320af389e43aecfecf7501b08b, type: 3}
   resources:
-  - {fileID: 2800000, guid: 4a8f66a5100c504419970c51342db73d, type: 3}
-  - {fileID: 2800000, guid: 2cbfd4fe7d2f7a34081c584a34652041, type: 3}
+  - {fileID: 2800000, guid: bd71d4a984a71124191aaac52f15c86d, type: 3}
+  - {fileID: 2800000, guid: 44486aa22bca95c4a89d7afa0b4bf020, type: 3}
+  - {fileID: 2800000, guid: a44086cfcf26a824c8ff874ef05a0134, type: 3}
+  - {fileID: 2800000, guid: 6e23c040d1d466849ac0d581de05360b, type: 3}
+  - {fileID: 2800000, guid: c42937d9b3dd70041be0a0687698ddb6, type: 3}
   buttonHover: {fileID: 2800000, guid: 7b1ccce77d78c8d4ba64e8379f4177c2, type: 3}
   buttonClick: {fileID: 2800000, guid: 962d35d6af35d184791b91c7ead8e946, type: 3}
   buildFrame: {fileID: 2800000, guid: 72d5223c9bd7027489af0ecbeb40cf02, type: 3}
@@ -205,6 +215,9 @@ MonoBehaviour:
   critical: {fileID: 2800000, guid: fe2aeb08c243ff3498538281d663a03f, type: 3}
   resourceHealthBars:
   - {fileID: 2800000, guid: 1a02c7c0095d39b4cbf55a9e33ee84e0, type: 3}
+  - {fileID: 2800000, guid: 9d32343ce7fd96b4d923c5e8c909153a, type: 3}
+  - {fileID: 2800000, guid: d1dbcd3dec3825040b2ddbcd58203c71, type: 3}
+  - {fileID: 2800000, guid: 36e9d7d737479654886b8ab7dd5952d9, type: 3}
   playerDetailsSkin: {fileID: 11400000, guid: 9c92023bc472b0f4aa6b28a7f132c6b9, type: 2}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1

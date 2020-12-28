@@ -593,7 +593,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 if (resourcesLand[id].Count != 0)
                 {
                     Quaternion objectRotation = Quaternion.Euler(0, PRG.GetNextRandom() % 360, 0);
-                    int index = resourcesLand[id].Count * 3 / 5 + (int)PRG.GetNextRandom() % (resourcesLand[id].Count * 2 / 5);
+                    int index = resourcesLand[id].Count * 3 / 5 + (int)PRG.GetNextRandom() % (resourcesLand[id].Count * 1 / 3);
                     Vector3 objectPosition = resourcesLand[id][index];
                     for (int i = -4; i <= 4; ++i)
                     {

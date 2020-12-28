@@ -553,27 +553,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameObjectsList
       objectReference: {fileID: 0}
-    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
-        type: 3}
-      propertyPath: units.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
-        type: 3}
-      propertyPath: units.Array.data[4]
-      value: 
-      objectReference: {fileID: 2758477203249144161, guid: 6425a4d39899f814090e70eddeb85834,
-        type: 3}
-    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
-        type: 3}
-      propertyPath: buildings.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
-        type: 3}
-      propertyPath: buildings.Array.data[6]
-      value: 
-      objectReference: {fileID: 1178190809818381612, guid: 0fe768617b84d5447ae744e3c289d200,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 054bff1597dc83743913aca65e47d65b, type: 3}

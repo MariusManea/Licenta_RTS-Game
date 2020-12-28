@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTS;
 
-public class AccumulateMoney : VictoryCondition
+public class AccumulateGold : VictoryCondition
 {
 
-    public int amount = 1050;
+    public int amount = 25000;
 
-    private ResourceType type = ResourceType.Money;
+    private ResourceType type = ResourceType.Gold;
 
     public override string GetDescription()
     {
-        return "Accumulating Money";
+        return "Accumulating Gold";
     }
 
     public override bool PlayerMeetsConditions(Player player)

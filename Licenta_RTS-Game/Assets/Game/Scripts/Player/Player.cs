@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 {
     public TownCenter townCenter;
     // Resources
-    public int startMoney, startMoneyLimit, startPower, startPowerLimit;
+    public int startSpacing, startSpacingLimit, startCopper, startCopperLimit, startIron, startIronLimit, startOil, startOilLimit, startGold, startGoldLimit;
     private Dictionary<ResourceType, int> resources, resourceLimits;
 
     public string userName;
@@ -32,10 +32,14 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
     private LevelLoader levelLoader;
 
+    private bool defeat = false;
+
     void Awake()
     {
         resources = InitResourceList();
         resourceLimits = InitResourceList();
+        AddStartResourceLimits();
+        AddStartResources();
     }
 
     // Start is called before the first frame update
@@ -45,8 +49,7 @@ public class Player : MonoBehaviour
         gameManager = (GameManager)FindObjectOfType(typeof(GameManager));
         levelLoader = (LevelLoader)FindObjectOfType(typeof(LevelLoader));
 
-        AddStartResourceLimits();
-        AddStartResources();
+        
     }
 
     // Update is called once per frame
@@ -67,26 +70,44 @@ public class Player : MonoBehaviour
     private Dictionary<ResourceType, int> InitResourceList()
     {
         Dictionary<ResourceType, int> list = new Dictionary<ResourceType, int>();
-        list.Add(ResourceType.Money, 0);
-        list.Add(ResourceType.Power, 0);
+        list.Add(ResourceType.Spacing, 0);
+        list.Add(ResourceType.Copper, 0);
+        list.Add(ResourceType.Iron, 0);
+        list.Add(ResourceType.Oil, 0);
+        list.Add(ResourceType.Gold, 0);
         return list;
     }
 
     private void AddStartResourceLimits()
     {
-        IncrementResourceLimit(ResourceType.Money, startMoneyLimit);
-        IncrementResourceLimit(ResourceType.Power, startPowerLimit);
+        IncrementResourceLimit(ResourceType.Spacing, startSpacingLimit);
+        IncrementResourceLimit(ResourceType.Copper, startCopperLimit);
+        IncrementResourceLimit(ResourceType.Iron, startIronLimit);
+        IncrementResourceLimit(ResourceType.Oil, startOilLimit);
+        IncrementResourceLimit(ResourceType.Gold, startGoldLimit);
     }
 
     private void AddStartResources()
     {
-        AddResource(ResourceType.Money, startMoney);
-        AddResource(ResourceType.Power, startPower);
+        AddResource(ResourceType.Spacing, startSpacing);
+        AddResource(ResourceType.Copper, startCopper);
+        AddResource(ResourceType.Iron, startIron);
+        AddResource(ResourceType.Oil, startOil);
+        AddResource(ResourceType.Gold, startGold);
     }
 
     public void AddResource(ResourceType type, int amount)
     {
         resources[type] += amount;
+        if (resources[type] > resourceLimits[type])
+        {
+            resources[type] = resourceLimits[type];
+        }
+    }
+
+    public bool IsFull(ResourceType type)
+    {
+        return resources[type] >= resourceLimits[type];
     }
 
     public void IncrementResourceLimit(ResourceType type, int amount)
@@ -97,7 +118,15 @@ public class Player : MonoBehaviour
     public void AddUnit(string unitName, Vector3 spawnPoint, Vector3 rallyPoint, Quaternion rotation, Building creator)
     {
         Units units = GetComponentInChildren<Units>();
-        GameObject newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName), spawnPoint, rotation);
+        GameObject newUnit;
+        try
+        {
+            newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName), spawnPoint, rotation);
+        }
+        catch
+        {
+            return;
+        }
         newUnit.GetComponent<WorldObjects>().SetPlayer();
         newUnit.transform.parent = units.transform;
         Unit unitObject = newUnit.GetComponent<Unit>();
@@ -125,6 +154,7 @@ public class Player : MonoBehaviour
         {
             tempBuilding.ObjectId = ResourceManager.GetNewObjectId();
             tempBuilding.hitPoints = 0;
+            tempBuilding.Ghost = true;
             tempCreator = creator;
             findingPlacement = true;
             tempBuilding.SetTransparentMaterial(notAllowedMaterial, true);
@@ -151,6 +181,26 @@ public class Player : MonoBehaviour
         if (tempBuilding.transform.position.y < 7)
         {
             return false;
+        }
+
+        if (tempBuilding.GetComponent<OilPump>())
+        {
+            //shorthand for the coordinates of the center of the selection bounds
+            float pcx = tempBuilding.transform.position.x;
+            float pcy = tempBuilding.transform.position.y;
+            float pcz = tempBuilding.transform.position.z;
+            //shorthand for the coordinates of the extents of the selection box
+            float pex = tempBuilding.transform.localScale.x / 2;
+            float pez = tempBuilding.transform.localScale.z / 2;
+
+            Vector3 point1 = Camera.main.WorldToScreenPoint(new Vector3(pcx + 0.5f * pex, pcy, pcz + 0.5f * pez));
+            Vector3 point2 = Camera.main.WorldToScreenPoint(new Vector3(pcx - 0.5f * pex, pcy, pcz - 0.5f * pez));
+
+            GameObject hit1 = WorkManager.FindHitObject(point1);
+            GameObject hit2 = WorkManager.FindHitObject(point2);
+
+            if (hit1.GetComponent<OilPile>() && hit2.GetComponent<OilPile>()) return true;
+            else return false;
         }
 
         if (tempBuilding.GetComponent<CityHall>())
@@ -242,6 +292,7 @@ public class Player : MonoBehaviour
         findingPlacement = false;
         Buildings buildings = GetComponentInChildren<Buildings>();
         if (buildings) tempBuilding.transform.parent = buildings.transform;
+        tempBuilding.Ghost = false;
         tempBuilding.SetPlayer();
         tempBuilding.SetColliders(true);
         tempBuilding.GetComponentInChildren<DynamicGridObstacle>().DoUpdateGraphs();
@@ -255,7 +306,13 @@ public class Player : MonoBehaviour
             }
         }
         tempBuilding.StartConstruction();
-        RemoveResource(ResourceType.Money, tempBuilding.cost);
+
+        ResourceManager.Cost cost = ResourceManager.GetCost(tempBuilding.GetObjectName());
+        AddResource(ResourceType.Spacing, cost.spacing);
+        RemoveResource(ResourceType.Copper, cost.copper);
+        RemoveResource(ResourceType.Iron, cost.iron);
+        RemoveResource(ResourceType.Oil, cost.oil);
+        RemoveResource(ResourceType.Gold, cost.gold);
     }
 
     public void CancelBuildingPlacement()
@@ -338,10 +395,16 @@ public class Player : MonoBehaviour
                 {
                     switch (currValue)
                     {
-                        case "Money": startMoney = (int)(System.Int64)reader.Value; break;
-                        case "Money_Limit": startMoneyLimit = (int)(System.Int64)reader.Value; break;
-                        case "Power": startPower = (int)(System.Int64)reader.Value; break;
-                        case "Power_Limit": startPowerLimit = (int)(System.Int64)reader.Value; break;
+                        case "Spacing": startSpacing = (int)(System.Int64)reader.Value; break;
+                        case "Spacing_Limit": startSpacingLimit = (int)(System.Int64)reader.Value; break;
+                        case "Copper": startCopper = (int)(System.Int64)reader.Value; break;
+                        case "Copper_Limit": startCopperLimit = (int)(System.Int64)reader.Value; break;
+                        case "Iron": startIron = (int)(System.Int64)reader.Value; break;
+                        case "Iron_Limit": startIronLimit = (int)(System.Int64)reader.Value; break;
+                        case "Oil": startOil = (int)(System.Int64)reader.Value; break;
+                        case "Oil_Limit": startOilLimit = (int)(System.Int64)reader.Value; break;
+                        case "Gold": startGold = (int)(System.Int64)reader.Value; break;
+                        case "Gold_Limit": startGoldLimit = (int)(System.Int64)reader.Value; break;
                         default: break;
                     }
                 }
@@ -419,10 +482,22 @@ public class Player : MonoBehaviour
     }
     public int GetResourceAmount(ResourceType type)
     {
+        if (type == ResourceType.Spacing) return resourceLimits[type] - resources[type];
         return resources[type];
     }
     public void RemoveResource(ResourceType type, int amount)
     {
         resources[type] -= amount;
+    }
+
+    public ResourceManager.Cost AvailableResources()
+    {
+        return new ResourceManager.Cost(resourceLimits[ResourceType.Spacing] - resources[ResourceType.Spacing], resources[ResourceType.Copper],
+            resources[ResourceType.Iron], resources[ResourceType.Oil], resources[ResourceType.Gold]);
+    }
+
+    public void GameLost()
+    {
+        defeat = true;
     }
 }

@@ -29,10 +29,16 @@ public class TownCenter : Building
             for (int i = 0; i < numberOfUnits; ++i) {
                 player.AddUnit("Worker", spawnPoint, rallyPoint, transform.rotation, this);
             }
+            player.AddResource(RTS.ResourceType.Spacing, numberOfUnits);
         }
     }
     protected override bool ShouldMakeDecision()
     {
         return false;
+    }
+
+    private void OnDestroy()
+    {
+        if (player) player.GameLost();
     }
 }

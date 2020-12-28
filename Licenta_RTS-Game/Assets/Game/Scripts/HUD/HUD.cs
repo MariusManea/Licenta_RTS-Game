@@ -33,6 +33,7 @@ public class HUD : MonoBehaviour
 
     public GUISkin resourceSkin;
     public GUISkin ordersSkin;
+    public GUISkin costSkin;
     public GUISkin selectBoxSkin;
     public GUISkin mouseCursorSkin;
     public GUISkin multipleSelectionSkin;
@@ -89,15 +90,30 @@ public class HUD : MonoBehaviour
         {
             switch (resources[i].name)
             {
-                case "Money":
-                    resourceImages.Add(ResourceType.Money, resources[i]);
-                    resourceValues.Add(ResourceType.Money, 0);
-                    resourceLimits.Add(ResourceType.Money, 0);
+                case "Spacing":
+                    resourceImages.Add(ResourceType.Spacing, resources[i]);
+                    resourceValues.Add(ResourceType.Spacing, 0);
+                    resourceLimits.Add(ResourceType.Spacing, 0);
                     break;
-                case "Power":
-                    resourceImages.Add(ResourceType.Power, resources[i]);
-                    resourceValues.Add(ResourceType.Power, 0);
-                    resourceLimits.Add(ResourceType.Power, 0);
+                case "Copper":
+                    resourceImages.Add(ResourceType.Copper, resources[i]);
+                    resourceValues.Add(ResourceType.Copper, 0);
+                    resourceLimits.Add(ResourceType.Copper, 0);
+                    break;
+                case "Iron":
+                    resourceImages.Add(ResourceType.Iron, resources[i]);
+                    resourceValues.Add(ResourceType.Iron, 0);
+                    resourceLimits.Add(ResourceType.Iron, 0);
+                    break;
+                case "Oil":
+                    resourceImages.Add(ResourceType.Oil, resources[i]);
+                    resourceValues.Add(ResourceType.Oil, 0);
+                    resourceLimits.Add(ResourceType.Oil, 0);
+                    break;
+                case "Gold":
+                    resourceImages.Add(ResourceType.Gold, resources[i]);
+                    resourceValues.Add(ResourceType.Gold, 0);
+                    resourceLimits.Add(ResourceType.Gold, 0);
                     break;
                 default: break;
             }
@@ -114,8 +130,17 @@ public class HUD : MonoBehaviour
         {
             switch (resourceHealthBars[i].name)
             {
-                case "orehealthbar":
-                    resourceHealthBarTextures.Add(ResourceType.Ore, resourceHealthBars[i]);
+                case "ironorehealthbar":
+                    resourceHealthBarTextures.Add(ResourceType.IronOre, resourceHealthBars[i]);
+                    break;
+                case "copperorehealthbar":
+                    resourceHealthBarTextures.Add(ResourceType.CopperOre, resourceHealthBars[i]);
+                    break;
+                case "goldorehealthbar":
+                    resourceHealthBarTextures.Add(ResourceType.GoldOre, resourceHealthBars[i]);
+                    break;
+                case "oildeposithealthbar":
+                    resourceHealthBarTextures.Add(ResourceType.OilDeposit, resourceHealthBars[i]);
                     break;
                 default: break;
             }
@@ -396,13 +421,16 @@ public class HUD : MonoBehaviour
                     }
                 }
             }
-            foreach (WorldObjects wO in player.SelectedObjects)
+            if (player.SelectedObjects != null)
             {
-                if (wO.IsCargo())
+                foreach (WorldObjects wO in player.SelectedObjects)
                 {
-                    selectionName = wO.objectName;
-                    DrawUnloadCargos();
-                    break;
+                    if (wO && wO.IsCargo())
+                    {
+                        selectionName = wO.objectName;
+                        DrawUnloadCargos();
+                        break;
+                    }
                 }
             }
         }
@@ -536,6 +564,7 @@ public class HUD : MonoBehaviour
         //draw scroll bar for the list of actions if need be
         if (numActions >= MaxNumRows(buildAreaHeight)) DrawSlider(buildAreaHeight, numActions / 2.0f);
         //display possible actions as buttons and handle the button click for each
+        GUI.tooltip = "";
         for (int i = 0; i < numActions; i++)
         {
             int column = i % 2;
@@ -545,7 +574,8 @@ public class HUD : MonoBehaviour
             if (action)
             {
                 //create the button and handle the click of that button
-                if (GUI.Button(pos, action))
+                GUIContent buttonContent = new GUIContent(action, action.name);
+                if (GUI.Button(pos, buttonContent))
                 {
                     if (player.SelectedObjects != null)
                     {
@@ -560,8 +590,65 @@ public class HUD : MonoBehaviour
                     }
                 }
             }
+            if (GUI.tooltip != "")
+            {
+                DrawCost(GUI.tooltip);
+                
+            }
+
         }
         GUI.EndGroup();
+    }
+
+    private void DrawCost(string action)
+    {
+        GUI.skin = costSkin;
+        float xPos = Mathf.Min(Input.mousePosition.x, Screen.width - ResourceManager.ButtonWidth) - (Screen.width - ORDERS_BAR_WIDTH);
+        float yPos = Screen.height - Input.mousePosition.y - RESOURCE_BAR_HEIGHT;
+        GUI.BeginGroup(new Rect(xPos, yPos, ResourceManager.ButtonWidth, 6 * ResourceManager.Padding));
+
+        GUI.Box(new Rect(0, 0, ResourceManager.ButtonWidth, 6 * ResourceManager.Padding), action);
+
+        ResourceManager.Cost entityCost = ResourceManager.GetCost(action);
+
+        float leftPos = ResourceManager.Padding / 2;
+        float valueLeftPos = ResourceManager.ButtonWidth - ResourceManager.Padding * 3 / 2;
+        float topPos = ResourceManager.Padding;
+
+        GUISkin normalStyle = ScriptableObject.CreateInstance<GUISkin>();
+        GUISkin insufficientStyle = ScriptableObject.CreateInstance<GUISkin>();
+        normalStyle.label = new GUIStyle(costSkin.label);
+        insufficientStyle.label = new GUIStyle(costSkin.label);
+        insufficientStyle.label.normal.textColor = Color.red;
+
+        if (player.GetResourceAmount(ResourceType.Spacing) >= entityCost.spacing) GUI.skin = normalStyle;
+        else GUI.skin = insufficientStyle;
+        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[0]);
+        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.spacing.ToString());
+        topPos += ResourceManager.Padding;
+        if (player.GetResourceAmount(ResourceType.Copper) >= entityCost.copper) GUI.skin = normalStyle;
+        else GUI.skin = insufficientStyle;
+        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[1]);
+        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.copper.ToString());
+        topPos += ResourceManager.Padding;
+        if (player.GetResourceAmount(ResourceType.Iron) >= entityCost.iron) GUI.skin = normalStyle;
+        else GUI.skin = insufficientStyle;
+        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[2]);
+        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.iron.ToString());
+        topPos += ResourceManager.Padding;
+        if (player.GetResourceAmount(ResourceType.Oil) >= entityCost.oil) GUI.skin = normalStyle;
+        else GUI.skin = insufficientStyle;
+        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[3]);
+        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.oil.ToString());
+        topPos += ResourceManager.Padding;
+        if (player.GetResourceAmount(ResourceType.Gold) >= entityCost.gold) GUI.skin = normalStyle;
+        else GUI.skin = insufficientStyle;
+        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[4]);
+        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.gold.ToString());
+
+
+        GUI.EndGroup();
+        GUI.skin = ordersSkin;
     }
 
     private int MaxNumRows(int areaHeight)
@@ -593,10 +680,19 @@ public class HUD : MonoBehaviour
         GUI.BeginGroup(new Rect(0, 0, Screen.width, RESOURCE_BAR_HEIGHT));
         GUI.Box(new Rect(0, 0, Screen.width, RESOURCE_BAR_HEIGHT), "");
         int topPos = 4, iconLeft = 4, textLeft = 20;
-        DrawResourceIcon(ResourceType.Money, iconLeft, textLeft, topPos);
+        DrawResourceIcon(ResourceType.Spacing, iconLeft, textLeft, topPos);
         iconLeft += TEXT_WIDTH;
         textLeft += TEXT_WIDTH;
-        DrawResourceIcon(ResourceType.Power, iconLeft, textLeft, topPos);
+        DrawResourceIcon(ResourceType.Copper, iconLeft, textLeft, topPos);
+        iconLeft += TEXT_WIDTH;
+        textLeft += TEXT_WIDTH;
+        DrawResourceIcon(ResourceType.Iron, iconLeft, textLeft, topPos);
+        iconLeft += TEXT_WIDTH;
+        textLeft += TEXT_WIDTH;
+        DrawResourceIcon(ResourceType.Oil, iconLeft, textLeft, topPos);
+        iconLeft += TEXT_WIDTH;
+        textLeft += TEXT_WIDTH;
+        DrawResourceIcon(ResourceType.Gold, iconLeft, textLeft, topPos);
         int padding = 7;
         int buttonWidth = ORDERS_BAR_WIDTH - 2 * padding - SCROLL_BAR_WIDTH;
         int buttonHeight = RESOURCE_BAR_HEIGHT - 2 * padding;

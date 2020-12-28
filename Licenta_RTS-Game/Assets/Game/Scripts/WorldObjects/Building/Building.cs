@@ -8,9 +8,11 @@ public class Building : WorldObjects
 {
     public override bool IsActive { get { return !needsBuilding; } }
 
+    public bool Ghost { get => ghost; set => ghost = value; }
+
     public float maxBuildProgress;
     protected Queue<string> buildQueue;
-    private float currentBuildProgress = 0.0f;
+    protected float currentBuildProgress = 0.0f;
     protected Vector3 spawnPoint;
     protected Vector3 rallyPoint;
     public Texture2D rallyPointImage;
@@ -20,7 +22,7 @@ public class Building : WorldObjects
     public float finishedJobVolume = 1.0f;
 
     protected bool needsBuilding = false;
-
+    private bool ghost;
     protected override void Awake()
     {
         base.Awake();
@@ -70,10 +72,21 @@ public class Building : WorldObjects
 
     protected void CreateUnit(string unitName)
     {
-        buildQueue.Enqueue(unitName);
         GameObject unit = ResourceManager.GetUnit(unitName);
         Unit unitObject = unit.GetComponent<Unit>();
-        if (player && unitObject) player.RemoveResource(ResourceType.Money, unitObject.cost);
+        if (player && unitObject)
+        {
+            ResourceManager.Cost cost = ResourceManager.GetCost(unitName);
+            if (ResourceManager.Affordable(cost, player.AvailableResources()))
+            {
+                buildQueue.Enqueue(unitName);
+                player.AddResource(ResourceType.Spacing, cost.spacing);
+                player.RemoveResource(ResourceType.Copper, cost.copper);
+                player.RemoveResource(ResourceType.Iron, cost.iron);
+                player.RemoveResource(ResourceType.Oil, cost.oil);
+                player.RemoveResource(ResourceType.Gold, cost.gold);
+            }
+        }
     }
 
     protected void ProcessBuildQueue()
@@ -176,11 +189,19 @@ public class Building : WorldObjects
 
     public void Sell()
     {
-        if (player) player.AddResource(ResourceType.Money, sellValue);
+        if (player)
+        {
+            ResourceManager.Cost cost = ResourceManager.GetCost(objectName);
+            player.RemoveResource(ResourceType.Spacing, cost.spacing);
+            player.AddResource(ResourceType.Copper, cost.copper / 2);
+            player.AddResource(ResourceType.Iron, cost.iron / 2);
+            player.AddResource(ResourceType.Oil, cost.oil / 2);
+            player.AddResource(ResourceType.Gold, cost.gold / 2);
+        }
         if (currentlySelected)
         {
             SetSelection(false, playingArea);
-            player.SelectedObjects.Remove(this);
+            player.SelectedObjects.Remove(GetComponent<WorldObjects>());
             if (player.SelectedObjects.Count == 0)
             {
                 player.SelectedObjects = null;

@@ -9,7 +9,7 @@ public class WorldObjects : MonoBehaviour
 
     public string objectName;
     public Texture2D buildImage;
-    public int cost, sellValue, hitPoints, maxHitPoints;
+    public int hitPoints, maxHitPoints;
 
     protected Player player;
     protected string[] actions = { };
@@ -550,5 +550,10 @@ public class WorldObjects : MonoBehaviour
             case "TargetId": loadedTargetId = (int)(System.Int64)readValue; break;
             default: break;
         }
+    }
+
+    public virtual string GetObjectName()
+    {
+        return objectName;
     }
 }
