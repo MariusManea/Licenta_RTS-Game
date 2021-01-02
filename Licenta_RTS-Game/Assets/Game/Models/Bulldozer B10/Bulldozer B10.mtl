@@ -1,0 +1,1632 @@
+newmtl vray_Color0
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color0.jpg
+newmtl vray_Color1
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color1_1.jpg
+newmtl vray_Color2
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color2_2.jpg
+newmtl vray_Color3
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color3_3.jpg
+newmtl Pewter0
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter0_4.jpg
+newmtl vray_Color4
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color4_5.jpg
+newmtl vray_Color_hren1
+Ka 0 0 0
+Ns 6.04965
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.631373 0.0509804
+map_Kd vray_Color_hren1_6.jpg
+newmtl Pewter1
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter1_7.jpg
+newmtl Pewter2
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter2_8.jpg
+newmtl vray_ctz
+Ka 0 0 0
+Ns 2.05443
+Ks 0.835294 0.815686 0.788235
+Kd 0.952941 0.686274 0.215686
+map_Kd vray_ctz_9.jpg
+newmtl Pewter3
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter3_10.jpg
+newmtl Pewter4
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter4_11.jpg
+newmtl vray_Color5
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color5_12.jpg
+newmtl vray_Color6
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color6_13.jpg
+newmtl vray_Color7
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color7_14.jpg
+newmtl vray_Color8
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color8_15.jpg
+newmtl vray_Color9
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color9_16.jpg
+newmtl vray_Color10
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color10_17.jpg
+newmtl Pottery_clay0
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay0_18.jpg
+newmtl Pottery_clay1
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay1_19.jpg
+newmtl Dark_smoked_gla0
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 0.498039 0.498039 0.498039
+map_Kd Dark_smoked_gla0_20.jpg
+newmtl vray_Color11
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color11_21.jpg
+newmtl vray_Color12
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color12_22.jpg
+newmtl vray_Color13
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color13_23.jpg
+newmtl vray_Color14
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color14_24.jpg
+newmtl vray_Color15
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color15_25.jpg
+newmtl vray_Color16
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color16_26.jpg
+newmtl vray_Color17
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color17_27.jpg
+newmtl vray_Color18
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color18_28.jpg
+newmtl vray_Color19
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color19_29.jpg
+newmtl vray_Color20
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color20_30.jpg
+newmtl vray_Color21
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color21_31.jpg
+newmtl vray_Color22
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color22_32.jpg
+newmtl vray_Color23
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color23_33.jpg
+newmtl vray_Color24
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color24_34.jpg
+newmtl vray_Color25
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color25_35.jpg
+newmtl vray_Color26
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color26_36.jpg
+newmtl vray_Color27
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color27_37.jpg
+newmtl vray_Color28
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color28_38.jpg
+newmtl vray_Color29
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color29_39.jpg
+newmtl vray_Color30
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color30_40.jpg
+newmtl vray_Color31
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color31_41.jpg
+newmtl vray_Color32
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color32_42.jpg
+newmtl vray_Color33
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color33_43.jpg
+newmtl vray_Color34
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color34_44.jpg
+newmtl vray_Color35
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color35_45.jpg
+newmtl vray_Color36
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color36_46.jpg
+newmtl vray_Color37
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color37_47.jpg
+newmtl vray_Color38
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color38_48.jpg
+newmtl vray_Color39
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color39_49.jpg
+newmtl vray_Color40
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color40_50.jpg
+newmtl vray_Color41
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color41_51.jpg
+newmtl vray_Color42
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color42_52.jpg
+newmtl vray_Color43
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color43_53.jpg
+newmtl vray_Color44
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color44_54.jpg
+newmtl vray_Color45
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color45_55.jpg
+newmtl vray_Color46
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color46_56.jpg
+newmtl vray_Color47
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color47_57.jpg
+newmtl vray_Color48
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color48_58.jpg
+newmtl vray_Color49
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color49_59.jpg
+newmtl vray_Color50
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color50_60.jpg
+newmtl vray_Color51
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color51_61.jpg
+newmtl vray_Color52
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color52_62.jpg
+newmtl vray_Color53
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color53_63.jpg
+newmtl vray_Color54
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color54_64.jpg
+newmtl vray_Color55
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color55_65.jpg
+newmtl vray_Color56
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color56_66.jpg
+newmtl vray_Color57
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color57_67.jpg
+newmtl vray_Color58
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color58_68.jpg
+newmtl vray_Color59
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color59_69.jpg
+newmtl vray_Color60
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color60_70.jpg
+newmtl vray_Color61
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color61_71.jpg
+newmtl vray_Color62
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color62_72.jpg
+newmtl vray_Color63
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color63_73.jpg
+newmtl vray_Color64
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color64_74.jpg
+newmtl vray_Color65
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color65_75.jpg
+newmtl vray_Color66
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color66_76.jpg
+newmtl vray_Color67
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color67_77.jpg
+newmtl vray_Color68
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color68_78.jpg
+newmtl vray_Color69
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color69_79.jpg
+newmtl vray_Color70
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color70_80.jpg
+newmtl vray_Color71
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color71_81.jpg
+newmtl vray_Color72
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color72_82.jpg
+newmtl vray_Color73
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color73_83.jpg
+newmtl vray_Color74
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color74_84.jpg
+newmtl vray_Color75
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color75_85.jpg
+newmtl vray_Color76
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color76_86.jpg
+newmtl vray_Color77
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color77_87.jpg
+newmtl vray_Color78
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color78_88.jpg
+newmtl vray_Color79
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color79_89.jpg
+newmtl vray_Color80
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color80_90.jpg
+newmtl vray_Color81
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color81_91.jpg
+newmtl vray_Color82
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color82_92.jpg
+newmtl vray_Color83
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color83_93.jpg
+newmtl vray_Color84
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color84_94.jpg
+newmtl vray_Color85
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color85_95.jpg
+newmtl vray_Color86
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color86_96.jpg
+newmtl vray_Color87
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color87_97.jpg
+newmtl vray_Color88
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color88_98.jpg
+newmtl vray_Color89
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color89_99.jpg
+newmtl vray_Color90
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color90_100.jpg
+newmtl vray_Color91
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color91_101.jpg
+newmtl vray_Color92
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color92_102.jpg
+newmtl vray_Color93
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color93_103.jpg
+newmtl Pottery_clay2
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay2_104.jpg
+newmtl Dark_smoked_gla1
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 0.498039 0.498039 0.498039
+map_Kd Dark_smoked_gla1_105.jpg
+newmtl Pottery_clay3
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay3_106.jpg
+newmtl vray_Color94
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color94_107.jpg
+newmtl vray_Color95
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color95_108.jpg
+newmtl vray_Color96
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color96_109.jpg
+newmtl vray_Color97
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color97_110.jpg
+newmtl vray_Color98
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color98_111.jpg
+newmtl vray_Color99
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color99_112.jpg
+newmtl vray_Color100
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color100_113.jpg
+newmtl vray_Color101
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color101_114.jpg
+newmtl vray_Color102
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color102_115.jpg
+newmtl vray_Color103
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color103_116.jpg
+newmtl vray_Color104
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color104_117.jpg
+newmtl vray_Color105
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color105_118.jpg
+newmtl vray_Color106
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color106_119.jpg
+newmtl vray_Color107
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color107_120.jpg
+newmtl vray_Color108
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color108_121.jpg
+newmtl vray_Color109
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color109_122.jpg
+newmtl vray_Color110
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color110_123.jpg
+newmtl vray_Color111
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color111_124.jpg
+newmtl vray_Color112
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color112_125.jpg
+newmtl vray_Color113
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color113_126.jpg
+newmtl vray_Color114
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color114_127.jpg
+newmtl vray_Color115
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color115_128.jpg
+newmtl Chrome0
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome0_129.jpg
+newmtl vray_Color116
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color116_130.jpg
+newmtl vray_Color117
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color117_131.jpg
+newmtl vray_Color118
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color118_132.jpg
+newmtl vray_Color119
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color119_133.jpg
+newmtl vray_Color120
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color120_134.jpg
+newmtl vray_Color121
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color121_135.jpg
+newmtl vray_Color122
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color122_136.jpg
+newmtl vray_Color123
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color123_137.jpg
+newmtl vray_Color124
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color124_138.jpg
+newmtl vray_Color125
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color125_139.jpg
+newmtl vray_Color126
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color126_140.jpg
+newmtl vray_Color127
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color127_141.jpg
+newmtl Chrome1
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome1_142.jpg
+newmtl Chrome2
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome2_143.jpg
+newmtl vray_Color128
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color128_144.jpg
+newmtl vray_Color129
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color129_145.jpg
+newmtl vray_Color130
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color130_146.jpg
+newmtl vray_Color131
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color131_147.jpg
+newmtl vray_Color132
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color132_148.jpg
+newmtl vray_Color133
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color133_149.jpg
+newmtl vray_Color134
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color134_150.jpg
+newmtl vray_Color135
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color135_151.jpg
+newmtl vray_Color136
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color136_152.jpg
+newmtl vray_Color137
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color137_153.jpg
+newmtl vray_Color138
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color138_154.jpg
+newmtl vray_Color139
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color139_155.jpg
+newmtl vray_Color140
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color140_156.jpg
+newmtl vray_Color141
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color141_157.jpg
+newmtl vray_Color142
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color142_158.jpg
+newmtl vray_Color143
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color143_159.jpg
+newmtl vray_Color144
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color144_160.jpg
+newmtl vray_Color145
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color145_161.jpg
+newmtl vray_Color146
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color146_162.jpg
+newmtl vray_Color147
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color147_163.jpg
+newmtl vray_Color148
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color148_164.jpg
+newmtl vray_Color149
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color149_165.jpg
+newmtl vray_Color150
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color150_166.jpg
+newmtl vray_Color151
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color151_167.jpg
+newmtl vray_Color152
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color152_168.jpg
+newmtl vray_Color153
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color153_169.jpg
+newmtl Chrome3
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome3_170.jpg
+newmtl vray_Color154
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color154_171.jpg
+newmtl Chrome4
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome4_172.jpg
+newmtl Pottery_clay4
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay4_173.jpg
+newmtl Pottery_clay5
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay5_174.jpg
+newmtl Pottery_clay6
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay6_175.jpg
+newmtl Pottery_clay7
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay7_176.jpg
+newmtl vray_Color155
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color155_177.jpg
+newmtl vray_Color156
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color156_178.jpg
+newmtl vray_Color157
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color157_179.jpg
+newmtl vray_Color158
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color158_180.jpg
+newmtl vray_Color159
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color159_181.jpg
+newmtl vray_Color160
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color160_182.jpg
+newmtl vray_Color161
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color161_183.jpg
+newmtl vray_Color162
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color162_184.jpg
+newmtl vray_Color163
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color163_185.jpg
+newmtl vray_Color164
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color164_186.jpg
+newmtl vray_Color165
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color165_187.jpg
+newmtl vray_Color166
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color166_188.jpg
+newmtl vray_Color167
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color167_189.jpg
+newmtl Dark_smoked_gla2
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 0.498039 0.498039 0.498039
+map_Kd Dark_smoked_gla2_190.jpg
+newmtl Pottery_clay8
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay8_191.jpg
+newmtl Pottery_clay9
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay9_192.jpg
+newmtl vray_Color168
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color168_193.jpg
+newmtl vray_Color169
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color169_194.jpg
+newmtl vray_Color170
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color170_195.jpg
+newmtl vray_Color171
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color171_196.jpg
+newmtl vray_Color172
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color172_197.jpg
+newmtl vray_Color173
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color173_198.jpg
+newmtl vray_Color174
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color174_199.jpg
+newmtl vray_Color175
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color175_200.jpg
+newmtl vray_Color176
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color176_201.jpg
+newmtl vray_Color177
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color177_202.jpg
+newmtl vray_Color178
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color178_203.jpg
+newmtl vray_Color179
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color179_204.jpg
+newmtl vray_Color180
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color180_205.jpg
+newmtl vray_Color181
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color181_206.jpg
+newmtl Pewter5
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter5_207.jpg
+newmtl vray_Color182
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color182_208.jpg
+newmtl vray_Color183
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color183_209.jpg
+newmtl vray_Color184
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color184_210.jpg
+newmtl vray_Color185
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color185_211.jpg
+newmtl vray_Color186
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color186_212.jpg
+newmtl vray_Color187
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color187_213.jpg
+newmtl vray_Color188
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color188_214.jpg
+newmtl vray_Color189
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color189_215.jpg
+newmtl vray_Color190
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color190_216.jpg
+newmtl vray_Color191
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color191_217.jpg
+newmtl vray_Color192
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color192_218.jpg
+newmtl vray_Color193
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color193_219.jpg
+newmtl vray_Color194
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color194_220.jpg
+newmtl vray_Color195
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color195_221.jpg
+newmtl vray_Color196
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color196_222.jpg
+newmtl vray_Color197
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color197_223.jpg
+newmtl vray_Color198
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color198_224.jpg
+newmtl vray_Color199
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color199_225.jpg
+newmtl vray_Color200
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color200_226.jpg
+newmtl vray_Color201
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color201_227.jpg
+newmtl vray_Color202
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color202_228.jpg
+newmtl vray_Color203
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color203_229.jpg
+newmtl vray_Color204
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color204_230.jpg
+newmtl vray_Color205
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color205_231.jpg
+newmtl vray_Color206
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color206_232.jpg
+newmtl vray_Color207
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color207_233.jpg
+newmtl vray_Color208
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color208_234.jpg
+newmtl Pottery_clay10
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay10_235.jpg
+newmtl Pottery_clay11
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay11_236.jpg
+newmtl Pottery_clay12
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay12_237.jpg
+newmtl vray_Color209
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color209_238.jpg
+newmtl Pottery_clay13
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay13_239.jpg
+newmtl Pottery_clay14
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay14_240.jpg
+newmtl vray_Color210
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color210_241.jpg
+newmtl Chrome5
+Ka 0 0 0
+Ns 114.434
+Ks 1 1 1
+Kd 0.681949 0.720702 0.73147
+map_Kd Chrome5_242.jpg
+newmtl vray_Color211
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color211_243.jpg
+newmtl vray_Color212
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color212_244.jpg
+newmtl vray_Color213
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color213_245.jpg
+newmtl vray_Color214
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color214_246.jpg
+newmtl vray_Color215
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color215_247.jpg
+newmtl vray_Color216
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color216_248.jpg
+newmtl vray_Color217
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color217_249.jpg
+newmtl vray_Color218
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color218_250.jpg
+newmtl vray_Color219
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color219_251.jpg
+newmtl vray_Color220
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color220_252.jpg
+newmtl Pewter6
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter6_253.jpg
+newmtl Pottery_clay15
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay15_254.jpg
+newmtl Diamond0
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 1 1 1
+map_Kd Diamond0_255.jpg
+newmtl Pottery_clay16
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay16_256.jpg
+newmtl vray_Color221
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color221_257.jpg
+newmtl Diamond1
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 1 1 1
+map_Kd Diamond1_258.jpg
+newmtl Pottery_clay17
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay17_259.jpg
+newmtl Pottery_clay18
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay18_260.jpg
+newmtl Pottery_clay19
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay19_261.jpg
+newmtl Pottery_clay20
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay20_262.jpg
+newmtl vray_Color222
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color222_263.jpg
+newmtl vray_Color223
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color223_264.jpg
+newmtl vray_Color224
+Ka 0 0 0
+Ns 2.77319
+Ks 0.835294 0.815686 0.788235
+Kd 1 0.717647 0.113725
+map_Kd vray_Color224_265.jpg
+newmtl Diamond2
+Ka 0 0 0
+Ns 34.4669
+Ks 1 1 1
+Kd 1 1 1
+map_Kd Diamond2_266.jpg
+newmtl Pottery_clay21
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay21_267.jpg
+newmtl Pottery_clay22
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay22_268.jpg
+newmtl Pottery_clay23
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay23_269.jpg
+newmtl Pottery_clay24
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay24_270.jpg
+newmtl Pottery_clay25
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay25_271.jpg

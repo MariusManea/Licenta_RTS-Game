@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TeamColor : MonoBehaviour
 {
-
+    public int matIndex;
 }

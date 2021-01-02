@@ -51,13 +51,13 @@ MonoBehaviour:
   townCenter: {fileID: 0}
   startSpacing: 0
   startSpacingLimit: 50
-  startCopper: 500
+  startCopper: 20000
   startCopperLimit: 20000
-  startIron: 1500
+  startIron: 50000
   startIronLimit: 50000
-  startOil: 1000
+  startOil: 20000
   startOilLimit: 20000
-  startGold: 500
+  startGold: 20000
   startGoldLimit: 20000
   userName: Marius
   isHuman: 1

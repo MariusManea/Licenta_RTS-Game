@@ -12,6 +12,40 @@ public class Dock : Building
         actions = new string[] { "CargoShip" };
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (Ghost)
+        {
+            if (canBePlaced)
+            {
+                Vector3 closestWater = GetClosestWaterPoint(this.transform.position);
+                transform.LookAt(closestWater);
+                CalculateBounds();
+            }
+            else transform.rotation = new Quaternion();
+        }
+    }
+
+    private Vector3 GetClosestWaterPoint(Vector3 position)
+    {
+        Vector3 point = -Vector3.one;
+
+        for (float radius = 1; radius < 50; ++radius)
+        {
+            for (float k = 0; k < 360; k++)
+            {
+                Vector3 newPosition = position + new Vector3(radius * Mathf.Cos(2 * Mathf.PI * (float)k / 360.0f), 0, radius * Mathf.Sin(2 * Mathf.PI * (float)k / 360.0f));
+                if (terrain.SampleHeight(newPosition) <= 6.8f)
+                {
+                    return newPosition;
+                }
+            }
+        }
+
+        return point;
+    }
+
     public override void PerformAction(string actionToPerform)
     {
         base.PerformAction(actionToPerform);
@@ -42,12 +76,6 @@ public class Dock : Building
         Vector3 position = GetClosestValidPoint(waterNav, new Vector3(selectionBounds.center.x, 7, selectionBounds.center.z));
         if (position == -Vector3.one) return;
         position.y = 7;
-        Vector3 dirToWater = (transform.position - position).normalized;
-        float spawnX = selectionBounds.center.x + dirToWater.x * selectionBounds.extents.x + dirToWater.x * 25;
-        float spawnZ = selectionBounds.center.z + dirToWater.z * selectionBounds.extents.z + dirToWater.z * 25;
-        position = GetClosestValidPoint(waterNav, new Vector3(spawnX, 7, spawnZ));
-        if (position == -Vector3.one) return;
-        position.y = 7;
         spawnPoint = position;
         rallyPoint = spawnPoint;
     }
@@ -57,9 +85,9 @@ public class Dock : Building
         int d = 1;
         while (true)
         {
-            for (int i = 0; i < 36; i++)
+            for (int i = 0; i < 360; i++)
             {
-                Vector3 newPosition = destination + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 36.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 36.0f));
+                Vector3 newPosition = destination + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 360.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 360.0f));
                 if (navGraph.GetNearest(newPosition).node.Walkable)
                 {
 

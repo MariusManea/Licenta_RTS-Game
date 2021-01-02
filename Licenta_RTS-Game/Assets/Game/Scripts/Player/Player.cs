@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         if (findingPlacement)
         {
             tempBuilding.CalculateBounds();
-            if (CanPlaceBuilding()) tempBuilding.SetTransparentMaterial(allowedMaterial, false);
+            if (CanPlaceBuilding()) tempBuilding.SetTransparentMaterial(allowedMaterial, false, true);
             else tempBuilding.SetTransparentMaterial(notAllowedMaterial, false);
         }
     }
@@ -182,7 +182,7 @@ public class Player : MonoBehaviour
         {
             return false;
         }
-
+        tempBuilding.CalculateBounds();
         if (tempBuilding.GetComponent<OilPump>())
         {
             //shorthand for the coordinates of the center of the selection bounds
@@ -239,7 +239,7 @@ public class Player : MonoBehaviour
 
         //Determine the screen coordinates for the corners of the selection bounds
         List<Vector3> corners = new List<Vector3>();
-        float[] cfs = { 1, 0.66f, 0.33f, 0.05f };
+        float[] cfs = { 0.05f, 0.33f, 0.66f, 1};
         Terrain terrain = (Terrain)FindObjectOfType(typeof(Terrain));
         List<float> heights = new List<float>();
         foreach(float cfx in cfs)
@@ -263,8 +263,11 @@ public class Player : MonoBehaviour
                 heights.Add(terrain.SampleHeight(new Vector3(cx - cfx * ex, 0, cz - cfz * ez)));
             }
         }
-
-        if (heights.Max() - heights.Min() > (tempBuilding.GetComponent<Dock>() != null ? 2 : 1.5f)) return false;
+        if (!tempBuilding.GetComponent<Dock>())
+        {
+            if (heights.Max() - heights.Min() > (tempBuilding.GetComponent<Dock>() != null ? 2 : 1.5f)) return false;
+        }
+        else { if (tempBuilding.transform.position.y >= 8) return false; }
         bool dockOnWater = false;
         bool dockOnGround = false;
         foreach (Vector3 corner in corners)
@@ -273,7 +276,7 @@ public class Player : MonoBehaviour
             if (tempBuilding.GetComponent<Dock>())
             {
                 if (WorkManager.ObjectIsGround(hitObject)) dockOnGround = true;
-                if (WorkManager.ObjectIsWater(hitObject)) dockOnWater = true;
+                else if (WorkManager.ObjectIsWater(hitObject)) dockOnWater = true;
             }
             if (hitObject && !WorkManager.ObjectIsGround(hitObject))
             {

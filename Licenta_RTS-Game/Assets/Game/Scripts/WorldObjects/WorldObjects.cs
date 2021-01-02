@@ -11,6 +11,7 @@ public class WorldObjects : MonoBehaviour
     public Texture2D buildImage;
     public int hitPoints, maxHitPoints;
 
+    protected bool canBePlaced;
     protected Player player;
     protected string[] actions = { };
     protected bool currentlySelected = false;
@@ -20,7 +21,7 @@ public class WorldObjects : MonoBehaviour
     protected GUIStyle healthStyle = new GUIStyle();
     protected float healthPercentage = 1.0f;
 
-    private List<Material> oldMaterials = new List<Material>();
+    private List<Material[]> oldMaterials = new List<Material[]>();
 
     protected WorldObjects target = null;
     protected bool attacking = false;
@@ -78,7 +79,9 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void Update()
     {
-        this.transform.position = new Vector3(this.transform.position.x, terrain.SampleHeight(this.transform.position), this.transform.position.z);
+        float y = terrain.SampleHeight(this.transform.position);
+        y = y > 7 ? y : 7;
+        this.transform.position = new Vector3(this.transform.position.x, y, this.transform.position.z);
         if (ShouldMakeDecision()) DecideWhatToDo();
         currentWeaponChargeTime += Time.deltaTime;
         if (attacking && !movingIntoPosition && !aiming) PerformAttack();
@@ -174,7 +177,7 @@ public class WorldObjects : MonoBehaviour
     public void SetTeamColor()
     {
         TeamColor[] teamColors = GetComponentsInChildren<TeamColor>();
-        foreach (TeamColor teamColor in teamColors) teamColor.GetComponent<Renderer>().material.color = player.teamColor;
+        foreach (TeamColor teamColor in teamColors) teamColor.GetComponent<Renderer>().materials[teamColor.matIndex].color = player.teamColor;
     }
 
     protected virtual void DrawSelectionBox(Rect selectBox)
@@ -451,15 +454,19 @@ public class WorldObjects : MonoBehaviour
         foreach (Collider collider in colliders) collider.enabled = enabled;
     }
 
-    public void SetTransparentMaterial(Material material, bool storeExistingMaterial)
+    public void SetTransparentMaterial(Material material, bool storeExistingMaterial, bool placeable = false)
     {
         if (storeExistingMaterial) oldMaterials.Clear();
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            if (storeExistingMaterial) oldMaterials.Add(renderer.material);
-            renderer.material = material;
+            if (storeExistingMaterial) oldMaterials.Add(renderer.materials);
+            Material[] newMaterials = new Material[renderer.materials.Length];
+            for (int i = 0; i < renderer.materials.Length; ++i)
+                newMaterials[i] = material;
+            renderer.materials = newMaterials;
         }
+        canBePlaced = placeable;
     }
 
     public void RestoreMaterials()
@@ -469,7 +476,7 @@ public class WorldObjects : MonoBehaviour
         {
             for (int i = 0; i < renderers.Length; i++)
             {
-                renderers[i].material = oldMaterials[i];
+                renderers[i].materials = oldMaterials[i];
             }
         }
     }
