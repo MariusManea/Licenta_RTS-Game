@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6916990668614971721}
+  - component: {fileID: 196230404923788599}
+  - component: {fileID: 436866472098114053}
   m_Layer: 12
   m_Name: Japanese_Temple_Blender
   m_TagString: Untagged
@@ -31,6 +33,35 @@ Transform:
   m_Father: {fileID: 1783129854321826177}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &196230404923788599
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104003608893516787}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 37.293713, z: 23.982533}
+  m_Center: {x: 0, y: 18.644253, z: 1.7364376}
+--- !u!114 &436866472098114053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104003608893516787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 7867062343898171194
+  updateError: 1
+  checkTime: 100
 --- !u!1 &6950984151013509317
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,8 +245,6 @@ GameObject:
   - component: {fileID: 8172616588441711866}
   - component: {fileID: 1345883764008981674}
   - component: {fileID: 5912924969589212800}
-  - component: {fileID: 7830217133839691961}
-  - component: {fileID: 7593393579719337101}
   m_Layer: 12
   m_Name: Japanese_Shrine
   m_TagString: Untagged
@@ -286,32 +315,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7830217133839691961
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8614320601146657963}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20, y: 23.400007, z: 37.38001}
-  m_Center: {x: 0, y: -1.7000011, z: 18.690004}
---- !u!114 &7593393579719337101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8614320601146657963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  uniqueID: 7867062343898171194
-  updateError: 1
-  checkTime: 100
