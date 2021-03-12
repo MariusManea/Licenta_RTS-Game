@@ -152,7 +152,9 @@ namespace RTS
         }
 
         private static readonly Dictionary<string, Cost> catalog = new Dictionary<string, Cost> { 
+            // spacing, copper, iron, oil, gold
             { "cityhall", new Cost(0, 500, 1000, 0, 500) },
+            { "university", new Cost(0, 250, 250, 100, 350) },
             { "dock", new Cost(0, 50, 300, 50, 100) },
             { "oilpump", new Cost(1, 200, 400, 0, 0) },
             { "refinery", new Cost(0, 100, 100, 0, 0) },
@@ -163,9 +165,37 @@ namespace RTS
             { "cargoship", new Cost(5, 0, 400, 250, 200) },
             { "convoytruck", new Cost(15, 200, 250, 100, 3000) },
             { "harvester", new Cost(1, 50, 50, 50, 0) },
+            { "rustyharvester", new Cost(0, 0, 0, 0, 0) },
             { "tank", new Cost(2, 50, 150, 100, 50) },
             { "worker", new Cost(1, 50, 50, 0, 0) },
         };
+
+        private static readonly Dictionary<UpgradeableObjects, int> researchPoints = new Dictionary<UpgradeableObjects, int>
+        {
+            {UpgradeableObjects.CargoShip, 100 },
+            {UpgradeableObjects.ConvoyTruck, 100 },
+            {UpgradeableObjects.Dock, 100 },
+            {UpgradeableObjects.Harvester, 100 },
+            {UpgradeableObjects.OilPump, 100 },
+            {UpgradeableObjects.Refinery, 100 },
+            {UpgradeableObjects.Tank, 100 },
+            {UpgradeableObjects.CityHall, 100 },
+            {UpgradeableObjects.Turret, 100 },
+            {UpgradeableObjects.University, 100 },
+            {UpgradeableObjects.WarFactory, 100 },
+            {UpgradeableObjects.Wonder, 100 },
+            {UpgradeableObjects.Worker, 100 },
+        };
+
+        public static int GetResearchPoints(UpgradeableObjects type)
+        {
+            return researchPoints[type];
+        }
+        public static int GetResearchPoints(string type)
+        {
+            type = type.Replace(" ", string.Empty);
+            return researchPoints[(UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), type)];
+        }
 
         public static Cost GetCost(string entity)
         {

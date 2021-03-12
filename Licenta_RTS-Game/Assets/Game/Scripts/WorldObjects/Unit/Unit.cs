@@ -23,11 +23,14 @@ public class Unit : WorldObjects
 
     public CargoShip loadingTarget;
 
+    protected Animator animController;
+
     protected override void Awake()
     {
         base.Awake();
         graph = FindObjectOfType<AstarPath>();
         navGraph = graph.data.graphs[0];
+        animController = GetComponent<Animator>();
     }
 
     protected override void Start()
@@ -224,6 +227,7 @@ public class Unit : WorldObjects
         targetRotation = Quaternion.LookRotation(rotateTo - transform.position);
         rotating = true;
         moving = false;
+        animController.Play("move");
     }
 
     public void StartMove(Vector3 destination, GameObject destinationTarget)
@@ -268,6 +272,7 @@ public class Unit : WorldObjects
             GetComponent<AIPath>().enabled = false;
             movingIntoPosition = false;
             destination = ResourceManager.InvalidPosition;
+            animController.Play("idle");
         }
         CalculateBounds();
     }
@@ -291,7 +296,7 @@ public class Unit : WorldObjects
         int targetShift = Mathf.FloorToInt(numberOfExtents);
 
         //calculate number of unit vectors between unit centre and destination centre with bounds just touching
-        int shiftAmount = targetShift + unitShift;
+        int shiftAmount = targetShift;// + unitShift;
 
         //calculate direction unit needs to travel to reach destination in straight line and normalize to unit vector
         Vector3 origin = transform.position;

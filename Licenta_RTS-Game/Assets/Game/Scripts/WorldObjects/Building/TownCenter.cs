@@ -8,7 +8,7 @@ public class TownCenter : Building
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "Worker" };
+        actions = new string[] { "Worker", "RustyHarvester" };
     }
 
     public override void PerformAction(string actionToPerform)

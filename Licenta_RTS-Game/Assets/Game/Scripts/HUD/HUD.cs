@@ -115,6 +115,11 @@ public class HUD : MonoBehaviour
                     resourceValues.Add(ResourceType.Gold, 0);
                     resourceLimits.Add(ResourceType.Gold, 0);
                     break;
+                case "ResearchPoint":
+                    resourceImages.Add(ResourceType.ResearchPoint, resources[i]);
+                    resourceValues.Add(ResourceType.ResearchPoint, 0);
+                    resourceLimits.Add(ResourceType.ResearchPoint, 0);
+                    break;
                 default: break;
             }
         }
@@ -607,7 +612,9 @@ public class HUD : MonoBehaviour
         float yPos = Screen.height - Input.mousePosition.y - RESOURCE_BAR_HEIGHT;
         GUI.BeginGroup(new Rect(xPos, yPos, ResourceManager.ButtonWidth, 6 * ResourceManager.Padding));
 
-        GUI.Box(new Rect(0, 0, ResourceManager.ButtonWidth, 6 * ResourceManager.Padding), action);
+        int multiplyer = (player.SelectedObjects[0].objectName == "University" ? 2 : 6);
+
+        GUI.Box(new Rect(0, 0, ResourceManager.ButtonWidth, multiplyer * ResourceManager.Padding), action);
 
         ResourceManager.Cost entityCost = ResourceManager.GetCost(action);
 
@@ -620,33 +627,42 @@ public class HUD : MonoBehaviour
         normalStyle.label = new GUIStyle(costSkin.label);
         insufficientStyle.label = new GUIStyle(costSkin.label);
         insufficientStyle.label.normal.textColor = Color.red;
+        if (player.SelectedObjects[0].objectName == "University") 
+        {
+            int required = ResourceManager.GetResearchPoints(action);
+            if (player.GetResourceAmount(ResourceType.ResearchPoint) >= required) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[5]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), required.ToString());
+        }
+        else
+        {
+            if (player.GetResourceAmount(ResourceType.Spacing) >= entityCost.spacing) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[0]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.spacing.ToString());
+            topPos += ResourceManager.Padding;
+            if (player.GetResourceAmount(ResourceType.Copper) >= entityCost.copper) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[1]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.copper.ToString());
+            topPos += ResourceManager.Padding;
+            if (player.GetResourceAmount(ResourceType.Iron) >= entityCost.iron) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[2]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.iron.ToString());
+            topPos += ResourceManager.Padding;
+            if (player.GetResourceAmount(ResourceType.Oil) >= entityCost.oil) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[3]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.oil.ToString());
+            topPos += ResourceManager.Padding;
+            if (player.GetResourceAmount(ResourceType.Gold) >= entityCost.gold) GUI.skin = normalStyle;
+            else GUI.skin = insufficientStyle;
+            GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[4]);
+            GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.gold.ToString());
 
-        if (player.GetResourceAmount(ResourceType.Spacing) >= entityCost.spacing) GUI.skin = normalStyle;
-        else GUI.skin = insufficientStyle;
-        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[0]);
-        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.spacing.ToString());
-        topPos += ResourceManager.Padding;
-        if (player.GetResourceAmount(ResourceType.Copper) >= entityCost.copper) GUI.skin = normalStyle;
-        else GUI.skin = insufficientStyle;
-        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[1]);
-        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.copper.ToString());
-        topPos += ResourceManager.Padding;
-        if (player.GetResourceAmount(ResourceType.Iron) >= entityCost.iron) GUI.skin = normalStyle;
-        else GUI.skin = insufficientStyle;
-        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[2]);
-        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.iron.ToString());
-        topPos += ResourceManager.Padding;
-        if (player.GetResourceAmount(ResourceType.Oil) >= entityCost.oil) GUI.skin = normalStyle;
-        else GUI.skin = insufficientStyle;
-        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[3]);
-        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.oil.ToString());
-        topPos += ResourceManager.Padding;
-        if (player.GetResourceAmount(ResourceType.Gold) >= entityCost.gold) GUI.skin = normalStyle;
-        else GUI.skin = insufficientStyle;
-        GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[4]);
-        GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.gold.ToString());
-
-
+        }
         GUI.EndGroup();
         GUI.skin = ordersSkin;
     }
@@ -681,18 +697,21 @@ public class HUD : MonoBehaviour
         GUI.Box(new Rect(0, 0, Screen.width, RESOURCE_BAR_HEIGHT), "");
         int topPos = 4, iconLeft = 4, textLeft = 20;
         DrawResourceIcon(ResourceType.Spacing, iconLeft, textLeft, topPos);
-        iconLeft += TEXT_WIDTH;
-        textLeft += TEXT_WIDTH;
+        iconLeft += (int)(1.3f * TEXT_WIDTH);
+        textLeft += (int)(1.3f * TEXT_WIDTH);
         DrawResourceIcon(ResourceType.Copper, iconLeft, textLeft, topPos);
-        iconLeft += TEXT_WIDTH;
-        textLeft += TEXT_WIDTH;
+        iconLeft += (int)(1.3f * TEXT_WIDTH);
+        textLeft += (int)(1.3f * TEXT_WIDTH);
         DrawResourceIcon(ResourceType.Iron, iconLeft, textLeft, topPos);
-        iconLeft += TEXT_WIDTH;
-        textLeft += TEXT_WIDTH;
+        iconLeft += (int)(1.3f * TEXT_WIDTH);
+        textLeft += (int)(1.3f * TEXT_WIDTH);
         DrawResourceIcon(ResourceType.Oil, iconLeft, textLeft, topPos);
-        iconLeft += TEXT_WIDTH;
-        textLeft += TEXT_WIDTH;
+        iconLeft += (int)(1.3f * TEXT_WIDTH);
+        textLeft += (int)(1.3f * TEXT_WIDTH);
         DrawResourceIcon(ResourceType.Gold, iconLeft, textLeft, topPos);
+        iconLeft += (int)(1.3f * TEXT_WIDTH);
+        textLeft += (int)(1.3f * TEXT_WIDTH);
+        DrawResourceIcon(ResourceType.ResearchPoint, iconLeft, textLeft, topPos);
         int padding = 7;
         int buttonWidth = ORDERS_BAR_WIDTH - 2 * padding - SCROLL_BAR_WIDTH;
         int buttonHeight = RESOURCE_BAR_HEIGHT - 2 * padding;

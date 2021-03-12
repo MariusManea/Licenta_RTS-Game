@@ -26,7 +26,7 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "CityHall", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
+        actions = new string[] { "CityHall", "University", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -58,9 +58,11 @@ public class Worker : Unit
                 {
                     amountBuilt -= amount;
                     currentProject.Construct(amount);
+                    animController.Play("building");
                     if (!currentProject.UnderConstruction())
                     {
                         building = false;
+                        animController.Play("idle");
                         if (currentProject.GetComponent<CityHall>() != null)
                         {
                             player.IncrementResourceLimit(ResourceType.Spacing, 25);
@@ -72,6 +74,7 @@ public class Worker : Unit
             }
             else
             {
+                animController.Play("idle");
                 building = false;
                 currentProject = null;
             }

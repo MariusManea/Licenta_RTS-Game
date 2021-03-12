@@ -553,5 +553,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameObjectsList
       objectReference: {fileID: 0}
+    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
+        type: 3}
+      propertyPath: buildings.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7081983928268064591, guid: 054bff1597dc83743913aca65e47d65b,
+        type: 3}
+      propertyPath: buildings.Array.data[8]
+      value: 
+      objectReference: {fileID: 4542605286899993286, guid: 51b3b68d5b5c5d248ac484bc2d521fe3,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 054bff1597dc83743913aca65e47d65b, type: 3}

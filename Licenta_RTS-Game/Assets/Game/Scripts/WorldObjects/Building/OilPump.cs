@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 using RTS;
 
 public class OilPump : Building
@@ -9,13 +10,13 @@ public class OilPump : Building
     private int upgradedToLevel;
     private Dictionary<int, string> levelName;
     private float extractingTime;
-
+    private GameObject oilPileSupport;
+    private int loadedOilPileId;
     protected override void Start()
     {
         base.Start();
         actions = new string[] { "OilPump" };
-        upgradeLevel = 1;
-        upgradedToLevel = 1;
+        
         extractingTime = 0;
         levelName = new Dictionary<int, string>
         {
@@ -25,6 +26,28 @@ public class OilPump : Building
             { 4, "Oil Pump IV" },
             { 5, "Oil Pump V" }
         };
+
+        if (player && loadedSavedValues && loadedOilPileId >= 0)
+        {
+            WorldObjects obj = player.GetObjectForId(loadedOilPileId);
+            if (obj.GetType().IsSubclassOf(typeof(Resource)))
+            {
+                oilPileSupport = obj.gameObject;
+                foreach (Renderer renderer in oilPileSupport.GetComponentsInChildren<MeshRenderer>())
+                {
+                    renderer.enabled = false;
+                }
+                foreach (Collider collider in oilPileSupport.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = false;
+                }
+            }
+        }
+        if (!loadedSavedValues)
+        {
+            upgradeLevel = 1;
+            upgradedToLevel = 1;
+        }
         objectName = levelName[upgradeLevel];
     }
 
@@ -97,5 +120,44 @@ public class OilPump : Building
     public override string GetObjectName()
     {
         return "Oil Pump";
+    }
+
+    public void SetPile(GameObject oilPile)
+    {
+        oilPileSupport = oilPile;
+    }
+
+    public void OnDestroy()
+    {
+        if (oilPileSupport)
+        {
+            foreach (Renderer renderer in oilPileSupport.GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.enabled = true;
+            }
+            foreach (Collider collider in oilPileSupport.GetComponentsInChildren<Collider>())
+            {
+                collider.enabled = true;
+            }
+        }
+    }
+
+    public override void SaveDetails(JsonWriter writer)
+    {
+        base.SaveDetails(writer);
+        SaveManager.WriteInt(writer, "LevelUpgraded", upgradedToLevel);
+        SaveManager.WriteInt(writer, "Level", upgradeLevel);
+        SaveManager.WriteInt(writer, "OilPileId", oilPileSupport.GetComponent<WorldObjects>().ObjectId);
+    }
+    protected override void HandleLoadedProperty(JsonTextReader reader, string propertyName, object readValue)
+    {
+        base.HandleLoadedProperty(reader, propertyName, readValue);
+        switch (propertyName)
+        {
+            case "LevelUpgraded": upgradedToLevel = (int)(System.Int64)readValue; break;
+            case "Level": upgradeLevel = (int)(System.Int64)readValue; break;
+            case "OilPileId": loadedOilPileId = (int)(System.Int64)readValue; break;
+            default: break;
+        }
     }
 }

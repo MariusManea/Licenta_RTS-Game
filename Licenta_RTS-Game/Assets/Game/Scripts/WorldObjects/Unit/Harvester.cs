@@ -63,6 +63,7 @@ public class Harvester : Unit
 					Collect();
 					if (currentLoad >= capacity)
 					{
+						animController.Play("idle");
 						if (!oldStore || oldStore != resourceStore)
 						{
 							Warehouse[] warehouses = GameObject.FindObjectsOfType(typeof(Warehouse)) as Warehouse[];
@@ -94,6 +95,7 @@ public class Harvester : Unit
 					Deposit();
 					if (currentLoad <= 0 || player.IsFull(WorkManager.GetResourceHarvested(harvestType)))
 					{
+						animController.Play("idle");
 						emptying = false;
 						foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
 						if (resourceDeposit && !resourceDeposit.isEmpty() && !player.IsFull(WorkManager.GetResourceHarvested(harvestType)))
@@ -261,6 +263,7 @@ public class Harvester : Unit
 		}
 		if (!aiming)
 		{
+			animController.Play("harvest");
 			if (audioElement != null && Time.timeScale > 0) audioElement.Play(harvestSound);
 			float collect = collectionAmount * Time.deltaTime;
 			//make sure that the harvester cannot collect more than it can carry
@@ -294,6 +297,7 @@ public class Harvester : Unit
 		}
 		if (!aiming)
 		{
+			animController.Play("empty");
 			currentLoad = Mathf.Floor(currentLoad);
 			if (audioElement != null && Time.timeScale > 0) audioElement.Play(emptyHarvestSound);
 			currentDeposit += depositAmount * Time.deltaTime;

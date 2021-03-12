@@ -49,16 +49,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   townCenter: {fileID: 0}
-  startSpacing: 0
+  startSpacing: 1
   startSpacingLimit: 50
   startCopper: 20000
   startCopperLimit: 20000
   startIron: 50000
   startIronLimit: 50000
-  startOil: 20000
+  startOil: 10000
   startOilLimit: 20000
   startGold: 20000
   startGoldLimit: 20000
+  startResearchPoint: 10000
+  startResearchPointLimit: 10000
+  universityLevel: 1
+  warFactoryLevel: 1
+  refineryLevel: 1
+  turretLevel: 0
+  oilPumpLevel: 0
+  dockLevel: 0
+  workerLevel: 1
+  harvesterLevel: 1
+  tankLevel: 1
+  cargoShipLevel: 1
+  wonderLevel: 0
+  convoyTruckLevel: 0
+  cityHallLevel: 1
   userName: Marius
   isHuman: 1
   playerID: 0
@@ -201,6 +216,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a44086cfcf26a824c8ff874ef05a0134, type: 3}
   - {fileID: 2800000, guid: 6e23c040d1d466849ac0d581de05360b, type: 3}
   - {fileID: 2800000, guid: c42937d9b3dd70041be0a0687698ddb6, type: 3}
+  - {fileID: 2800000, guid: 28a7faedb711ae145aef78a5b8bb1d34, type: 3}
   buttonHover: {fileID: 2800000, guid: 7b1ccce77d78c8d4ba64e8379f4177c2, type: 3}
   buttonClick: {fileID: 2800000, guid: 962d35d6af35d184791b91c7ead8e946, type: 3}
   buildFrame: {fileID: 2800000, guid: 72d5223c9bd7027489af0ecbeb40cf02, type: 3}

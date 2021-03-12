@@ -295,6 +295,21 @@ namespace RTS
             writer.WriteEndObject();
         }
 
+        public static void SavePlayerUpgrades(JsonWriter writer, Dictionary<UpgradeableObjects, int> levels)
+        {
+            if (writer == null) return;
+
+            writer.WritePropertyName("Levels");
+            writer.WriteStartArray();
+            foreach(KeyValuePair<UpgradeableObjects, int> pair in levels)
+            {
+                writer.WriteStartObject();
+                WriteInt(writer, pair.Key.ToString(), pair.Value);
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+        }
+
         public static void SavePlayerResources(JsonWriter writer, Dictionary<ResourceType, int> resources, Dictionary<ResourceType, int> resourceLimits)
         {
             if (writer == null) return;

@@ -73,6 +73,7 @@ namespace RTS
                 case "IronOre": return ResourceType.IronOre;
                 case "OilDeposit": return ResourceType.OilDeposit;
                 case "GoldOre": return ResourceType.GoldOre;
+                case "ResearchPoint": return ResourceType.ResearchPoint;
                 default: return ResourceType.Unknown;
             }
         }
@@ -151,6 +152,70 @@ namespace RTS
             if (target == null) return false;
             float distance = Vector3.SqrMagnitude(position - target.transform.position);
             return distance < 225;
+        }
+
+
+        // conditii:
+        // Dock_1: University_2
+        // Turret_1: University_2 WarFactory_3
+        // Wonder: University_5 Worker_10 Refinery_5 OilPump_5
+        // ConvoyTruck: University_5 WarFactory_5 OilPump_5 Harvester_10
+        // CargoShip_1: Dock_1
+        // Refinery, WarFactory, Dock si TownHall permit pentru fiecare nivel de upgrade cate 2 nivele pentru Harvester, Tank, Cargoship, respectiv Worker
+        // Pentru Tank si CargoShip se ia in paralel si OilPump
+
+
+
+        public static bool ResearchableObject(UpgradeableObjects type, int desiredLevel, Dictionary<UpgradeableObjects, int> levels)
+        {
+            switch (type)
+            {
+                case UpgradeableObjects.Dock:
+                    {
+                        if (desiredLevel == 1 && levels[UpgradeableObjects.University] >= 2)
+                            return true;
+                        else
+                            return desiredLevel != 1;
+                    }
+                case UpgradeableObjects.CargoShip:
+                    {
+                        return desiredLevel <= 2 * levels[UpgradeableObjects.Dock] && desiredLevel <= 2 * levels[UpgradeableObjects.OilPump];
+                    }
+                case UpgradeableObjects.Turret:
+                    {
+                        if (desiredLevel == 1 && levels[UpgradeableObjects.University] >= 2 && levels[UpgradeableObjects.WarFactory] >= 3)
+                            return true;
+                        else
+                            return desiredLevel != 1;
+                    }
+                case UpgradeableObjects.Tank:
+                    {
+                        return desiredLevel <= 2 * levels[UpgradeableObjects.WarFactory] && desiredLevel <= 2 * levels[UpgradeableObjects.OilPump];
+                    }
+                case UpgradeableObjects.Worker:
+                    {
+                        return desiredLevel <= 2 * levels[UpgradeableObjects.CityHall];
+                    }
+                case UpgradeableObjects.Harvester:
+                    {
+                        return desiredLevel <= 2 * levels[UpgradeableObjects.Refinery];
+                    }
+                case UpgradeableObjects.Wonder:
+                    {
+                        return desiredLevel == 1 && levels[UpgradeableObjects.Worker] == 10 &&
+                            levels[UpgradeableObjects.University] == 5 &&
+                            levels[UpgradeableObjects.Refinery] == 5 &&
+                            levels[UpgradeableObjects.OilPump] == 5;
+                    }
+                case UpgradeableObjects.ConvoyTruck:
+                    {
+                        return desiredLevel == 1 && levels[UpgradeableObjects.Harvester] == 10 &&
+                            levels[UpgradeableObjects.University] == 5 &&
+                            levels[UpgradeableObjects.WarFactory] == 5 &&
+                            levels[UpgradeableObjects.OilPump] == 5;
+                    }
+                default: return true;
+            }
         }
     }
 }

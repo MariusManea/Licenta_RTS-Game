@@ -91,8 +91,11 @@ public class Building : WorldObjects
 
     protected void ProcessBuildQueue()
     {
+        
         if (buildQueue.Count > 0)
         {
+            if (objectName == "University") return; // upgrade, university will handle it diff
+            
             currentBuildProgress += Time.deltaTime * ResourceManager.BuildSpeed;
             if (currentBuildProgress > maxBuildProgress)
             {

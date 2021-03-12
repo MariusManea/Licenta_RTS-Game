@@ -8,6 +8,7 @@ public class Tank : Unit
 {
     private Quaternion aimRotation;
     private float weaponAimSpeed = 5;
+    public Transform projectileSpawnPoint;
 
     protected override void Start()
     {
@@ -42,14 +43,12 @@ public class Tank : Unit
     protected override void UseWeapon()
     {
         base.UseWeapon();
-        Vector3 spawnPoint = transform.position;
-        spawnPoint.x += (2.1f * transform.forward.x);
-        spawnPoint.y += 1.4f;
-        spawnPoint.z += (2.1f * transform.forward.z);
+        Vector3 spawnPoint = projectileSpawnPoint.position;
         GameObject gameObject = (GameObject)Instantiate(ResourceManager.GetWorldObject("TankProjectile"), spawnPoint, transform.rotation);
         Projectile projectile = gameObject.GetComponentInChildren<Projectile>();
         projectile.SetRange(0.9f * weaponRange);
         projectile.SetTarget(target);
+        animController.Play("fire");
     }
 
     public override void SaveDetails(JsonWriter writer)
