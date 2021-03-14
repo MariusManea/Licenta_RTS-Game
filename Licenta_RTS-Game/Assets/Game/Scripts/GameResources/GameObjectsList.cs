@@ -5,9 +5,9 @@ using RTS;
 
 public class GameObjectsList : MonoSingleton<GameObjectsList>
 {
-    public GameObject[] buildings;
-    public GameObject[] units;
-    public GameObject[] worldObjects;
+    public Building[] buildings;
+    public Unit[] units;
+    public WorldObjects[] worldObjects;
     public GameObject[] gameObjects;
     public GameObject player;
     public Texture2D[] avatars;
@@ -52,8 +52,7 @@ public class GameObjectsList : MonoSingleton<GameObjectsList>
     {
         for (int i = 0; i < buildings.Length; i++)
         {
-            Building building = buildings[i].GetComponent<Building>();
-            if (building && building.name == name) return buildings[i];
+            if (buildings[i] && buildings[i].name == name) return buildings[i].gameObject;
         }
         return null;
     }
@@ -62,17 +61,16 @@ public class GameObjectsList : MonoSingleton<GameObjectsList>
     {
         for (int i = 0; i < units.Length; i++)
         {
-            Unit unit = units[i].GetComponent<Unit>();
-            if (unit && unit.name == name) return units[i];
+            if (units[i] && units[i].name == name) return units[i].gameObject;
         }
         return null;
     }
 
     public GameObject GetWorldObject(string name)
     {
-        foreach (GameObject worldObject in worldObjects)
+        foreach (WorldObjects worldObject in worldObjects)
         {
-            if (worldObject.name == name) return worldObject;
+            if (worldObject.name == name) return worldObject.gameObject;
         }
         return null;
     }
@@ -86,13 +84,11 @@ public class GameObjectsList : MonoSingleton<GameObjectsList>
     {
         for (int i = 0; i < buildings.Length; i++)
         {
-            Building building = buildings[i].GetComponent<Building>();
-            if (building && building.name == name) return building.buildImage;
+            if (buildings[i] && buildings[i].name == name) return buildings[i].buildImage;
         }
         for (int i = 0; i < units.Length; i++)
         {
-            Unit unit = units[i].GetComponent<Unit>();
-            if (unit && unit.name == name) return unit.buildImage;
+            if (units[i] && units[i].name == name) return units[i].buildImage;
         }
         return null;
     }

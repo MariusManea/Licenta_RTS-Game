@@ -507,10 +507,6 @@ public class HUD : MonoBehaviour
 
     private void DrawStandardBuildingOptions(Building building)
     {
-        GUIStyle buttons = new GUIStyle();
-        buttons.hover.background = smallButtonHover;
-        buttons.active.background = smallButtonClick;
-        GUI.skin.button = buttons;
         int leftPos = BUILD_IMAGE_WIDTH + SCROLL_BAR_WIDTH + BUTTON_SPACING;
         int topPos = buildAreaHeight - BUILD_IMAGE_HEIGHT / 2;
         int width = BUILD_IMAGE_WIDTH / 2;
@@ -563,10 +559,6 @@ public class HUD : MonoBehaviour
 
     private void DrawActions(string[] actions, WorldObjects worldObjectWithActions)
     {
-        GUIStyle buttons = new GUIStyle();
-        buttons.hover.background = buttonHover;
-        buttons.active.background = buttonClick;
-        GUI.skin.button = buttons;
         int numActions = actions.Length;
         //define the area to draw the actions inside
         GUI.BeginGroup(new Rect(BUILD_IMAGE_WIDTH, 0, ORDERS_BAR_WIDTH, buildAreaHeight));

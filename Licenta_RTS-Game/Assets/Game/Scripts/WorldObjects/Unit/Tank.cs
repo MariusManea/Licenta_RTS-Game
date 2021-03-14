@@ -45,7 +45,7 @@ public class Tank : Unit
     {
         base.UseWeapon();
         Vector3 spawnPoint = projectileSpawnPoint.position;
-        GameObject gameObject = (GameObject)Instantiate(ResourceManager.GetWorldObject("TankProjectile"), spawnPoint, transform.rotation);
+        GameObject gameObject = (GameObject)Instantiate(ResourceManager.GetGameObject("TankProjectile"), spawnPoint, transform.rotation);
         Projectile projectile = gameObject.GetComponentInChildren<Projectile>();
         projectile.SetRange(0.9f * weaponRange);
         projectile.SetTarget(target);
