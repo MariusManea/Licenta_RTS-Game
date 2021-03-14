@@ -29,6 +29,7 @@ public class Tank : Unit
                 aiming = false;
             }
         }
+        objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Tank)) + ")";
     }
     public override bool CanAttack()
     {
@@ -48,6 +49,7 @@ public class Tank : Unit
         Projectile projectile = gameObject.GetComponentInChildren<Projectile>();
         projectile.SetRange(0.9f * weaponRange);
         projectile.SetTarget(target);
+        projectile.damage += 5 * (player.GetLevel(UpgradeableObjects.Tank) - 1);
         animController.Play("fire");
     }
 
@@ -65,5 +67,10 @@ public class Tank : Unit
             case "AimRotation": aimRotation = LoadManager.LoadQuaternion(reader); break;
             default: break;
         }
+    }
+
+    public override string GetObjectName()
+    {
+        return "Tank";
     }
 }

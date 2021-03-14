@@ -29,6 +29,10 @@ public class Turret : Building
                 aiming = false;
             }
         }
+        if (!needsBuilding && !Ghost)
+        {
+            objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Turret)) + ")";
+        }
     }
 
     public override bool CanAttack()
@@ -48,11 +52,17 @@ public class Turret : Building
         Projectile projectile = gameObject.GetComponentInChildren<Projectile>();
         projectile.SetRange(0.9f * weaponRange);
         projectile.SetTarget(target);
+        projectile.damage += 10 * (player.GetLevel(UpgradeableObjects.Turret) - 1);
     }
 
     protected override void AimAtTarget()
     {
         base.AimAtTarget();
         aimRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+    }
+
+    public override string GetObjectName()
+    {
+        return "Turret";
     }
 }

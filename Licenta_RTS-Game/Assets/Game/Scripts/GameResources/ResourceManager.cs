@@ -187,6 +187,8 @@ namespace RTS
             {UpgradeableObjects.Worker, 100 },
         };
 
+        private static readonly string[] levelAlias = { "-", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
+
         public static int GetResearchPoints(UpgradeableObjects type)
         {
             return researchPoints[type];
@@ -195,6 +197,11 @@ namespace RTS
         {
             type = type.Replace(" ", string.Empty);
             return researchPoints[(UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), type)];
+        }
+
+        public static string GetLevelAlias(int level)
+        {
+            return levelAlias[level];
         }
 
         public static Cost GetCost(string entity)

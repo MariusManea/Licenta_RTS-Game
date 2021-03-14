@@ -24,6 +24,10 @@ public class Dock : Building
                 CalculateBounds();
             }
             else transform.rotation = new Quaternion();
+        } 
+        else
+        {
+            objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Dock)) + ")";
         }
     }
 
@@ -122,6 +126,11 @@ public class Dock : Building
                 player.hud.SetCursorState(CursorState.Select);
             }
         }
+    }
+
+    public override string GetObjectName()
+    {
+        return "Dock";
     }
 
 }

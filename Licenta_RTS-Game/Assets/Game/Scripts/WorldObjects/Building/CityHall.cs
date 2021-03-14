@@ -35,6 +35,10 @@ public class CityHall : Building
                 ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(territory, ownerID);
                 ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(territory, ownerID);
             }
+            if (!Ghost)
+            {
+                objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.CityHall)) + ")";
+            }
         }
     }
 
@@ -94,5 +98,9 @@ public class CityHall : Building
                 }
                 break;
         }
+    }
+    public override string GetObjectName()
+    {
+        return "City Hall";
     }
 }

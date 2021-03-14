@@ -163,6 +163,28 @@ public class Player : MonoBehaviour
         return researchableObjects;
     }
 
+    public string[] GetResearchedObjects(string[] actions)
+    {
+        List<string> researchedActions = new List<string>();
+        foreach(string action in actions)
+        {
+            if (levels[(UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), action)] > 0)
+            {
+                researchedActions.Add(action);
+            }
+        }
+        return researchedActions.ToArray();
+    }
+
+    public int GetLevel(UpgradeableObjects type)
+    {
+        if (levels.ContainsKey(type))
+        {
+            return levels[type];
+        }
+        return 0;
+    }
+
     public void UpgradeObject(UpgradeableObjects type)
     {
         if (levels.ContainsKey(type))
@@ -171,7 +193,7 @@ public class Player : MonoBehaviour
 
         foreach (UpgradeableObjects rsObj in System.Enum.GetValues(typeof(UpgradeableObjects)))
         {
-            if (WorkManager.ResearchableObject(rsObj, levels[rsObj] + 1, levels))
+            if (WorkManager.ResearchableObject(rsObj, levels[rsObj] + 1, levels) && !MaxUpgrade(rsObj))
             {
                 researchableObjects.Add(rsObj.ToString());
             }

@@ -396,6 +396,10 @@ public class HUD : MonoBehaviour
                 return selectedWorldObject;
             }
         }
+        if (selectedObjects.Count > 0)
+        {
+            return selectedObjects[0];
+        }
         return null;
     }
 

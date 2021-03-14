@@ -26,7 +26,8 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "CityHall", "University", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
+        actions = new string[] { "CityHall", "University", "Refinery", "WarFactory" };
+        potentialActions = new string[] { "CityHall", "University", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -48,11 +49,15 @@ public class Worker : Unit
     protected override void Update()
     {
         base.Update();
+        if (currentlySelected)
+        {
+            actions = player.GetResearchedObjects(potentialActions);
+        }
         if (!moving && !rotating)
         {
             if (building && currentProject && currentProject.UnderConstruction())
             {
-                amountBuilt += buildSpeed * Time.deltaTime;
+                amountBuilt += buildSpeed * (player.GetLevel(UpgradeableObjects.Worker) / 2.0f) * Time.deltaTime;
                 int amount = Mathf.FloorToInt(amountBuilt);
                 if (amount > 0)
                 {
@@ -79,6 +84,7 @@ public class Worker : Unit
                 currentProject = null;
             }
         }
+        objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Worker)) + ")";
     }
 
     protected override void InitialiseAudio()
@@ -202,5 +208,10 @@ public class Worker : Unit
             Building closestBuilding = nearestObject.GetComponent<Building>();
             if (closestBuilding) SetBuilding(closestBuilding);
         }
+    }
+
+    public override string GetObjectName()
+    {
+        return "Worker";
     }
 }

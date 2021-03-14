@@ -55,6 +55,7 @@ public class CargoShip : Ship
                 player.hud.SetCursorState(CursorState.Move);
             }
         }
+        objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.CargoShip)) + ")";
     }
 
     public override bool IsCargo()
@@ -74,8 +75,18 @@ public class CargoShip : Ship
         readyToUnload = false;
     }
 
+    private int BonusCapacity(int level)
+    {
+        int capacity = 0;
+        for (int i = 2; i <= level; ++i)
+        {
+            capacity += i;
+        }
+        return capacity;
+    }
+
     public void LoadUnit(Unit unit) {
-        if (unitsLoaded.Count < loadCapacity)
+        if (unitsLoaded.Count < loadCapacity + BonusCapacity(player.GetLevel(UpgradeableObjects.CargoShip)))
         {
             unitsLoaded.Add(unit);
             if (unit.IsCurrentlySelected())
@@ -182,5 +193,10 @@ public class CargoShip : Ship
     public List<Unit> GetLoadedUnits()
     {
         return unitsLoaded;
+    }
+
+    public override string GetObjectName()
+    {
+        return "Cargo Ship";
     }
 }

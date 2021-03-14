@@ -8,6 +8,7 @@ public class Harvester : Unit
 {
 	private Quaternion aimRotation;
 	public float capacity, collectionAmount, depositAmount;
+	private float levelCapacity;
 	public Building resourceStore;
 	private Building oldStore;
 
@@ -61,7 +62,7 @@ public class Harvester : Unit
 				{
 					AimAtTarget(resourceDeposit.gameObject);
 					Collect();
-					if (currentLoad >= capacity)
+					if (currentLoad >= levelCapacity)
 					{
 						animController.Play("idle");
 						if (!oldStore || oldStore != resourceStore)
@@ -107,6 +108,8 @@ public class Harvester : Unit
 				}
 			}
 		}
+		levelCapacity = (capacity + (capacity / collectionAmount * 1.0f) * (player.GetLevel(UpgradeableObjects.Harvester) - 1));
+		objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Harvester)) + ")";
 	}
 
 	protected override void InitialiseAudio()
@@ -265,9 +268,10 @@ public class Harvester : Unit
 		{
 			animController.Play("harvest");
 			if (audioElement != null && Time.timeScale > 0) audioElement.Play(harvestSound);
-			float collect = collectionAmount * Time.deltaTime;
+			float collect = (collectionAmount + (player.GetLevel(UpgradeableObjects.Harvester) - 1)) * Time.deltaTime;
 			//make sure that the harvester cannot collect more than it can carry
-			if (currentLoad + collect > capacity) collect = capacity - currentLoad;
+			if (currentLoad + collect > levelCapacity) 
+				collect = levelCapacity - currentLoad;
 			if (resourceDeposit.isEmpty())
 			{
 				Arms[] arms = GetComponentsInChildren<Arms>();
@@ -300,7 +304,7 @@ public class Harvester : Unit
 			animController.Play("empty");
 			currentLoad = Mathf.Floor(currentLoad);
 			if (audioElement != null && Time.timeScale > 0) audioElement.Play(emptyHarvestSound);
-			currentDeposit += depositAmount * Time.deltaTime;
+			currentDeposit += (depositAmount + (player.GetLevel(UpgradeableObjects.Harvester) - 1)) * Time.deltaTime;
 			int deposit = Mathf.FloorToInt(currentDeposit);
 			ResourceType depositType = WorkManager.GetResourceHarvested(harvestType);
 			if (deposit >= 1 && !player.IsFull(depositType))
@@ -322,7 +326,7 @@ public class Harvester : Unit
 	protected override void DrawSelectionBox(Rect selectBox)
 	{
 		base.DrawSelectionBox(selectBox);
-		float percentFull = currentLoad / capacity;
+		float percentFull = currentLoad / levelCapacity;
 		float maxHeight = selectBox.height - 4;
 		float height = maxHeight * percentFull;
 		float leftPos = selectBox.x + selectBox.width - 7;
@@ -413,4 +417,9 @@ public class Harvester : Unit
 			}
 		}
 	}
+
+    public override string GetObjectName()
+    {
+		return "Harvester";
+    }
 }

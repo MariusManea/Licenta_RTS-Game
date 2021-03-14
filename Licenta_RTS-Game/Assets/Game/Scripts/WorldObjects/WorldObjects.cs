@@ -14,6 +14,7 @@ public class WorldObjects : MonoBehaviour
     protected bool canBePlaced;
     protected Player player;
     protected string[] actions = { };
+    protected string[] potentialActions = { };
     protected bool currentlySelected = false;
     protected Bounds selectionBounds;
     protected Rect playingArea = new Rect(0.0f, 0.0f, 0.0f, 0.0f);

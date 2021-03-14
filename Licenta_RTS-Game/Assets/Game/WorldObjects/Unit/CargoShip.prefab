@@ -180,7 +180,7 @@ MonoBehaviour:
   moveVolume: 1
   graph: {fileID: 0}
   loadingTarget: {fileID: 0}
-  loadCapacity: 25
+  loadCapacity: 10
 --- !u!114 &1345450015819268727
 MonoBehaviour:
   m_ObjectHideFlags: 0

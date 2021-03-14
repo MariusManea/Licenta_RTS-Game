@@ -28,13 +28,14 @@ public class University : Building
             {
                 buildQueue.Enqueue(player.GetUpgradedObject());
             }
+            objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.University)) + ")";
         }
     }
 
     private void Research()
     {
         currentTime += Time.deltaTime;
-        if (currentTime > researchTime)
+        if (currentTime > researchTime + (1 - player.GetLevel(UpgradeableObjects.University)))
         {
             currentTime = 0;
             player.AddResource(ResourceType.ResearchPoint, 1);
@@ -78,7 +79,6 @@ public class University : Building
 
     private void UpgradeObject(string objectName)
     {
-        UpgradeableObjects objectToUpgrade = (UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), objectName);
         if (player && buildQueue.Count == 0)
         {
             int required = ResourceManager.GetResearchPoints(objectName);
@@ -110,5 +110,10 @@ public class University : Building
             case "Initiator": upgradeInitiator = (bool)readValue; break;
             default: break;
         }
+    }
+
+    public override string GetObjectName()
+    {
+        return "University";
     }
 }
