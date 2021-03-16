@@ -8,6 +8,7 @@ public class Turret : Building
 
     private Quaternion aimRotation;
     public float weaponAimSpeed;
+    public Transform projectileSpawnPoint;
 
     protected override void Start()
     {
@@ -44,10 +45,7 @@ public class Turret : Building
     protected override void UseWeapon()
     {
         base.UseWeapon();
-        Vector3 spawnPoint = transform.position;
-        spawnPoint.x += (2.6f * transform.forward.x);
-        spawnPoint.y += 1.0f;
-        spawnPoint.z += (2.6f * transform.forward.z);
+        Vector3 spawnPoint = projectileSpawnPoint.position;
         GameObject gameObject = (GameObject)Instantiate(ResourceManager.GetGameObject("TurretProjectile"), spawnPoint, transform.rotation);
         Projectile projectile = gameObject.GetComponentInChildren<Projectile>();
         projectile.SetRange(0.9f * weaponRange);

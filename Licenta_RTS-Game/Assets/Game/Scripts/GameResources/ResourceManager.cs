@@ -131,7 +131,7 @@ namespace RTS
             if (loader) return loader.GetNewObjectId();
             return -1;
         }
-        
+
         [SerializeField]
         public struct Cost
         {
@@ -161,7 +161,7 @@ namespace RTS
             { "turret", new Cost(0, 100, 300, 150, 50) },
             { "warfactory", new Cost(0, 100, 250, 0, 150) },
             { "wonder", new Cost(0, 0, 5000, 2500, 7500) },
-            
+
             { "cargoship", new Cost(5, 0, 400, 250, 200) },
             { "convoytruck", new Cost(15, 200, 250, 100, 3000) },
             { "harvester", new Cost(1, 50, 50, 50, 0) },
@@ -170,33 +170,47 @@ namespace RTS
             { "worker", new Cost(1, 50, 50, 0, 0) },
         };
 
-        private static readonly Dictionary<UpgradeableObjects, int> researchPoints = new Dictionary<UpgradeableObjects, int>
+        private static readonly Dictionary<UpgradeableObjects, int[]> researchPoints = new Dictionary<UpgradeableObjects, int[]>
         {
-            {UpgradeableObjects.CargoShip, 100 },
-            {UpgradeableObjects.ConvoyTruck, 100 },
-            {UpgradeableObjects.Dock, 100 },
-            {UpgradeableObjects.Harvester, 100 },
-            {UpgradeableObjects.OilPump, 100 },
-            {UpgradeableObjects.Refinery, 100 },
-            {UpgradeableObjects.Tank, 100 },
-            {UpgradeableObjects.CityHall, 100 },
-            {UpgradeableObjects.Turret, 100 },
-            {UpgradeableObjects.University, 100 },
-            {UpgradeableObjects.WarFactory, 100 },
-            {UpgradeableObjects.Wonder, 100 },
-            {UpgradeableObjects.Worker, 100 },
+            {UpgradeableObjects.CargoShip, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
+            {UpgradeableObjects.ConvoyTruck, new int[]{300} },
+            {UpgradeableObjects.Dock, new int[]{15, 30, 60, 120, 240} },
+            {UpgradeableObjects.Harvester, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
+            {UpgradeableObjects.OilPump, new int[]{ 10, 20, 40, 80, 160} },
+            {UpgradeableObjects.Refinery, new int[]{0, 20, 50, 100, 200} },
+            {UpgradeableObjects.Tank, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
+            {UpgradeableObjects.CityHall, new int[]{0, 20, 50, 100, 200 } },
+            {UpgradeableObjects.Turret, new int[]{ 25, 50, 100, 175, 300} },
+            {UpgradeableObjects.University, new int[]{0, 10, 30, 60, 100} },
+            {UpgradeableObjects.WarFactory, new int[]{0, 20, 50, 100, 200} },
+            {UpgradeableObjects.Wonder, new int[]{ 300} },
+            {UpgradeableObjects.Worker, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
         };
 
         private static readonly string[] levelAlias = { "-", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
 
-        public static int GetResearchPoints(UpgradeableObjects type)
+        public static int GetResearchPoints(UpgradeableObjects type, int level)
         {
-            return researchPoints[type];
+            try
+            {
+                return researchPoints[type][level];
+            }
+            catch
+            {
+                return 0;
+            }
         }
-        public static int GetResearchPoints(string type)
+        public static int GetResearchPoints(string type, int level)
         {
             type = type.Replace(" ", string.Empty);
-            return researchPoints[(UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), type)];
+            try
+            {
+                return researchPoints[(UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), type)][level];
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public static string GetLevelAlias(int level)

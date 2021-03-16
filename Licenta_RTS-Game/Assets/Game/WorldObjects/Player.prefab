@@ -189,6 +189,7 @@ MonoBehaviour:
   resourceSkin: {fileID: 11400000, guid: f47919908e4b9cc4285799d966f68d8e, type: 2}
   ordersSkin: {fileID: 11400000, guid: bbc0f5d11ad6c924c9e1779340c4164c, type: 2}
   costSkin: {fileID: 11400000, guid: 25e33edd52c4b764ebc2eaefeea9ebf1, type: 2}
+  costInsuffSkin: {fileID: 11400000, guid: b9dc87565d8593e47aec62e26353f1f3, type: 2}
   selectBoxSkin: {fileID: 11400000, guid: c72174892b8d38240bdd96944f8f34de, type: 2}
   mouseCursorSkin: {fileID: 11400000, guid: 10e17f9e86ecd684e8ec26749c9524bf, type: 2}
   multipleSelectionSkin: {fileID: 11400000, guid: b5081c6db869e644f9f4e6cc9e29c1b2,

@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 1825463642700923048}
   - component: {fileID: 7094027964447846002}
   - component: {fileID: 4373909254384761204}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   version: 1
   uniqueID: 6616937719420479018
   updateError: 1
-  checkTime: 1
+  checkTime: 100
 --- !u!65 &4373909254384761204
 BoxCollider:
   m_ObjectHideFlags: 0

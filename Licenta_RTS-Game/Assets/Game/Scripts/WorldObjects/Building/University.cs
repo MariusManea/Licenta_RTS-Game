@@ -77,15 +77,15 @@ public class University : Building
         }
     }
 
-    private void UpgradeObject(string objectName)
+    private void UpgradeObject(string upgradeName)
     {
         if (player && buildQueue.Count == 0)
         {
-            int required = ResourceManager.GetResearchPoints(objectName);
+            int required = ResourceManager.GetResearchPoints(upgradeName, player.GetLevel((UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), upgradeName.Replace(" ", string.Empty))));
             if (player.GetResourceAmount(ResourceType.ResearchPoint) >= required)
             {
-                buildQueue.Enqueue(objectName);
-                player.SetUpgradedObject(objectName);
+                buildQueue.Enqueue(upgradeName);
+                player.SetUpgradedObject(upgradeName);
                 upgradeInitiator = true;
                 player.RemoveResource(ResourceType.ResearchPoint, required);
             }

@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3291317860968054045, guid: efcf10c31f34416428d7553de8efebae, type: 3}
+  - {fileID: 2100000, guid: 0ca1dd69ceba7714489571727e30c76f, type: 2}
   - {fileID: -5054163332513197371, guid: efcf10c31f34416428d7553de8efebae, type: 3}
   - {fileID: 7480169743332384456, guid: efcf10c31f34416428d7553de8efebae, type: 3}
   - {fileID: -3963241562183589234, guid: efcf10c31f34416428d7553de8efebae, type: 3}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  uniqueID: 8466304448891687735
+  uniqueID: 5855145176745018684
   updateError: 1
   checkTime: 100
 --- !u!65 &3840401323978516333

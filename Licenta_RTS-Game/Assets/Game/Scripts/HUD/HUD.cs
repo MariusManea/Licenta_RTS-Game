@@ -34,6 +34,7 @@ public class HUD : MonoBehaviour
     public GUISkin resourceSkin;
     public GUISkin ordersSkin;
     public GUISkin costSkin;
+    public GUISkin costInsuffSkin;
     public GUISkin selectBoxSkin;
     public GUISkin mouseCursorSkin;
     public GUISkin multipleSelectionSkin;
@@ -603,58 +604,52 @@ public class HUD : MonoBehaviour
 
     private void DrawCost(string action)
     {
-        GUI.skin = costSkin;
         float xPos = Mathf.Min(Input.mousePosition.x, Screen.width - ResourceManager.ButtonWidth) - (Screen.width - ORDERS_BAR_WIDTH);
         float yPos = Screen.height - Input.mousePosition.y - RESOURCE_BAR_HEIGHT;
         GUI.BeginGroup(new Rect(xPos, yPos, ResourceManager.ButtonWidth, 6 * ResourceManager.Padding));
 
-        int multiplyer = (player.SelectedObjects[0].objectName == "University" ? 2 : 6);
+        int multiplyer = (player.SelectedObjects[0].GetObjectName() == "University" ? 2 : 6);
 
         GUI.Box(new Rect(0, 0, ResourceManager.ButtonWidth, multiplyer * ResourceManager.Padding), action);
 
-        ResourceManager.Cost entityCost = ResourceManager.GetCost(action);
 
         float leftPos = ResourceManager.Padding / 2;
         float valueLeftPos = ResourceManager.ButtonWidth - ResourceManager.Padding * 3 / 2;
         float topPos = ResourceManager.Padding;
 
-        GUISkin normalStyle = ScriptableObject.CreateInstance<GUISkin>();
-        GUISkin insufficientStyle = ScriptableObject.CreateInstance<GUISkin>();
-        normalStyle.label = new GUIStyle(costSkin.label);
-        insufficientStyle.label = new GUIStyle(costSkin.label);
-        insufficientStyle.label.normal.textColor = Color.red;
-        if (player.SelectedObjects[0].objectName == "University") 
+        if (player.SelectedObjects[0].GetObjectName() == "University") 
         {
-            int required = ResourceManager.GetResearchPoints(action);
-            if (player.GetResourceAmount(ResourceType.ResearchPoint) >= required) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            int required = ResourceManager.GetResearchPoints(action, player.GetLevel((UpgradeableObjects)System.Enum.Parse(typeof(UpgradeableObjects), action.Replace(" ", string.Empty))));
+            if (player.GetResourceAmount(ResourceType.ResearchPoint) >= required) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[5]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), required.ToString());
         }
         else
         {
-            if (player.GetResourceAmount(ResourceType.Spacing) >= entityCost.spacing) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            ResourceManager.Cost entityCost = ResourceManager.GetCost(action);
+            if (player.GetResourceAmount(ResourceType.Spacing) >= entityCost.spacing) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[0]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.spacing.ToString());
             topPos += ResourceManager.Padding;
-            if (player.GetResourceAmount(ResourceType.Copper) >= entityCost.copper) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            if (player.GetResourceAmount(ResourceType.Copper) >= entityCost.copper) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[1]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.copper.ToString());
             topPos += ResourceManager.Padding;
-            if (player.GetResourceAmount(ResourceType.Iron) >= entityCost.iron) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            if (player.GetResourceAmount(ResourceType.Iron) >= entityCost.iron) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[2]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.iron.ToString());
             topPos += ResourceManager.Padding;
-            if (player.GetResourceAmount(ResourceType.Oil) >= entityCost.oil) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            if (player.GetResourceAmount(ResourceType.Oil) >= entityCost.oil) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[3]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.oil.ToString());
             topPos += ResourceManager.Padding;
-            if (player.GetResourceAmount(ResourceType.Gold) >= entityCost.gold) GUI.skin = normalStyle;
-            else GUI.skin = insufficientStyle;
+            if (player.GetResourceAmount(ResourceType.Gold) >= entityCost.gold) GUI.skin = costSkin;
+            else GUI.skin = costInsuffSkin;
             GUI.DrawTexture(new Rect(leftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), resources[4]);
             GUI.Label(new Rect(valueLeftPos, topPos, ResourceManager.Padding, ResourceManager.Padding), entityCost.gold.ToString());
 
