@@ -214,6 +214,18 @@ namespace RTS
                             levels[UpgradeableObjects.WarFactory] == 5 &&
                             levels[UpgradeableObjects.OilPump] == 5;
                     }
+                case UpgradeableObjects.BatteringRam:
+                    {
+                        if (desiredLevel == 1)
+                        {
+                            return levels[UpgradeableObjects.University] >= 3 &&
+                                levels[UpgradeableObjects.WarFactory] >= 3;
+                        } 
+                        else
+                        {
+                            return desiredLevel <= levels[UpgradeableObjects.WarFactory];
+                        }
+                    }
                 default: return true;
             }
         }

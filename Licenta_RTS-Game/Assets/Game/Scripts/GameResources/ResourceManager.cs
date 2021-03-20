@@ -162,6 +162,7 @@ namespace RTS
             { "warfactory", new Cost(0, 100, 250, 0, 150) },
             { "wonder", new Cost(0, 0, 5000, 2500, 7500) },
 
+            { "batteringram", new Cost(5, 150, 150, 100, 50) },
             { "cargoship", new Cost(5, 0, 400, 250, 200) },
             { "convoytruck", new Cost(15, 200, 250, 100, 3000) },
             { "harvester", new Cost(1, 50, 50, 50, 0) },
@@ -172,19 +173,20 @@ namespace RTS
 
         private static readonly Dictionary<UpgradeableObjects, int[]> researchPoints = new Dictionary<UpgradeableObjects, int[]>
         {
-            {UpgradeableObjects.CargoShip, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
-            {UpgradeableObjects.ConvoyTruck, new int[]{300} },
-            {UpgradeableObjects.Dock, new int[]{15, 30, 60, 120, 240} },
-            {UpgradeableObjects.Harvester, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
-            {UpgradeableObjects.OilPump, new int[]{ 10, 20, 40, 80, 160} },
-            {UpgradeableObjects.Refinery, new int[]{0, 20, 50, 100, 200} },
-            {UpgradeableObjects.Tank, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
-            {UpgradeableObjects.CityHall, new int[]{0, 20, 50, 100, 200 } },
-            {UpgradeableObjects.Turret, new int[]{ 25, 50, 100, 175, 300} },
-            {UpgradeableObjects.University, new int[]{0, 10, 30, 60, 100} },
-            {UpgradeableObjects.WarFactory, new int[]{0, 20, 50, 100, 200} },
-            {UpgradeableObjects.Wonder, new int[]{ 300} },
-            {UpgradeableObjects.Worker, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
+            { UpgradeableObjects.BatteringRam, new int[]{30, 60, 110, 175, 250} },
+            { UpgradeableObjects.CargoShip, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
+            { UpgradeableObjects.ConvoyTruck, new int[]{300} },
+            { UpgradeableObjects.Dock, new int[]{15, 30, 60, 120, 240} },
+            { UpgradeableObjects.Harvester, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
+            { UpgradeableObjects.OilPump, new int[]{ 10, 20, 40, 80, 160} },
+            { UpgradeableObjects.Refinery, new int[]{0, 20, 50, 100, 200} },
+            { UpgradeableObjects.Tank, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
+            { UpgradeableObjects.CityHall, new int[]{0, 20, 50, 100, 200 } },
+            { UpgradeableObjects.Turret, new int[]{ 25, 50, 100, 175, 300} },
+            { UpgradeableObjects.University, new int[]{0, 10, 30, 60, 100} },
+            { UpgradeableObjects.WarFactory, new int[]{0, 20, 50, 100, 200} },
+            { UpgradeableObjects.Wonder, new int[]{ 300} },
+            { UpgradeableObjects.Worker, new int[]{0, 10, 25, 35, 55, 70, 95, 115, 145, 170} },
         };
 
         private static readonly string[] levelAlias = { "-", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };

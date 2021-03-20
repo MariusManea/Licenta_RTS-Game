@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private Dictionary<UpgradeableObjects, int> levels;
     private List<string> researchableObjects;
     public int universityLevel, warFactoryLevel, refineryLevel, turretLevel, oilPumpLevel, dockLevel,
-        workerLevel, harvesterLevel, tankLevel, cargoShipLevel, wonderLevel, convoyTruckLevel, cityHallLevel;
+        workerLevel, harvesterLevel, tankLevel, cargoShipLevel, wonderLevel, convoyTruckLevel, cityHallLevel, batteringRamLevel;
     private Dictionary<ResourceType, int> resources, resourceLimits;
 
     public string userName;
@@ -135,6 +135,7 @@ public class Player : MonoBehaviour
     {
         levels = new Dictionary<UpgradeableObjects, int>();
         researchableObjects = new List<string>();
+        levels.Add(UpgradeableObjects.BatteringRam, batteringRamLevel);
         levels.Add(UpgradeableObjects.CargoShip, cargoShipLevel);
         levels.Add(UpgradeableObjects.ConvoyTruck, convoyTruckLevel);
         levels.Add(UpgradeableObjects.Dock, dockLevel);
@@ -227,6 +228,7 @@ public class Player : MonoBehaviour
             case UpgradeableObjects.Turret: /*return turretLevel == 5;*/
             case UpgradeableObjects.OilPump: /*return oilPumpLevel == 5;*/
             case UpgradeableObjects.Dock: /*return dockLevel == 5;*/
+            case UpgradeableObjects.BatteringRam: /*return batteringRamLevel == 5;*/
             case UpgradeableObjects.CityHall: /*return townHallLevel == 5;*/ return levels[type] == 5;
             case UpgradeableObjects.Worker: /*return workerLevel == 10;*/
             case UpgradeableObjects.Tank: /*return tankLevel == 10;*/
@@ -590,6 +592,7 @@ public class Player : MonoBehaviour
                         case "Turret": turretLevel = (int)(System.Int64)reader.Value; break;
                         case "Wonder": wonderLevel = (int)(System.Int64)reader.Value; break;
                         case "ConvoyTruck": convoyTruckLevel = (int)(System.Int64)reader.Value; break;
+                        case "BatteringRam": batteringRamLevel = (int)(System.Int64)reader.Value; break;
                         default: break;
                     }
                 }

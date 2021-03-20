@@ -9,7 +9,7 @@ public class WarFactory : Building
     {
         base.Start();
         actions = new string[] { "Tank" };
-        potentialActions = new string[] { "Tank", "ConvoyTruck" };
+        potentialActions = new string[] { "Tank", "BatteringRam", "ConvoyTruck" };
     }
 
     protected override void Update()

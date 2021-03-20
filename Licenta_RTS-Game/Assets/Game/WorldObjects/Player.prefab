@@ -74,6 +74,7 @@ MonoBehaviour:
   wonderLevel: 0
   convoyTruckLevel: 0
   cityHallLevel: 1
+  batteringRamLevel: 1
   userName: Marius
   isHuman: 1
   playerID: 0

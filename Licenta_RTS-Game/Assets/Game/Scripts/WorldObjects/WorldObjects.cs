@@ -297,6 +297,7 @@ public class WorldObjects : MonoBehaviour
         Vector3 targetLocation = target.transform.position;
         Vector3 direction = targetLocation - transform.position;
         direction.y = 0;
+        Debug.Log(direction.sqrMagnitude + " " + weaponRange * weaponRange);
         if (direction.sqrMagnitude < weaponRange * weaponRange)
         {
             return true;
@@ -322,6 +323,7 @@ public class WorldObjects : MonoBehaviour
         Vector3 targetLocation = target.transform.position;
         Vector3 direction = targetLocation - transform.position;
         float targetDistance = direction.magnitude;
+        Debug.Log(targetDistance);
         float distanceToTravel = targetDistance - (0.8f * weaponRange);
         return Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
     }
