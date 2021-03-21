@@ -10,6 +10,7 @@ public class Dock : Building
     {
         base.Start();
         actions = new string[] { "CargoShip" };
+        potentialActions = new string[] { "CargoShip", "BattleShip" };
     }
 
     protected override void Update()
@@ -28,6 +29,10 @@ public class Dock : Building
         else
         {
             objectName = GetObjectName() + " (" + ResourceManager.GetLevelAlias(player.GetLevel(UpgradeableObjects.Dock)) + ")";
+            if (currentlySelected)
+            {
+                actions = player.GetResearchedObjects(potentialActions);
+            }
         }
     }
 

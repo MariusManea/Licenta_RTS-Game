@@ -226,6 +226,19 @@ namespace RTS
                             return desiredLevel <= levels[UpgradeableObjects.WarFactory];
                         }
                     }
+                case UpgradeableObjects.BattleShip:
+                    {
+                        if (desiredLevel == 1)
+                        {
+                            return levels[UpgradeableObjects.University] >= 3 &&
+                                levels[UpgradeableObjects.Dock] >= 3 &&
+                                levels[UpgradeableObjects.OilPump] >= 2;
+                        }
+                        else
+                        {
+                            return desiredLevel <= levels[UpgradeableObjects.Dock] && desiredLevel <= levels[UpgradeableObjects.OilPump];
+                        }
+                    }
                 default: return true;
             }
         }

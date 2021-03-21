@@ -162,7 +162,8 @@ namespace RTS
             { "warfactory", new Cost(0, 100, 250, 0, 150) },
             { "wonder", new Cost(0, 0, 5000, 2500, 7500) },
 
-            { "batteringram", new Cost(5, 150, 150, 100, 50) },
+            { "batteringram", new Cost(5, 150, 150, 100, 0) },
+            { "battleship", new Cost(4, 50, 200, 150, 50) },
             { "cargoship", new Cost(5, 0, 400, 250, 200) },
             { "convoytruck", new Cost(15, 200, 250, 100, 3000) },
             { "harvester", new Cost(1, 50, 50, 50, 0) },
@@ -174,6 +175,7 @@ namespace RTS
         private static readonly Dictionary<UpgradeableObjects, int[]> researchPoints = new Dictionary<UpgradeableObjects, int[]>
         {
             { UpgradeableObjects.BatteringRam, new int[]{30, 60, 110, 175, 250} },
+            { UpgradeableObjects.BattleShip, new int[]{30, 60, 110, 175, 250} },
             { UpgradeableObjects.CargoShip, new int[]{0, 15, 35, 60, 90, 125, 165, 210, 260, 315} },
             { UpgradeableObjects.ConvoyTruck, new int[]{300} },
             { UpgradeableObjects.Dock, new int[]{15, 30, 60, 120, 240} },

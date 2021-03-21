@@ -9,6 +9,7 @@ public class BatteringRam : Unit
 {
     private Quaternion aimRotation;
     private float weaponAimSpeed = 3;
+    public int siegeDamage;
 
     protected override void Update()
     {
@@ -34,7 +35,14 @@ public class BatteringRam : Unit
     protected override void UseWeapon()
     {
         base.UseWeapon();
-        
+        Building targetedBuilding = target as Building;
+        if (targetedBuilding)
+        {
+            targetedBuilding.TakeDamage(siegeDamage + 10 * (player.GetLevel(UpgradeableObjects.BatteringRam) - 1));
+        } else
+        {
+            target.TakeDamage((int)(0.15f * siegeDamage + 1.5f * (player.GetLevel(UpgradeableObjects.BatteringRam) - 1)));
+        }
         animController.Play("fire");
     }
     public override bool CanAttack()

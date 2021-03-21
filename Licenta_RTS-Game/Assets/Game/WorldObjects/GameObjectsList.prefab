@@ -61,6 +61,7 @@ MonoBehaviour:
   - {fileID: 95163736661313427, guid: 916004d863abc70419d1380ae0999af1, type: 3}
   - {fileID: -730406203133015083, guid: 6425a4d39899f814090e70eddeb85834, type: 3}
   - {fileID: 9068241708028925553, guid: 0862f742d1d5ab6498c8d6f5d0e2ba88, type: 3}
+  - {fileID: 3657034764742177708, guid: a823383ddb1a3af4c9177167dd6102f2, type: 3}
   worldObjects:
   - {fileID: 7542660011330790939, guid: 61901c51b14fca74b901ecc361a08f47, type: 3}
   - {fileID: 7542660011330790939, guid: 2ebb940273899174aab10318cef4d3c0, type: 3}
@@ -72,6 +73,7 @@ MonoBehaviour:
   - {fileID: 3467952906654438408, guid: f16f6d69c605fee4ab32ba3e4002998e, type: 3}
   - {fileID: 3302315888640931181, guid: b7c322a79a0febf44b3271c3676c8b88, type: 3}
   - {fileID: 4983900663544076115, guid: 1540decbb00c49444b4cff01671e1992, type: 3}
+  - {fileID: 3302315888640931181, guid: d485a2ee5aa79a24cadd6d3de3c64ae4, type: 3}
   player: {fileID: 8297730302071679181, guid: 6cf11d8928941d942a2dbfa4fede9788, type: 3}
   avatars:
   - {fileID: 2800000, guid: 399f6988160970d4694a0b44b9ead11d, type: 3}

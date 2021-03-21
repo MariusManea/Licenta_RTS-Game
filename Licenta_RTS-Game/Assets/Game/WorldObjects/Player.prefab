@@ -66,7 +66,7 @@ MonoBehaviour:
   refineryLevel: 1
   turretLevel: 0
   oilPumpLevel: 0
-  dockLevel: 0
+  dockLevel: 1
   workerLevel: 1
   harvesterLevel: 1
   tankLevel: 1
@@ -74,7 +74,8 @@ MonoBehaviour:
   wonderLevel: 0
   convoyTruckLevel: 0
   cityHallLevel: 1
-  batteringRamLevel: 1
+  batteringRamLevel: 0
+  battleshipLevel: 1
   userName: Marius
   isHuman: 1
   playerID: 0
