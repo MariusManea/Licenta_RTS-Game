@@ -1,2 +1,124 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2020.1.13f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2020.1.13f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
+Cmd: compileComputeKernel
+  api=4 insize=18301 outsize=3007 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=18301 outsize=2141 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=12109 outsize=1368 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=12109 outsize=1583 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=12109 outsize=1202 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=12109 outsize=1562 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=72903 outsize=2760 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=4442 outsize=1688 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=4442 outsize=1594 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1532 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1499 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1506 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1469 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1469 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=11985 outsize=1469 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1622 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1373 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1315 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1300 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1469 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1350 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1524 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1865 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=1273 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=781 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=773 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=681 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=859 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=763 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=810 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=632 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=34089 outsize=678 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=2595 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1754 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1594 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1306 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1305 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=2002 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1857 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1855 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1823 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1823 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1584 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1781 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1315 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1363 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1387 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1635 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1289 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1291 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=3275 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1339 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=1465 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=2638 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=2799 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=66874 outsize=2854 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=79248 outsize=12240 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=79248 outsize=4424 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=79248 outsize=24353 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=79248 outsize=10708 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=79248 outsize=6368 ok=1
