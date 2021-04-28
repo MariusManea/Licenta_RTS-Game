@@ -5,6 +5,8 @@ using RTS;
 using Pathfinding;
 using Newtonsoft.Json;
 using System.Linq;
+using Unity.MLAgents.Policies;
+using Unity.MLAgents;
 
 public class Player : MonoBehaviour
 {
@@ -160,6 +162,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public float GetResourceOreAverageAmount()
+    {
+        return (resources[ResourceType.Copper] + resources[ResourceType.Iron] + resources[ResourceType.Gold]) / 3.0f;
+    }
+
     public List<string> GetResearchableObjects()
     {
         return researchableObjects;
@@ -272,11 +279,16 @@ public class Player : MonoBehaviour
         GameObject newUnit;
         try
         {
-            newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName), spawnPoint, rotation);
+            newUnit = (GameObject)Instantiate(ResourceManager.GetUnit(unitName + (isHuman ? "" : "AI")), spawnPoint, rotation);
         }
         catch
         {
             return;
+        }
+        if (!isHuman)
+        {
+            newUnit.GetComponent<BehaviorParameters>().TeamId = playerID;
+
         }
         newUnit.GetComponent<WorldObjects>().SetPlayer();
         newUnit.transform.parent = units.transform;
@@ -293,7 +305,7 @@ public class Player : MonoBehaviour
 
     public void CreateBuilding(string buildingName, Vector3 buildPoint, Unit creator, Rect playingArea)
     {
-        GameObject newBuilding = (GameObject)Instantiate(ResourceManager.GetBuilding(buildingName), buildPoint, new Quaternion());
+        GameObject newBuilding = (GameObject)Instantiate(ResourceManager.GetBuilding(buildingName + (isHuman ? "" : "AI")), buildPoint, new Quaternion());
         if (IsFindingBuildingLocation() && tempBuilding)
         {
             Destroy(tempBuilding.gameObject);
@@ -456,17 +468,25 @@ public class Player : MonoBehaviour
         findingPlacement = false;
         Buildings buildings = GetComponentInChildren<Buildings>();
         if (buildings) tempBuilding.transform.parent = buildings.transform;
+        if (!isHuman)
+        {
+            tempBuilding.gameObject.GetComponent<BehaviorParameters>().TeamId = playerID;
+        }
+
         tempBuilding.Ghost = false;
         tempBuilding.SetPlayer();
         tempBuilding.SetColliders(true);
         tempBuilding.GetComponentInChildren<DynamicGridObstacle>().DoUpdateGraphs();
         AstarPath.active.FlushGraphUpdates();
         tempCreator.SetBuilding(tempBuilding);
-        foreach(WorldObjects selectedWorldObject in SelectedObjects)
+        if (isHuman)
         {
-            if (selectedWorldObject.GetType() == typeof(Worker))
+            foreach (WorldObjects selectedWorldObject in SelectedObjects)
             {
-                ((Worker)selectedWorldObject).SetBuilding(tempBuilding);
+                if (selectedWorldObject.GetType() == typeof(Worker))
+                {
+                    ((Worker)selectedWorldObject).SetBuilding(tempBuilding);
+                }
             }
         }
         tempBuilding.StartConstruction();

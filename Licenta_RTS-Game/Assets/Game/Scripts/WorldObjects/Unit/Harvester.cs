@@ -96,6 +96,10 @@ public class Harvester : Unit
 					Deposit();
 					if (currentLoad <= 0 || player.IsFull(WorkManager.GetResourceHarvested(harvestType)))
 					{
+						if (!player.isHuman)
+						{
+							GetComponent<AgentRTS>().AddReward(AIHarvestReward());
+						}
 						animController.Play("idle");
 						emptying = false;
 						foreach (Arms arm in arms) arm.GetComponent<Renderer>().enabled = false;
@@ -228,7 +232,7 @@ public class Harvester : Unit
 		StartMove(resourceStore.transform.position, resourceStore.gameObject);
 	}
 
-	private void StartHarvest(Resource resource)
+	public void StartHarvest(Resource resource)
 	{
 		if (audioElement != null && Time.timeScale > 0) audioElement.Play(startHarvestSound);
 		resourceDeposit = resource;
@@ -421,5 +425,12 @@ public class Harvester : Unit
     public override string GetObjectName()
     {
 		return "Harvester";
+    }
+
+	private float AIHarvestReward()
+    {
+		float mean = player.GetResourceOreAverageAmount();
+		float collected = player.GetResourceAmount(harvestType);
+		return Mathf.Clamp(mean / collected, 0.1f, 1.5f);
     }
 }

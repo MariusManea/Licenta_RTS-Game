@@ -20,12 +20,16 @@ public class UserInput : MonoBehaviour
     void Start()
     {
         player = transform.GetComponent<Player>();
-        cameraRig = Camera.main.transform.root;
-        cameraTransform = Camera.main.transform;
-        newCameraPosition = cameraRig.position;
-        newCameraRotation = cameraRig.rotation;
-        newCameraZoom = cameraTransform.localPosition;
-        terrain = (Terrain)FindObjectOfType(typeof(Terrain));
+
+        if (player.isHuman)
+        {
+            cameraRig = Camera.main.transform.root;
+            cameraTransform = Camera.main.transform;
+            newCameraPosition = cameraRig.position;
+            newCameraRotation = cameraRig.rotation;
+            newCameraZoom = cameraTransform.localPosition;
+            terrain = (Terrain)FindObjectOfType(typeof(Terrain));
+        }
     }
 
     // Update is called once per frame

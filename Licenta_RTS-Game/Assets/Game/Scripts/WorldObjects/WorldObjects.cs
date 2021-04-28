@@ -218,6 +218,11 @@ public class WorldObjects : MonoBehaviour
         return actions;
     }
 
+    public string[] GetPotentialActions()
+    {
+        return potentialActions;
+    }
+
     public bool HasActions()
     {
         return (actions != null) && (actions.Length > 0);

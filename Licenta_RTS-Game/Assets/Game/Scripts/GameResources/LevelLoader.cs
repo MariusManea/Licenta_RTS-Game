@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using RTS;
 using Pathfinding;
 using System.IO;
+using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
@@ -818,7 +820,11 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         player.userName = player.name = name;
         player.playerID = id;
         Buildings buildings = player.GetComponentInChildren<Buildings>();
-        GameObject townCenterObject = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter"), player.transform.position, new Quaternion());
+        GameObject townCenterObject = (GameObject)Instantiate(ResourceManager.GetBuilding("TownCenter" + (isHuman ? "" : "AI")), player.transform.position, new Quaternion());
+        if (!isHuman)
+        {
+            townCenterObject.GetComponent<BehaviorParameters>().TeamId = id;
+        }
         player.townCenter = townCenterObject.GetComponent<TownCenter>();
         player.townCenter.ObjectId = ResourceManager.GetNewObjectId();
         if (buildings) townCenterObject.transform.parent = buildings.transform;

@@ -72,7 +72,12 @@ public class Worker : Unit
                         {
                             player.IncrementResourceLimit(ResourceType.Spacing, 25);
                         }
+                        if (!player.isHuman)
+                        {
+                            gameObject.GetComponent<AgentRTS>().AddReward(currentProject.GetObjectName() == "City Hall" ? 10f : 1f);
+                        }
                         currentProject = null;
+                        
                         if (audioElement != null) audioElement.Play(finishedJobSound);
                     }
                 }

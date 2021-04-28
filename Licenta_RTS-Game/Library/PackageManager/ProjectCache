@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637549545006309114
-    m_Hash: 3168591028
+      ticks: 637549668977833228
+    m_Hash: 868493171
   m_LockFileStatus:
     m_FilePath: D:/Unity Projects/Licenta_RTS-Game/Licenta_RTS-Game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637549545006879499
-    m_Hash: 3940231222
+      ticks: 637549668978513217
+    m_Hash: 445717828
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -780,12 +780,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.vscode.git
         revision: b5ec9b38109e52b1b26597d521e4df75e042ebb9
         path: 
-    - packageId: com.unity.ml-agents@1.0.7
+    - packageId: com.unity.ml-agents@1.9.1-preview
       testable: 0
       isDirectDependency: 1
-      version: 1.0.7
+      version: 1.9.1-preview
       source: 1
-      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.ml-agents@1.0.7
+      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.ml-agents@1.9.1-preview
       assetPath: Packages/com.unity.ml-agents
       name: com.unity.ml-agents
       displayName: ML Agents
@@ -849,7 +849,7 @@ m_PackageAssets:
         verified: 
       dependencies:
       - name: com.unity.barracuda
-        version: 1.0.4
+        version: 1.3.2-preview
       - name: com.unity.modules.imageconversion
         version: 1.0.0
       - name: com.unity.modules.jsonserialize
@@ -862,14 +862,14 @@ m_PackageAssets:
         version: 1.0.0
       resolvedDependencies:
       - name: com.unity.barracuda
-        version: 1.0.4
+        version: 1.3.2-preview
       - name: com.unity.burst
         version: 1.3.4
       - name: com.unity.mathematics
         version: 1.2.1
-      - name: com.unity.modules.imageconversion
-        version: 1.0.0
       - name: com.unity.modules.jsonserialize
+        version: 1.0.0
+      - name: com.unity.modules.imageconversion
         version: 1.0.0
       - name: com.unity.modules.physics
         version: 1.0.0
@@ -892,13 +892,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637508158320000000
+      datePublishedTicks: 637539563530000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: git+https://github.com/Unity-Technologies/ml-agents.git
-        revision: d1afe7b767e94e9189b480cc1d24efe3101dbc2a
+        revision: e3b7fe3cf211c49241c319c6188d6f7436912e56
         path: 
     - packageId: com.unity.multiplayer-hlapi@1.0.6
       testable: 0
@@ -3464,12 +3464,12 @@ m_PackageAssets:
         url: git@gitlab.cds.internal.unity3d.com/upm-packages/core/nuget.mono-cecil.git
         revision: d9e57e10c26ba36a62a828729ad08eb73d0386b6
         path: 
-    - packageId: com.unity.barracuda@1.0.4
+    - packageId: com.unity.barracuda@1.3.2-preview
       testable: 0
       isDirectDependency: 0
-      version: 1.0.4
+      version: 1.3.2-preview
       source: 1
-      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.barracuda@1.0.4
+      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.barracuda@1.3.2-preview
       assetPath: Packages/com.unity.barracuda
       name: com.unity.barracuda
       displayName: Barracuda
@@ -3546,11 +3546,19 @@ m_PackageAssets:
       dependencies:
       - name: com.unity.burst
         version: 1.3.4
+      - name: com.unity.modules.jsonserialize
+        version: 1.0.0
+      - name: com.unity.modules.imageconversion
+        version: 1.0.0
       resolvedDependencies:
       - name: com.unity.burst
         version: 1.3.4
       - name: com.unity.mathematics
         version: 1.2.1
+      - name: com.unity.modules.jsonserialize
+        version: 1.0.0
+      - name: com.unity.modules.imageconversion
+        version: 1.0.0
       keywords: []
       registry:
         id: main
@@ -3564,13 +3572,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637387965950000000
+      datePublishedTicks: 637503725850000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/UnityInferenceEngine.git
-        revision: e0c35b7a32eeec86709cb14c4006cf12fefae1a8
+        revision: 817fc3dac06ae34f986b4497d8952141cfe8b06a
         path: 
     - packageId: com.unity.burst@1.3.4
       testable: 0
@@ -3844,12 +3852,12 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 0
+      datePublishedTicks: 637324062630000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
-        url: https://github.com/Unity-Technologies/Unity.Mathematics.git
+        url: git+https://github.com/Unity-Technologies/Unity.Mathematics.git
         revision: 71412d94b7a0b0fdbb3195a5e6559bf6a761e91a
         path: 
   m_LocalPackages:
