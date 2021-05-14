@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8593565358107803430}
   - component: {fileID: 2038495001548828023}
   - component: {fileID: 2217535693933142324}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BannerL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7594424446816936372}
   - component: {fileID: 9150201121094246657}
   - component: {fileID: 6456298998681642621}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BannerR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 651376801345331993}
   - component: {fileID: 4079843885069865968}
   - component: {fileID: 1933964457519430936}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DrillRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 1481297221677359152}
   - component: {fileID: 6019653656404438077}
   - component: {fileID: 9014171219733616359}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3509840214958304338}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Connecting_Pistons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 3202497022843386380}
   - component: {fileID: 93040408867222090}
   - component: {fileID: 8254435968520145067}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: engine_cover_geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5248862043920006644}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Front_Rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 3265457556477973653}
   - component: {fileID: 3328651452992206908}
   - component: {fileID: 5586142164268084605}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wheel 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5178744250957475707}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Back_Wheel_Axel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 6139426684602748740}
   - component: {fileID: 1572383630722316345}
   - component: {fileID: 8887692396997120535}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hub_Cap 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8249701565171034131}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bodyFront_grp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,6 +842,8 @@ MonoBehaviour:
   collectionAmount: 5
   depositAmount: 10
   resourceStore: {fileID: 0}
+  harvesting: 0
+  emptying: 0
   emptyHarvestSound: {fileID: 8300000, guid: 8a7caf746428ee94e99625ccc00886fc, type: 3}
   harvestSound: {fileID: 8300000, guid: ccf8776d6d4fd64429f33744081df59a, type: 3}
   startHarvestSound: {fileID: 8300000, guid: 50e4980b59b4b2440b0eafde53aeacd0, type: 3}
@@ -941,7 +943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4729755574800607443}
   - component: {fileID: 4346088020402711812}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bulldozer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -987,7 +989,7 @@ GameObject:
   - component: {fileID: 8677598185196197658}
   - component: {fileID: 864399292586354269}
   - component: {fileID: 6326627535979924970}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hub_Cap 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1066,7 +1068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8838797219724852613}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wheels_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1099,7 +1101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 444358200624675988}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Engine_Cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,7 +1136,7 @@ GameObject:
   - component: {fileID: 1326431852660139376}
   - component: {fileID: 3858628270887195066}
   - component: {fileID: 4376463939730243536}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DrillLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1229,7 @@ GameObject:
   - component: {fileID: 5723668837555369995}
   - component: {fileID: 7301031736060571}
   - component: {fileID: 9129479761559183373}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1308,7 +1310,7 @@ GameObject:
   - component: {fileID: 551045054586036833}
   - component: {fileID: 7627148271193305438}
   - component: {fileID: 5665740028065526624}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wheel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1387,7 +1389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8123549014131356857}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wheels_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 975251132893010978}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bulldozer_geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1456,7 +1458,7 @@ GameObject:
   - component: {fileID: 7360366764689714147}
   - component: {fileID: 2678239761273756681}
   - component: {fileID: 299475881770881364}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tire_Tread 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1539,7 @@ GameObject:
   - component: {fileID: 8494730552534545703}
   - component: {fileID: 8110327014708717111}
   - component: {fileID: 8260042119860664103}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Piston_02 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1616,7 +1618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8926410908274729355}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Connecting_Piston_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1648,7 +1650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7849154347378402386}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Chassis_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1679,7 +1681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6530880536969247056}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rear_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1715,7 +1717,7 @@ GameObject:
   - component: {fileID: 7195624143759342898}
   - component: {fileID: 8989738451580432218}
   - component: {fileID: 2101111448551123680}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wheel 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1796,7 +1798,7 @@ GameObject:
   - component: {fileID: 8341381392737942799}
   - component: {fileID: 8762148680739101850}
   - component: {fileID: 3100697862334618912}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tire_Tread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1875,7 +1877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6030821128922916931}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1906,7 +1908,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7662181135237698530}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DrillLeftParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1939,7 +1941,7 @@ GameObject:
   - component: {fileID: 2584857033372497595}
   - component: {fileID: 5663519902038519879}
   - component: {fileID: 7397114669199368463}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hub_Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2020,7 +2022,7 @@ GameObject:
   - component: {fileID: 1088915666919680656}
   - component: {fileID: 2172548747426559913}
   - component: {fileID: 6368127465437890494}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2101,7 +2103,7 @@ GameObject:
   - component: {fileID: 4366222149933745386}
   - component: {fileID: 3997049366246840538}
   - component: {fileID: 8623158971770763960}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hub_Cap 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2182,7 +2184,7 @@ GameObject:
   - component: {fileID: 6031863287051362060}
   - component: {fileID: 5947781074441039811}
   - component: {fileID: 1382392989490756632}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: chassis_geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2261,7 +2263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2894402269930414917}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bodyRear_grp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2296,7 +2298,7 @@ GameObject:
   - component: {fileID: 4782654474131361050}
   - component: {fileID: 4260730288936092584}
   - component: {fileID: 149681321468327021}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2377,7 +2379,7 @@ GameObject:
   - component: {fileID: 5049090886282228358}
   - component: {fileID: 2109886915459225004}
   - component: {fileID: 2240035600058915174}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Piston_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2458,7 +2460,7 @@ GameObject:
   - component: {fileID: 965424770266795165}
   - component: {fileID: 2378439576812620514}
   - component: {fileID: 5406170418262473122}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2537,7 +2539,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8998672410758540820}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rear_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2573,7 +2575,7 @@ GameObject:
   - component: {fileID: 7997678798976290628}
   - component: {fileID: 6278548623697618986}
   - component: {fileID: 3434131696866284314}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cockpit_geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2655,7 +2657,7 @@ GameObject:
   - component: {fileID: 6798394610011492723}
   - component: {fileID: 5758054844363818199}
   - component: {fileID: 4488702481218944016}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2736,7 +2738,7 @@ GameObject:
   - component: {fileID: 7629189614264752512}
   - component: {fileID: 144902850131346995}
   - component: {fileID: 2340407958066637401}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: noseSection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2817,7 +2819,7 @@ GameObject:
   - component: {fileID: 4742970864373643113}
   - component: {fileID: 1410723460197371069}
   - component: {fileID: 1704294794261604656}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Axel 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2896,7 +2898,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8333871962058992888}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Front_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2932,7 +2934,7 @@ GameObject:
   - component: {fileID: 139496208144613177}
   - component: {fileID: 2199995925006201366}
   - component: {fileID: 640489443893851402}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tire_Tread 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3013,7 +3015,7 @@ GameObject:
   - component: {fileID: 8960370418310080338}
   - component: {fileID: 4139295084993636539}
   - component: {fileID: 5926198428713653113}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3092,7 +3094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7260182145490713721}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Engine_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3123,7 +3125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6903979836397122829}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Front_Wheel_Axel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3154,7 +3156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8090018154702567192}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Chassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3188,7 +3190,7 @@ GameObject:
   - component: {fileID: 5064575214680287436}
   - component: {fileID: 2271472454807085393}
   - component: {fileID: 7718409308847351550}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tire_Tread 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

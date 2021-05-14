@@ -430,7 +430,7 @@ public class Harvester : Unit
 	private float AIHarvestReward()
     {
 		float mean = player.GetResourceOreAverageAmount();
-		float collected = player.GetResourceAmount(harvestType);
+		float collected = player.GetResourceAmount(WorkManager.GetResourceHarvested(harvestType));
 		return Mathf.Clamp(mean / collected, 0.1f, 1.5f);
     }
 }

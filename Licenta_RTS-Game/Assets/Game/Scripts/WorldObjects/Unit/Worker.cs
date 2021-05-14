@@ -146,10 +146,10 @@ public class Worker : Unit
             if (!player.isHuman)
             {
                 GetComponent<AgentRTS>().AddReward(-0.5f);
+                player.TryCancelBuilding(this);
             }
-            player.TryCancelBuilding(this);
         }
-        if (player.IsFindingBuildingLocation())
+        if (!player.isHuman && player.IsFindingBuildingLocation())
         {
             player.TryCancelBuilding(this);
         }
@@ -160,7 +160,7 @@ public class Worker : Unit
         ResourceManager.Cost cost = ResourceManager.GetCost(buildingName);
         if (ResourceManager.Affordable(cost, player.AvailableResources()))
         {
-            Vector3 buildPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+            Vector3 buildPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z) + 10 * transform.forward;
             if (player) player.CreateBuilding(buildingName, buildPoint, this, playingArea);
         }
     }

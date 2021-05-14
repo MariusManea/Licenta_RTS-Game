@@ -102,7 +102,7 @@ namespace RTS
 
         public static bool ObjectIsCargo(GameObject obj)
         {
-            return obj != null && (obj.transform.parent != null && obj.transform.parent.GetComponent<CargoShip>() != null);
+            return obj != null && ((obj.GetComponent<CargoShip>() != null) || (obj.transform.parent != null && obj.transform.parent.GetComponent<CargoShip>() != null));
         }
 
         public static bool ObjectIsOil (GameObject obj)

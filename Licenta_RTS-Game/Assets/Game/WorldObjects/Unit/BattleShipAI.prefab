@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1767506183820716012}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ProjectileSawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 2815341519269958372}
   - component: {fileID: 1174424777660972783}
   - component: {fileID: 5905902891841250107}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BackDefence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4893794080242002236}
   - component: {fileID: 3274418011861336890}
   - component: {fileID: 3451041054307522766}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MiniGuns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: -7469588603649815692}
   - component: {fileID: 7687206400018946039}
   - component: {fileID: -8755530557557872919}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BattleShipAI
   m_TagString: Unit
   m_Icon: {fileID: 0}
@@ -399,6 +399,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  myID: 0
 --- !u!114 &-8755530557557872919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
 --- !u!1 &1800856777341037243
 GameObject:
@@ -422,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5276664568500158068}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RadarPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +456,7 @@ GameObject:
   - component: {fileID: 7030835504233352872}
   - component: {fileID: 3550284882987898335}
   - component: {fileID: 2125964094739602581}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +537,7 @@ GameObject:
   - component: {fileID: 2203478645251457557}
   - component: {fileID: 437644700552186589}
   - component: {fileID: 7409448649407087230}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Guns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,7 +618,7 @@ GameObject:
   - component: {fileID: 5808886860193484005}
   - component: {fileID: 3523056124037659122}
   - component: {fileID: 8113744700591424593}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6858701541204448651}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MainGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +731,7 @@ GameObject:
   - component: {fileID: 6793264405690948354}
   - component: {fileID: 3994442917275158058}
   - component: {fileID: 6917150588469004219}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Pins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +812,7 @@ GameObject:
   - component: {fileID: 7131556365266232420}
   - component: {fileID: 1104978490920645015}
   - component: {fileID: 8144612648529788636}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +894,7 @@ GameObject:
   - component: {fileID: 4342371238235703126}
   - component: {fileID: 6680790379067898732}
   - component: {fileID: 2249302906762787379}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cabins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,7 +986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6059140836978511600}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GunsPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1017,7 +1018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5275990699949570994}
   - component: {fileID: 4879732922319185312}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Battleship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,7 +1072,7 @@ GameObject:
   - component: {fileID: 6405867400522272931}
   - component: {fileID: 7807353925421449778}
   - component: {fileID: 3827860667958457730}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

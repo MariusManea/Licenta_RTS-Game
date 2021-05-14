@@ -233,6 +233,38 @@ namespace RTS
         {
             return available.spacing >= cost.spacing && available.copper >= cost.copper &&
                 available.iron >= cost.iron && available.oil >= cost.oil && available.gold >= cost.gold;
-        } 
+        }
+        
+        public static int GetBranchNumber(Entity entity)
+        {
+            switch (entity)
+            {
+                case Entity.ConvoyTruck:
+                    return 3;
+                case Entity.Tank:
+                case Entity.BatteringRam:
+                case Entity.BattleShip:
+                    return 4;
+                case Entity.Worker:
+                    return 5;
+                case Entity.Harvester:
+                    return 6;
+                case Entity.CargoShip:
+                    return 7;
+                case Entity.TownCenter:
+                case Entity.CityHall:
+                    return 8;
+                case Entity.Dock:
+                    return 9;
+                case Entity.Refinery:
+                    return 10;
+                case Entity.WarFactory:
+                    return 11;
+                case Entity.University:
+                    return 12;
+                default:
+                    return 2;
+            }
+        }
     }
 }

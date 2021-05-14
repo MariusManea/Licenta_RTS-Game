@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4788436695240335404}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PaddleP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6641553001186424352}
   - component: {fileID: 8993682361230740275}
   - component: {fileID: 2082519447721941919}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BCasco4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 5405516227898539705}
   - component: {fileID: 9055912724889584732}
   - component: {fileID: 897158485801093880}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Paddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1868177156710755650}
   - component: {fileID: 3714809185279590572}
   - component: {fileID: 6297466561136078193}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BCasco3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 5971765675418401208}
   - component: {fileID: 6592758410007279291}
   - component: {fileID: 4525612123844978087}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BCasco1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 7060349346002148476}
   - component: {fileID: 4003221873312375750}
   - component: {fileID: 1253707080767135111}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BCasco2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8123741730357086328}
   - component: {fileID: 9155583449018093180}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8990441285043143440}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Group01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

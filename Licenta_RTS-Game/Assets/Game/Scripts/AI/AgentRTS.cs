@@ -19,13 +19,18 @@ public class AgentRTS : Agent
     [HideInInspector]
     public Building buildingController;
     private bool moveable;
-
-    private int buildID = 0;
-
     BehaviorParameters m_BehaviorParameters;
+
+    // Heuristic helpers
+    public int myID;
+    public static int globalID = 0;
+    public static int currentID;
+    private int[] branchSizes = { 3, 3, 1, 2, 3, 11, 5, 2, 3, 3, 2, 4, 16 };
+    private bool ready = false;
 
     public void Start()
     {
+        myID = globalID++;
         m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
         team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
         foreach (Player player in FindObjectsOfType<Player>())
@@ -107,7 +112,7 @@ public class AgentRTS : Agent
 
             // Units
             sensor.AddObservation(unitController.hitPoints);
-            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 250);
+            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
             // #friends
             int nFriends = 1;
             // #enemies
@@ -213,7 +218,7 @@ public class AgentRTS : Agent
         }
         else
         {
-            sensor.AddObservation(0);
+            sensor.AddObservation(buildingController.hitPoints);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
             sensor.AddObservation(0);
@@ -240,17 +245,52 @@ public class AgentRTS : Agent
         }
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
-        if (owner.IsFindingBuildingLocation())
+        if (myID == 0)
         {
-            if (owner.CanPlaceBuilding())
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                buildID = 0;
-                owner.StartConstruction();
-                AddReward(-0.5f);
+                currentID = (currentID + 1) % globalID;
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                currentID--;
+                if (currentID < 0) currentID = globalID - 1;
             }
         }
+        if (!ready)
+        {
+            if (currentID == myID)
+            {
+                Debug.Log(entity + " " + currentID);
+                ready = true;
+            } 
+            else
+            {
+                ready = false;
+            }
+        } 
+        else
+        {
+            if (currentID != myID)
+            {
+                ready = false;
+            }
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (entity == Entity.Worker)
+            if (owner.IsFindingBuildingLocation())
+            {
+                if (owner.CanPlaceBuilding())
+                {
+                    owner.StartConstruction();
+                    AddReward(-0.5f);
+                }
+            }
     }
 
     private void MoveUnit(Unit controller, int forwardMove, int sideMove)
@@ -322,7 +362,7 @@ public class AgentRTS : Agent
             default: break;
         }
         if (resourceToHarvest == ResourceType.Unknown) return;
-        List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 250);
+        List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
         float closestDistance = int.MaxValue;
         Resource closestResource = null;
         foreach (WorldObjects obj in nearbyObjects)
@@ -381,11 +421,13 @@ public class AgentRTS : Agent
             // Load Unit
             if (entity != Entity.CargoShip && entity != Entity.BattleShip)
             {
-                List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 250);
+
+                List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
                 float closestDistance = int.MaxValue;
                 WorldObjects closestCargo = null;
                 foreach (WorldObjects obj in nearbyObjects)
                 {
+
                     if (obj)
                     {
                         if (WorkManager.ObjectIsCargo(obj.gameObject))
@@ -449,7 +491,7 @@ public class AgentRTS : Agent
         }
         if (ownAction == 2)
         {
-            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 250);
+            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
             float closestDistance = int.MaxValue;
             float closestUnitDistance = int.MaxValue;
             WorldObjects closestObject = null;
@@ -497,7 +539,7 @@ public class AgentRTS : Agent
         var warFactoryActions = act[11];
         var universityActions = act[12];
 
-        var ownAction = idleBuilding;
+        int ownAction;
         switch (entity)
         {
             case Entity.TownCenter:
@@ -544,7 +586,7 @@ public class AgentRTS : Agent
         WorldObjects obj = (unitController != null) ? unitController as WorldObjects : buildingController;
         List<int> mask = new List<int>();
         List<string> allowed = new List<string>(obj.GetActions());
-        int idx = 2;
+        int idx = (entity == Entity.Worker) ? 3 : ((moveable ? 2 : 1));
         foreach (string act in obj.GetPotentialActions())
         {
             if (!allowed.Contains(act) || (owner.IsFindingBuildingLocation() && entity == Entity.Worker))
@@ -615,7 +657,6 @@ public class AgentRTS : Agent
 
             mlagents-learn config/RTSAgent.yaml --initialize-from=RTSAgent --run-id=RTSAgent
          */
-
         if (moveable)
         {
             UnitController(unitController, actionBuffers.DiscreteActions);
@@ -628,30 +669,61 @@ public class AgentRTS : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var discreteActionsOut = actionsOut.DiscreteActions;
+        if (myID != currentID) return;
+        ActionSegment<int> discreteActionsOut = actionsOut.DiscreteActions;
         discreteActionsOut[0] = 0;
         discreteActionsOut[1] = 0;
-        if (Input.GetKey(KeyCode.D))
+        discreteActionsOut[2] = 0;
+        discreteActionsOut[3] = 0;
+        discreteActionsOut[4] = 0;
+        discreteActionsOut[5] = 0;
+        discreteActionsOut[6] = 0;
+        discreteActionsOut[7] = 0;
+        discreteActionsOut[8] = 0;
+        discreteActionsOut[9] = 0;
+        discreteActionsOut[10] = 0;
+        discreteActionsOut[11] = 0;
+        discreteActionsOut[12] = 0;
+        if (Input.GetKey(KeyCode.L))
         {
             discreteActionsOut[1] = 2;
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.I))
         {
             discreteActionsOut[0] = 1;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.J))
         {
             discreteActionsOut[1] = 1;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.K))
         {
             discreteActionsOut[0] = 2;
         }
-        if (Input.GetKey(KeyCode.Space))
+        int targetBranch = ResourceManager.GetBranchNumber(entity);
+        int branchSize = branchSizes[targetBranch];
+        int actionCode = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha0)) actionCode = 0 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha1)) actionCode = 1 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha2)) actionCode = 2 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha3)) actionCode = 3 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha4)) actionCode = 4 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha5)) actionCode = 5 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha6)) actionCode = 6 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha7)) actionCode = 7 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha8)) actionCode = 8 % branchSize;
+        if (Input.GetKeyDown(KeyCode.Alpha9)) actionCode = 9 % branchSize;
+        if (Input.GetKeyDown(KeyCode.A)) actionCode = 10 % branchSize;
+        if (Input.GetKeyDown(KeyCode.B)) actionCode = 11 % branchSize;
+        if (Input.GetKeyDown(KeyCode.C)) actionCode = 12 % branchSize;
+        if (Input.GetKeyDown(KeyCode.D)) actionCode = 13 % branchSize;
+        if (Input.GetKeyDown(KeyCode.E)) actionCode = 14 % branchSize;
+        if (Input.GetKeyDown(KeyCode.F)) actionCode = 15 % branchSize;
+        if (actionCode != 0)
         {
-            buildID = (buildID + 1) % 10;
+            Debug.Log("Action: " + actionCode);
         }
-        discreteActionsOut[2] = buildID;
+        discreteActionsOut[targetBranch] = actionCode;
     }
 
     private void OnDestroy()

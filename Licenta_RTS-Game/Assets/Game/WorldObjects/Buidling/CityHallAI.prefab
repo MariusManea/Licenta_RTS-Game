@@ -262,6 +262,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  myID: 0
 --- !u!114 &-4833029477644191673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,5 +275,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 20
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1

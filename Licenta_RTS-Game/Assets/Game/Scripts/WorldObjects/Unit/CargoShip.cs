@@ -135,6 +135,8 @@ public class CargoShip : Ship
     {
         readyToUnload = true;
         unloading = true;
+        NavGraph landNav = FindObjectOfType<AstarPath>().data.graphs[0];
+        StartMove(GetClosestValidDestination(GetClosestValidUnloadPoint(landNav, this.transform.position)));
     }
 
     private Vector3 GetClosestValidUnloadPoint(NavGraph navGraph, Vector3 position)

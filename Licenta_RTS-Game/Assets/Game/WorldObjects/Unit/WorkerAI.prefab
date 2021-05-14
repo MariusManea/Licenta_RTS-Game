@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5980028719788297491}
   - component: {fileID: 2785261760385768543}
   - component: {fileID: 5918753918008903958}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 7089780148893629105}
   - component: {fileID: 8613742136485628628}
   - component: {fileID: 1567167473846987959}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 8648423738441069005}
   - component: {fileID: 7630909284235134394}
   - component: {fileID: 160970695714747373}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AM115_004_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 8545231438820784314}
   - component: {fileID: 344039971695267897}
   - component: {fileID: 5561118907091045721}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1610,6 +1610,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  myID: 0
 --- !u!114 &1358591026548091506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
 --- !u!1 &5865017604392229679
 GameObject:
@@ -1760,7 +1761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3784978156757325631}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Chassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1879,7 +1880,7 @@ GameObject:
   - component: {fileID: 1758981071297417365}
   - component: {fileID: 1200324098772005172}
   - component: {fileID: 5990535210401943489}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WheelBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,7 +2042,7 @@ GameObject:
   - component: {fileID: 6922392327708597393}
   - component: {fileID: 4148470186829105853}
   - component: {fileID: 3313828062684665194}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AM115_004_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
