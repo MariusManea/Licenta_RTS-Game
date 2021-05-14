@@ -519,6 +519,14 @@ public class Player : MonoBehaviour
         tempCreator = null;
     }
 
+    public void TryCancelBuilding(Unit worker)
+    {
+        if (worker == tempCreator)
+        {
+            CancelBuildingPlacement();
+        }
+    }
+
     public virtual void SaveDetails(JsonWriter writer)
     {
         SaveManager.WriteString(writer, "Username", userName);

@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 8677620890351334358}
   m_Layer: 13
   m_Name: ConvoyTruck
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

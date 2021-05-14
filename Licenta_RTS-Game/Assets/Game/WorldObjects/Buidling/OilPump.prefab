@@ -1808,7 +1808,7 @@ GameObject:
   - component: {fileID: 445897071111897134}
   m_Layer: 12
   m_Name: OilPump
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

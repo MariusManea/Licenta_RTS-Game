@@ -1,0 +1,29 @@
+{
+    "RTSAgent": {
+        "checkpoints": [
+            {
+                "steps": 942,
+                "file_path": "results\\RTSAgent\\RTSAgent\\RTSAgent-942.onnx",
+                "reward": null,
+                "creation_time": 1620974811.6959286,
+                "auxillary_file_paths": [
+                    "results\\RTSAgent\\RTSAgent\\RTSAgent-942.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 942,
+            "file_path": "results\\RTSAgent\\RTSAgent.onnx",
+            "reward": null,
+            "creation_time": 1620974811.6959286,
+            "auxillary_file_paths": [
+                "results\\RTSAgent\\RTSAgent\\RTSAgent-942.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

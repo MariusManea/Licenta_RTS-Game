@@ -780,8 +780,8 @@ GameObject:
   - component: {fileID: 8030120171713444246}
   - component: {fileID: 1582456373233521380}
   m_Layer: 13
-  m_Name: Rusty Harvester
-  m_TagString: Untagged
+  m_Name: RustyHarvester
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -122,6 +122,15 @@ public class Unit : WorldObjects
         }
     }
 
+    public void LoadUnitIntoCargo(GameObject targetObject, Vector3 targetPosition)
+    {
+        destinationTarget = targetObject;
+        loadingTarget = targetObject.GetComponent<CargoShip>();
+        Vector3 position = GetClosestValidDestination(targetPosition);
+        StartMove(position);
+        loadingTarget.StartMove(position);
+    }
+
     public override void MouseClick(GameObject hitObject, Vector3 hitPoint, Player controller)
     {
         if (player && player.isHuman && currentlySelected && WorkManager.ObjectIsCargo(hitObject) && hitPoint != ResourceManager.InvalidPosition)
@@ -129,11 +138,7 @@ public class Unit : WorldObjects
             if (this.gameObject.GetComponent<Ship>() == null)
             {
                 // SetTarget, MoveToTarget, WhatIfCancels? if AtTarget then -> hitObject.GetComponent<CargoShip>().LoadUnit(GetComponent<Unit>());
-                destinationTarget = hitObject;
-                loadingTarget = hitObject.transform.parent.GetComponent<CargoShip>();
-                Vector3 position = GetClosestValidDestination(hitPoint);
-                StartMove(position);
-                loadingTarget.StartMove(position);
+                LoadUnitIntoCargo(hitObject.transform.parent.gameObject, hitPoint);
             } 
             else
             {

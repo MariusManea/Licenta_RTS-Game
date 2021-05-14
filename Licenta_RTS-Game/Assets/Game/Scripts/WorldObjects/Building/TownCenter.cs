@@ -10,6 +10,7 @@ public class TownCenter : Building
     {
         base.Start();
         actions = new string[] { "Worker", "RustyHarvester" };
+        potentialActions = new string[] { "Worker", "RustyHarvester" };
     }
     protected override void Update()
     {

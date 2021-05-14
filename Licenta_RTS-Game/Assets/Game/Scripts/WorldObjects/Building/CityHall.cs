@@ -12,7 +12,8 @@ public class CityHall : Building
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "Worker" };
+        actions = new string[] { "Worker", "RustyHarvester" };
+        potentialActions = new string[] { "Worker", "RustyHarvester" };
         once = true;
     }
 

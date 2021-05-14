@@ -92,22 +92,27 @@ namespace RTS
 
         public static bool ObjectIsGround(GameObject obj)
         {
-            return obj == null || obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)";
+            return obj != null && (obj.name == "Ground" || obj.name == "Ground(Clone)" || obj.name == "GroundHolder" || obj.name == "GroundHolder(Clone)");
         }
 
         public static bool ObjectIsWater(GameObject obj)
         {
-            return obj == null || obj.name == "Water" || obj.layer == 4;
+            return obj != null && (obj.name == "Water" || obj.layer == 4);
         }
 
         public static bool ObjectIsCargo(GameObject obj)
         {
-            return obj == null || obj.transform.parent.GetComponent<CargoShip>() != null;
+            return obj != null && (obj.transform.parent != null && obj.transform.parent.GetComponent<CargoShip>() != null);
+        }
+
+        public static bool ObjectIsOil (GameObject obj)
+        {
+            return obj.GetComponent<OilPile>() != null || obj.GetComponentInChildren<OilPile>() != null;
         }
 
         public static bool ObjectIsOre(GameObject obj)
         {
-            return obj.GetComponent<Ore>() != null;
+            return obj.GetComponent<Ore>() != null || obj.GetComponentInChildren<Ore>() != null;
         }
 
         public static List<WorldObjects> FindNearbyObjects(Vector3 position, float range)

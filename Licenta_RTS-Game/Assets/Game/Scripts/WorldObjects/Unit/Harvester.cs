@@ -12,7 +12,7 @@ public class Harvester : Unit
 	public Building resourceStore;
 	private Building oldStore;
 
-	private bool harvesting = false, emptying = false;
+	public bool harvesting = false, emptying = false;
 	private float currentLoad = 0.0f, currentDeposit = 0.0f;
 	private ResourceType harvestType;
 	private Resource resourceDeposit;

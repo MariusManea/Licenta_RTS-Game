@@ -131,6 +131,12 @@ public class CargoShip : Ship
         }
     }
 
+    public void UnloadUnits()
+    {
+        readyToUnload = true;
+        unloading = true;
+    }
+
     private Vector3 GetClosestValidUnloadPoint(NavGraph navGraph, Vector3 position)
     {
         int d = 1;

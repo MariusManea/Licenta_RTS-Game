@@ -285,7 +285,7 @@ public class WorldObjects : MonoBehaviour
         }
     }
 
-    protected virtual void BeginAttack(WorldObjects target)
+    public virtual void BeginAttack(WorldObjects target)
     {
         if (audioElement != null) audioElement.Play(attackSound);
         this.target = target;
@@ -367,6 +367,10 @@ public class WorldObjects : MonoBehaviour
     {
         if (audioElement != null && Time.timeScale > 0) audioElement.Play(useWeaponSound);
         currentWeaponChargeTime = 0.0f;
+        if (!player.isHuman)
+        {
+            GetComponent<AgentRTS>().AddReward(0.5f);
+        }
         //this behaviour needs to be specified by a specific object
     }
 

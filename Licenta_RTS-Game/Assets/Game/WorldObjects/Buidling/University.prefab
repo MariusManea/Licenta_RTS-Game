@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 4998184707386571808}
   m_Layer: 0
   m_Name: University
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

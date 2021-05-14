@@ -15,6 +15,7 @@ public class University : Building
         base.Start();
         researchTime = 5;
         currentTime = 0;
+        potentialActions = System.Enum.GetNames(typeof(UpgradeableObjects));
     }
     protected override void Update()
     {

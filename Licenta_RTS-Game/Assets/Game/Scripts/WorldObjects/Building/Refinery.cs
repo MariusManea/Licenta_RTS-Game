@@ -10,6 +10,7 @@ public class Refinery : Building
     {
         base.Start();
         actions = new string[] { "Harvester" };
+        potentialActions = new string[] { "Harvester" };
     }
 
     protected override void Update()

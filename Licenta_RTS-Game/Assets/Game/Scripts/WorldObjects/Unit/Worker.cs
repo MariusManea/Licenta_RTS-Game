@@ -138,9 +138,21 @@ public class Worker : Unit
     public override void StartMove(Vector3 destination)
     {
         base.StartMove(destination);
-        amountBuilt = 0.0f;
-        building = false;
-        currentProject = null;
+        if (building)
+        {
+            amountBuilt = 0.0f;
+            building = false;
+            currentProject = null;
+            if (!player.isHuman)
+            {
+                GetComponent<AgentRTS>().AddReward(-0.5f);
+            }
+            player.TryCancelBuilding(this);
+        }
+        if (player.IsFindingBuildingLocation())
+        {
+            player.TryCancelBuilding(this);
+        }
     }
 
     private void CreateBuilding(string buildingName)
