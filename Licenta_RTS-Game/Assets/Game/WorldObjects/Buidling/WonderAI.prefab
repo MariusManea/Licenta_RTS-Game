@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 2083067959831797259}
   - component: {fileID: -2643721150338829364}
   - component: {fileID: -7948791195544522915}
+  - component: {fileID: -4999437987036428061}
   m_Layer: 12
   m_Name: WonderAI
   m_TagString: Building
@@ -141,19 +142,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 17
+    VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 03000000030000000100000002000000030000000b00000005000000020000000300000003000000020000000400000010000000
-    VectorActionSize: 03000000030000000100000002000000030000000b00000005000000020000000300000003000000020000000400000010000000
+      BranchSizes: 030000000300000001000000
+    VectorActionSize: 030000000300000001000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: RTSAgent
+  m_BehaviorName: IdleBuildingAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -192,8 +193,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 1
+  DecisionPeriod: 10
   TakeActionsBetweenDecisions: 1
+--- !u!54 &-4999437987036428061
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6950984151013509317}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7639889968867724421
 GameObject:
   m_ObjectHideFlags: 0

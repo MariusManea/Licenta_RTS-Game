@@ -6,6 +6,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using RTS;
 using Unity.MLAgents.Sensors;
+using Pathfinding;
 
 public class AgentRTS : Agent
 {
@@ -20,13 +21,45 @@ public class AgentRTS : Agent
     public Building buildingController;
     private bool moveable;
     BehaviorParameters m_BehaviorParameters;
+    public Building nextProj;
 
     // Heuristic helpers
     public int myID;
     public static int globalID = 0;
     public static int currentID;
-    private int[] branchSizes = { 3, 3, 1, 2, 3, 11, 5, 2, 3, 3, 2, 4, 16 };
+    private const string FORWARD = "forward";
+    private const string BACKWARD = "backward";
+    private const string IDLE_BUILDING = "idleBuilding";
+    private const string IDLE_UNIT = "idleUnit";
+    private const string ATTACKING_UNIT = "attackingUnit";
+    private const string WORKER = "worker";
+    private const string HARVESTER = "harvester";
+    private const string CARGO = "cargo";
+    private const string HALL = "hall";
+    private const string DOCK = "dock";
+    private const string REFINERY = "refinery";
+    private const string WAR_FACTORY = "warFactory";
+    private const string UNIVERSITY = "university";
+    private Dictionary<string, int> branches = new Dictionary<string, int>
+    {
+        {FORWARD, 3 },
+        {BACKWARD, 3 },
+        {IDLE_BUILDING, 1 },
+        {IDLE_UNIT, 2 },
+        {ATTACKING_UNIT, 3 },
+        {WORKER, 11 },
+        {HARVESTER, 5 },
+        {CARGO, 2},
+        {HALL, 3},
+        {DOCK, 3 },
+        {REFINERY, 2 },
+        {WAR_FACTORY, 4 },
+        {UNIVERSITY, 16}
+    };
     private bool ready = false;
+
+    private AstarPath graph;
+    private NavGraph waterGraph;
 
     public void Start()
     {
@@ -52,6 +85,8 @@ public class AgentRTS : Agent
         {
             moveable = false;
         }
+        graph = FindObjectOfType<AstarPath>();
+        waterGraph = graph.data.graphs[1];
     }
 
     public override void Initialize()
@@ -77,6 +112,8 @@ public class AgentRTS : Agent
         {
             moveable = false;
         }
+        graph = FindObjectOfType<AstarPath>();
+        waterGraph = graph.data.graphs[1];
     }
 
     public override void OnEpisodeBegin()
@@ -102,11 +139,12 @@ public class AgentRTS : Agent
         {
             moveable = false;
         }
+        graph = FindObjectOfType<AstarPath>();
+        waterGraph = graph.data.graphs[1];
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation((int)entity);
         if (moveable)
         {
 
@@ -181,20 +219,14 @@ public class AgentRTS : Agent
             {
                 sensor.AddObservation((friendDistance != int.MaxValue) ? friendDistance : 0);
             } 
-            else
-            {
-                sensor.AddObservation(0);
-            }
             if (entity == Entity.Worker)
             {
                 sensor.AddObservation(hallDistance);
                 sensor.AddObservation(oilDistance);
+                sensor.AddObservation(owner.builds);
+                sensor.AddObservation(nextProj != null ? nextProj.UnderConstruction() : false);
+                sensor.AddObservation(nextProj != null ? (nextProj.UnderConstruction() ? Vector3.Distance(transform.position, nextProj.transform.position) : 99999) : 99999);
             } 
-            else
-            {
-                sensor.AddObservation(0);
-                sensor.AddObservation(0);
-            }
             if (entity == Entity.Harvester || entity == Entity.RustyHarvester)
             {
                 sensor.AddObservation(resourceDistance);
@@ -202,32 +234,10 @@ public class AgentRTS : Agent
                 sensor.AddObservation(owner.GetResourceAmount(ResourceType.Iron));
                 sensor.AddObservation(owner.GetResourceAmount(ResourceType.Gold));
             } 
-            else
-            {
-                sensor.AddObservation(0);
-                sensor.AddObservation(0);
-                sensor.AddObservation(0);
-                sensor.AddObservation(0);
-            }
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
         }
         else
         {
             sensor.AddObservation(buildingController.hitPoints);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
             // Buildings
             sensor.AddObservation(owner.GetResourceAmount(ResourceType.Spacing));
             sensor.AddObservation(owner.GetResourceAmount(ResourceType.Copper));
@@ -238,44 +248,104 @@ public class AgentRTS : Agent
             {
                 sensor.AddObservation(owner.GetResourceAmount(ResourceType.ResearchPoint));
             }
-            else
-            {
-                sensor.AddObservation(0);
-            }
+        }
+    }
+
+    private string GetBranchName()
+    {
+        switch(entity)
+        {
+            case Entity.Worker:
+                return WORKER;
+            case Entity.Harvester:
+            case Entity.RustyHarvester:
+                return HARVESTER;
+            case Entity.Tank:
+            case Entity.BatteringRam:
+            case Entity.BattleShip:
+                return ATTACKING_UNIT;
+            case Entity.CargoShip:
+                return CARGO;
+            case Entity.ConvoyTruck:
+                return IDLE_UNIT;
+            case Entity.TownCenter:
+            case Entity.CityHall:
+                return HALL;
+            case Entity.Dock:
+                return DOCK;
+            case Entity.Refinery:
+                return REFINERY;
+            case Entity.WarFactory:
+                return WAR_FACTORY;
+            case Entity.University:
+                return UNIVERSITY;
+            default:
+                return IDLE_BUILDING;
         }
     }
 
     public void Update()
     {
-        if (myID == 0)
+        // For heuristic use only
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (myID == 0)
             {
-                currentID = (currentID + 1) % globalID;
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    currentID = (currentID + 1) % globalID;
+                }
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    currentID--;
+                    if (currentID < 0) currentID = globalID - 1;
+                }
             }
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (!ready)
             {
-                currentID--;
-                if (currentID < 0) currentID = globalID - 1;
+                if (currentID == myID)
+                {
+                    Debug.Log(entity + " " + currentID);
+                    ready = true;
+                }
+                else
+                {
+                    ready = false;
+                }
             }
-        }
-        if (!ready)
-        {
-            if (currentID == myID)
-            {
-                Debug.Log(entity + " " + currentID);
-                ready = true;
-            } 
             else
             {
-                ready = false;
+                if (currentID != myID)
+                {
+                    ready = false;
+                }
             }
-        } 
-        else
+        }
+
+        if (entity == Entity.Worker)
         {
-            if (currentID != myID)
+            // search for dock or oil pump placement (special needs)
+            if (owner.IsFindingBuildingLocation())
             {
-                ready = false;
+                Building tempBuilding = owner.GetTempBuilding();
+                if (tempBuilding.GetObjectName() == "Oil Pump")
+                {
+                    List<WorldObjects> nearbyObjects = unitController.GetNearbyObjects();
+                    foreach (WorldObjects nearby in nearbyObjects)
+                    {
+                        if (WorkManager.ObjectIsOil(nearby.gameObject)) {
+                            owner.SetTempBuildingLocation(nearby.transform.position);
+                            break;
+                        }
+                    }
+                }
+                if (tempBuilding.GetObjectName() == "Dock")
+                {
+                    Vector3 position = GetClosestValidDockPoint(waterGraph, transform.position);
+                    if (position != -Vector3.one)
+                    {
+                        owner.SetTempBuildingLocation(position);
+                    }
+                }
             }
         }
     }
@@ -287,15 +357,27 @@ public class AgentRTS : Agent
             {
                 if (owner.CanPlaceBuilding())
                 {
-                    owner.StartConstruction();
-                    AddReward(-0.5f);
+                    nextProj = owner.StartConstruction();
+                    AddReward(1f);
                 }
             }
     }
 
     private void MoveUnit(Unit controller, int forwardMove, int sideMove)
     {
-        AddReward(-0.005f);
+        if (forwardMove != 0 || sideMove != 0)
+        {
+            AddReward(-0.005f);
+            if (entity == Entity.Worker && owner.IsBuilding())
+            {
+                AddReward(-2f);
+                if (nextProj != null && nextProj.UnderConstruction())
+                {
+                    (controller as Worker).SetBuilding(nextProj);
+                    return;
+                }
+            }
+        }
         Vector3 target = controller.transform.position;
         target += Vector3.forward * (forwardMove == 1 ? 5f : (forwardMove == 2 ? -5f : 0f));
         target += Vector3.right * (sideMove == 1 ? -5f : (sideMove == 2 ? 5f : 0f));
@@ -339,11 +421,13 @@ public class AgentRTS : Agent
             if (helpProj != null)
             {
                 controller.StartMove(helpProj.transform.position, helpProj.gameObject);
+                AddReward(1f);
             }
             return;
         }
         string buildName = controller.GetPotentialActions()[buildType - 3];
         controller.PerformAction(buildName);
+        AddReward(2f);
     }
 
     private void HarvestResources(Harvester controller, int resourceType)
@@ -390,11 +474,7 @@ public class AgentRTS : Agent
     {
         var forwardMove = act[0]; // move forward
         var sideMove = act[1]; // move backward
-        var idleUnits = act[3];
-        var attackingUnits = act[4];
-        var workerActions = act[5];
-        var harvesterActions = act[6];
-        var cargoActions = act[7];
+        var ownAction = act[2];
 
 
         /* 
@@ -412,11 +492,11 @@ public class AgentRTS : Agent
         {
             MoveUnit(controller, forwardMove, sideMove);
         }
-        if ((entity == Entity.Worker && workerActions == 1) ||
-            ((entity == Entity.Harvester || entity == Entity.RustyHarvester) && harvesterActions == 1) ||
-            ((entity == Entity.Tank || entity == Entity.BatteringRam) && attackingUnits == 1) ||
-            (entity == Entity.ConvoyTruck && idleUnits == 1) ||
-            (entity == Entity.CargoShip && cargoActions == 1))
+        if ((entity == Entity.Worker && ownAction == 1) ||
+            ((entity == Entity.Harvester || entity == Entity.RustyHarvester) && ownAction == 1) ||
+            ((entity == Entity.Tank || entity == Entity.BatteringRam) && ownAction == 1) ||
+            (entity == Entity.ConvoyTruck && ownAction == 1) ||
+            (entity == Entity.CargoShip && ownAction == 1))
         {
             // Load Unit
             if (entity != Entity.CargoShip && entity != Entity.BattleShip)
@@ -467,15 +547,16 @@ public class AgentRTS : Agent
         switch (entity)
         {
             case Entity.Worker:
-                ConstructBuilding(controller as Worker, workerActions);
+                ConstructBuilding(controller as Worker, ownAction);
                 break;
             case Entity.Harvester:
-                HarvestResources(controller as Harvester, harvesterActions);
+            case Entity.RustyHarvester:
+                HarvestResources(controller as Harvester, ownAction);
                 break;
             case Entity.Tank:
             case Entity.BatteringRam:
             case Entity.BattleShip:
-                AttackEnemy(controller, attackingUnits);
+                AttackEnemy(controller, ownAction);
                 break;
             default:
                 break;
@@ -532,36 +613,7 @@ public class AgentRTS : Agent
 
     private void BuildingController(Building controller, ActionSegment<int> act)
     {
-        var idleBuilding = act[2];
-        var hallActions = act[8];
-        var dockActions = act[9];
-        var refineryActions = act[10];
-        var warFactoryActions = act[11];
-        var universityActions = act[12];
-
-        int ownAction;
-        switch (entity)
-        {
-            case Entity.TownCenter:
-            case Entity.CityHall:
-                ownAction = hallActions;
-                break;
-            case Entity.Dock:
-                ownAction = dockActions;
-                break;
-            case Entity.Refinery:
-                ownAction = refineryActions;
-                break;
-            case Entity.WarFactory:
-                ownAction = warFactoryActions;
-                break;
-            case Entity.University:
-                ownAction = universityActions;
-                break;
-            default:
-                ownAction = idleBuilding;
-                break;
-        }
+        int ownAction = act[2];
         /*
          * Buildings
          * 1,2,3... = Execute its actions
@@ -576,7 +628,7 @@ public class AgentRTS : Agent
             }
             else
             {
-                AddReward(-0.01f);
+                AddReward(-1f);
             }
         }
     }
@@ -595,47 +647,7 @@ public class AgentRTS : Agent
             }
             idx++;
         }
-        if (moveable)
-        {
-            switch (entity) {
-                case Entity.ConvoyTruck:
-                    actionMask.WriteMask(3, mask);
-                    break;
-                case Entity.Tank:
-                case Entity.BatteringRam:
-                case Entity.BattleShip:
-                    actionMask.WriteMask(4, mask);
-                    break;
-                case Entity.Worker:
-                    actionMask.WriteMask(5, mask);
-                    break;
-                case Entity.Harvester:
-                    actionMask.WriteMask(6, mask);
-                    break;
-                case Entity.CargoShip:
-                    actionMask.WriteMask(7, mask);
-                    break;
-                case Entity.TownCenter:
-                case Entity.CityHall:
-                    actionMask.WriteMask(8, mask);
-                    break;
-                case Entity.Dock:
-                    actionMask.WriteMask(9, mask);
-                    break;
-                case Entity.Refinery:
-                    actionMask.WriteMask(10, mask);
-                    break;
-                case Entity.WarFactory:
-                    actionMask.WriteMask(11, mask);
-                    break;
-                case Entity.University:
-                    actionMask.WriteMask(12, mask);
-                    break;
-                default:
-                    actionMask.WriteMask(2, mask);
-                    break;
-            }
-        }
+        actionMask.WriteMask(2, mask);
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -674,16 +686,6 @@ public class AgentRTS : Agent
         discreteActionsOut[0] = 0;
         discreteActionsOut[1] = 0;
         discreteActionsOut[2] = 0;
-        discreteActionsOut[3] = 0;
-        discreteActionsOut[4] = 0;
-        discreteActionsOut[5] = 0;
-        discreteActionsOut[6] = 0;
-        discreteActionsOut[7] = 0;
-        discreteActionsOut[8] = 0;
-        discreteActionsOut[9] = 0;
-        discreteActionsOut[10] = 0;
-        discreteActionsOut[11] = 0;
-        discreteActionsOut[12] = 0;
         if (Input.GetKey(KeyCode.L))
         {
             discreteActionsOut[1] = 2;
@@ -700,8 +702,7 @@ public class AgentRTS : Agent
         {
             discreteActionsOut[0] = 2;
         }
-        int targetBranch = ResourceManager.GetBranchNumber(entity);
-        int branchSize = branchSizes[targetBranch];
+        int branchSize = branches[GetBranchName()];
         int actionCode = 0;
         if (Input.GetKeyDown(KeyCode.Alpha0)) actionCode = 0 % branchSize;
         if (Input.GetKeyDown(KeyCode.Alpha1)) actionCode = 1 % branchSize;
@@ -723,7 +724,7 @@ public class AgentRTS : Agent
         {
             Debug.Log("Action: " + actionCode);
         }
-        discreteActionsOut[targetBranch] = actionCode;
+        discreteActionsOut[2] = actionCode;
     }
 
     private void OnDestroy()
@@ -735,5 +736,28 @@ public class AgentRTS : Agent
         }
         SetReward(-10);
     }
+
+    private Vector3 GetClosestValidDockPoint(NavGraph navGraph, Vector3 position)
+    {
+        int d = 1;
+        while (true)
+        {
+            for (int i = 0; i < 36; i++)
+            {
+                Vector3 newPosition = position + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 36.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 36.0f));
+                if (navGraph.GetNearest(newPosition).node.Walkable)
+                {
+
+                    return newPosition;
+                }
+            }
+            d++;
+            if (d > 75)
+            {
+                return -Vector3.one;
+            }
+        }
+    }
+
 
 }

@@ -4,4 +4,9 @@ using UnityEngine;
 
 public class RustyHarvester : Harvester
 {
+
+    public override string GetObjectName()
+    {
+        return "Rusty Harvester";
+    }
 }

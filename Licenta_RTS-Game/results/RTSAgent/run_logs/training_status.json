@@ -1,23 +1,45 @@
 {
-    "RTSAgent": {
+    "WorkerAgent": {
         "checkpoints": [
             {
-                "steps": 942,
-                "file_path": "results\\RTSAgent\\RTSAgent\\RTSAgent-942.onnx",
+                "steps": 6780,
+                "file_path": "results\\RTSAgent\\WorkerAgent\\WorkerAgent-6780.onnx",
                 "reward": null,
-                "creation_time": 1620974811.6959286,
+                "creation_time": 1623525656.5951653,
                 "auxillary_file_paths": [
-                    "results\\RTSAgent\\RTSAgent\\RTSAgent-942.pt"
+                    "results\\RTSAgent\\WorkerAgent\\WorkerAgent-6780.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 942,
-            "file_path": "results\\RTSAgent\\RTSAgent.onnx",
+            "steps": 6780,
+            "file_path": "results\\RTSAgent\\WorkerAgent.onnx",
             "reward": null,
-            "creation_time": 1620974811.6959286,
+            "creation_time": 1623525656.5951653,
             "auxillary_file_paths": [
-                "results\\RTSAgent\\RTSAgent\\RTSAgent-942.pt"
+                "results\\RTSAgent\\WorkerAgent\\WorkerAgent-6780.pt"
+            ]
+        }
+    },
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\RTSAgent\\HallAgent\\HallAgent-640.onnx",
+                "reward": null,
+                "creation_time": 1623525657.1121013,
+                "auxillary_file_paths": [
+                    "results\\RTSAgent\\HallAgent\\HallAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\RTSAgent\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1623525657.1121013,
+            "auxillary_file_paths": [
+                "results\\RTSAgent\\HallAgent\\HallAgent-640.pt"
             ]
         }
     },

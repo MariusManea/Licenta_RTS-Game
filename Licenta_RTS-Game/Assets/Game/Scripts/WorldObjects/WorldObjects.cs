@@ -81,7 +81,10 @@ public class WorldObjects : MonoBehaviour
     protected virtual void Update()
     {
         float y = terrain.SampleHeight(this.transform.position);
-        y = y > 7 ? y : 7;
+        if (gameObject.GetComponent<Ship>())
+        {
+            y = y > 7 ? y : 7;
+        }
         this.transform.position = new Vector3(this.transform.position.x, y, this.transform.position.z);
         if (ShouldMakeDecision()) DecideWhatToDo();
         currentWeaponChargeTime += Time.deltaTime;
@@ -126,6 +129,8 @@ public class WorldObjects : MonoBehaviour
             {
                 Resource resource = nearbyObject.GetComponent<Resource>();
                 if (resource) continue;
+                Building building = nearbyObject.GetComponent<Building>();
+                if (building && building.Ghost) continue;
                 if (nearbyObject.GetPlayer() != player) enemyObjects.Add(nearbyObject);
             }
             WorldObjects closestObject = WorkManager.FindNearestWorldObjectInListToPosition(enemyObjects, currentPosition);
@@ -572,5 +577,10 @@ public class WorldObjects : MonoBehaviour
     public virtual string GetObjectName()
     {
         return objectName;
+    }
+
+    public List<WorldObjects> GetNearbyObjects()
+    {
+        return nearbyObjects;
     }
 }

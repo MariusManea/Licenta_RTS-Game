@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public int universityLevel, warFactoryLevel, refineryLevel, turretLevel, oilPumpLevel, dockLevel,
         workerLevel, harvesterLevel, tankLevel, cargoShipLevel, wonderLevel, convoyTruckLevel, cityHallLevel, batteringRamLevel, battleshipLevel;
     private Dictionary<ResourceType, int> resources, resourceLimits;
-
+    public int builds;
     public string userName;
     public bool isHuman;
     public int playerID;
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         hud = GetComponentInChildren<HUD>();
         gameManager = (GameManager)FindObjectOfType(typeof(GameManager));
         levelLoader = (LevelLoader)FindObjectOfType(typeof(LevelLoader));
-
+        builds = 0;
         
     }
 
@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
         {
             tempBuilding.CalculateBounds();
             if (CanPlaceBuilding()) tempBuilding.SetTransparentMaterial(allowedMaterial, false, true);
-            else tempBuilding.SetTransparentMaterial(notAllowedMaterial, false);
+            else if (tempBuilding) tempBuilding.SetTransparentMaterial(notAllowedMaterial, false);
         }
     }
 
@@ -321,7 +321,6 @@ public class Player : MonoBehaviour
             tempCreator = creator;
             findingPlacement = true;
             tempBuilding.SetTransparentMaterial(notAllowedMaterial, true);
-            tempBuilding.SetColliders(false);
             tempBuilding.SetPlayingArea(playingArea);
         }
         else Destroy(newBuilding);
@@ -341,7 +340,56 @@ public class Player : MonoBehaviour
 
     public bool CanPlaceBuilding()
     {
-        Terrain terrain = (Terrain)FindObjectOfType(typeof(Terrain));
+        if (tempBuilding.GetComponent<CityHall>())
+        {
+            int count = gameManager.GetNumberOfTerritories();
+            List<Vector3>[] borders = levelLoader.GetAllBorders();
+            for (int i = 0; i < count; ++i)
+            {
+                if (Poly.ContainsPoint(borders[i], tempBuilding.transform.position))
+                {
+                    int owner = gameManager.GetOwner(i);
+                    if (owner != -1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        tempBuilding.GetComponent<CityHall>().SetStats(playerID, i);
+                    }
+                    break;
+                }
+            }
+        }
+        CityHall[] halls = GetComponentsInChildren<CityHall>();
+        if (tempBuilding.gameObject.GetComponent<University>())
+        {
+            University[] same = GetComponentsInChildren<University>();
+            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; } 
+        }
+        if (tempBuilding.gameObject.GetComponent<Refinery>())
+        {
+            Refinery[] same = GetComponentsInChildren<Refinery>();
+            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
+        }
+        if (tempBuilding.gameObject.GetComponent<WarFactory>())
+        {
+            WarFactory[] same = GetComponentsInChildren<WarFactory>();
+            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
+        }
+        if (tempBuilding.gameObject.GetComponent<Turret>())
+        {
+            Turret[] same = GetComponentsInChildren<Turret>();
+            if (same.Length > 2 * (halls.Length + 1)) { CancelBuildingPlacement(); return false; }
+        }
+        if (tempBuilding.gameObject.GetComponent<Dock>())
+        {
+            Dock[] same = GetComponentsInChildren<Dock>();
+            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
+        }
+
+        return tempBuilding.BuildingCanPlace();
+        /*Terrain terrain = (Terrain)FindObjectOfType(typeof(Terrain));
 
         if (terrain.SampleHeight(tempBuilding.transform.position) < 7)
         {
@@ -359,8 +407,8 @@ public class Player : MonoBehaviour
             float pex = tempBuilding.transform.localScale.x / 2;
             float pez = tempBuilding.transform.localScale.z / 2;
 
-            Vector3 point1 = Camera.main.WorldToScreenPoint(new Vector3(pcx + 0.5f * pex, pcy, pcz + 0.5f * pez));
-            Vector3 point2 = Camera.main.WorldToScreenPoint(new Vector3(pcx - 0.5f * pex, pcy, pcz - 0.5f * pez));
+            Vector3 point1 = new Vector3(pcx + 0.5f * pex, pcy, pcz + 0.5f * pez);
+            Vector3 point2 = new Vector3(pcx - 0.5f * pex, pcy, pcz - 0.5f * pez);
 
             GameObject hit1 = WorkManager.FindHitObject(point1);
             GameObject hit2 = WorkManager.FindHitObject(point2);
@@ -376,39 +424,19 @@ public class Player : MonoBehaviour
             else return false;
         }
 
-        if (tempBuilding.GetComponent<CityHall>())
-        {
-            int count = gameManager.GetNumberOfTerritories();
-            List<Vector3>[] borders = levelLoader.GetAllBorders();
-            for (int i = 0; i < count; ++i)
-            {
-                if (Poly.ContainsPoint(borders[i], tempBuilding.transform.position))
-                {
-                    int owner = gameManager.GetOwner(i);
-                    if (owner != -1)
-                    {
-                        return false;
-                    } 
-                    else
-                    {
-                        tempBuilding.GetComponent<CityHall>().SetStats(playerID, i);
-                    }
-                    break;
-                }
-            }
-        }
+        
         
 
 
         Bounds placeBounds = tempBuilding.GetSelectionBounds();
         //shorthand for the coordinates of the center of the selection bounds
-        float cx = placeBounds.center.x;
-        float cy = placeBounds.center.y;
-        float cz = placeBounds.center.z;
+        float cx = tempBuilding.transform.position.x;
+        float cy = tempBuilding.transform.position.y;
+        float cz = tempBuilding.transform.position.z;
         //shorthand for the coordinates of the extents of the selection box
-        float ex = placeBounds.extents.x;
-        float ey = placeBounds.extents.y;
-        float ez = placeBounds.extents.z;
+        float ex = tempBuilding.transform.localScale.x / 2;
+        float ey = tempBuilding.transform.localScale.y / 2;
+        float ez = tempBuilding.transform.localScale.z / 2;
 
         //Determine the screen coordinates for the corners of the selection bounds
         List<Vector3> corners = new List<Vector3>();
@@ -423,12 +451,12 @@ public class Player : MonoBehaviour
                 {
                     //corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz + cfz * ez)));
                     //corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy + cfy * ey, cz - cfz * ez)));
-                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy - cfy * ey, cz + cfz * ez)));
+                    corners.Add(new Vector3(cx + cfx * ex, cy - cfy * ey, cz + cfz * ez));
                     //corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy + cfy * ey, cz + cfz * ez)));
-                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx + cfx * ex, cy - cfy * ey, cz - cfz * ez)));
-                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy - cfy * ey, cz + cfz * ez)));
+                    corners.Add(new Vector3(cx + cfx * ex, cy - cfy * ey, cz - cfz * ez));
+                    corners.Add(new Vector3(cx - cfx * ex, cy - cfy * ey, cz + cfz * ez));
                     //corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy + cfy * ey, cz - cfz * ez)));
-                    corners.Add(Camera.main.WorldToScreenPoint(new Vector3(cx - cfx * ex, cy - cfy * ey, cz - cfz * ez)));
+                    corners.Add(new Vector3(cx - cfx * ex, cy - cfy * ey, cz - cfz * ez));
                 }
                 heights.Add(terrain.SampleHeight(new Vector3(cx + cfx * ex, 0, cz + cfz * ez)));
                 heights.Add(terrain.SampleHeight(new Vector3(cx + cfx * ex, 0, cz - cfz * ez)));
@@ -461,9 +489,15 @@ public class Player : MonoBehaviour
         {
             return dockOnWater && dockOnGround;
         }
-        return true;
+        return true;*/
     }
-    public void StartConstruction()
+
+    public bool IsBuilding()
+    {
+        return builds > 0;
+    }
+
+    public Building StartConstruction()
     {
         findingPlacement = false;
         Buildings buildings = GetComponentInChildren<Buildings>();
@@ -509,6 +543,7 @@ public class Player : MonoBehaviour
         RemoveResource(ResourceType.Iron, cost.iron);
         RemoveResource(ResourceType.Oil, cost.oil);
         RemoveResource(ResourceType.Gold, cost.gold);
+        return tempBuilding;
     }
 
     public void CancelBuildingPlacement()
@@ -748,6 +783,16 @@ public class Player : MonoBehaviour
     {
         return new ResourceManager.Cost(resourceLimits[ResourceType.Spacing] - resources[ResourceType.Spacing], resources[ResourceType.Copper],
             resources[ResourceType.Iron], resources[ResourceType.Oil], resources[ResourceType.Gold]);
+    }
+
+    public Building GetTempBuilding()
+    {
+        return tempBuilding;
+    }
+
+    public void SetTempBuildingLocation(Vector3 newPosition)
+    {
+        tempBuilding.transform.position = newPosition;
     }
 
     public void GameLost()

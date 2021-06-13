@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 public class Building : WorldObjects    
 {
     public override bool IsActive { get { return !needsBuilding; } }
-
+    private bool canPlace;
     public bool Ghost { get => ghost; set => ghost = value; }
 
     public float maxBuildProgress;
@@ -28,6 +28,7 @@ public class Building : WorldObjects
         base.Awake();
         buildQueue = new Queue<string>();
         SetSpawnPoint();
+        canPlace = false;
     }
 
     protected override void Start()
@@ -72,19 +73,22 @@ public class Building : WorldObjects
 
     protected void CreateUnit(string unitName)
     {
-        GameObject unit = ResourceManager.GetUnit(unitName);
-        Unit unitObject = unit.GetComponent<Unit>();
-        if (player && unitObject)
+        if (!Ghost)
         {
-            ResourceManager.Cost cost = ResourceManager.GetCost(unitName);
-            if (ResourceManager.Affordable(cost, player.AvailableResources()))
+            GameObject unit = ResourceManager.GetUnit(unitName);
+            Unit unitObject = unit.GetComponent<Unit>();
+            if (player && unitObject)
             {
-                buildQueue.Enqueue(unitName);
-                player.AddResource(ResourceType.Spacing, cost.spacing);
-                player.RemoveResource(ResourceType.Copper, cost.copper);
-                player.RemoveResource(ResourceType.Iron, cost.iron);
-                player.RemoveResource(ResourceType.Oil, cost.oil);
-                player.RemoveResource(ResourceType.Gold, cost.gold);
+                ResourceManager.Cost cost = ResourceManager.GetCost(unitName);
+                if (ResourceManager.Affordable(cost, player.AvailableResources()))
+                {
+                    buildQueue.Enqueue(unitName);
+                    player.AddResource(ResourceType.Spacing, cost.spacing);
+                    player.RemoveResource(ResourceType.Copper, cost.copper);
+                    player.RemoveResource(ResourceType.Iron, cost.iron);
+                    player.RemoveResource(ResourceType.Oil, cost.oil);
+                    player.RemoveResource(ResourceType.Gold, cost.gold);
+                }
             }
         }
     }
@@ -224,6 +228,7 @@ public class Building : WorldObjects
         needsBuilding = true;
         hitPoints = 0;
         SetSpawnPoint();
+        player.builds++;
     }
 
     public bool UnderConstruction()
@@ -240,6 +245,7 @@ public class Building : WorldObjects
             needsBuilding = false;
             RestoreMaterials();
             SetTeamColor();
+            player.builds--;
         }
     }
 
@@ -277,4 +283,64 @@ public class Building : WorldObjects
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.transform.parent.gameObject.GetComponent<WorldObjects>() || WorkManager.ObjectIsWater(collision.collider.gameObject))
+        {
+            if (GetObjectName() == "Dock")
+            {
+                if (WorkManager.ObjectIsWater(collision.collider.gameObject) && transform.position.y > 5f)
+                {
+                    canPlace = true;
+                }
+            }
+            else
+            {
+                if (GetObjectName() == "Oil Pump")
+                {
+                    if (collision.collider.gameObject.GetComponent<OilPile>())
+                    {
+
+                        canPlace = true;
+
+                    }
+                }
+                else canPlace = false;
+            }
+        }
+        if (WorkManager.ObjectIsGround(collision.collider.gameObject))
+        {
+            canPlace = true;
+        }
+    }
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.transform.parent.gameObject.GetComponent<WorldObjects>() || WorkManager.ObjectIsWater(collision.collider.gameObject))
+        {
+            if (GetObjectName() == "Dock")
+            {
+                if (WorkManager.ObjectIsWater(collision.collider.gameObject) || transform.position.y < 5f || transform.position.y > 6.75f)
+                {
+                    canPlace = false;
+                }
+            }
+            else
+            {
+                if (GetObjectName() == "Oil Pump")
+                {
+                    if (collision.collider.gameObject.GetComponent<OilPile>())
+                    {
+                        canPlace = false;
+
+                    }
+                }
+                else canPlace = true;
+            }
+        }
+    }
+
+    public bool BuildingCanPlace()
+    {
+        return transform.position.y > 5f ? canPlace : false;
+    }
 }

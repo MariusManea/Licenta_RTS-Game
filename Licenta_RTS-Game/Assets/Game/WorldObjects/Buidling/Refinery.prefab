@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2142998638540568302}
   - component: {fileID: 5951861231976859994}
   - component: {fileID: -3810437723980770213}
+  - component: {fileID: 170676894143791539}
   m_Layer: 12
   m_Name: Refinery
   m_TagString: Building
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb947b0378859e4c8da6e81a72cf7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &170676894143791539
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049351456680491120}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &8914212767652091454
 GameObject:
   m_ObjectHideFlags: 0

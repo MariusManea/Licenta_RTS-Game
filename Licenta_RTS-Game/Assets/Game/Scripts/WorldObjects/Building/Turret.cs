@@ -56,6 +56,7 @@ public class Turret : Building
     protected override void AimAtTarget()
     {
         base.AimAtTarget();
+        Vector3 forward = target.transform.position - transform.position;
         aimRotation = Quaternion.LookRotation(target.transform.position - transform.position);
     }
 

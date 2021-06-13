@@ -146,10 +146,9 @@ public class Worker : Unit
             if (!player.isHuman)
             {
                 GetComponent<AgentRTS>().AddReward(-0.5f);
-                player.TryCancelBuilding(this);
             }
         }
-        if (!player.isHuman && player.IsFindingBuildingLocation())
+        if (player && !player.isHuman && player.IsFindingBuildingLocation() && !player.CanPlaceBuilding())
         {
             player.TryCancelBuilding(this);
         }

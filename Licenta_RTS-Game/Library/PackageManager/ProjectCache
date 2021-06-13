@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637549668977833228
-    m_Hash: 868493171
+      ticks: 637592040004661038
+    m_Hash: 2923372102
   m_LockFileStatus:
     m_FilePath: D:/Unity Projects/Licenta_RTS-Game/Licenta_RTS-Game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637549668978513217
-    m_Hash: 445717828
+      ticks: 637592040005420985
+    m_Hash: 1501548375
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -181,6 +181,7 @@ m_PackageAssets:
         - 3.6.1
         - 3.7.0
         - 3.7.1
+        - 3.7.3
         compatible:
         - 0.0.3
         - 0.0.4
@@ -221,6 +222,7 @@ m_PackageAssets:
         - 3.6.1
         - 3.7.0
         - 3.7.1
+        - 3.7.3
         verified: 3.5.2
       dependencies:
       - name: com.unity.ugui
@@ -418,6 +420,8 @@ m_PackageAssets:
         - 1.3.7
         - 1.3.8
         - 1.3.9
+        - 1.4.9
+        - 1.5.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -430,6 +434,7 @@ m_PackageAssets:
         - 2.1.0-preview.6
         compatible:
         - 1.3.9
+        - 1.4.9
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -581,6 +586,7 @@ m_PackageAssets:
         - 3.0.4
         - 3.0.5
         - 3.0.6
+        - 3.0.7
         compatible:
         - 1.0.2
         - 1.0.6
@@ -606,6 +612,7 @@ m_PackageAssets:
         - 3.0.4
         - 3.0.5
         - 3.0.6
+        - 3.0.7
         verified: 1.2.1
       dependencies:
       - name: com.unity.test-framework
@@ -674,6 +681,8 @@ m_PackageAssets:
         - 2.0.3
         - 2.0.5
         - 2.0.7
+        - 2.0.8
+        - 2.0.9
         compatible:
         - 1.0.2
         - 1.0.3
@@ -687,7 +696,9 @@ m_PackageAssets:
         - 2.0.3
         - 2.0.5
         - 2.0.7
-        verified: 2.0.7
+        - 2.0.8
+        - 2.0.9
+        verified: 2.0.9
       dependencies: []
       resolvedDependencies: []
       keywords: []
@@ -811,6 +822,7 @@ m_PackageAssets:
         - 1.0.5
         - 1.0.6
         - 1.0.7
+        - 1.0.8
         - 1.1.0-preview
         - 1.2.0-preview
         - 1.3.0-preview
@@ -823,6 +835,9 @@ m_PackageAssets:
         - 1.8.1-preview
         - 1.9.0-preview
         - 1.9.1-preview
+        - 2.0.0-exp.1
+        - 2.0.0-pre.3
+        - 2.1.0-exp.1
         compatible:
         - 0.16.0-preview
         - 1.0.0-preview
@@ -834,6 +849,7 @@ m_PackageAssets:
         - 1.0.5
         - 1.0.6
         - 1.0.7
+        - 1.0.8
         - 1.1.0-preview
         - 1.2.0-preview
         - 1.3.0-preview
@@ -846,6 +862,9 @@ m_PackageAssets:
         - 1.8.1-preview
         - 1.9.0-preview
         - 1.9.1-preview
+        - 2.0.0-exp.1
+        - 2.0.0-pre.3
+        - 2.1.0-exp.1
         verified: 
       dependencies:
       - name: com.unity.barracuda
@@ -928,9 +947,11 @@ m_PackageAssets:
         - 1.0.4
         - 1.0.6
         - 1.0.8
+        - 1.1.1
         compatible:
         - 1.0.6
         - 1.0.8
+        - 1.1.1
         verified: 
       dependencies:
       - name: nuget.mono-cecil
@@ -1047,6 +1068,8 @@ m_PackageAssets:
         - 3.0.1
         - 3.0.2
         - 3.1.0
+        - 3.2.1
+        - 3.2.2
         compatible:
         - 0.0.3
         - 0.0.4
@@ -1082,6 +1105,8 @@ m_PackageAssets:
         - 3.0.1
         - 3.0.2
         - 3.1.0
+        - 3.2.1
+        - 3.2.2
         verified: 2.1.1
       dependencies:
       - name: com.unity.ugui
@@ -1116,6 +1141,101 @@ m_PackageAssets:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.purchasing.git
         revision: ab79b0c58006f61970a2136b4cba9ca76fde0edc
+        path: 
+    - packageId: com.unity.recorder@3.0.0-pre.2
+      testable: 0
+      isDirectDependency: 1
+      version: 3.0.0-pre.2
+      source: 1
+      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.recorder@3.0.0-pre.2
+      assetPath: Packages/com.unity.recorder
+      name: com.unity.recorder
+      displayName: Recorder
+      author:
+        name: 
+        email: 
+        url: 
+      category: 
+      type: 
+      description: 'The Recorder allows you to capture and save data from the Unity
+        Editor during Play mode: animations, videos, images, audio, arbitrary output
+        variables (AOVs), and more.'
+      status: 4
+      errors: []
+      versions:
+        all:
+        - 2.0.0-preview.6
+        - 2.0.1-preview.1
+        - 2.0.2-preview.3
+        - 2.0.3-preview.1
+        - 2.1.0-preview.1
+        - 2.2.0-preview.4
+        - 2.3.0-preview.3
+        - 2.4.0-preview.1
+        - 2.5.0-pre.1
+        - 2.5.2
+        - 2.5.4
+        - 2.5.5
+        - 2.6.0-exp.3
+        - 2.6.0-exp.4
+        - 3.0.0-pre.1
+        - 3.0.0-pre.2
+        compatible:
+        - 2.0.0-preview.6
+        - 2.0.1-preview.1
+        - 2.0.2-preview.3
+        - 2.0.3-preview.1
+        - 2.1.0-preview.1
+        - 2.2.0-preview.4
+        - 2.3.0-preview.3
+        - 2.4.0-preview.1
+        - 2.5.0-pre.1
+        - 2.5.2
+        - 2.5.4
+        - 2.5.5
+        - 2.6.0-exp.3
+        - 2.6.0-exp.4
+        - 3.0.0-pre.1
+        - 3.0.0-pre.2
+        verified: 
+      dependencies:
+      - name: com.unity.timeline
+        version: 1.0.0
+      resolvedDependencies:
+      - name: com.unity.timeline
+        version: 1.2.6
+      keywords:
+      - unity
+      - recorder
+      - recording
+      - capture
+      - video
+      - animation
+      - clip
+      - images
+      - AOV
+      - render
+      - pass
+      - layer
+      registry:
+        id: main
+        name: 
+        url: https://packages.unity.com
+        scopes: []
+        isDefault: 1
+        capabilities: 7
+      hasRegistry: 1
+      hideInEditor: 1
+      entitlements:
+        isAllowed: 1
+      isAssetStorePackage: 0
+      datePublishedTicks: 637575716860000000
+      documentationUrl: 
+      hasRepository: 1
+      repository:
+        type: git
+        url: https://github.cds.internal.unity3d.com/unity/com.unity.recorder.git
+        revision: d41db05b0e6f78c5ce692fecbc0f58cb78921202
         path: 
     - packageId: com.unity.test-framework@1.1.18
       testable: 0
@@ -1165,13 +1285,15 @@ m_PackageAssets:
         - 1.1.20
         - 1.1.22
         - 1.1.24
+        - 1.1.26
         compatible:
         - 1.1.18
         - 1.1.19
         - 1.1.20
         - 1.1.22
         - 1.1.24
-        verified: 1.1.24
+        - 1.1.26
+        verified: 1.1.26
       dependencies:
       - name: com.unity.ext.nunit
         version: 1.0.0
@@ -1434,6 +1556,7 @@ m_PackageAssets:
         - 1.4.5
         - 1.4.6
         - 1.4.7
+        - 1.4.8
         - 1.5.0-pre.2
         - 1.5.0-preview.1
         - 1.5.0-preview.2
@@ -1445,8 +1568,11 @@ m_PackageAssets:
         - 1.5.1-pre.3
         - 1.5.2
         - 1.5.4
+        - 1.5.5
         - 1.6.0-pre.1
         - 1.6.0-pre.3
+        - 1.6.0-pre.4
+        - 1.6.0-pre.5
         compatible:
         - 1.2.6
         - 1.2.7
@@ -1487,6 +1613,7 @@ m_PackageAssets:
         - 1.4.5
         - 1.4.6
         - 1.4.7
+        - 1.4.8
         - 1.5.0-pre.2
         - 1.5.0-preview.1
         - 1.5.0-preview.2
@@ -1498,8 +1625,11 @@ m_PackageAssets:
         - 1.5.1-pre.3
         - 1.5.2
         - 1.5.4
+        - 1.5.5
         - 1.6.0-pre.1
         - 1.6.0-pre.3
+        - 1.6.0-pre.4
+        - 1.6.0-pre.5
         verified: 1.3.7
       dependencies: []
       resolvedDependencies: []
@@ -3513,6 +3643,11 @@ m_PackageAssets:
         - 1.3.2-preview
         - 1.3.3-preview
         - 1.4.0-preview
+        - 2.0.0-pre.2
+        - 2.0.0-pre.3
+        - 2.0.0-pre.4
+        - 2.0.0-pre.5
+        - 2.1.0-preview
         compatible:
         - 0.2.7-preview
         - 0.3.0-preview
@@ -3542,6 +3677,11 @@ m_PackageAssets:
         - 1.3.2-preview
         - 1.3.3-preview
         - 1.4.0-preview
+        - 2.0.0-pre.2
+        - 2.0.0-pre.3
+        - 2.0.0-pre.4
+        - 2.0.0-pre.5
+        - 2.1.0-preview
         verified: 
       dependencies:
       - name: com.unity.burst
@@ -3685,6 +3825,7 @@ m_PackageAssets:
         - 1.4.5
         - 1.4.6
         - 1.4.7
+        - 1.4.8
         - 1.5.0-pre.3
         - 1.5.0-pre.4
         - 1.5.0-pre.5
@@ -3692,6 +3833,7 @@ m_PackageAssets:
         - 1.5.1
         - 1.5.2
         - 1.5.3
+        - 1.5.4
         - 1.6.0-pre.2
         compatible:
         - 1.1.1
@@ -3749,6 +3891,7 @@ m_PackageAssets:
         - 1.4.5
         - 1.4.6
         - 1.4.7
+        - 1.4.8
         - 1.5.0-pre.3
         - 1.5.0-pre.4
         - 1.5.0-pre.5
@@ -3756,6 +3899,7 @@ m_PackageAssets:
         - 1.5.1
         - 1.5.2
         - 1.5.3
+        - 1.5.4
         - 1.6.0-pre.2
         verified: 1.3.9
       dependencies:

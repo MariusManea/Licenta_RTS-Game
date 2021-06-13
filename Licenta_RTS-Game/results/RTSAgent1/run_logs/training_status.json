@@ -1,0 +1,73 @@
+{
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 1500,
+                "file_path": "results\\RTSAgent1\\WorkerAgent\\WorkerAgent-1500.onnx",
+                "reward": null,
+                "creation_time": 1623526360.8081174,
+                "auxillary_file_paths": [
+                    "results\\RTSAgent1\\WorkerAgent\\WorkerAgent-1500.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1500,
+            "file_path": "results\\RTSAgent1\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1623526360.8081174,
+            "auxillary_file_paths": [
+                "results\\RTSAgent1\\WorkerAgent\\WorkerAgent-1500.pt"
+            ]
+        }
+    },
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\RTSAgent1\\HallAgent\\HallAgent-640.onnx",
+                "reward": null,
+                "creation_time": 1623526361.429107,
+                "auxillary_file_paths": [
+                    "results\\RTSAgent1\\HallAgent\\HallAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\RTSAgent1\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1623526361.429107,
+            "auxillary_file_paths": [
+                "results\\RTSAgent1\\HallAgent\\HallAgent-640.pt"
+            ]
+        }
+    },
+    "WarFactoryAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\RTSAgent1\\WarFactoryAgent\\WarFactoryAgent-640.onnx",
+                "reward": null,
+                "creation_time": 1623526361.8691082,
+                "auxillary_file_paths": [
+                    "results\\RTSAgent1\\WarFactoryAgent\\WarFactoryAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\RTSAgent1\\WarFactoryAgent.onnx",
+            "reward": null,
+            "creation_time": 1623526361.8691082,
+            "auxillary_file_paths": [
+                "results\\RTSAgent1\\WarFactoryAgent\\WarFactoryAgent-640.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -1418,6 +1418,7 @@ GameObject:
   - component: {fileID: -8393757136827532164}
   - component: {fileID: 4379475066124468167}
   - component: {fileID: 1358591026548091506}
+  - component: {fileID: 5059237959160544527}
   m_Layer: 13
   m_Name: WorkerAI
   m_TagString: Unit
@@ -1464,7 +1465,7 @@ MonoBehaviour:
   attackVolume: 1
   selectVolume: 1
   useWeaponVolume: 1
-  detectionRange: 20
+  detectionRange: 75
   moveSpeed: 6
   rotateSpeed: 6
   driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
@@ -1572,19 +1573,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 17
+    VectorObservationSize: 9
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 03000000030000000100000002000000030000000b00000005000000020000000300000003000000020000000400000010000000
-    VectorActionSize: 03000000030000000100000002000000030000000b00000005000000020000000300000003000000020000000400000010000000
+      BranchSizes: 03000000030000000b000000
+    VectorActionSize: 03000000030000000b000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: RTSAgent
+  m_BehaviorName: WorkerAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1604,12 +1605,13 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 3000
+  MaxStep: 500
   team: {r: 0, g: 0, b: 0, a: 0}
   entity: 0
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  nextProj: {fileID: 0}
   myID: 0
 --- !u!114 &1358591026548091506
 MonoBehaviour:
@@ -1623,8 +1625,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 1
+  DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!114 &5059237959160544527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530826326853}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: WorkerDemoW
+  DemonstrationDirectory: demos
 --- !u!1 &5865017604392229679
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,7 +47,8 @@ namespace RTS
 
         public static GameObject FindHitObject(Vector3 origin)
         {
-            Ray ray = Camera.main.ScreenPointToRay(origin);
+            /*Ray ray = Camera.main.ScreenPointToRay(origin);*/
+            Ray ray = new Ray(origin, Vector3.down);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) return hit.collider.gameObject;
             return null;
