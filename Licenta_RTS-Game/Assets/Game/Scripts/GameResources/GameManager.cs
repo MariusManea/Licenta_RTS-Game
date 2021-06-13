@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RTS;
+using System.IO;
+using Newtonsoft.Json;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -10,7 +12,12 @@ public class GameManager : MonoSingleton<GameManager>
     private VictoryCondition[] victoryConditions;
     private HUD hud;
     public int[] territoriesOwner;
+    public AudioClip[] soundTrack;
+    public AudioSource musicPlayer;
 
+    public static float generalVolume;
+    public static float soundsVolume;
+    public static float musicVolume;
 
     void Awake()
     {
@@ -21,6 +28,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             LoadDetails();
         }
+
     }
 
     void OnEnable()
@@ -56,6 +64,7 @@ public class GameManager : MonoSingleton<GameManager>
                 victoryCondition.SetPlayers(players);
             }
         }
+        LoadVolumes();
     }
 
     void Update()
@@ -74,6 +83,14 @@ public class GameManager : MonoSingleton<GameManager>
                     ResourceManager.MenuOpen = true;
                     hud.enabled = false;
                 }
+            }
+        }
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            if (!musicPlayer.isPlaying)
+            {
+                musicPlayer.clip = soundTrack[Random.Range(0, soundTrack.Length)];
+                musicPlayer.Play();
             }
         }
     }
@@ -105,5 +122,51 @@ public class GameManager : MonoSingleton<GameManager>
     public int GetNumberOfTerritories()
     {
         return territoriesOwner.Length;
+    }
+
+    private void LoadVolumes()
+    {
+        char separator = Path.DirectorySeparatorChar;
+        string path = "Settings" + separator + "settings.json";
+        if (!File.Exists(path))
+        {
+
+            generalVolume = 1;
+            soundsVolume = 1;
+            musicVolume = 1;
+            return;
+        }
+        string input;
+        using (StreamReader sr = new StreamReader(path))
+        {
+            input = sr.ReadToEnd();
+        }
+        if (input != null)
+        {
+            using (JsonTextReader reader = new JsonTextReader(new StringReader(input)))
+            {
+                string property = "";
+                while (reader.Read())
+                {
+                    if (reader.Value != null)
+                    {
+                        if (reader.TokenType == JsonToken.PropertyName)
+                        {
+                            property = (string)reader.Value;
+                        }
+                        else
+                        {
+                            switch (property)
+                            {
+                                case "general": generalVolume = (float)(double)reader.Value; break;
+                                case "sounds": soundsVolume = (float)(double)reader.Value; break;
+                                case "music": musicVolume = (float)(double)reader.Value; break;
+                                default: break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

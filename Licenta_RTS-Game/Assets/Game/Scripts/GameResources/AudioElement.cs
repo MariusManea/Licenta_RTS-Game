@@ -43,6 +43,7 @@ public class AudioElement
             temp.transform.parent = element.transform;
             temp.transform.localPosition = Vector3.zero;
             soundObjects.Add(sound, temp);
+            temp.AddComponent<VolumeManager>().volumeType = 0;
         }
     }
 

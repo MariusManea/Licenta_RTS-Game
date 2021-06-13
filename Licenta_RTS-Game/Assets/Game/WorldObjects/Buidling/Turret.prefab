@@ -299,15 +299,15 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 7e48700de305d784282c5ce0e2a121f6, type: 3}
   selectSound: {fileID: 8300000, guid: 8810ed3a0527f334aa206f20e7df7f88, type: 3}
   useWeaponSound: {fileID: 8300000, guid: 3f0dcb2ebe570b0419ca68a888864b28, type: 3}
-  attackVolume: 1
-  selectVolume: 1
-  useWeaponVolume: 1
+  attackVolume: 0.5
+  selectVolume: 0.5
+  useWeaponVolume: 0.5
   detectionRange: 20
   maxBuildProgress: 0
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
   finishedJobSound: {fileID: 8300000, guid: 057ec73e9b1c0164893d582b44162880, type: 3}
-  finishedJobVolume: 1
+  finishedJobVolume: 0.8
   weaponAimSpeed: 1
   projectileSpawnPoint: {fileID: 9010301820836776386}
 --- !u!54 &7946782836369720288

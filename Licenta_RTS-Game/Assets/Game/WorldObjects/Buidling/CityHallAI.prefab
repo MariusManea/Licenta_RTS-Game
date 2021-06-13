@@ -190,14 +190,14 @@ MonoBehaviour:
   selectSound: {fileID: 8300000, guid: 8810ed3a0527f334aa206f20e7df7f88, type: 3}
   useWeaponSound: {fileID: 8300000, guid: 3f0dcb2ebe570b0419ca68a888864b28, type: 3}
   attackVolume: 1
-  selectVolume: 1
+  selectVolume: 0.5
   useWeaponVolume: 1
   detectionRange: 20
   maxBuildProgress: 5
   rallyPointImage: {fileID: 2800000, guid: 08eaaf78614da2243b0c2be5e0c8e02b, type: 3}
   sellImage: {fileID: 2800000, guid: 2f308d83b92a7c249b38261183a44186, type: 3}
   finishedJobSound: {fileID: 8300000, guid: 057ec73e9b1c0164893d582b44162880, type: 3}
-  finishedJobVolume: 1
+  finishedJobVolume: 0.8
   territory: -1
   ownerID: -1
 --- !u!114 &-7021026514871760967
@@ -263,6 +263,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  nextProj: {fileID: 0}
   myID: 0
 --- !u!114 &-4833029477644191673
 MonoBehaviour:

@@ -22,7 +22,7 @@ public class PauseMenu : Menu
 
     protected override void SetButtons()
     {
-        buttons = new string[] { "Resume", "Save Game", "Load Game", "Exit Game" };
+        buttons = new string[] { "Resume", "Save Game", "Load Game", "Settings", "Exit Game" };
     }
 
     protected override void HandleButton(string text)
@@ -34,6 +34,7 @@ public class PauseMenu : Menu
             case "Exit Game": ReturnToMainMenu(); break;
             case "Load Game": LoadGame(); break;
             case "Save Game": SaveGame(); break;
+            case "Settings": Settings(); break;
             default: break;
         }
     }
@@ -65,6 +66,16 @@ public class PauseMenu : Menu
         }
     }
 
+
+    private void Settings()
+    {
+        GetComponent<PauseMenu>().enabled = false;
+        SettingsMenu settingsMenu = GetComponent<SettingsMenu>();
+        if (settingsMenu)
+        {
+            settingsMenu.enabled = true;
+        }
+    }
 
     protected override void HideCurrentMenu()
     {

@@ -1038,16 +1038,16 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 7e48700de305d784282c5ce0e2a121f6, type: 3}
   selectSound: {fileID: 8300000, guid: 8810ed3a0527f334aa206f20e7df7f88, type: 3}
   useWeaponSound: {fileID: 8300000, guid: 3f0dcb2ebe570b0419ca68a888864b28, type: 3}
-  attackVolume: 1
-  selectVolume: 1
-  useWeaponVolume: 1
+  attackVolume: 0.5
+  selectVolume: 0.5
+  useWeaponVolume: 0.5
   detectionRange: 20
   moveSpeed: 5
   rotateSpeed: 5
   driveSound: {fileID: 8300000, guid: 91660e2417c7bf1449d7650800e03d50, type: 3}
   moveSound: {fileID: 8300000, guid: eb1b5499feba8c741b1e7f383b27a53c, type: 3}
-  driveVolume: 1
-  moveVolume: 1
+  driveVolume: 0.3
+  moveVolume: 0.5
   graph: {fileID: 0}
   loadingTarget: {fileID: 0}
 --- !u!114 &-1586427765169906117
@@ -1184,6 +1184,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   unitController: {fileID: 0}
   buildingController: {fileID: 0}
+  nextProj: {fileID: 0}
   myID: 0
 --- !u!114 &5059369099166784256
 MonoBehaviour:

@@ -310,7 +310,10 @@ public class Building : WorldObjects
         }
         if (WorkManager.ObjectIsGround(collision.collider.gameObject))
         {
-            canPlace = true;
+            if (GetObjectName() != "Oil Pump" && GetObjectName() != "Dock")
+            {
+                canPlace = true;
+            }
         }
     }
     public void OnCollisionExit(Collision collision)
