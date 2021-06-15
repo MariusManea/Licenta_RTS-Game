@@ -46,6 +46,10 @@ public class GameManager : MonoSingleton<GameManager>
         if (initialised)
         {
             LoadDetails();
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                musicPlayer.Stop();
+            }
         }
     }
 
@@ -131,9 +135,9 @@ public class GameManager : MonoSingleton<GameManager>
         if (!File.Exists(path))
         {
 
-            generalVolume = 1;
-            soundsVolume = 1;
-            musicVolume = 1;
+            generalVolume = 0.5f;
+            soundsVolume = 0.5f;
+            musicVolume = 0.5f;
             return;
         }
         string input;

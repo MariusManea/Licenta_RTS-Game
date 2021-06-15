@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
 {
     public GUISkin mySkin;
     public Texture2D header;
+    public Texture2D logo;
 
     protected string[] buttons;
 
@@ -30,27 +31,34 @@ public class Menu : MonoBehaviour
 
     protected virtual void OnGUI()
     {
+        GUI.skin = mySkin;
+        float groupLeft = Screen.width / 2 - ResourceManager.LogoWidth / 2;
+        float groupTop = 2 * ResourceManager.Padding;
+        GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.LogoWidth, ResourceManager.HeaderHeight));
+        GUI.DrawTexture(new Rect(0, 0, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        GUI.EndGroup();
+
         DrawMenu();
     }
 
     protected virtual void DrawMenu()
     {
         //default implementation for a menu consisting of a vertical list of buttons
-        GUI.skin = mySkin;
         float menuHeight = GetMenuHeight();
 
         float groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
         float groupTop = Screen.height / 2 - menuHeight / 2;
         GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.MenuWidth, menuHeight));
 
+
         //background box
         GUI.Box(new Rect(0, 0, ResourceManager.MenuWidth, menuHeight), "");
         //header image
-        GUI.DrawTexture(new Rect(ResourceManager.Padding, ResourceManager.Padding, ResourceManager.HeaderWidth, ResourceManager.HeaderHeight), header);
+        GUI.DrawTexture(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.HeaderWidth / 2, ResourceManager.Padding, ResourceManager.HeaderWidth, ResourceManager.HeaderHeight), header);
 
         float leftPos = ResourceManager.Padding;
         float topPos = 2 * ResourceManager.Padding + header.height;
-        GUI.Label(new Rect(leftPos, topPos, ResourceManager.MenuWidth - 2 * ResourceManager.Padding, ResourceManager.TextHeight), "Welcome " + PlayerManager.GetPlayerName());
+        GUI.Label(new Rect(leftPos, topPos, ResourceManager.MenuWidth - 2 * ResourceManager.Padding, ResourceManager.TextHeight), "Welcome " + PlayerManager.GetPlayerName() + "!");
 
         //menu buttons
         if (buttons != null)

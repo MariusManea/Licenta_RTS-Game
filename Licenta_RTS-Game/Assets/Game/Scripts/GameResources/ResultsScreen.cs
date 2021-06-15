@@ -9,6 +9,7 @@ public class ResultsScreen : MonoBehaviour
     public GUISkin skin;
     public AudioClip clickSound;
     public float clickVolume = 1.0f;
+    public Texture2D logo;
 
     private AudioElement audioElement;
     private Player winner;
@@ -34,13 +35,15 @@ public class ResultsScreen : MonoBehaviour
         float itemHeight = ResourceManager.ButtonHeight;
         float buttonWidth = ResourceManager.ButtonWidth;
         float leftPos = padding;
-        float topPos = Screen.height / 2 - itemHeight / 2;
+        float topPos = Screen.height / 2 - 2 * itemHeight;
         GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
+        GUI.DrawTexture(new Rect(Screen.width / 2 - ResourceManager.LogoWidth / 2, topPos - 4 * itemHeight, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        topPos += itemHeight;
         string message = "Game Over";
         if (winner) message = "Congratulations " + winner.userName + "! You have won by " + metVictoryCondition.GetDescription();
-        GUI.Label(new Rect(leftPos, topPos, Screen.width - 2 * padding, itemHeight), message);
-        leftPos = Screen.width / 2 - padding / 2 - buttonWidth;
-        topPos += itemHeight + padding;
+        GUI.Label(new Rect(leftPos, topPos, Screen.width - 2 * padding, 2 * itemHeight), message);
+        leftPos = Screen.width / 2 - 4 * padding / 2 - buttonWidth;
+        topPos += 2 * itemHeight + 2 * padding;
         if (GUI.Button(new Rect(leftPos, topPos, buttonWidth, itemHeight), "New Game"))
         {
             PlayClick();
@@ -49,7 +52,7 @@ public class ResultsScreen : MonoBehaviour
             ResourceManager.MenuOpen = false;
             SceneManager.LoadScene("GameScene");
         }
-        leftPos += padding + buttonWidth;
+        leftPos += 4 * padding + buttonWidth;
         if (GUI.Button(new Rect(leftPos, topPos, buttonWidth, itemHeight), "Main Menu"))
         {
             ResourceManager.LevelName = "";

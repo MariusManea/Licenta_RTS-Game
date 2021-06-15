@@ -6,7 +6,7 @@ using RTS;
 public class SelectPlayerMenu : MonoBehaviour
 {
     public GUISkin mySkin;
-
+    public Texture2D logo;
     private string playerName = "NewPlayer";
 
     private Texture2D[] avatars;
@@ -40,6 +40,14 @@ public class SelectPlayerMenu : MonoBehaviour
     }
     void OnGUI()
     {
+        GUI.skin = mySkin;
+
+        float groupLeft = Screen.width / 2 - ResourceManager.LogoWidth / 2;
+        float groupTop = 2 * ResourceManager.Padding;
+        GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.LogoWidth, ResourceManager.HeaderHeight));
+        GUI.DrawTexture(new Rect(0, 0, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        GUI.EndGroup();
+
         if (SelectionList.MouseDoubleClick())
         {
             PlayClick();
@@ -47,11 +55,10 @@ public class SelectPlayerMenu : MonoBehaviour
             SelectPlayer();
         }
 
-        GUI.skin = mySkin;
 
         float menuHeight = GetMenuHeight();
-        float groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
-        float groupTop = Screen.height / 2 - menuHeight / 2;
+        groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
+        groupTop = Screen.height / 2 - menuHeight / 2;
         Rect groupRect = new Rect(groupLeft, groupTop, ResourceManager.MenuWidth, menuHeight);
 
         GUI.BeginGroup(groupRect);

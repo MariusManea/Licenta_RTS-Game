@@ -8,6 +8,7 @@ using System.IO;
 public class SettingsMenu : MonoBehaviour
 {
     public GUISkin mySkin;
+    public Texture2D logo;
     public AudioClip clickSound;
     public float clickVolume = 1.0f;
     public Texture2D header;
@@ -53,9 +54,16 @@ public class SettingsMenu : MonoBehaviour
 
     private void DrawMenu()
     {
+        GUI.skin = mySkin;
+        float groupLeft = Screen.width / 2 - ResourceManager.LogoWidth / 2;
+        float groupTop = 2 * ResourceManager.Padding;
+        GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.LogoWidth, ResourceManager.HeaderHeight));
+        GUI.DrawTexture(new Rect(0, 0, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        GUI.EndGroup();
+
         float menuHeight = GetMenuHeight();
-        float groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
-        float groupTop = Screen.height / 2 - menuHeight / 2;
+        groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
+        groupTop = Screen.height / 2 - menuHeight / 2;
         Rect groupRect = new Rect(groupLeft, groupTop, ResourceManager.MenuWidth, menuHeight);
 
         GUI.BeginGroup(groupRect);
@@ -73,18 +81,19 @@ public class SettingsMenu : MonoBehaviour
 
         leftPos = ResourceManager.MenuWidth / 2 - ResourceManager.SliderWidth / 2;
         topPos = ResourceManager.HeaderHeight / 5 + 2 * ResourceManager.Padding;
+        float labelPos = ResourceManager.MenuWidth / 2 - ResourceManager.LabelWidth / 2;
 
-        GUI.Label(new Rect(leftPos, topPos, ResourceManager.ButtonWidth, ResourceManager.TextHeight), "General Volume:");
+        GUI.Label(new Rect(labelPos, topPos, ResourceManager.LabelWidth, ResourceManager.TextHeight), "General Volume:");
         topPos += ResourceManager.Padding;
         general = GUI.HorizontalSlider(new Rect(leftPos, topPos, ResourceManager.SliderWidth, ResourceManager.SliderHeight), general, 0.0f, 1.0f);
 
         topPos += ResourceManager.Padding;
-        GUI.Label(new Rect(leftPos, topPos, ResourceManager.ButtonWidth, ResourceManager.TextHeight), "Sounds Volume:");
+        GUI.Label(new Rect(labelPos, topPos, ResourceManager.LabelWidth, ResourceManager.TextHeight), "Sounds Volume:");
         topPos += ResourceManager.Padding;
         sounds = GUI.HorizontalSlider(new Rect(leftPos, topPos, ResourceManager.SliderWidth, ResourceManager.SliderHeight), sounds, 0.0f, 1.0f);
 
         topPos += ResourceManager.Padding;
-        GUI.Label(new Rect(leftPos, topPos, ResourceManager.ButtonWidth, ResourceManager.TextHeight), "Music Volume:");
+        GUI.Label(new Rect(labelPos, topPos, ResourceManager.LabelWidth, ResourceManager.TextHeight), "Music Volume:");
         topPos += ResourceManager.Padding;
         music = GUI.HorizontalSlider(new Rect(leftPos, topPos, ResourceManager.SliderWidth, ResourceManager.SliderHeight), music, 0.0f, 1.0f);
 

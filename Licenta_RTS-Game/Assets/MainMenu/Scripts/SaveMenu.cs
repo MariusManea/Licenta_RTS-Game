@@ -6,7 +6,7 @@ using RTS;
 public class SaveMenu : MonoBehaviour
 {
     public GUISkin mySkin, selectionSkin;
-
+    public Texture2D logo;
     private string saveName = "NewGame";
     private ConfirmDialog confirmDialog = new ConfirmDialog();
 
@@ -44,6 +44,13 @@ public class SaveMenu : MonoBehaviour
 
     void OnGUI()
     {
+        GUI.skin = mySkin;
+        float groupLeft = Screen.width / 2 - ResourceManager.LogoWidth / 2;
+        float groupTop = 2 * ResourceManager.Padding;
+        GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.LogoWidth, ResourceManager.HeaderHeight));
+        GUI.DrawTexture(new Rect(0, 0, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        GUI.EndGroup();
+
         if (confirmDialog.IsConfirming())
         {
             string message = "\"" + saveName + "\" already exists. Do you wish to continue?";
@@ -62,7 +69,6 @@ public class SaveMenu : MonoBehaviour
                 saveName = SelectionList.GetCurrentEntry();
                 StartSave();
             }
-            GUI.skin = mySkin;
             DrawMenu();
             //handle enter being hit when typing in the text field
             if (Event.current.keyCode == KeyCode.Return) StartSave();

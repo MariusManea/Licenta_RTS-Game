@@ -123,27 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &59376818 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4741815897235660320, guid: 7c39d6ab407b197439b52bf5743ed98f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4741815896242252481}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &59376822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59376818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d45146155a0594abb4005807d1e6c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  volumeType: 1
-  volumeCap: 0
 --- !u!1 &687561277
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   header: {fileID: 2800000, guid: 87d6f50d2fc2cd6449dac483c694b6d9, type: 3}
+  logo: {fileID: 2800000, guid: 98e1dfda64f8cda4684092006df6fcd2, type: 3}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
 --- !u!114 &687561282
@@ -261,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
+  logo: {fileID: 2800000, guid: 98e1dfda64f8cda4684092006df6fcd2, type: 3}
   selectionSkin: {fileID: 11400000, guid: 8115ec67a179f2c4a86e29d18689f083, type: 2}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
@@ -278,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
   selectionSkin: {fileID: 11400000, guid: 8115ec67a179f2c4a86e29d18689f083, type: 2}
+  logo: {fileID: 2800000, guid: 98e1dfda64f8cda4684092006df6fcd2, type: 3}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
 --- !u!114 &687561284
@@ -293,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySkin: {fileID: 11400000, guid: b360da6bdc012e246b829105b88988b7, type: 2}
+  logo: {fileID: 2800000, guid: 98e1dfda64f8cda4684092006df6fcd2, type: 3}
   clickSound: {fileID: 8300000, guid: 77814215179769d47b86b89ec1c7bd3f, type: 3}
   clickVolume: 1
   seed: 
@@ -408,6 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942833845}
   - component: {fileID: 942833844}
+  - component: {fileID: 942833846}
   m_Layer: 0
   m_Name: LevelLoader
   m_TagString: Untagged
@@ -429,6 +413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BordersSourceMaterial: {fileID: 2100000, guid: 128e7e1d1168f7f4ea8761bd7310ba74,
     type: 2}
+  loadingPercent: 0
+  loadingMax: 0
   playersNumber: 6
   teamColors:
   - {r: 0, g: 0, b: 1, a: 1}
@@ -461,6 +447,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &942833846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942833843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d0a1a86ec6bfd44aae1e1adae4bfa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingSkin: {fileID: 11400000, guid: 54ad11530811a42488dfeed885b1c2dd, type: 2}
 --- !u!1 &1119010337
 GameObject:
   m_ObjectHideFlags: 0

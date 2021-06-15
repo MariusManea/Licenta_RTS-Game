@@ -7,6 +7,7 @@ using RTS;
 public class NewGameMenu : MonoBehaviour
 {
     public GUISkin mySkin;
+    public Texture2D logo;
     private GameSize[] gameTypes;
     private int typeIndex = -1;
     private int numberOfPlayers = 2;
@@ -40,15 +41,20 @@ public class NewGameMenu : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = mySkin;
-        float menuHeight = 450;
-        float groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
-        float groupTop = Screen.height / 2 - menuHeight / 2;
+        float groupLeft = Screen.width / 2 - ResourceManager.LogoWidth / 2;
+        float groupTop = 2 * ResourceManager.Padding;
+        GUI.BeginGroup(new Rect(groupLeft, groupTop, ResourceManager.LogoWidth, ResourceManager.HeaderHeight));
+        GUI.DrawTexture(new Rect(0, 0, ResourceManager.LogoWidth, ResourceManager.HeaderHeight), logo);
+        GUI.EndGroup();
+        float menuHeight = 480;
+        groupLeft = Screen.width / 2 - ResourceManager.MenuWidth / 2;
+        groupTop = Screen.height / 2 - menuHeight / 2;
         Rect groupRect = new Rect(groupLeft, groupTop, ResourceManager.MenuWidth, menuHeight);
         GUI.BeginGroup(groupRect);
         GUI.Box(new Rect(0, 0, ResourceManager.MenuWidth, menuHeight), "");
 
         float leftPos = ResourceManager.MenuWidth / 2 - ResourceManager.ButtonWidth;
-        float topPos = menuHeight - 5.25f * (ResourceManager.Padding + ResourceManager.ButtonHeight);
+        float topPos = menuHeight - 5.35f * (ResourceManager.Padding + ResourceManager.ButtonHeight);
         GUI.Label(new Rect(leftPos + ResourceManager.ButtonWidth / 2, topPos - ResourceManager.Padding, ResourceManager.ButtonWidth, ResourceManager.TextHeight), "Seed:");
         float textWidth = ResourceManager.MenuWidth - 2 * ResourceManager.Padding;
         GUI.Label(new Rect(ResourceManager.Padding, topPos + ResourceManager.Padding, textWidth, ResourceManager.TextHeight), "*leave blank for random seed");
@@ -77,7 +83,7 @@ public class NewGameMenu : MonoBehaviour
 
         float buttonTop = menuHeight - 4 * (ResourceManager.Padding + ResourceManager.ButtonHeight);
         float buttonLeft = ResourceManager.Padding;
-        GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.ButtonWidth / 2, buttonTop - ResourceManager.Padding, ResourceManager.ButtonWidth, ResourceManager.ButtonHeight), "Game Size");
+        GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.LabelWidth / 2, buttonTop - ResourceManager.Padding, ResourceManager.LabelWidth, ResourceManager.ButtonHeight), "Game Size");
         GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.ButtonWidth / 2, buttonTop, ResourceManager.ButtonWidth, ResourceManager.ButtonHeight), gameTypes[typeIndex].ToString());
         if (GUI.Button(new Rect(buttonLeft, buttonTop, ResourceManager.ButtonHeight, ResourceManager.ButtonHeight), "<"))
         {
@@ -110,7 +116,7 @@ public class NewGameMenu : MonoBehaviour
 
         buttonTop = menuHeight - 3 * (ResourceManager.Padding + ResourceManager.ButtonHeight);
         buttonLeft = ResourceManager.Padding;
-        GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.ButtonWidth / 2, buttonTop - ResourceManager.Padding, ResourceManager.ButtonWidth, ResourceManager.ButtonHeight), "Players Number");
+        GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.LabelWidth / 2, buttonTop - ResourceManager.Padding, ResourceManager.LabelWidth, ResourceManager.ButtonHeight), "Players Number");
         GUI.Label(new Rect(ResourceManager.MenuWidth / 2 - ResourceManager.ButtonWidth / 2, buttonTop, ResourceManager.ButtonWidth, ResourceManager.ButtonHeight), numberOfPlayers.ToString());
         if (GUI.Button(new Rect(buttonLeft, buttonTop, ResourceManager.ButtonHeight, ResourceManager.ButtonHeight), "<"))
         {
