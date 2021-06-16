@@ -62,7 +62,15 @@ public class OilPump : Building
 
     public void SetPile(GameObject oilPile)
     {
-        oilPileSupport = oilPile;
+        if (oilPile)
+        {
+            oilPileSupport = oilPile.transform.parent.gameObject;
+        }
+    }
+
+    public GameObject GetPile()
+    {
+        return oilPileSupport;
     }
 
     public void OnDestroy()

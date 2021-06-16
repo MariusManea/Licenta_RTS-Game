@@ -26,6 +26,8 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     public int loadingPercent;
     public int loadingMax;
+    public int loadingStep;
+    public int loadingMethod;
 
     public struct MapPoint
     {
@@ -74,10 +76,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         }
     }
 
-    private void Update()
-    {
-        //Debug.Log(loadingPercent + "/" + loadingMax);
-    }
     void OnEnable()
     {
         SceneManager.sceneLoaded += LevelLoaded;
@@ -87,15 +85,21 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     {
         SceneManager.sceneLoaded -= LevelLoaded;
     }
-
+    public int GetClumpSize()
+    {
+        return CLUMP_SIZE;
+    }
     void LevelLoaded(Scene scene, LoadSceneMode mode)
     {
         if (initialised)
         {
-            loadingPercent = 0;
+            loadingStep = 0;
             if (ResourceManager.LevelName != null && ResourceManager.LevelName != "")
             {
-                LoadManager.LoadGame(ResourceManager.LevelName);
+                LoadManager.loadingProgress = 0;
+                loadingMethod = 1;
+                GetComponent<LoadingScreen>().enabled = true;
+                StartCoroutine(LoadGame());
             }
             else
             {
@@ -108,7 +112,9 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                     }
                     loadingMax = 1 + (6 + 2 * ((int)mapSize / 50)) + (1 + 2 * CLUMP_SIZE / 500) + (1 + (int)(0.55 * CLUMP_SIZE / 400)) + (1 + 3 * ((mapSize == GameSize.Small || mapSize == GameSize.Medium) ? 10 : 20)) +
                         SMOOTH_COUNT * (1 + ((mapSize == GameSize.Small || mapSize == GameSize.Medium) ? 10 : 20)) +
-                        ResourceManager.GetGameResources.Length + 2 * ((int)(0.75 / (CLUMP_SIZE / Mathf.Pow((int)mapSize, 2))) + 1) + 3;
+                        ResourceManager.GetGameResources.Length + 2 * ((int)(0.75 / (CLUMP_SIZE / Mathf.Pow((int)mapSize, 2))) + 1) + 4;
+                    loadingPercent = 0;
+                    loadingMethod = 0;
                     GetComponent<LoadingScreen>().enabled = true;
                     StartCoroutine(InitNewWorld(false));
                 }
@@ -117,10 +123,18 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             }
             Time.timeScale = 1.0f;
             ResourceManager.MenuOpen = false;
-           
-            if (scene.name != "MainMenu")
-            {
-                NavGraph[] graphs = AstarPath.active.graphs;
+        }
+    }
+
+    private IEnumerator LoadGame()
+    {
+        yield return StartCoroutine(LoadManager.LoadGame(ResourceManager.LevelName, this));
+        ScanGraphs();
+    }
+
+    private void ScanGraphs()
+    {
+        NavGraph[] graphs = AstarPath.active.graphs;
                 foreach (NavGraph graph in graphs)
                 {
                     if (graph.GetType() == typeof(GridGraph))
@@ -134,9 +148,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
                 }
                 
                 AstarPath.active.Scan();
-            }
-
-        }
     }
 
     private void SetObjectIds()
@@ -161,11 +172,12 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         return map;
     }
 
-    public void LoadBorders(List<Vector3>[] loadedBorders)
+    public IEnumerator LoadBorders(List<Vector3>[] loadedBorders)
     {
         borders = loadedBorders;
         ((GameManager)FindObjectOfType(typeof(GameManager))).InitOwnership(borders.Length, playersNumber);
         terrain = (Terrain)GameObject.FindObjectOfType(typeof(Terrain));
+        List<Coroutine> coroutines = new List<Coroutine>();
         for (int i = 0; i < borders.Length; ++i)
         {
             Color color = new Color(0.5f, 0.5f, 0.5f);
@@ -173,7 +185,13 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             {
                 color = teamColors[i];
             }
-            StartCoroutine(DrawBorder(borders[i], terrain, color, BordersSourceMaterial, "Territory" + i));
+            coroutines.Add(StartCoroutine(DrawBorder(borders[i], terrain, color, BordersSourceMaterial, "Territory" + i)));
+        }
+        foreach(Coroutine coroutine in coroutines)
+        {
+            LoadManager.loadingProgress++;
+            yield return null;
+            yield return coroutine;
         }
     }
 
@@ -209,36 +227,35 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         // Level Generation
 
         // Step 1
-        Debug.Log("Placing players");
         yield return StartCoroutine(PlacePlayers());
+        loadingStep++;
         // Step 2
-        Debug.Log("Growing land");
         yield return StartCoroutine(GrowPlayerLand());
+        loadingStep++;
         // Step 3
-        Debug.Log("Adding Flatlands");
         yield return StartCoroutine(AddFlatLands());
+        loadingStep++;
         // Step 4
-        Debug.Log("Generating Heightmap");
         yield return StartCoroutine(GenerateHeightMap());
+        loadingStep++;
         // Step 5
-        Debug.Log("Merging Maps");
         yield return StartCoroutine(CombineMaps());
+        loadingStep++;
         // Step 6
-        Debug.Log("Fixing Anomalies");
         yield return StartCoroutine(FixAnomalies());
+        loadingStep++;
         // Step 7
-        Debug.Log("Distributing Resources");
         yield return StartCoroutine(DistributeResources());
+        loadingStep++;
         // Step 8 (Maybe?)
         // TODO: PlaceTrees();
         // Step 9
-        Debug.Log("Drawing Map");
         yield return StartCoroutine(TextureMap());
+        loadingStep++;
         // Step 10
-        Debug.Log("Drawing Borders");
         yield return StartCoroutine(DrawBorders());
+        loadingStep++;
         // Step 11
-        Debug.Log("Initializing Players");
         yield return StartCoroutine(InitialUnits(autoTest));
 
         GetComponent<LoadingScreen>().enabled = false;
@@ -247,9 +264,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     private IEnumerator PlacePlayers()
     {
-        Debug.Log("Getting players positions");
         yield return StartCoroutine(GetPlayersPositions());
-        Debug.Log("Initializing map");
         map = new MapPoint[(int)mapSize][];
         for (int i = 0; i < (int)mapSize; ++i)
         {
@@ -263,7 +278,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         }
         yield return null;
 
-        Debug.Log("Setting map");
         for (int i = 0; i < playersNumber; ++i)
         {
             map[(int)playersPositions[i].x][(int)playersPositions[i].z].owner = i;
@@ -273,7 +287,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         yield return null;
 
         territories = new List<Vector3>(playersPositions);
-        Debug.Log("Getting colonies positions");
         for (int dummyPlayer = playersNumber; dummyPlayer < 0.75 / (CLUMP_SIZE / Mathf.Pow((int)mapSize, 2)); ++dummyPlayer)
         {
             Vector3 colonizablePosition = GetColonyPosition(territories);
@@ -292,9 +305,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         float outerDiskRadius = ((float)mapSize - 16) / 2;
         float innerDiskRadius = ((float)mapSize * 0.5f + PRG.GetNextRandom() % ((float)mapSize * 0.33f)) / 2;
         List<float> angles = new List<float>();
-        Debug.Log("Getting positions angles");
         yield return StartCoroutine(GetAngles(angles));
-        Debug.Log("Generating positions");
         for (int i = 0; i < playersNumber; ++i)
         {
             float radius = innerDiskRadius + PRG.GetNextRandom() % (outerDiskRadius - innerDiskRadius);
@@ -310,7 +321,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     {
         // Generate angles around the center of the map
         float optimalDistance = 359.0f / playersNumber;
-        Debug.Log("Generating angles");
         for (int i = 0; i < playersNumber; ++i)
         {
             angles.Add(i * optimalDistance + PRG.GetNextRandom() % optimalDistance);
@@ -318,7 +328,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         loadingPercent++;  
         yield return null;
         // Optimize angles
-        Debug.Log("Optimizing angles");
         bool optimized;
         do
         {
@@ -389,7 +398,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         }
         loadingPercent++;  
         yield return null;
-        Debug.Log("Generating Players Land");
         for (int size = 0; size < CLUMP_SIZE; ++size)
         {
             for (int id = 0; id < playersNumber; ++id)
@@ -404,7 +412,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             if ((size + 1) % 500 == 0) { loadingPercent++;   yield return null; }
         }
 
-        Debug.Log("Generating Colonies Land");
         for (int size = 0; size < CLUMP_SIZE; ++size)
         {
             for (int id = playersNumber; id < clumpNumber; ++id)
@@ -474,7 +481,6 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         }
         loadingPercent++;  
         yield return null;
-        Debug.Log("Generating Flatlands");
         for (int size = 0; size < 0.55 * CLUMP_SIZE; ++size)
         {
             for (int id = 0; id < clumpNumber; ++id)
@@ -619,6 +625,9 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
         terrain.terrainData.SetHeights(0, 0, heightMap);
         terrain.terrainData.size = new Vector3((int)mapSize, 20, (int)mapSize);
+        loadingPercent++;
+        yield return null;
+        ScanGraphs();
     }
 
     private void SmoothingTerrainAt(int i, int j, int radius)

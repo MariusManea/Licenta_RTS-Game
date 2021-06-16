@@ -198,7 +198,7 @@ public class Building : WorldObjects
     {
         if (player)
         {
-            ResourceManager.Cost cost = ResourceManager.GetCost(objectName);
+            ResourceManager.Cost cost = ResourceManager.GetCost(GetObjectName());
             player.RemoveResource(ResourceType.Spacing, cost.spacing);
             player.AddResource(ResourceType.Copper, cost.copper / 2);
             player.AddResource(ResourceType.Iron, cost.iron / 2);
@@ -300,7 +300,7 @@ public class Building : WorldObjects
                 {
                     if (collision.collider.gameObject.GetComponent<OilPile>())
                     {
-
+                        ((OilPump)this).SetPile(collision.collider.gameObject);
                         canPlace = true;
 
                     }

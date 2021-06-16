@@ -49,7 +49,7 @@ public class WorldObjects : MonoBehaviour
     protected AudioElement audioElement;
 
     public int ObjectId { get; set; }
-
+    private Vector3 oldAttackPosition;
     protected virtual void Awake()
     {
         Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
@@ -321,8 +321,12 @@ public class WorldObjects : MonoBehaviour
         {
             movingIntoPosition = true;
             Vector3 attackPosition = FindNearestAttackPosition();
-            self.StartMove(attackPosition);
-            attacking = true;
+            if (attackPosition != oldAttackPosition)
+            {
+                self.StartMove(attackPosition);
+                attacking = true;
+            }
+            oldAttackPosition = attackPosition;
         }
         else attacking = false;
     }
@@ -333,7 +337,8 @@ public class WorldObjects : MonoBehaviour
         Vector3 direction = targetLocation - transform.position;
         float targetDistance = direction.magnitude;
         float distanceToTravel = targetDistance - (0.8f * weaponRange);
-        return Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
+        Vector3 attackPosition = Vector3.Lerp(transform.position, targetLocation, distanceToTravel / targetDistance);
+        return ((Unit)this).graph.GetNearest(attackPosition).position;
     }
 
     private void PerformAttack()

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townCenter: {fileID: 0}
   startSpacing: 1
-  startSpacingLimit: 10
+  startSpacingLimit: 30
   startCopper: 2000
   startCopperLimit: 20000
   startIron: 2500

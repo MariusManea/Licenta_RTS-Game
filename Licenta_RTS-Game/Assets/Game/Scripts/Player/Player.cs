@@ -524,8 +524,9 @@ public class Player : MonoBehaviour
             }
         }
         tempBuilding.StartConstruction();
-        if (oilPileHitted)
+        if (tempBuilding.GetObjectName() == "Oil Pump")
         {
+            oilPileHitted = tempBuilding.GetComponent<OilPump>().GetPile();
             foreach (Renderer renderer in oilPileHitted.GetComponentsInChildren<MeshRenderer>())
             {
                 renderer.enabled = false;
@@ -534,7 +535,6 @@ public class Player : MonoBehaviour
             {
                 collider.enabled = false;
             }
-            tempBuilding.GetComponent<OilPump>().SetPile(oilPileHitted);
             oilPileHitted = null;
         }
         ResourceManager.Cost cost = ResourceManager.GetCost(tempBuilding.GetObjectName());
@@ -588,9 +588,9 @@ public class Player : MonoBehaviour
         return null;
     }
 
-    public void LoadDetails(JsonTextReader reader)
+    public IEnumerator LoadDetails(JsonTextReader reader)
     {
-        if (reader == null) return;
+        if (reader == null) yield break;
         string currValue = "";
         while (reader.Read())
         {
@@ -604,13 +604,13 @@ public class Player : MonoBehaviour
                 {
                     switch (currValue)
                     {
-                        case "Username": userName = (string)reader.Value; gameObject.name = userName; break;
-                        case "Human": isHuman = (bool)reader.Value; break;
-                        case "PlayerID": playerID = (int)(double)reader.Value; break;
-                        case "Defeat": defeat = (bool)reader.Value; break;
-                        case "DefeatEffect": defeatEffect = (bool)reader.Value; break;
-                        case "UniversalResearchTime": universalResearchTime = (float)(double)reader.Value; break;
-                        case "UpgradedObject": upgradedObject = (string)reader.Value; break;
+                        case "Username": userName = (string)reader.Value; gameObject.name = userName; LoadManager.loadingProgress++; yield return null; break;
+                        case "Human": isHuman = (bool)reader.Value; LoadManager.loadingProgress++; yield return null; break;
+                        case "PlayerID": playerID = (int)(double)reader.Value; LoadManager.loadingProgress++; yield return null; break;
+                        case "Defeat": defeat = (bool)reader.Value; LoadManager.loadingProgress++; yield return null; break;
+                        case "DefeatEffect": defeatEffect = (bool)reader.Value; LoadManager.loadingProgress++; yield return null; break;
+                        case "UniversalResearchTime": universalResearchTime = (float)(double)reader.Value; LoadManager.loadingProgress++; yield return null; break;
+                        case "UpgradedObject": upgradedObject = (string)reader.Value; LoadManager.loadingProgress++; yield return null; break;
                         default: break;
                     }
                 }
@@ -619,15 +619,15 @@ public class Player : MonoBehaviour
             {
                 switch (currValue)
                 {
-                    case "TeamColor": teamColor = LoadManager.LoadColor(reader); break;
-                    case "Levels": LoadLevels(reader); break;
-                    case "Resources": LoadResources(reader); break;
-                    case "Buildings": LoadBuildings(reader); break;
-                    case "Units": LoadUnits(reader); break;
+                    case "TeamColor": teamColor = LoadManager.LoadColor(reader); LoadManager.loadingProgress++; yield return null; break;
+                    case "Levels": LoadLevels(reader); LoadManager.loadingProgress++; yield return null; break;
+                    case "Resources": LoadResources(reader); LoadManager.loadingProgress++; yield return null; break;
+                    case "Buildings": yield return StartCoroutine(LoadBuildings(reader)); LoadManager.loadingProgress++; yield return null; break;
+                    case "Units": yield return StartCoroutine(LoadUnits(reader)); LoadManager.loadingProgress++; yield return null; break;
                     default: break;
                 }
             }
-            else if (reader.TokenType == JsonToken.EndObject) return;
+            else if (reader.TokenType == JsonToken.EndObject) yield break;
         }
     }
 
@@ -704,9 +704,9 @@ public class Player : MonoBehaviour
             }
         }
     }
-    private void LoadBuildings(JsonTextReader reader)
+    private IEnumerator LoadBuildings(JsonTextReader reader)
     {
-        if (reader == null) return;
+        if (reader == null) yield break;
         Buildings buildings = GetComponentInChildren<Buildings>();
         string currValue = "", type = "";
         while (reader.Read())
@@ -718,6 +718,10 @@ public class Player : MonoBehaviour
                 {
                     type = (string)reader.Value;
                     GameObject newObject = (GameObject)GameObject.Instantiate(ResourceManager.GetBuilding(type));
+                    if (!isHuman)
+                    {
+                        newObject.GetComponent<BehaviorParameters>().TeamId = playerID;
+                    }
                     if (type == "TownCenter")
                     {
                         townCenter = newObject.GetComponent<TownCenter>();
@@ -731,14 +735,15 @@ public class Player : MonoBehaviour
                     {
                         building.SetTransparentMaterial(allowedMaterial, true);
                     }
+                    yield return null;
                 }
             }
-            else if (reader.TokenType == JsonToken.EndArray) return;
+            else if (reader.TokenType == JsonToken.EndArray) yield break;
         }
     }
-    private void LoadUnits(JsonTextReader reader)
+    private IEnumerator LoadUnits(JsonTextReader reader)
     {
-        if (reader == null) return;
+        if (reader == null) yield break;
         Units units = GetComponentInChildren<Units>();
         string currValue = "", type = "";
         while (reader.Read())
@@ -750,14 +755,19 @@ public class Player : MonoBehaviour
                 {
                     type = (string)reader.Value;
                     GameObject newObject = (GameObject)GameObject.Instantiate(ResourceManager.GetUnit(type));
+                    if (!isHuman)
+                    {
+                        newObject.GetComponent<BehaviorParameters>().TeamId = playerID;
+                    }
                     Unit unit = newObject.GetComponent<Unit>();
                     unit.transform.parent = units.transform;
                     unit.SetPlayer();
                     unit.SetTeamColor();
                     unit.LoadDetails(reader);
+                    yield return null;
                 }
             }
-            else if (reader.TokenType == JsonToken.EndArray) return;
+            else if (reader.TokenType == JsonToken.EndArray) yield break;
         }
     }
 

@@ -13,7 +13,6 @@ public class LoadMenu : MonoBehaviour
     public float clickVolume = 1.0f;
 
     private AudioElement audioElement;
-
     void Start()
     {
         Activate();

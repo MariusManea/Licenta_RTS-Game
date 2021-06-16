@@ -82,7 +82,7 @@ namespace RTS
 
             WriteFloat(writer, "PlayersNumber", levelLoader.playersNumber);
             WriteString(writer, "Seed", levelLoader.seed);
-
+            WriteInt(writer, "Clumps", (int)(0.75 / (levelLoader.GetClumpSize() / Mathf.Pow((int)levelLoader.mapSize, 2))) + 1);
             writer.WriteEndObject();
         }
 
@@ -116,38 +116,28 @@ namespace RTS
             TerrainData terrainData = ground.GetComponentInChildren<Terrain>().terrainData;
             WriteVector(writer, "Size", terrainData.size);
             WriteFloat(writer, "Resolution", terrainData.alphamapResolution);
-            writer.WritePropertyName("HeightMap");
-            writer.WriteStartArray();
-
             float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+            string heightMapCompressed = DataForamatter<float[,]>.GenerateAStringFromAnArray(heightMap);
+            WriteString(writer, "HeightMap", heightMapCompressed);
 
-            for(int i = 0; i < terrainData.heightmapResolution; ++i)
-            {
-                for (int j = 0; j < terrainData.heightmapResolution; ++j)
-                {
-                    writer.WriteValue(heightMap[i, j]);
-                }
-            }
-
-            writer.WriteEndArray();
-
-            writer.WritePropertyName("AlphaMap");
-            writer.WriteStartArray();
             float[,,] alphamap = terrainData.GetAlphamaps(0, 0, terrainData.alphamapResolution, terrainData.alphamapResolution);
-            for (int i = 0; i < terrainData.alphamapResolution; ++i)
-            {
-                for (int j = 0; j < terrainData.alphamapResolution; ++j)
-                {
-                    writer.WriteValue(alphamap[i, j, 0]);
-                    writer.WriteValue(alphamap[i, j, 1]);
-                    writer.WriteValue(alphamap[i, j, 2]);
-                }
-            }
-
-            writer.WriteEndArray();
+            string alphaMapCompressed = DataForamatter<float[,,]>.GenerateAStringFromAnArray(alphamap);
+            WriteString(writer, "AlphaMap", alphaMapCompressed);
 
 
             writer.WriteEndObject();
+        }
+
+        private static float[,] FromVectorListToArray(List<Vector3> fromList)
+        {
+            float[,] toArray = new float[fromList.Count, 3];
+            for (int i = 0; i < fromList.Count; i++)
+            {
+                toArray[i, 0] = fromList[i].x;
+                toArray[i, 1] = fromList[i].y;
+                toArray[i, 2] = fromList[i].z;
+            }
+            return toArray;
         }
 
         private static void SaveBorders(JsonWriter writer)
@@ -157,23 +147,12 @@ namespace RTS
             writer.WritePropertyName("Borders");
             writer.WriteStartObject();
             WriteFloat(writer, "Size", borders.Length);
-            writer.WritePropertyName("Array");
-            writer.WriteStartArray();
             for (int i = 0; i < borders.Length; ++i)
             {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Territory");
-                writer.WriteStartArray();
-                for (int j = 0; j < borders[i].Count; ++j)
-                {
-                    writer.WriteStartObject();
-                    WriteVector(writer, j.ToString(), borders[i][j]);
-                    writer.WriteEndObject();
-                }
-                writer.WriteEndArray();
-                writer.WriteEndObject();
+                string territoryCompressed = DataForamatter<float[,]>.GenerateAStringFromAnArray(FromVectorListToArray(borders[i]));
+                WriteString(writer, "Territory" + i, territoryCompressed);
             }
-            writer.WriteEndArray();
+            writer.WriteEndObject();
         }
 
         private static void SaveCamera(JsonWriter writer)
