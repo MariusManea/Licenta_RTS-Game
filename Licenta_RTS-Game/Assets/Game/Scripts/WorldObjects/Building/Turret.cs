@@ -64,4 +64,11 @@ public class Turret : Building
     {
         return "Turret";
     }
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("Turret");
+        }
+    }
 }

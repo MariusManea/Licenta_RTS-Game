@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1624108703",
+        "python_version": "3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Unity Projects\\Licenta_RTS-Game\\Licenta_RTS-Game\\venv\\Scripts\\mlagents-learn config/RTSAgent.yaml --initialize-from=RTSAgent --run-id=AgentRTS23",
+        "mlagents_version": "0.27.0",
+        "mlagents_envs_version": "0.27.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.20.3",
+        "end_time_seconds": "1624108763"
+    },
+    "total": 59.96666990000001,
+    "count": 1,
+    "self": 0.8338201000000112,
+    "children": {
+        "run_training.setup": {
+            "total": 0.8312211000000005,
+            "count": 1,
+            "self": 0.8312211000000005
+        },
+        "TrainerController.start_learning": {
+            "total": 58.301628699999995,
+            "count": 1,
+            "self": 0.00035350000000278214,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 44.170814,
+                    "count": 1,
+                    "self": 44.170814
+                },
+                "TrainerController._save_models": {
+                    "total": 14.130461199999992,
+                    "count": 1,
+                    "self": 0.2220860999999914,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 13.9083751,
+                            "count": 2,
+                            "self": 13.9083751
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

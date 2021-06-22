@@ -189,10 +189,6 @@ namespace RTS
         public static void SaveWorldObject(JsonWriter writer, WorldObjects worldObject)
         {
             if (writer == null || worldObject == null) return;
-
-            writer.WriteStartObject();
-            worldObject.SaveDetails(writer);
-            writer.WriteEndObject();
             if (worldObject.GetComponent<CargoShip>() != null)
             {
                 List<Unit> loadedUnits = worldObject.GetComponent<CargoShip>().GetLoadedUnits();
@@ -203,6 +199,11 @@ namespace RTS
                     writer.WriteEndObject();
                 }
             }
+
+            writer.WriteStartObject();
+            worldObject.SaveDetails(writer);
+            writer.WriteEndObject();
+            
         }
 
         private static void SavePlayers(JsonWriter writer)

@@ -1,0 +1,73 @@
+{
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 1820,
+                "file_path": "results\\AgentRTS15\\HallAgent\\HallAgent-1820.onnx",
+                "reward": null,
+                "creation_time": 1624047999.0433216,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS15\\HallAgent\\HallAgent-1820.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1820,
+            "file_path": "results\\AgentRTS15\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047999.0433216,
+            "auxillary_file_paths": [
+                "results\\AgentRTS15\\HallAgent\\HallAgent-1820.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 3500,
+                "file_path": "results\\AgentRTS15\\WorkerAgent\\WorkerAgent-3500.onnx",
+                "reward": null,
+                "creation_time": 1624047999.9443054,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS15\\WorkerAgent\\WorkerAgent-3500.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3500,
+            "file_path": "results\\AgentRTS15\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047999.9443054,
+            "auxillary_file_paths": [
+                "results\\AgentRTS15\\WorkerAgent\\WorkerAgent-3500.pt"
+            ]
+        }
+    },
+    "UniversityAgent": {
+        "checkpoints": [
+            {
+                "steps": 1758,
+                "file_path": "results\\AgentRTS15\\UniversityAgent\\UniversityAgent-1758.onnx",
+                "reward": null,
+                "creation_time": 1624048000.9889698,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS15\\UniversityAgent\\UniversityAgent-1758.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1758,
+            "file_path": "results\\AgentRTS15\\UniversityAgent.onnx",
+            "reward": null,
+            "creation_time": 1624048000.9889698,
+            "auxillary_file_paths": [
+                "results\\AgentRTS15\\UniversityAgent\\UniversityAgent-1758.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

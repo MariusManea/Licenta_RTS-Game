@@ -12,4 +12,11 @@ public class Wonder : Building
     {
         return false;
     }
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("Wonder");
+        }
+    }
 }

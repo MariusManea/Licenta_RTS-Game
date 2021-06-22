@@ -12,6 +12,7 @@ public class ConfirmDialog
     private Rect confirmRect;
     private float buttonWidth = 50, buttonHeight = 20, padding = 10;
     private Vector2 messageDimensions;
+    public HUD hud;
 
     public void StartConfirmation(AudioClip clickSound, AudioElement audioElement)
     {
@@ -76,7 +77,7 @@ public class ConfirmDialog
     }
 
     private void Dialog(int windowID)
-    {
+    {        
         float buttonLeft = messageDimensions.x / 2 - buttonWidth - padding / 2;
         float buttonTop = messageDimensions.y + padding;
         if (GUI.Button(new Rect(buttonLeft, buttonTop, buttonWidth, buttonHeight), "Yes"))
@@ -91,6 +92,11 @@ public class ConfirmDialog
             PlayClick();
             confirming = false;
             clickNo = true;
+        }
+        if (hud)
+        {
+            Rect cursorPosition = hud.GetCursorDrawPosition();
+            hud.DrawCursor(new Rect(cursorPosition.x - confirmRect.x, cursorPosition.y - confirmRect.y, cursorPosition.width, cursorPosition.height));
         }
     }
 

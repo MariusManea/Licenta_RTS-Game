@@ -75,6 +75,10 @@ public class CityHall : Building
         {
             // Nu le gaseste la iesire din scena
         }
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("CityHall");
+        }
     }
 
     public override void SaveDetails(JsonWriter writer)

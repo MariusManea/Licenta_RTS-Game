@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1624017427",
+        "python_version": "3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Unity Projects\\Licenta_RTS-Game\\Licenta_RTS-Game\\venv\\Scripts\\mlagents-learn config/gail_config.yaml --run-id=AgentRTS2",
+        "mlagents_version": "0.26.0",
+        "mlagents_envs_version": "0.26.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.20.3",
+        "end_time_seconds": "1624017494"
+    },
+    "total": 66.8482381,
+    "count": 1,
+    "self": 0.07995049999999537,
+    "children": {
+        "run_training.setup": {
+            "total": 3.7765751000000023,
+            "count": 1,
+            "self": 3.7765751000000023
+        },
+        "TrainerController.start_learning": {
+            "total": 62.9917125,
+            "count": 1,
+            "self": 0.0004938000000080933,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 62.99116789999999,
+                    "count": 1,
+                    "self": 62.99116789999999
+                },
+                "TrainerController._save_models": {
+                    "total": 5.079999999679785e-05,
+                    "count": 1,
+                    "self": 5.079999999679785e-05
+                }
+            }
+        }
+    }
+}

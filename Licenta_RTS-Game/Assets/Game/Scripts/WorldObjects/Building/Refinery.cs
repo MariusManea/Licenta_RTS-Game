@@ -37,4 +37,11 @@ public class Refinery : Building
     {
         return "Refinery";
     }
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("Refinery");
+        }
+    }
 }

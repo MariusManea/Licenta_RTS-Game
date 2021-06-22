@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public int universityLevel, warFactoryLevel, refineryLevel, turretLevel, oilPumpLevel, dockLevel,
         workerLevel, harvesterLevel, tankLevel, cargoShipLevel, wonderLevel, convoyTruckLevel, cityHallLevel, batteringRamLevel, battleshipLevel;
     private Dictionary<ResourceType, int> resources, resourceLimits;
+    private Dictionary<string, int> objectsOwned;
     public int builds;
     public string userName;
     public bool isHuman;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     public Material notAllowedMaterial, allowedMaterial;
 
     private Building tempBuilding;
+    public Building nextProj;
     private Unit tempCreator;
     private bool findingPlacement = false;
 
@@ -51,13 +53,32 @@ public class Player : MonoBehaviour
 
     private string upgradedObject;
     private float universalResearchTime;
-
+    private float searchTime = 0;
     void Awake()
     {
         resources = InitResourceList();
         resourceLimits = InitResourceList();
         universalResearchTime = 0.0f;
         upgradedObject = "";
+        objectsOwned = new Dictionary<string, int>
+        {
+            {"CityHall", 1 },
+            {"Refinery", 0 },
+            {"WarFactory", 0 },
+            {"Dock", 0 },
+            {"University", 0 },
+            {"Turret", 0 },
+            {"OilPump", 0 },
+            {"Wonder", 0 },
+            {"Worker", 1 },
+            {"Harvester", 0 },
+            {"Tank", 0 },
+            {"RustyHarvester", 0 },
+            {"CargoShip", 0 },
+            {"BatteringRam", 0 },
+            {"BattleShip", 0 },
+            {"ConvoyTruck", 0 }
+        };
     }
 
     // Start is called before the first frame update
@@ -70,7 +91,6 @@ public class Player : MonoBehaviour
         gameManager = (GameManager)FindObjectOfType(typeof(GameManager));
         levelLoader = (LevelLoader)FindObjectOfType(typeof(LevelLoader));
         builds = 0;
-        
     }
 
     // Update is called once per frame
@@ -82,8 +102,9 @@ public class Player : MonoBehaviour
             {
                 GameObject units = GetComponentInChildren<Units>().gameObject;
                 GameObject buildings = GetComponentInChildren<Buildings>().gameObject;
-                if (units) Destroy(units);
-                if (buildings) Destroy(buildings);
+                if (tempBuilding) { Destroy(tempBuilding.gameObject); tempBuilding = null; }
+                if (units) { Destroy(units); units = null; }
+                if (buildings) { Destroy(buildings); buildings = null; }
                 defeatEffect = true;
             }
             return;
@@ -98,6 +119,24 @@ public class Player : MonoBehaviour
             tempBuilding.CalculateBounds();
             if (CanPlaceBuilding()) tempBuilding.SetTransparentMaterial(allowedMaterial, false, true);
             else if (tempBuilding) tempBuilding.SetTransparentMaterial(notAllowedMaterial, false);
+        }
+
+        if (!isHuman)
+        {
+            searchTime += Time.deltaTime;
+            if (searchTime > 5)
+            {
+                searchTime = 0;
+                Building[] buildings = GetComponentsInChildren<Building>();
+                foreach (Building building in buildings)
+                {
+                    if (building.UnderConstruction())
+                    {
+                        nextProj = building;
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -254,6 +293,16 @@ public class Player : MonoBehaviour
         return levels;
     }
 
+    public int GetObjectCount(string objectName)
+    {
+        return objectsOwned[objectName];
+    }
+
+    public void DecreaseObjectCount(string objectName)
+    {
+        objectsOwned[objectName]--;
+    }
+
     public void AddResource(ResourceType type, int amount)
     {
         resources[type] += amount;
@@ -291,6 +340,10 @@ public class Player : MonoBehaviour
 
         }
         newUnit.GetComponent<WorldObjects>().SetPlayer();
+        if (objectsOwned != null)
+        {
+            objectsOwned[unitName]++;
+        }
         newUnit.transform.parent = units.transform;
         Unit unitObject = newUnit.GetComponent<Unit>();
         if (unitObject && spawnPoint != rallyPoint) unitObject.StartMove(rallyPoint);
@@ -323,7 +376,7 @@ public class Player : MonoBehaviour
             tempBuilding.SetTransparentMaterial(notAllowedMaterial, true);
             tempBuilding.SetPlayingArea(playingArea);
         }
-        else Destroy(newBuilding);
+        else { Destroy(newBuilding); newBuilding = null; }
     }
 
     public bool IsFindingBuildingLocation()
@@ -361,32 +414,27 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        CityHall[] halls = GetComponentsInChildren<CityHall>();
-        if (tempBuilding.gameObject.GetComponent<University>())
+        if (!WorkManager.NotToMany(this, tempBuilding.GetObjectName().Replace(" ", string.Empty))) { CancelBuildingPlacement(); return false; }
+        /*if (tempBuilding.gameObject.GetComponent<University>())
         {
-            University[] same = GetComponentsInChildren<University>();
-            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; } 
+            if (GetObjectCount("University") > GetObjectCount("CityHall")) { CancelBuildingPlacement(); return false; } 
         }
         if (tempBuilding.gameObject.GetComponent<Refinery>())
         {
-            Refinery[] same = GetComponentsInChildren<Refinery>();
-            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
+            if (GetObjectCount("Refinery") > GetObjectCount("CityHall")) { CancelBuildingPlacement(); return false; }
         }
         if (tempBuilding.gameObject.GetComponent<WarFactory>())
         {
-            WarFactory[] same = GetComponentsInChildren<WarFactory>();
-            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
+            if (GetObjectCount("WarFactory") > GetObjectCount("CityHall")) { CancelBuildingPlacement(); return false; }
         }
         if (tempBuilding.gameObject.GetComponent<Turret>())
         {
-            Turret[] same = GetComponentsInChildren<Turret>();
-            if (same.Length > 2 * (halls.Length + 1)) { CancelBuildingPlacement(); return false; }
+            if (GetObjectCount("Turret") > 2 * (GetObjectCount("CityHall") + 1)) { CancelBuildingPlacement(); return false; }
         }
         if (tempBuilding.gameObject.GetComponent<Dock>())
         {
-            Dock[] same = GetComponentsInChildren<Dock>();
-            if (same.Length > halls.Length) { CancelBuildingPlacement(); return false; }
-        }
+            if (GetObjectCount("Dock") > GetObjectCount("CityHall")) { CancelBuildingPlacement(); return false; }
+        }*/
 
         return tempBuilding.BuildingCanPlace();
         /*Terrain terrain = (Terrain)FindObjectOfType(typeof(Terrain));
@@ -513,6 +561,8 @@ public class Player : MonoBehaviour
         tempBuilding.GetComponentInChildren<DynamicGridObstacle>().DoUpdateGraphs();
         AstarPath.active.FlushGraphUpdates();
         tempCreator.SetBuilding(tempBuilding);
+        objectsOwned[tempBuilding.GetObjectName().Replace(" ", string.Empty)]++;
+
         if (isHuman)
         {
             foreach (WorldObjects selectedWorldObject in SelectedObjects)
@@ -524,6 +574,7 @@ public class Player : MonoBehaviour
             }
         }
         tempBuilding.StartConstruction();
+        nextProj = tempBuilding;
         if (tempBuilding.GetObjectName() == "Oil Pump")
         {
             oilPileHitted = tempBuilding.GetComponent<OilPump>().GetPile();
@@ -773,11 +824,7 @@ public class Player : MonoBehaviour
 
     public bool IsDead()
     {
-        Building[] buildings = GetComponentsInChildren<Building>();
-        Unit[] units = GetComponentsInChildren<Unit>();
-        if (buildings != null && buildings.Length > 0) return false;
-        if (units != null && units.Length > 0) return false;
-        return true;
+        return defeat;
     }
     public int GetResourceAmount(ResourceType type)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class VictoryCondition : MonoBehaviour
 {
 
-    protected Player[] players;
+    public Player[] players;
 
     public void SetPlayers(Player[] players)
     {
@@ -22,7 +22,7 @@ public abstract class VictoryCondition : MonoBehaviour
         if (players == null) return true;
         foreach (Player player in players)
         {
-            if (PlayerMeetsConditions(player)) return true;
+            if (player != null && PlayerMeetsConditions(player)) return true;
         }
         return false;
     }
@@ -32,7 +32,7 @@ public abstract class VictoryCondition : MonoBehaviour
         if (players == null) return null;
         foreach (Player player in players)
         {
-            if (PlayerMeetsConditions(player)) return player;
+            if (player != null && PlayerMeetsConditions(player)) return player;
         }
         return null;
     }

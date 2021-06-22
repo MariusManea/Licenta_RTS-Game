@@ -103,7 +103,7 @@ namespace RTS
 
         public static bool ObjectIsCargo(GameObject obj)
         {
-            return obj != null && ((obj.GetComponent<CargoShip>() != null) || (obj.transform.parent != null && obj.transform.parent.GetComponent<CargoShip>() != null));
+            return obj != null && ((obj.TryGetComponent(out CargoShip c) == true) || (obj.transform.parent != null && obj.transform.parent.TryGetComponent(out CargoShip cp) == true));
         }
 
         public static bool ObjectIsOil (GameObject obj)
@@ -247,6 +247,39 @@ namespace RTS
                     }
                 default: return true;
             }
+        }
+
+        public static bool NotToMany(Player player, string type)
+        {
+            switch (type)
+            {
+                case "Worker":
+                case "RustyHarvester":
+                case "Harvester":
+                    if (player.GetObjectCount(type) >= 5 * (player.GetObjectCount("CityHall"))) return false;
+                    break;
+                case "Tank":
+                case "BattleShip":
+                    if (player.GetObjectCount(type) >= 4 * (player.GetObjectCount("CityHall"))) return false;
+                    break;
+                case "BatteringRam":
+                case "CargoShip":
+                case "Turret":
+                    if (player.GetObjectCount(type) >= 2 * (player.GetObjectCount("CityHall"))) return false;
+                    break;
+                case "ConvoyTruck":
+                    if (player.GetObjectCount(type) >= 1) return false;
+                    break;
+                case "Refinery":
+                case "WarFactory":
+                case "University":
+                case "Dock":
+                case "OilPump":
+                    if (player.GetObjectCount(type) >= player.GetObjectCount("CityHall")) return false;
+                    break;
+                default: break;
+            }
+            return true;
         }
     }
 }

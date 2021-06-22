@@ -137,5 +137,11 @@ public class Dock : Building
     {
         return "Dock";
     }
-
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("Dock");
+        }
+    }
 }

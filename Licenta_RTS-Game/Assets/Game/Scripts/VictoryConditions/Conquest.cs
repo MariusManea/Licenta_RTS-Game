@@ -16,7 +16,7 @@ public class Conquest : VictoryCondition
         int playersLeft = players.Length;
         foreach (Player player in players)
         {
-            if (!PlayerMeetsConditions(player)) playersLeft--;
+            if (player == null || !PlayerMeetsConditions(player)) playersLeft--;
         }
         return playersLeft == 1;
     }

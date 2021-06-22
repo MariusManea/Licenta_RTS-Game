@@ -60,6 +60,8 @@ public class AgentRTS : Agent
 
     private AstarPath graph;
     private NavGraph waterGraph;
+    private int canPlaceCount = 0;
+    private float unableToPlaceTimer;
 
     public void Start()
     {
@@ -150,7 +152,8 @@ public class AgentRTS : Agent
 
             // Units
             sensor.AddObservation(unitController.hitPoints);
-            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
+            List<WorldObjects> nearbyObjects = unitController.GetNearbyObjects();
+            if (nearbyObjects == null) nearbyObjects = unitController.SetNearbyObjects();
             // #friends
             int nFriends = 1;
             // #enemies
@@ -165,51 +168,54 @@ public class AgentRTS : Agent
             float hallDistance = int.MaxValue;
             // distance to closest Oil Pile
             float oilDistance = int.MaxValue;
-
-            foreach (WorldObjects worldObj in nearbyObjects)
+            if (nearbyObjects != null)
             {
-                float dist = Vector3.Distance(this.transform.position, worldObj.transform.position);
-                if (worldObj.IsOwnedBy(owner))
+                foreach (WorldObjects worldObj in nearbyObjects)
                 {
-                    nFriends++;
-                    if (worldObj.GetObjectName() == entity.ToString())
+                    if (worldObj == null) continue;
+                    float dist = Vector3.Distance(this.transform.position, worldObj.transform.position);
+                    if (worldObj.IsOwnedBy(owner))
                     {
-                        if (dist < friendDistance)
+                        nFriends++;
+                        if (worldObj.GetObjectName() == entity.ToString())
                         {
-                            friendDistance = dist;
+                            if (dist < friendDistance)
+                            {
+                                friendDistance = dist;
+                            }
+                        }
+                        if (worldObj.GetObjectName() == "Town Center" || worldObj.GetObjectName() == "City Hall")
+                        {
+                            if (dist < hallDistance)
+                            {
+                                hallDistance = dist;
+                            }
                         }
                     }
-                    if (worldObj.GetObjectName() == "Town Center" || worldObj.GetObjectName() == "City Hall")
+                    else
                     {
-                        if (dist < hallDistance)
+                        if (worldObj.CanAttack())
                         {
-                            hallDistance = dist;
+                            nEnemies++;
+                            if (dist < enemyDistance)
+                            {
+                                enemyDistance = dist;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if (worldObj.CanAttack())
+                    if (WorkManager.ObjectIsOre(worldObj.gameObject))
                     {
-                        nEnemies++;
-                        if (dist < enemyDistance)
+                        if (dist < resourceDistance)
                         {
-                            enemyDistance = dist;
+                            resourceDistance = dist;
                         }
                     }
-                }
-                if (WorkManager.ObjectIsOre(worldObj.gameObject))
-                {
-                    if (dist < resourceDistance)
+                    if (WorkManager.ObjectIsOil(worldObj.gameObject))
                     {
-                        resourceDistance = dist;
-                    }
-                }
-                if (WorkManager.ObjectIsOil(worldObj.gameObject))
-                {
-                    if (dist < oilDistance)
-                    {
-                        oilDistance = dist;
+                        if (dist < oilDistance)
+                        {
+                            oilDistance = dist;
+                        }
                     }
                 }
             }
@@ -224,8 +230,8 @@ public class AgentRTS : Agent
                 sensor.AddObservation(hallDistance);
                 sensor.AddObservation(oilDistance);
                 sensor.AddObservation(owner.builds);
-                sensor.AddObservation(nextProj != null ? nextProj.UnderConstruction() : false);
-                sensor.AddObservation(nextProj != null ? (nextProj.UnderConstruction() ? Vector3.Distance(transform.position, nextProj.transform.position) : 99999) : 99999);
+                sensor.AddObservation(owner.nextProj != null ? owner.nextProj.UnderConstruction() : false);
+                sensor.AddObservation(owner.nextProj != null ? (owner.nextProj.UnderConstruction() ? Vector3.Distance(transform.position, owner.nextProj.transform.position) : 99999) : 99999);
             } 
             if (entity == Entity.Harvester || entity == Entity.RustyHarvester)
             {
@@ -330,8 +336,10 @@ public class AgentRTS : Agent
                 if (tempBuilding.GetObjectName() == "Oil Pump")
                 {
                     List<WorldObjects> nearbyObjects = unitController.GetNearbyObjects();
+                    if (nearbyObjects == null) nearbyObjects = unitController.SetNearbyObjects();
                     foreach (WorldObjects nearby in nearbyObjects)
                     {
+                        if (nearby == null) continue;
                         if (WorkManager.ObjectIsOil(nearby.gameObject)) {
                             owner.SetTempBuildingLocation(nearby.transform.position);
                             break;
@@ -357,31 +365,58 @@ public class AgentRTS : Agent
             {
                 if (owner.CanPlaceBuilding())
                 {
-                    nextProj = owner.StartConstruction();
-                    AddReward(1f);
+                    canPlaceCount++;
+                    if (canPlaceCount > 5)
+                    {
+                        nextProj = owner.StartConstruction();
+                        AddReward(1f);
+                        canPlaceCount = 0;
+                    }
+                }
+                else
+                {
+                    unableToPlaceTimer += Time.deltaTime;
+                    if (unableToPlaceTimer > 5.0f)
+                    {
+                        owner.TryCancelBuilding(GetComponent<Worker>());
+                        unableToPlaceTimer = 0;
+                    }
                 }
             }
     }
 
     private void MoveUnit(Unit controller, int forwardMove, int sideMove)
     {
+        if (entity == Entity.Harvester) return;
+        if (entity == Entity.Tank)
+        {
+            if (controller.enemyObjects != null && controller.enemyObjects.Count > 0)
+            {
+                WorldObjects closestObject = WorkManager.FindNearestWorldObjectInListToPosition(controller.enemyObjects, transform.position);
+                if (closestObject)
+                {
+                    controller.BeginAttack(closestObject);
+                    return;
+                }
+            }
+        }
         if (forwardMove != 0 || sideMove != 0)
         {
             AddReward(-0.005f);
             if (entity == Entity.Worker && owner.IsBuilding())
             {
-                AddReward(-2f);
-                if (nextProj != null && nextProj.UnderConstruction())
+                AddReward(-10f);
+                if (owner.nextProj != null && owner.nextProj.UnderConstruction())
                 {
-                    (controller as Worker).SetBuilding(nextProj);
+                    (controller as Worker).SetBuilding(owner.nextProj);
                     return;
                 }
             }
+            Vector3 target = controller.transform.position;
+            target += Vector3.forward * (forwardMove == 1 ? 5f : (forwardMove == 2 ? -5f : 0f));
+            target += Vector3.right * (sideMove == 1 ? -5f : (sideMove == 2 ? 5f : 0f));
+            controller.StartMove(target);
         }
-        Vector3 target = controller.transform.position;
-        target += Vector3.forward * (forwardMove == 1 ? 5f : (forwardMove == 2 ? -5f : 0f));
-        target += Vector3.right * (sideMove == 1 ? -5f : (sideMove == 2 ? 5f : 0f));
-        controller.StartMove(target);
         if (entity == Entity.RustyHarvester || entity == Entity.Harvester)
         {
             if ((controller as Harvester).harvesting || (controller as Harvester).emptying)
@@ -428,6 +463,7 @@ public class AgentRTS : Agent
         string buildName = controller.GetPotentialActions()[buildType - 3];
         controller.PerformAction(buildName);
         AddReward(2f);
+        if (buildName == "CityHall") AddReward(2f);
     }
 
     private void HarvestResources(Harvester controller, int resourceType)
@@ -446,11 +482,13 @@ public class AgentRTS : Agent
             default: break;
         }
         if (resourceToHarvest == ResourceType.Unknown) return;
-        List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
+        if (controller.harvesting || controller.emptying) return;
+        List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 125);
         float closestDistance = int.MaxValue;
         Resource closestResource = null;
         foreach (WorldObjects obj in nearbyObjects)
         {
+            if (obj == null) continue;
             if (WorkManager.ObjectIsOre(obj.gameObject))
             {
                 if ((obj as Resource).GetResourceType() == resourceToHarvest)
@@ -502,7 +540,8 @@ public class AgentRTS : Agent
             if (entity != Entity.CargoShip && entity != Entity.BattleShip)
             {
 
-                List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
+                List<WorldObjects> nearbyObjects = controller.GetNearbyObjects();
+                if (nearbyObjects == null) nearbyObjects = controller.SetNearbyObjects();
                 float closestDistance = int.MaxValue;
                 WorldObjects closestCargo = null;
                 foreach (WorldObjects obj in nearbyObjects)
@@ -563,7 +602,7 @@ public class AgentRTS : Agent
         }
     }
 
-    private void AttackEnemy(object controller, int ownAction)
+    private void AttackEnemy(Unit controller, int ownAction)
     {
         if (ownAction <= 1)
         {
@@ -572,13 +611,15 @@ public class AgentRTS : Agent
         }
         if (ownAction == 2)
         {
-            List<WorldObjects> nearbyObjects = WorkManager.FindNearbyObjects(this.transform.position, 75);
+            List<WorldObjects> nearbyObjects = controller.GetNearbyObjects();
+            if (nearbyObjects == null) controller.SetNearbyObjects();
             float closestDistance = int.MaxValue;
             float closestUnitDistance = int.MaxValue;
             WorldObjects closestObject = null;
             Unit closestUnit = null;
             foreach (WorldObjects obj in nearbyObjects)
             {
+                if (obj == null) continue;
                 if (WorkManager.ObjectIsOre(obj.gameObject))
                 {
                     if (!obj.IsOwnedBy(owner))
@@ -600,12 +641,12 @@ public class AgentRTS : Agent
             if (closestUnit != null)
             {
                 AddReward(1f);
-                (controller as WorldObjects).BeginAttack(closestUnit);
+                controller.BeginAttack(closestUnit);
             } else
             {
                 if (closestObject != null)
                 {
-                    (controller as WorldObjects).BeginAttack(closestObject);
+                    controller.BeginAttack(closestObject);
                 }
             }
         }
@@ -618,7 +659,7 @@ public class AgentRTS : Agent
          * Buildings
          * 1,2,3... = Execute its actions
          */
-        if (ownAction != 0)
+        if (ownAction != 0 && !controller.UnderConstruction())
         {
             string unitName = controller.GetPotentialActions()[ownAction - 1];
             controller.PerformAction(unitName);
@@ -636,18 +677,20 @@ public class AgentRTS : Agent
     public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
     {
         WorldObjects obj = (unitController != null) ? unitController as WorldObjects : buildingController;
-        List<int> mask = new List<int>();
         List<string> allowed = new List<string>(obj.GetActions());
         int idx = (entity == Entity.Worker) ? 3 : ((moveable ? 2 : 1));
         foreach (string act in obj.GetPotentialActions())
         {
-            if (!allowed.Contains(act) || (owner.IsFindingBuildingLocation() && entity == Entity.Worker))
+            if (!allowed.Contains(act) || (owner.IsFindingBuildingLocation() && entity == Entity.Worker) || !WorkManager.NotToMany(owner, act))
             {
-                mask.Add(idx);
+                actionMask.SetActionEnabled(2, idx, false);
+            } 
+            else
+            {
+                actionMask.SetActionEnabled(2, idx, true);
             }
             idx++;
-        }
-        actionMask.WriteMask(2, mask);
+        }        
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)

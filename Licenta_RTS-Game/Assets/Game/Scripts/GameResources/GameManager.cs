@@ -9,11 +9,12 @@ using Newtonsoft.Json;
 public class GameManager : MonoSingleton<GameManager>
 {
     private bool initialised = false;
-    private VictoryCondition[] victoryConditions;
+    public VictoryCondition[] victoryConditions;
     private HUD hud;
     public int[] territoriesOwner;
     public AudioClip[] soundTrack;
     public AudioSource musicPlayer;
+    public LevelLoader loader;
 
     public static float generalVolume;
     public static float soundsVolume;
@@ -26,9 +27,9 @@ public class GameManager : MonoSingleton<GameManager>
 
         if (initialised)
         {
-            LoadDetails();
+            StartCoroutine(LoadDetails());
         }
-
+        loader = GameObject.FindObjectOfType<LevelLoader>();
     }
 
     void OnEnable()
@@ -45,7 +46,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (initialised)
         {
-            LoadDetails();
+            StartCoroutine(LoadDetails());
             if (SceneManager.GetActiveScene().name == "MainMenu")
             {
                 musicPlayer.Stop();
@@ -53,19 +54,27 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    private void LoadDetails()
+    private IEnumerator LoadDetails()
     {
-        Player[] players = GameObject.FindObjectsOfType(typeof(Player)) as Player[];
-        foreach (Player player in players)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            if (player.isHuman) hud = player.GetComponentInChildren<HUD>();
-        }
-        victoryConditions = GameObject.FindObjectsOfType(typeof(VictoryCondition)) as VictoryCondition[];
-        if (victoryConditions != null)
-        {
-            foreach (VictoryCondition victoryCondition in victoryConditions)
+            Player[] players = null;
+            while (players == null || players.Length < loader.playersNumber)
             {
-                victoryCondition.SetPlayers(players);
+                players = GameObject.FindObjectsOfType(typeof(Player)) as Player[];
+                yield return null;
+            }
+            foreach (Player player in players)
+            {
+                if (player.isHuman) hud = player.GetComponentInChildren<HUD>();
+            }
+            victoryConditions = GameObject.FindObjectsOfType(typeof(VictoryCondition)) as VictoryCondition[];
+            if (victoryConditions != null)
+            {
+                foreach (VictoryCondition victoryCondition in victoryConditions)
+                {
+                    victoryCondition.SetPlayers(players);
+                }
             }
         }
         LoadVolumes();
@@ -77,7 +86,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             foreach (VictoryCondition victoryCondition in victoryConditions)
             {
-                if (victoryCondition.GameFinished())
+                if (victoryCondition != null && victoryCondition.GameFinished())
                 {
                     ResultsScreen resultsScreen = hud.GetComponent<ResultsScreen>();
                     resultsScreen.SetMetVictoryCondition(victoryCondition);
@@ -120,7 +129,14 @@ public class GameManager : MonoSingleton<GameManager>
 
     public int GetOwner(int id)
     {
-        return territoriesOwner[id];
+        try
+        {
+            return territoriesOwner[id];
+        } 
+        catch
+        {
+            return -2;
+        }
     }
 
     public int GetNumberOfTerritories()

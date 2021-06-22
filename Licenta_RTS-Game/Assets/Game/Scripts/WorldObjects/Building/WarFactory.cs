@@ -39,4 +39,11 @@ public class WarFactory : Building
     {
         return "War Factory";
     }
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("WarFactory");
+        }
+    }
 }

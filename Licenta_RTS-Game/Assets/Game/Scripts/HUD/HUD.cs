@@ -712,13 +712,16 @@ public class HUD : MonoBehaviour
         if (GUI.Button(menuButtonPosition, "Menu"))
         {
             PlayClick();
-            Time.timeScale = 0.0f;
-            PauseMenu pauseMenu = GetComponent<PauseMenu>();
-            if (pauseMenu) pauseMenu.enabled = true;
-            UserInput userInput = player.GetComponent<UserInput>();
-            if (userInput) userInput.enabled = false;
-            Cursor.visible = true;
-            ResourceManager.MenuOpen = true;
+            if (Time.timeScale != 0)
+            {
+                Time.timeScale = 0.0f;
+                PauseMenu pauseMenu = GetComponent<PauseMenu>();
+                if (pauseMenu) pauseMenu.enabled = true;
+                UserInput userInput = player.GetComponent<UserInput>();
+                if (userInput) userInput.enabled = false;
+                Cursor.visible = true;
+                ResourceManager.MenuOpen = true;
+            }
         }
         GUI.EndGroup();
     }
@@ -761,11 +764,15 @@ public class HUD : MonoBehaviour
                 GUI.skin = mouseCursorSkin;
                 GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
                 UpdateCursorAnimation();
-                Rect cursorPosition = GetCursorDrawPosition();
-                GUI.Label(cursorPosition, activeCursor);
+                DrawCursor(GetCursorDrawPosition());
                 GUI.EndGroup();
             }
         }
+    }
+
+    public void DrawCursor(Rect cursorPosition)
+    {
+        GUI.Label(cursorPosition, activeCursor);
     }
 
     private void UpdateCursorAnimation()
@@ -789,7 +796,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    private Rect GetCursorDrawPosition()
+    public Rect GetCursorDrawPosition()
     {
         //set base position for custom cursor image
         float leftPos = Input.mousePosition.x;

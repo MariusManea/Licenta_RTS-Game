@@ -86,6 +86,10 @@ public class OilPump : Building
                 collider.enabled = true;
             }
         }
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("OilPump");
+        }
     }
 
     public override void SaveDetails(JsonWriter writer)

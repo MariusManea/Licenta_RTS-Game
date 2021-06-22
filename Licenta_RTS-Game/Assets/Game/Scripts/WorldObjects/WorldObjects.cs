@@ -50,6 +50,8 @@ public class WorldObjects : MonoBehaviour
 
     public int ObjectId { get; set; }
     private Vector3 oldAttackPosition;
+
+    public List<WorldObjects> enemyObjects;
     protected virtual void Awake()
     {
         Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
@@ -124,7 +126,7 @@ public class WorldObjects : MonoBehaviour
 
         if (CanAttack())
         {
-            List<WorldObjects> enemyObjects = new List<WorldObjects>();
+            enemyObjects = new List<WorldObjects>();
             foreach (WorldObjects nearbyObject in nearbyObjects)
             {
                 Resource resource = nearbyObject.GetComponent<Resource>();
@@ -375,7 +377,7 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void UseWeapon()
     {
-        if (audioElement != null && Time.timeScale > 0) audioElement.Play(useWeaponSound);
+        if (audioElement != null && Time.timeScale > 0) { audioElement.Stop(useWeaponSound); audioElement.Play(useWeaponSound); }
         currentWeaponChargeTime = 0.0f;
         if (!player.isHuman)
         {
@@ -586,6 +588,11 @@ public class WorldObjects : MonoBehaviour
 
     public List<WorldObjects> GetNearbyObjects()
     {
+        return nearbyObjects;
+    }
+
+    public List<WorldObjects> SetNearbyObjects() {
+        nearbyObjects = WorkManager.FindNearbyObjects(transform.position, detectionRange);
         return nearbyObjects;
     }
 }

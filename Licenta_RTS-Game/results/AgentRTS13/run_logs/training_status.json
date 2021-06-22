@@ -1,0 +1,95 @@
+{
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 6948,
+                "file_path": "results\\AgentRTS13\\WorkerAgent\\WorkerAgent-6948.onnx",
+                "reward": null,
+                "creation_time": 1624043305.7129183,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS13\\WorkerAgent\\WorkerAgent-6948.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 6948,
+            "file_path": "results\\AgentRTS13\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624043305.7129183,
+            "auxillary_file_paths": [
+                "results\\AgentRTS13\\WorkerAgent\\WorkerAgent-6948.pt"
+            ]
+        }
+    },
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\AgentRTS13\\HallAgent\\HallAgent-640.onnx",
+                "reward": null,
+                "creation_time": 1624043306.1965837,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS13\\HallAgent\\HallAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\AgentRTS13\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624043306.1965837,
+            "auxillary_file_paths": [
+                "results\\AgentRTS13\\HallAgent\\HallAgent-640.pt"
+            ]
+        }
+    },
+    "RefineryAgent": {
+        "checkpoints": [
+            {
+                "steps": 641,
+                "file_path": "results\\AgentRTS13\\RefineryAgent\\RefineryAgent-641.onnx",
+                "reward": null,
+                "creation_time": 1624043307.0330138,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS13\\RefineryAgent\\RefineryAgent-641.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 641,
+            "file_path": "results\\AgentRTS13\\RefineryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624043307.0330138,
+            "auxillary_file_paths": [
+                "results\\AgentRTS13\\RefineryAgent\\RefineryAgent-641.pt"
+            ]
+        }
+    },
+    "HarvesterAgent": {
+        "checkpoints": [
+            {
+                "steps": 2624,
+                "file_path": "results\\AgentRTS13\\HarvesterAgent\\HarvesterAgent-2624.onnx",
+                "reward": null,
+                "creation_time": 1624043307.4497159,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS13\\HarvesterAgent\\HarvesterAgent-2624.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2624,
+            "file_path": "results\\AgentRTS13\\HarvesterAgent.onnx",
+            "reward": null,
+            "creation_time": 1624043307.4497159,
+            "auxillary_file_paths": [
+                "results\\AgentRTS13\\HarvesterAgent\\HarvesterAgent-2624.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

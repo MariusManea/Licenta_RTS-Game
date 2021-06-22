@@ -1,0 +1,139 @@
+{
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\AgentRTS16\\HallAgent\\HallAgent-640.onnx",
+                "reward": 0.0,
+                "creation_time": 1624048326.2724867,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\HallAgent\\HallAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\AgentRTS16\\HallAgent.onnx",
+            "reward": 0.0,
+            "creation_time": 1624048326.2724867,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\HallAgent\\HallAgent-640.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 3212,
+                "file_path": "results\\AgentRTS16\\WorkerAgent\\WorkerAgent-3212.onnx",
+                "reward": -3313.499755859375,
+                "creation_time": 1624048326.8807411,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\WorkerAgent\\WorkerAgent-3212.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3212,
+            "file_path": "results\\AgentRTS16\\WorkerAgent.onnx",
+            "reward": -3313.499755859375,
+            "creation_time": 1624048326.8807411,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\WorkerAgent\\WorkerAgent-3212.pt"
+            ]
+        }
+    },
+    "RefineryAgent": {
+        "checkpoints": [
+            {
+                "steps": 321,
+                "file_path": "results\\AgentRTS16\\RefineryAgent\\RefineryAgent-321.onnx",
+                "reward": null,
+                "creation_time": 1624048327.0917118,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\RefineryAgent\\RefineryAgent-321.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 321,
+            "file_path": "results\\AgentRTS16\\RefineryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624048327.0917118,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\RefineryAgent\\RefineryAgent-321.pt"
+            ]
+        }
+    },
+    "WarFactoryAgent": {
+        "checkpoints": [
+            {
+                "steps": 470,
+                "file_path": "results\\AgentRTS16\\WarFactoryAgent\\WarFactoryAgent-470.onnx",
+                "reward": null,
+                "creation_time": 1624048327.4460256,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\WarFactoryAgent\\WarFactoryAgent-470.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 470,
+            "file_path": "results\\AgentRTS16\\WarFactoryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624048327.4460256,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\WarFactoryAgent\\WarFactoryAgent-470.pt"
+            ]
+        }
+    },
+    "HarvesterAgent": {
+        "checkpoints": [
+            {
+                "steps": 1088,
+                "file_path": "results\\AgentRTS16\\HarvesterAgent\\HarvesterAgent-1088.onnx",
+                "reward": null,
+                "creation_time": 1624048327.6450343,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\HarvesterAgent\\HarvesterAgent-1088.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1088,
+            "file_path": "results\\AgentRTS16\\HarvesterAgent.onnx",
+            "reward": null,
+            "creation_time": 1624048327.6450343,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\HarvesterAgent\\HarvesterAgent-1088.pt"
+            ]
+        }
+    },
+    "AttackingAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS16\\AttackingAgent\\AttackingAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624048327.839605,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS16\\AttackingAgent\\AttackingAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS16\\AttackingAgent.onnx",
+            "reward": null,
+            "creation_time": 1624048327.839605,
+            "auxillary_file_paths": [
+                "results\\AgentRTS16\\AttackingAgent\\AttackingAgent-0.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

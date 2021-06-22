@@ -1,0 +1,95 @@
+{
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS14\\WorkerAgent\\WorkerAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624047674.399081,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS14\\WorkerAgent\\WorkerAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS14\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047674.399081,
+            "auxillary_file_paths": [
+                "results\\AgentRTS14\\WorkerAgent\\WorkerAgent-0.pt"
+            ]
+        }
+    },
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS14\\HallAgent\\HallAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624047675.3798845,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS14\\HallAgent\\HallAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS14\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047675.3798845,
+            "auxillary_file_paths": [
+                "results\\AgentRTS14\\HallAgent\\HallAgent-0.pt"
+            ]
+        }
+    },
+    "RefineryAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS14\\RefineryAgent\\RefineryAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624047676.045871,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS14\\RefineryAgent\\RefineryAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS14\\RefineryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047676.045871,
+            "auxillary_file_paths": [
+                "results\\AgentRTS14\\RefineryAgent\\RefineryAgent-0.pt"
+            ]
+        }
+    },
+    "WarFactoryAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS14\\WarFactoryAgent\\WarFactoryAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624047676.2935395,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS14\\WarFactoryAgent\\WarFactoryAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS14\\WarFactoryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624047676.2935395,
+            "auxillary_file_paths": [
+                "results\\AgentRTS14\\WarFactoryAgent\\WarFactoryAgent-0.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

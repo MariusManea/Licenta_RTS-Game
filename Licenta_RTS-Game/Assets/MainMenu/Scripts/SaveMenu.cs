@@ -24,6 +24,7 @@ public class SaveMenu : MonoBehaviour
         sounds.Add(clickSound);
         volumes.Add(clickVolume);
         audioElement = new AudioElement(sounds, volumes, "SaveMenu", null);
+        confirmDialog.hud = gameObject.GetComponent<HUD>();
     }
 
     void Update()

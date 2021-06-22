@@ -51,15 +51,15 @@ MonoBehaviour:
   townCenter: {fileID: 0}
   startSpacing: 1
   startSpacingLimit: 30
-  startCopper: 2000
+  startCopper: 20000
   startCopperLimit: 20000
-  startIron: 2500
+  startIron: 25000
   startIronLimit: 50000
-  startOil: 2000
+  startOil: 20000
   startOilLimit: 20000
-  startGold: 2000
+  startGold: 20000
   startGoldLimit: 20000
-  startResearchPoint: 1000
+  startResearchPoint: 0
   startResearchPointLimit: 10000
   universityLevel: 1
   warFactoryLevel: 1
@@ -83,6 +83,7 @@ MonoBehaviour:
   hud: {fileID: 0}
   notAllowedMaterial: {fileID: 2100000, guid: 096ea4ec92cf0cf499131852aa29d136, type: 2}
   allowedMaterial: {fileID: 2100000, guid: 5086c3bc679c3374d9971b8576ddae04, type: 2}
+  nextProj: {fileID: 0}
   teamColor: {r: 0, g: 0, b: 0, a: 0}
   centerToBase: 0
 --- !u!114 &8297730302071679183

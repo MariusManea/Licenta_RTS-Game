@@ -46,6 +46,23 @@ public class TownCenter : Building
     private void OnDestroy()
     {
         if (player) player.GameLost();
+        try
+        {
+            if (!UnderConstruction() && !Ghost)
+            {
+                player.IncrementResourceLimit(ResourceType.Spacing, -25);
+                ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(player.playerID, -1);
+                ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(player.playerID, -1);
+            }
+        }
+        catch
+        {
+            // Nu le gaseste la iesire din scena
+        }
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("CityHall");
+        }
     }
 
     public override string GetObjectName()

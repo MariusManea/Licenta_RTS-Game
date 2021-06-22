@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637593600801859494
-    m_Hash: 2768626749
+      ticks: 637598787830782291
+    m_Hash: 1323442102
   m_LockFileStatus:
     m_FilePath: D:/Unity Projects/Licenta_RTS-Game/Licenta_RTS-Game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637593601050200434
-    m_Hash: 2770902010
+      ticks: 637598788134955270
+    m_Hash: 3247495313
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -805,12 +805,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.vscode.git
         revision: b5ec9b38109e52b1b26597d521e4df75e042ebb9
         path: 
-    - packageId: com.unity.ml-agents@1.9.1-preview
+    - packageId: com.unity.ml-agents@2.1.0-exp.1
       testable: 0
       isDirectDependency: 1
-      version: 1.9.1-preview
+      version: 2.1.0-exp.1
       source: 1
-      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.ml-agents@1.9.1-preview
+      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.ml-agents@2.1.0-exp.1
       assetPath: Packages/com.unity.ml-agents
       name: com.unity.ml-agents
       displayName: ML Agents
@@ -882,20 +882,14 @@ m_PackageAssets:
         verified: 1.0.8
       dependencies:
       - name: com.unity.barracuda
-        version: 1.3.2-preview
+        version: 2.0.0-pre.3
       - name: com.unity.modules.imageconversion
         version: 1.0.0
       - name: com.unity.modules.jsonserialize
         version: 1.0.0
-      - name: com.unity.modules.physics
-        version: 1.0.0
-      - name: com.unity.modules.physics2d
-        version: 1.0.0
-      - name: com.unity.modules.unityanalytics
-        version: 1.0.0
       resolvedDependencies:
       - name: com.unity.barracuda
-        version: 1.3.2-preview
+        version: 2.0.0-pre.3
       - name: com.unity.burst
         version: 1.3.4
       - name: com.unity.mathematics
@@ -903,14 +897,6 @@ m_PackageAssets:
       - name: com.unity.modules.jsonserialize
         version: 1.0.0
       - name: com.unity.modules.imageconversion
-        version: 1.0.0
-      - name: com.unity.modules.physics
-        version: 1.0.0
-      - name: com.unity.modules.physics2d
-        version: 1.0.0
-      - name: com.unity.modules.unityanalytics
-        version: 1.0.0
-      - name: com.unity.modules.unitywebrequest
         version: 1.0.0
       keywords: []
       registry:
@@ -925,13 +911,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637539563530000000
+      datePublishedTicks: 637588727510000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: git+https://github.com/Unity-Technologies/ml-agents.git
-        revision: e3b7fe3cf211c49241c319c6188d6f7436912e56
+        revision: c1b26d49e4f4fc692c2688531f9e7c69dba12682
         path: 
     - packageId: com.unity.multiplayer-hlapi@1.0.6
       testable: 0
@@ -1319,10 +1305,12 @@ m_PackageAssets:
         - 1.1.22
         - 1.1.24
         - 1.1.26
+        - 1.1.27
         compatible:
         - 1.1.24
         - 1.1.26
-        verified: 1.1.26
+        - 1.1.27
+        verified: 1.1.27
       dependencies:
       - name: com.unity.ext.nunit
         version: 1.0.6
@@ -3608,12 +3596,12 @@ m_PackageAssets:
         url: git@gitlab.cds.internal.unity3d.com/upm-packages/core/nuget.mono-cecil.git
         revision: d9e57e10c26ba36a62a828729ad08eb73d0386b6
         path: 
-    - packageId: com.unity.barracuda@1.3.2-preview
+    - packageId: com.unity.barracuda@2.0.0-pre.3
       testable: 0
       isDirectDependency: 0
-      version: 1.3.2-preview
+      version: 2.0.0-pre.3
       source: 1
-      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.barracuda@1.3.2-preview
+      resolvedPath: D:\Unity Projects\Licenta_RTS-Game\Licenta_RTS-Game\Library\PackageCache\com.unity.barracuda@2.0.0-pre.3
       assetPath: Packages/com.unity.barracuda
       name: com.unity.barracuda
       displayName: Barracuda
@@ -3726,13 +3714,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637503725850000000
+      datePublishedTicks: 637556478870000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/UnityInferenceEngine.git
-        revision: 817fc3dac06ae34f986b4497d8952141cfe8b06a
+        revision: a736a888543dc62d81960b3e8405c1ff35d375b3
         path: 
     - packageId: com.unity.nuget.newtonsoft-json@2.0.0
       testable: 0

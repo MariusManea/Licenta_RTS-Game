@@ -1,0 +1,51 @@
+{
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS23\\WorkerAgent\\WorkerAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624108762.154687,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS23\\WorkerAgent\\WorkerAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS23\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108762.154687,
+            "auxillary_file_paths": [
+                "results\\AgentRTS23\\WorkerAgent\\WorkerAgent-0.pt"
+            ]
+        }
+    },
+    "CargoAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS23\\CargoAgent\\CargoAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624108762.6577945,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS23\\CargoAgent\\CargoAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS23\\CargoAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108762.6577945,
+            "auxillary_file_paths": [
+                "results\\AgentRTS23\\CargoAgent\\CargoAgent-0.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

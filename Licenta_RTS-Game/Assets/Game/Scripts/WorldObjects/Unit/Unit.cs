@@ -193,7 +193,7 @@ public class Unit : WorldObjects
                 }
             }
             d++;
-            if (d > 50)
+            if (d > detectionRange)
             {
                 return ResourceManager.InvalidPosition;
             }
@@ -365,5 +365,6 @@ public class Unit : WorldObjects
     public void OnDestroy()
     {
         player.RemoveResource(ResourceType.Spacing, ResourceManager.GetCost(GetObjectName()).spacing);
+        player.DecreaseObjectCount(GetObjectName().Replace(" ", string.Empty));
     }
 }

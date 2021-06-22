@@ -1,0 +1,73 @@
+{
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 640,
+                "file_path": "results\\AgentRTS3\\HallAgent\\HallAgent-640.onnx",
+                "reward": null,
+                "creation_time": 1624017806.129247,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS3\\HallAgent\\HallAgent-640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 640,
+            "file_path": "results\\AgentRTS3\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624017806.129247,
+            "auxillary_file_paths": [
+                "results\\AgentRTS3\\HallAgent\\HallAgent-640.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 1500,
+                "file_path": "results\\AgentRTS3\\WorkerAgent\\WorkerAgent-1500.onnx",
+                "reward": null,
+                "creation_time": 1624017806.6406617,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS3\\WorkerAgent\\WorkerAgent-1500.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1500,
+            "file_path": "results\\AgentRTS3\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624017806.6406617,
+            "auxillary_file_paths": [
+                "results\\AgentRTS3\\WorkerAgent\\WorkerAgent-1500.pt"
+            ]
+        }
+    },
+    "HarvesterAgent": {
+        "checkpoints": [
+            {
+                "steps": 6720,
+                "file_path": "results\\AgentRTS3\\HarvesterAgent\\HarvesterAgent-6720.onnx",
+                "reward": null,
+                "creation_time": 1624017807.0894291,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS3\\HarvesterAgent\\HarvesterAgent-6720.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 6720,
+            "file_path": "results\\AgentRTS3\\HarvesterAgent.onnx",
+            "reward": null,
+            "creation_time": 1624017807.0894291,
+            "auxillary_file_paths": [
+                "results\\AgentRTS3\\HarvesterAgent\\HarvesterAgent-6720.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

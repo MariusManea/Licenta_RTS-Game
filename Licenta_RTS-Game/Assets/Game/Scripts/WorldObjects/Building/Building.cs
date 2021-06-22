@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTS;
 using Newtonsoft.Json;
+using Pathfinding;
 
 public class Building : WorldObjects    
 {
@@ -67,7 +68,7 @@ public class Building : WorldObjects
         //Draw the selection box around the currently selected object, within the bounds of the main draw area
         GUI.BeginGroup(playingArea);
         CalculateCurrentHealth(0.5f, 0.99f);
-        DrawHealthBar(selectBox, "Building ...");
+        if (Time.timeScale != 0) DrawHealthBar(selectBox, "Building ...");
         GUI.EndGroup();
     }
 
@@ -75,12 +76,13 @@ public class Building : WorldObjects
     {
         if (!Ghost)
         {
+            if (buildQueue.Count != 0) return;
             GameObject unit = ResourceManager.GetUnit(unitName);
             Unit unitObject = unit.GetComponent<Unit>();
             if (player && unitObject)
             {
                 ResourceManager.Cost cost = ResourceManager.GetCost(unitName);
-                if (ResourceManager.Affordable(cost, player.AvailableResources()))
+                if (ResourceManager.Affordable(cost, player.AvailableResources()) && WorkManager.NotToMany(player, unitName))
                 {
                     buildQueue.Enqueue(unitName);
                     player.AddResource(ResourceType.Spacing, cost.spacing);
@@ -255,6 +257,8 @@ public class Building : WorldObjects
         float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;
         spawnPoint = new Vector3(spawnX, 0.0f, spawnZ);
         spawnPoint.y = terrain.SampleHeight(spawnPoint);
+        NavGraph navGraph = FindObjectOfType<AstarPath>().data.graphs[0];
+        spawnPoint = navGraph.GetNearest(spawnPoint).clampedPosition;
         rallyPoint = spawnPoint;
     }
 
@@ -285,6 +289,7 @@ public class Building : WorldObjects
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.gameObject.GetComponent<Projectile>()) return;
         if (collision.collider.transform.parent.gameObject.GetComponent<WorldObjects>() || WorkManager.ObjectIsWater(collision.collider.gameObject))
         {
             if (GetObjectName() == "Dock")

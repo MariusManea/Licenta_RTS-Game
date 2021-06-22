@@ -1,0 +1,161 @@
+{
+    "CargoAgent": {
+        "checkpoints": [
+            {
+                "steps": 512,
+                "file_path": "results\\AgentRTS24\\CargoAgent\\CargoAgent-512.onnx",
+                "reward": null,
+                "creation_time": 1624108946.537442,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\CargoAgent\\CargoAgent-512.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 512,
+            "file_path": "results\\AgentRTS24\\CargoAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108946.537442,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\CargoAgent\\CargoAgent-512.pt"
+            ]
+        }
+    },
+    "IdleUnitAgent": {
+        "checkpoints": [
+            {
+                "steps": 512,
+                "file_path": "results\\AgentRTS24\\IdleUnitAgent\\IdleUnitAgent-512.onnx",
+                "reward": null,
+                "creation_time": 1624108947.1617548,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\IdleUnitAgent\\IdleUnitAgent-512.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 512,
+            "file_path": "results\\AgentRTS24\\IdleUnitAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108947.1617548,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\IdleUnitAgent\\IdleUnitAgent-512.pt"
+            ]
+        }
+    },
+    "IdleBuildingAgent": {
+        "checkpoints": [
+            {
+                "steps": 1,
+                "file_path": "results\\AgentRTS24\\IdleBuildingAgent\\IdleBuildingAgent-1.onnx",
+                "reward": 0.0,
+                "creation_time": 1624108947.370751,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\IdleBuildingAgent\\IdleBuildingAgent-1.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1,
+            "file_path": "results\\AgentRTS24\\IdleBuildingAgent.onnx",
+            "reward": 0.0,
+            "creation_time": 1624108947.370751,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\IdleBuildingAgent\\IdleBuildingAgent-1.pt"
+            ]
+        }
+    },
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 256,
+                "file_path": "results\\AgentRTS24\\HallAgent\\HallAgent-256.onnx",
+                "reward": null,
+                "creation_time": 1624108947.74351,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\HallAgent\\HallAgent-256.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 256,
+            "file_path": "results\\AgentRTS24\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108947.74351,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\HallAgent\\HallAgent-256.pt"
+            ]
+        }
+    },
+    "DockAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\AgentRTS24\\DockAgent\\DockAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1624108947.920511,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\DockAgent\\DockAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\AgentRTS24\\DockAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108947.920511,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\DockAgent\\DockAgent-0.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 500,
+                "file_path": "results\\AgentRTS24\\WorkerAgent\\WorkerAgent-500.onnx",
+                "reward": -2.499999761581421,
+                "creation_time": 1624108948.1116734,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\WorkerAgent\\WorkerAgent-500.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500,
+            "file_path": "results\\AgentRTS24\\WorkerAgent.onnx",
+            "reward": -2.499999761581421,
+            "creation_time": 1624108948.1116734,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\WorkerAgent\\WorkerAgent-500.pt"
+            ]
+        }
+    },
+    "HarvesterAgent": {
+        "checkpoints": [
+            {
+                "steps": 2112,
+                "file_path": "results\\AgentRTS24\\HarvesterAgent\\HarvesterAgent-2112.onnx",
+                "reward": null,
+                "creation_time": 1624108948.2775166,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS24\\HarvesterAgent\\HarvesterAgent-2112.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2112,
+            "file_path": "results\\AgentRTS24\\HarvesterAgent.onnx",
+            "reward": null,
+            "creation_time": 1624108948.2775166,
+            "auxillary_file_paths": [
+                "results\\AgentRTS24\\HarvesterAgent\\HarvesterAgent-2112.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

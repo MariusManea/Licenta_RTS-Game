@@ -1,0 +1,51 @@
+{
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 960,
+                "file_path": "results\\AgentRTS7\\HallAgent\\HallAgent-960.onnx",
+                "reward": null,
+                "creation_time": 1624019121.118397,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS7\\HallAgent\\HallAgent-960.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 960,
+            "file_path": "results\\AgentRTS7\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624019121.118397,
+            "auxillary_file_paths": [
+                "results\\AgentRTS7\\HallAgent\\HallAgent-960.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 9568,
+                "file_path": "results\\AgentRTS7\\WorkerAgent\\WorkerAgent-9568.onnx",
+                "reward": -0.19999998807907104,
+                "creation_time": 1624019121.4504123,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS7\\WorkerAgent\\WorkerAgent-9568.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 9568,
+            "file_path": "results\\AgentRTS7\\WorkerAgent.onnx",
+            "reward": -0.19999998807907104,
+            "creation_time": 1624019121.4504123,
+            "auxillary_file_paths": [
+                "results\\AgentRTS7\\WorkerAgent\\WorkerAgent-9568.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

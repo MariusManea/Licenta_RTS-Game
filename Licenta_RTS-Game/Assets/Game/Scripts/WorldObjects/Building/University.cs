@@ -117,4 +117,11 @@ public class University : Building
     {
         return "University";
     }
+    public void OnDestroy()
+    {
+        if (!Ghost)
+        {
+            player.DecreaseObjectCount("University");
+        }
+    }
 }

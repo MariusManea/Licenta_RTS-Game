@@ -1,0 +1,73 @@
+{
+    "HallAgent": {
+        "checkpoints": [
+            {
+                "steps": 428,
+                "file_path": "results\\AgentRTS10\\HallAgent\\HallAgent-428.onnx",
+                "reward": null,
+                "creation_time": 1624020707.9059432,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS10\\HallAgent\\HallAgent-428.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 428,
+            "file_path": "results\\AgentRTS10\\HallAgent.onnx",
+            "reward": null,
+            "creation_time": 1624020707.9059432,
+            "auxillary_file_paths": [
+                "results\\AgentRTS10\\HallAgent\\HallAgent-428.pt"
+            ]
+        }
+    },
+    "WorkerAgent": {
+        "checkpoints": [
+            {
+                "steps": 12827,
+                "file_path": "results\\AgentRTS10\\WorkerAgent\\WorkerAgent-12827.onnx",
+                "reward": null,
+                "creation_time": 1624020711.2046685,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS10\\WorkerAgent\\WorkerAgent-12827.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 12827,
+            "file_path": "results\\AgentRTS10\\WorkerAgent.onnx",
+            "reward": null,
+            "creation_time": 1624020711.2046685,
+            "auxillary_file_paths": [
+                "results\\AgentRTS10\\WorkerAgent\\WorkerAgent-12827.pt"
+            ]
+        }
+    },
+    "RefineryAgent": {
+        "checkpoints": [
+            {
+                "steps": 428,
+                "file_path": "results\\AgentRTS10\\RefineryAgent\\RefineryAgent-428.onnx",
+                "reward": null,
+                "creation_time": 1624020712.3966436,
+                "auxillary_file_paths": [
+                    "results\\AgentRTS10\\RefineryAgent\\RefineryAgent-428.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 428,
+            "file_path": "results\\AgentRTS10\\RefineryAgent.onnx",
+            "reward": null,
+            "creation_time": 1624020712.3966436,
+            "auxillary_file_paths": [
+                "results\\AgentRTS10\\RefineryAgent\\RefineryAgent-428.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

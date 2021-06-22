@@ -26,8 +26,8 @@ public class Worker : Unit
     protected override void Start()
     {
         base.Start();
-        actions = new string[] { "CityHall", "University", "Refinery", "WarFactory" };
-        potentialActions = new string[] { "CityHall", "University", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
+        actions = new string[] { "University", "CityHall", "Refinery", "WarFactory" };
+        potentialActions = new string[] { "University", "CityHall", "Refinery", "OilPump", "WarFactory", "Turret", "Wonder", "Dock" };
         building = false;
         currentProject = null;
         if (loadedSavedValues)
@@ -117,15 +117,18 @@ public class Worker : Unit
     public override void SetBuilding(Building project)
     {
         base.SetBuilding(project);
-        if (!newSpawn)
+        if (currentProject != project)
         {
-            StartMove(project.transform.position, project.gameObject);
-            currentProject = project;
-            building = true;
-        }
-        else
-        {
-            newSpawn = false;
+            if (!newSpawn)
+            {
+                StartMove(project.transform.position, project.gameObject);
+                currentProject = project;
+                building = true;
+            }
+            else
+            {
+                newSpawn = false;
+            }
         }
     }
 
@@ -147,10 +150,6 @@ public class Worker : Unit
             {
                 GetComponent<AgentRTS>().AddReward(-0.5f);
             }
-        }
-        if (player && !player.isHuman && player.IsFindingBuildingLocation() && !player.CanPlaceBuilding())
-        {
-            player.TryCancelBuilding(this);
         }
     }
 

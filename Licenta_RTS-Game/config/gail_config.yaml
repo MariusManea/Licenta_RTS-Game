@@ -15,18 +15,6 @@ behaviors:
       hidden_units: 256
       num_layers: 4
     reward_signals:
-      gail:
-        gamma: 0.99
-        strength: 1.0
-        network_settings:
-          normalize: false
-          hidden_units: 256
-          num_layers: 4
-          vis_encode_type: simple
-        learning_rate: 0.7
-        use_actions: true
-        use_vail: false
-        demo_path: demos/TownDemo.demo
       extrinsic:
         gamma: 0.99
         strength: 1.0
@@ -256,9 +244,9 @@ behaviors:
           num_layers: 4
           vis_encode_type: simple
         learning_rate: 0.7
-        use_actions: true
+        use_actions: false
         use_vail: false
-        demo_path: demos/WorkerDemoR.demo
+        demo_path: demos/WorkerDemoO.demo
       extrinsic:
         gamma: 0.99
         strength: 1.0
