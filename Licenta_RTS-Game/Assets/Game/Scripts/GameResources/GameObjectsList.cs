@@ -11,13 +11,17 @@ public class GameObjectsList : MonoSingleton<GameObjectsList>
     public GameObject[] gameObjects;
     public GameObject player;
     public Texture2D[] avatars;
+    public bool fromAITraining = false;
 
     void Awake()
     {
         if (this != Instance) return;
         ResourceManager.SetGameObjectList(this);
-        PlayerManager.Load();
-        PlayerManager.SetAvatarTextures(avatars);
+        if (!fromAITraining)
+        {
+            PlayerManager.Load();
+            PlayerManager.SetAvatarTextures(avatars);
+        }
     }
 
     // Start is called before the first frame update

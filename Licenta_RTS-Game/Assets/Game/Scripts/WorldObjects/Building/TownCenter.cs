@@ -51,8 +51,15 @@ public class TownCenter : Building
             if (!UnderConstruction() && !Ghost)
             {
                 player.IncrementResourceLimit(ResourceType.Spacing, -25);
-                ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(player.playerID, -1);
-                ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(player.playerID, -1);
+                if (player && player.AITrainGameManager != null)
+                {
+                    player.AITrainGameManager.SetOwner(player.playerID, -1);
+                } 
+                else 
+                {
+                    ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(player.playerID, -1);
+                    ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(player.playerID, -1);
+                }
             }
         }
         catch

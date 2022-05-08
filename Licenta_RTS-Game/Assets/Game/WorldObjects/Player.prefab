@@ -51,31 +51,31 @@ MonoBehaviour:
   townCenter: {fileID: 0}
   startSpacing: 1
   startSpacingLimit: 30
-  startCopper: 20000
+  startCopper: 2500
   startCopperLimit: 20000
-  startIron: 25000
+  startIron: 2500
   startIronLimit: 50000
-  startOil: 20000
+  startOil: 2500
   startOilLimit: 20000
-  startGold: 20000
+  startGold: 2500
   startGoldLimit: 20000
   startResearchPoint: 0
   startResearchPointLimit: 10000
   universityLevel: 1
   warFactoryLevel: 1
   refineryLevel: 1
-  turretLevel: 1
-  oilPumpLevel: 1
-  dockLevel: 1
+  turretLevel: 0
+  oilPumpLevel: 0
+  dockLevel: 0
   workerLevel: 1
   harvesterLevel: 1
   tankLevel: 1
   cargoShipLevel: 1
-  wonderLevel: 1
-  convoyTruckLevel: 1
+  wonderLevel: 0
+  convoyTruckLevel: 0
   cityHallLevel: 1
-  batteringRamLevel: 1
-  battleshipLevel: 1
+  batteringRamLevel: 0
+  battleshipLevel: 0
   builds: 0
   userName: Marius
   isHuman: 1

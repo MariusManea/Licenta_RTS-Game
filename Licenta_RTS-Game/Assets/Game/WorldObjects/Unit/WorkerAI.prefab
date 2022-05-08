@@ -1418,6 +1418,7 @@ GameObject:
   - component: {fileID: -8393757136827532164}
   - component: {fileID: 4379475066124468167}
   - component: {fileID: 1358591026548091506}
+  - component: {fileID: -160984166636239290}
   m_Layer: 13
   m_Name: WorkerAI
   m_TagString: Unit
@@ -1627,6 +1628,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!114 &-160984166636239290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5615019530826326853}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 1000
+  DemonstrationName: WorkerDemoO.demo
+  DemonstrationDirectory: demos
 --- !u!1 &5865017604392229679
 GameObject:
   m_ObjectHideFlags: 0

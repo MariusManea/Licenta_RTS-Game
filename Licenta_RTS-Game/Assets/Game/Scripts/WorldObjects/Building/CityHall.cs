@@ -22,9 +22,19 @@ public class CityHall : Building
         base.Update();
         if (needsBuilding)
         {
-            if (((GameManager)FindObjectOfType(typeof(GameManager))).GetOwner(territory) != -1)
+            if (player && player.AITrainGameManager)
             {
-                Destroy(gameObject);
+                if (player.AITrainGameManager.GetOwner(territory) != -1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                if (((GameManager)FindObjectOfType(typeof(GameManager))).GetOwner(territory) != -1)
+                {
+                    Destroy(gameObject);
+                }
             }
             once = false;
         }
@@ -33,8 +43,15 @@ public class CityHall : Building
             if (!once)
             {
                 once = true;
-                ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(territory, ownerID);
-                ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(territory, ownerID);
+                if (player && player.AITrainGameManager != null)
+                {
+                    player.AITrainGameManager.SetOwner(player.playerID, ownerID);
+                }
+                else
+                {
+                    ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(player.playerID, ownerID);
+                    ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(player.playerID, ownerID);
+                }
             }
             if (!Ghost)
             {
@@ -67,8 +84,15 @@ public class CityHall : Building
             if (!UnderConstruction() && !Ghost)
             {
                 player.IncrementResourceLimit(ResourceType.Spacing, -25);
-                ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(territory, -1);
-                ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(territory, -1);
+                if (player && player.AITrainGameManager != null)
+                {
+                    player.AITrainGameManager.SetOwner(player.playerID, -1);
+                }
+                else
+                {
+                    ((GameManager)FindObjectOfType(typeof(GameManager))).SetOwner(player.playerID, -1);
+                    ((LevelLoader)FindObjectOfType(typeof(LevelLoader))).ChangeBorder(player.playerID, -1);
+                }
             }
         }
         catch

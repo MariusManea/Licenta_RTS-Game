@@ -39,7 +39,13 @@ public class CargoShip : Ship
         {
             if (readyToUnload && unloading)
             {
-                NavGraph landNav = FindObjectOfType<AstarPath>().data.graphs[0];
+                AstarPath graph = FindObjectOfType<AstarPath>();
+                if (!graph)
+                {
+                    TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+                    if (AISceneManager) graph = AISceneManager.graph;
+                }
+                NavGraph landNav = AstarPath.active.graphs[0];
                 Vector3 unloadPosition = GetClosestValidUnloadPoint(landNav, transform.position);
 
                 foreach(Unit loadedUnit in unitsLoaded)
@@ -135,7 +141,13 @@ public class CargoShip : Ship
     {
         readyToUnload = true;
         unloading = true;
-        NavGraph landNav = FindObjectOfType<AstarPath>().data.graphs[0];
+        AstarPath graph = FindObjectOfType<AstarPath>();
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        NavGraph landNav = AstarPath.active.graphs[0];
         StartMove(GetClosestValidDestination(GetClosestValidUnloadPoint(landNav, this.transform.position)));
     }
 

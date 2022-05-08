@@ -45,7 +45,14 @@ public class Dock : Building
             for (float k = 0; k < 360; k++)
             {
                 Vector3 newPosition = position + new Vector3(radius * Mathf.Cos(2 * Mathf.PI * (float)k / 360.0f), 0, radius * Mathf.Sin(2 * Mathf.PI * (float)k / 360.0f));
-                if (terrain.SampleHeight(newPosition) <= 6.8f)
+                Vector3 worldObjectPosition = newPosition;
+                if (trainManager)
+                {
+                    worldObjectPosition -= trainManager.transform.position;
+                }
+
+                float y = terrain.SampleHeight(worldObjectPosition);
+                if (y <= 6.8f)
                 {
                     return newPosition;
                 }
@@ -67,7 +74,13 @@ public class Dock : Building
 
     public override void SetRallyPoint(Vector3 position)
     {
-        NavGraph waterNav = FindObjectOfType<AstarPath>().data.graphs[1];
+        AstarPath graph = FindObjectOfType<AstarPath>();
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        NavGraph waterNav = AstarPath.active.graphs[1];
         position = GetClosestValidPoint(waterNav, position);
         if (position == -Vector3.one) return;
         rallyPoint = position;
@@ -81,7 +94,13 @@ public class Dock : Building
 
     public override void SetSpawnPoint()
     {
-        NavGraph waterNav = FindObjectOfType<AstarPath>().data.graphs[1];
+        AstarPath graph = FindObjectOfType<AstarPath>();
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        NavGraph waterNav = AstarPath.active.graphs[1];
         Vector3 position = GetClosestValidPoint(waterNav, new Vector3(selectionBounds.center.x, 7, selectionBounds.center.z));
         if (position == -Vector3.one) return;
         position.y = 7;

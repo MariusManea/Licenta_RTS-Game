@@ -40,6 +40,7 @@ public class WorldObjects : MonoBehaviour
     public float attackVolume = 1.0f, selectVolume = 1.0f, useWeaponVolume = 1.0f;
 
     private float timeSinceLastDecision = 0.0f, timeBetweenDecisions = 0.1f;
+    private float timeSinceLastForcedDecision = 0.0f, timeBetweenForcedDecisions = 2f;
     public float detectionRange = 20.0f;
     protected List<WorldObjects> nearbyObjects;
 
@@ -52,10 +53,22 @@ public class WorldObjects : MonoBehaviour
     private Vector3 oldAttackPosition;
 
     public List<WorldObjects> enemyObjects;
+
+    protected TrainSceneManager trainManager;
     protected virtual void Awake()
     {
-        Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
-        terrain = ground.GetComponentInChildren<Terrain>();
+        trainManager = GetComponentInParent<TrainSceneManager>();
+        if (trainManager)
+        {
+            terrain = trainManager.terrain;
+        } 
+        else
+        {
+            Ground ground = (Ground)GameObject.FindObjectOfType(typeof(Ground));
+            terrain = ground.GetComponentInChildren<Terrain>();
+
+        }
+       
         selectionBounds = ResourceManager.InvalidBounds;
         CalculateBounds();
     }
@@ -82,7 +95,13 @@ public class WorldObjects : MonoBehaviour
 
     protected virtual void Update()
     {
-        float y = terrain.SampleHeight(this.transform.position);
+        Vector3 worldObjectPosition = this.transform.position;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
         if (gameObject.GetComponent<Ship>())
         {
             y = y > 7 ? y : 7;
@@ -114,6 +133,13 @@ public class WorldObjects : MonoBehaviour
                 return true;
             }
             timeSinceLastDecision += Time.deltaTime;
+        }
+        timeSinceLastForcedDecision += Time.deltaTime;
+        if (timeBetweenForcedDecisions < timeSinceLastForcedDecision)
+        {
+            timeSinceLastForcedDecision = 0.0f;
+            nearbyObjects = WorkManager.FindNearbyObjects(transform.position, detectionRange);
+
         }
         return false;
     }
@@ -161,7 +187,7 @@ public class WorldObjects : MonoBehaviour
 
     public void SetPlayer()
     {
-        player = transform.root.GetComponent<Player>();
+        player = GetComponentInParent<Player>();
     }
     public Player GetPlayer()
     {

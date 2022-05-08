@@ -10,7 +10,7 @@ using Unity.MLAgents.Policies;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
-    private const int CLUMP_SIZE = 6500;
+    private const int CLUMP_SIZE = 2500;
     private const int SMOOTH_COUNT = 3;
 
     private int clumpNumber;
@@ -135,19 +135,18 @@ public class LevelLoader : MonoSingleton<LevelLoader>
     private void ScanGraphs()
     {
         NavGraph[] graphs = AstarPath.active.graphs;
-                foreach (NavGraph graph in graphs)
-                {
-                    if (graph.GetType() == typeof(GridGraph))
-                    {
-                        GridGraph gridGraph = graph as GridGraph;
-                        gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
-                        gridGraph.cutCorners = false;
-                        gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
-                        gridGraph.maxSlope = 30;
-                    }
-                }
-                
-                AstarPath.active.Scan();
+        foreach (NavGraph graph in graphs)
+        {
+            if (graph.GetType() == typeof(GridGraph))
+            {
+                GridGraph gridGraph = graph as GridGraph;
+                gridGraph.center = new Vector3((int)mapSize / 2, 0, (int)mapSize / 2);
+                gridGraph.cutCorners = false;
+                gridGraph.SetDimensions((int)mapSize, (int)mapSize, 1);
+                gridGraph.maxSlope = 30;
+            }
+        }
+        AstarPath.active.Scan();
     }
 
     private void SetObjectIds()
@@ -257,8 +256,10 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         loadingStep++;
         // Step 11
         yield return StartCoroutine(InitialUnits(autoTest));
-
+        GameObject sun = (GameObject)GameObject.Instantiate(ResourceManager.GetGameObject("Sun"), new Vector3(0, 3, 0), new Quaternion(0.408217877f, -0.234569684f, 0.109381631f, 0.8754261f));
+        sun.transform.localScale = new Vector3(1, 1, 1);
         GetComponent<LoadingScreen>().enabled = false;
+        //Camera.main.gameObject.GetComponent<FPSLog>().enabled = true;
     }
 
 

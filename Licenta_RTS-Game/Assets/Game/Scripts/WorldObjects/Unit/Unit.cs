@@ -29,7 +29,12 @@ public class Unit : WorldObjects
     {
         base.Awake();
         graph = FindObjectOfType<AstarPath>();
-        navGraph = graph.data.graphs[0];
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        navGraph = AstarPath.active.graphs[0];
         animController = GetComponent<Animator>();
     }
 
@@ -185,7 +190,14 @@ public class Unit : WorldObjects
             for (int i = 0; i < 36; i++)
             {
                 Vector3 newPosition = destination + new Vector3(d * Mathf.Cos(2 * Mathf.PI * (float)i / 36.0f), 0, d * Mathf.Sin(2 * Mathf.PI * (float)i / 36.0f));
-                newPosition.y = terrain.SampleHeight(newPosition);
+                Vector3 worldObjectPosition = newPosition;
+                if (trainManager)
+                {
+                    worldObjectPosition -= trainManager.transform.position;
+                }
+
+                float y = terrain.SampleHeight(worldObjectPosition);
+                newPosition.y = y;
                 if (navGraph.GetNearest(newPosition).node.Walkable)
                 {
 
@@ -222,13 +234,27 @@ public class Unit : WorldObjects
                 this.destination = navGraph.GetNearest(destination).clampedPosition;
             }
         }
-        this.destination = new Vector3(this.destination.x, terrain.SampleHeight(this.destination), this.destination.z);
+        Vector3 worldObjectPosition = this.destination;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
+        this.destination = new Vector3(this.destination.x, y, this.destination.z);
         destinationTarget = null;
         GetComponent<AIPath>().enabled = true;
         GetComponent<AIPath>().destination = this.destination;
         Vector3 rotateTo = this.transform.position;
         rotateTo = Vector3.Lerp(rotateTo, destination, 0.01f);
-        rotateTo.y = terrain.SampleHeight(rotateTo);
+        worldObjectPosition = rotateTo;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        y = terrain.SampleHeight(worldObjectPosition);
+        rotateTo.y = y;
         targetRotation = Quaternion.LookRotation(rotateTo - transform.position);
         rotating = true;
         moving = false;
@@ -267,7 +293,14 @@ public class Unit : WorldObjects
     private void MakeMove()
     {
         Vector3 ahead = this.transform.position + this.transform.forward;
-        ahead.y = terrain.SampleHeight(ahead);
+        Vector3 worldObjectPosition = ahead;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
+        ahead.y = y;
         transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(ahead - this.transform.position), Time.deltaTime * moveSpeed);
         // transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
         if (transform.position == destination || GetComponent<AIPath>().reachedDestination)
@@ -312,9 +345,23 @@ public class Unit : WorldObjects
         //this should give us a destination where the unit will not quite collide with the target
         //giving the illusion of moving to the edge of the target and then stopping
         for (int i = 0; i < shiftAmount; i++) destination -= direction;
-        destination.y = terrain.SampleHeight(destination);
+        Vector3 worldObjectPosition = destination;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
+        destination.y = y;
         destination = GetClosestValidDestination(destination);
-        destination.y = terrain.SampleHeight(destination);
+        worldObjectPosition = destination;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        y = terrain.SampleHeight(worldObjectPosition);
+        destination.y = y;
         destinationTarget = null;
     }
 

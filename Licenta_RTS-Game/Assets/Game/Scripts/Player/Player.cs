@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
     private string upgradedObject;
     private float universalResearchTime;
     private float searchTime = 0;
+
+    public TrainSceneManager AITrainGameManager;
     void Awake()
     {
         resources = InitResourceList();
@@ -395,13 +397,39 @@ public class Player : MonoBehaviour
     {
         if (tempBuilding.GetComponent<CityHall>())
         {
-            int count = gameManager.GetNumberOfTerritories();
-            List<Vector3>[] borders = levelLoader.GetAllBorders();
+            int count = 0;
+            if (gameManager != null)
+            {
+                count = gameManager.GetNumberOfTerritories();
+            }
+            if (AITrainGameManager != null)
+            {
+                count = AITrainGameManager.GetNumberOfTerritories();
+            }
+
+            List<Vector3>[] borders = null;
+            if (AITrainGameManager != null)
+            {
+                borders = AITrainGameManager.GetAllBorders();
+            } 
+            else
+            {
+                levelLoader.GetAllBorders();
+
+            }
             for (int i = 0; i < count; ++i)
             {
                 if (Poly.ContainsPoint(borders[i], tempBuilding.transform.position))
                 {
-                    int owner = gameManager.GetOwner(i);
+                    int owner = -1; 
+                    if (gameManager != null)
+                    {
+                        owner = gameManager.GetOwner(i);
+                    }
+                    if (AITrainGameManager != null)
+                    {
+                        owner = AITrainGameManager.GetOwner(i);
+                    }
                     if (owner != -1)
                     {
                         return false;
@@ -678,7 +706,15 @@ public class Player : MonoBehaviour
                     default: break;
                 }
             }
-            else if (reader.TokenType == JsonToken.EndObject) yield break;
+            else if (reader.TokenType == JsonToken.EndObject)
+            {
+                resources = InitResourceList();
+                AddStartResources();
+                resourceLimits = InitResourceList();
+                AddStartResourceLimits();
+                AddStartLevels();
+                yield break;
+            }
         }
     }
 

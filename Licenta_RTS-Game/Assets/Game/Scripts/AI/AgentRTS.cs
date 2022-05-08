@@ -63,11 +63,25 @@ public class AgentRTS : Agent
     private int canPlaceCount = 0;
     private float unableToPlaceTimer;
 
+    public TrainSceneManager AITrainSceneManager;
+
+    public void Awake()
+    {
+        AITrainSceneManager = FindObjectOfType<TrainSceneManager>();
+    }
+
     public void Start()
     {
         myID = globalID++;
         m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
-        team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        if (AITrainSceneManager)
+        {
+            team = AITrainSceneManager.teamColors[m_BehaviorParameters.TeamId];
+        }
+        else
+        {
+            team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        }
         foreach (Player player in FindObjectsOfType<Player>())
         {
             if (player.teamColor == team)
@@ -88,13 +102,25 @@ public class AgentRTS : Agent
             moveable = false;
         }
         graph = FindObjectOfType<AstarPath>();
-        waterGraph = graph.data.graphs[1];
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        waterGraph = AstarPath.active.graphs[1];
     }
 
     public override void Initialize()
     {
         m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
-        team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        if (AITrainSceneManager)
+        {
+            team = AITrainSceneManager.teamColors[m_BehaviorParameters.TeamId];
+        }
+        else
+        {
+            team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        }
         foreach (Player player in FindObjectsOfType<Player>())
         {
             if (player.teamColor == team)
@@ -115,13 +141,25 @@ public class AgentRTS : Agent
             moveable = false;
         }
         graph = FindObjectOfType<AstarPath>();
-        waterGraph = graph.data.graphs[1];
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        waterGraph = AstarPath.active.graphs[1];
     }
 
     public override void OnEpisodeBegin()
     {
         m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
-        team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        if (AITrainSceneManager)
+        {
+            team = AITrainSceneManager.teamColors[m_BehaviorParameters.TeamId];
+        }
+        else
+        {
+            team = FindObjectOfType<LevelLoader>().teamColors[m_BehaviorParameters.TeamId];
+        }
         foreach (Player player in FindObjectsOfType<Player>())
         {
             if (player.teamColor == team)
@@ -142,7 +180,12 @@ public class AgentRTS : Agent
             moveable = false;
         }
         graph = FindObjectOfType<AstarPath>();
-        waterGraph = graph.data.graphs[1];
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        waterGraph = AstarPath.active.graphs[1];
     }
 
     public override void CollectObservations(VectorSensor sensor)

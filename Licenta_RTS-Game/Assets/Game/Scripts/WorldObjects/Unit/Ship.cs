@@ -11,7 +11,12 @@ public class Ship : Unit
     {
         base.Awake();
         graph = FindObjectOfType<AstarPath>();
-        navGraph = graph.data.graphs[1];
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        navGraph = AstarPath.active.graphs[1];
     }
 
     protected override void Start()

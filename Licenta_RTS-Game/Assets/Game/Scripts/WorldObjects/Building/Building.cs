@@ -188,7 +188,14 @@ public class Building : WorldObjects
     public virtual void SetRallyPoint(Vector3 position)
     {
         rallyPoint = position;
-        rallyPoint.y = terrain.SampleHeight(rallyPoint);
+        Vector3 worldObjectPosition = rallyPoint;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
+        rallyPoint.y = y;
         if (player && player.isHuman && currentlySelected)
         {
             RallyPoints flag = player.GetComponentInChildren<RallyPoints>();
@@ -256,8 +263,21 @@ public class Building : WorldObjects
         float spawnX = selectionBounds.center.x + transform.forward.x * selectionBounds.extents.x + transform.forward.x * 10;
         float spawnZ = selectionBounds.center.z + transform.forward.z * selectionBounds.extents.z + transform.forward.z * 10;
         spawnPoint = new Vector3(spawnX, 0.0f, spawnZ);
-        spawnPoint.y = terrain.SampleHeight(spawnPoint);
-        NavGraph navGraph = FindObjectOfType<AstarPath>().data.graphs[0];
+        Vector3 worldObjectPosition = spawnPoint;
+        if (trainManager)
+        {
+            worldObjectPosition -= trainManager.transform.position;
+        }
+
+        float y = terrain.SampleHeight(worldObjectPosition);
+        spawnPoint.y = y;
+        AstarPath graph = FindObjectOfType<AstarPath>();
+        if (!graph)
+        {
+            TrainSceneManager AISceneManager = GetComponentInParent<TrainSceneManager>();
+            if (AISceneManager) graph = AISceneManager.graph;
+        }
+        NavGraph navGraph = AstarPath.active.graphs[0];
         spawnPoint = navGraph.GetNearest(spawnPoint).clampedPosition;
         rallyPoint = spawnPoint;
     }
@@ -289,28 +309,32 @@ public class Building : WorldObjects
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision == null || collision.collider == null) return;
         if (collision.collider.gameObject.GetComponent<Projectile>()) return;
-        if (collision.collider.transform.parent.gameObject.GetComponent<WorldObjects>() || WorkManager.ObjectIsWater(collision.collider.gameObject))
+        if (collision.collider.transform.parent != null)
         {
-            if (GetObjectName() == "Dock")
+            if (collision.collider.transform.parent.gameObject.GetComponent<WorldObjects>() || WorkManager.ObjectIsWater(collision.collider.gameObject))
             {
-                if (WorkManager.ObjectIsWater(collision.collider.gameObject) && transform.position.y > 5f)
+                if (GetObjectName() == "Dock")
                 {
-                    canPlace = true;
-                }
-            }
-            else
-            {
-                if (GetObjectName() == "Oil Pump")
-                {
-                    if (collision.collider.gameObject.GetComponent<OilPile>())
+                    if (WorkManager.ObjectIsWater(collision.collider.gameObject) && transform.position.y > 5f)
                     {
-                        ((OilPump)this).SetPile(collision.collider.gameObject);
                         canPlace = true;
-
                     }
                 }
-                else canPlace = false;
+                else
+                {
+                    if (GetObjectName() == "Oil Pump")
+                    {
+                        if (collision.collider.gameObject.GetComponent<OilPile>())
+                        {
+                            ((OilPump)this).SetPile(collision.collider.gameObject);
+                            canPlace = true;
+
+                        }
+                    }
+                    else canPlace = false;
+                }
             }
         }
         if (WorkManager.ObjectIsGround(collision.collider.gameObject))
